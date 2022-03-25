@@ -1,0 +1,12 @@
+[package]
+name = "buggy_scapegoat"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tinyvec = { version = "^1.5", features = ["rustc_1_55"] }
+micromath = "^2.0"
+smallnum = "^0.4"
+
+[dev-dependencies]
+rand = { version = "0.7", features = ["small_rng"] }
