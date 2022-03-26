@@ -1,4 +1,4 @@
-<br><p align="center"><img src="https://raw.githubusercontent.com/tnballo/high-assurance-rust/main/img/har_logo.svg" width="333" alt="High Assurance Rust"></p><br>
+<br><p align="center"><img src="https://github.com/tnballo/high-assurance-rust/blob/3ea7daa046daaac303107598e26232ea7e08bbd3/img/har_logo.svg" width="333" alt="High Assurance Rust"></p><br>
 
 # High Assurance Rust
 
