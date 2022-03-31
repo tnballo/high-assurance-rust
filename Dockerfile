@@ -3,7 +3,7 @@ FROM rust:1.59-slim
 # Non-Rust tooling
 ENV TZ=US/New_York
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y \
     build-essential \
     libssl-dev \
     pkg-config \
