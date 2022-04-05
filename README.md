@@ -12,14 +12,8 @@
 
 #### How can I help?
 
-If you find this content valuable, consider increasing its visibility by starring this GitHub repo.
+If you find this content valuable, consider increasing its visibility among developers by starring this GitHub repo.
 Much appreciated! :)
-
-#### Where's the `mdbook` source?
-
-*High Assurance Rust* is a work-in-progress.
-Once it's closer to being finished, source for the full text will be added to this repo - you'll be able to build and read the full book locally.
-Currently, this repo is a placeholder with a subset of the code snippets used in the text and a `Dockerfile` for following along with each chapter.
 
 #### Interested in a physical print?
 
@@ -32,6 +26,11 @@ Your input matters.
 We'd love to hear from you, please send an email to:
 
 <a href="mailto:contact@highassurance.rs">**contact@highassurance.rs**</a>
+
+#### Contributing
+
+Contributions are welcome and appreciated.
+Please see [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 #### Anything else I should know?
 
