@@ -30,7 +30,7 @@ Once running in a production environment, those products need to be *supported* 
 **Operational assurance** becomes the name of the game.
 We need to be able to respond to malicious actors in a constantly changing environment.
 
-> **Are you talking about OPSEC?**
+> **Are we talking about OPSEC?**
 >
 > **Operational Security (OPSEC)** was originally a Vietnam-era military term[^OpSec].
 > In modern IT parlance, it refers broadly to measures which prevent sensitive information from leaking to adversaries.
