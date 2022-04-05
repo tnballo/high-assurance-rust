@@ -105,7 +105,7 @@ Definitely not.
 Memory corruption is just one bug class.
 It's particularly vicious and is often part of high-value exploit chains[^ZP2O], but other bug classes exist.
 
-Many, if not most, security issues are language-agnostic (e.g. misconfiguration, command injection, hardcoded secrets, etc).
+Many, if not most, security issues are language-agnostic (e.g. misconfiguration[^MisConfig], command injection[^Log4J], hardcoded secrets[^GitLabVuln], etc).
 And memory-safe languages infrequently introduce their own issues (e.x. interpreter evaluation of untrusted input, aka "eval injection").
 No programming language will make your code absolutely secure against all attacks.
 
@@ -233,7 +233,7 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
 
-[^ProjServo]: [*Project Servo, Technology from the past come to save the future from itself*](http://venge.net/graydon/talks/intro-talk-2.pdf). Graydon Hoare (2011).
+[^ProjServo]: [*Project Servo, Technology from the past come to save the future from itself*](http://venge.net/graydon/talks/intro-talk-2.pdf). Graydon Hoare (2010).
 
 [^RFound]: [*Hello World!*](https://foundation.rust-lang.org/posts/2021-02-08-hello-world/). Ashley Williams (2021).
 
@@ -246,6 +246,12 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 [^QuoteMicrosoft]: [*Microsoft: Rust Is the Industry’s ‘Best Chance’ at Safe Systems Programming*](https://thenewstack.io/microsoft-rust-is-the-industrys-best-chance-at-safe-systems-programming/). Joab Jackson (2020).
 
 [^ZP2O]: [*Zoom RCE from Pwn2Own 2021*](https://sector7.computest.nl/post/2021-08-zoom/). Thijs Alkemade, Daan Keupe (2021).
+
+[^MisConfig]: [*A05:2021 – Security Misconfiguration*](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/). OWASP (2021).
+
+[^Log4J]: [*Apache Log4j Vulnerability Guidance*](https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance). CISA (2021).
+
+[^GitLabVuln]: [*CVE-2022-1162*](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1162). National Vulnerability Database (2022).
 
 [^Curl]: [*curl*](https://curl.se/). Daniel Stenberg (2021).
 
