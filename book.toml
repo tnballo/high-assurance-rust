@@ -1,0 +1,20 @@
+[book]
+authors = ["Tiemoko Ballo", "Moumine Ballo", "Alex James"]
+language = "en"
+multilingual = false
+src = "src"
+title = "High Assurance Rust: Developing Secure and Robust Software"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+cname = "highassurance.rs"
+git-repository-url = "https://github.com/tnballo/high-assurance-rust"
+git-repository-icon = "fa-github"
+edit-url-template = "https://highassurance.rs/engage.html#send-feedback-or-questions"
+
+[output.html.playground]
+editable = false        # allows editing the source code
+copyable = true         # include the copy button for copying code snippets
+copy-js = false         # includes the JavaScript for the code editor
+line-numbers = false    # displays line numbers for editable code
