@@ -200,16 +200,16 @@ Which is one of the main jobs of a compiler: it repeatedly applies rewrite rules
 > set:
 >   movl $3, (%rsi)
 >   movl $7, (%rdi)
->   movl (%rdi), %eax
+>   movl (%rsi), %eax
 > ```
 >
 > If you're not familiar with x86 assembly, the key idea here is that the last line is a load from a memory address:
 >
-> * `%rdi` is a register holding a pointer.
+> * `%rsi` is a register holding a pointer.
 >
-> * `(%rdi)` is a dereference of the pointer, we read the data it points to.
+> * `(%rsi)` is a dereference of the pointer, we read the data it points to.
 >
-> * `movl (%rdi), %eax` copies the data read into `%eax`, the register used for return values.
+> * `movl (%rsi), %eax` copies the data read into `%eax`, the register used for return values[^EAX].
 >
 > Now say the two parameters are pointers to different integer types:
 >
@@ -323,13 +323,15 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 [^DirtyPipe]: [*The Dirty Pipe Vulnerability*](https://dirtypipe.cm4all.com/). Max Kellerman (2022).
 
+[^UndefRust]: [*Behavior considered undefined*](https://doc.rust-lang.org/reference/behavior-considered-undefined.html). The Rust Reference (Accessed 2022).
+
 [^RustcBug]: [Unsoundness in `Pin`](https://internals.rust-lang.org/t/unsoundness-in-pin/11311). comex (2019).
 
 [^Miri]: [*`miri`*](https://github.com/rust-lang/miri). Ralf Jung (Accessed 2022).
 
-[^UndefRust]: [*Behavior considered undefined*](https://doc.rust-lang.org/reference/behavior-considered-undefined.html). The Rust Reference (Accessed 2022).
-
 [^CppUndef]: [*CppCon 2017: "Undefined Behavior in 2017"*](https://www.youtube.com/watch?v=v1COuU2vU_w). John Regehr (2017).
+
+[^EAX]: Technically, `%eax` is the lower 4 bytes of the 8-byte `%rax` register on an x86-64 system. `%rax` is used for return values. In this example, we're dereferencing 8-byte pointers but returning a 4-byte integer.
 
 [^UBSan]: [*UndefinedBehaviorSanitizer*](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html). LLVM Project (Accessed 2022).
 
