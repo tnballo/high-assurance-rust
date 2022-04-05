@@ -1,5 +1,5 @@
-# x86_64
-FROM rust:1.59-slim
+# aarch64 (Apple silicon, etc)
+FROM arm64v8/rust:1.59-slim
 
 # Non-Rust tooling
 ENV TZ=US/New_York
@@ -8,7 +8,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get install -y \
     build-essential \
     libssl-dev \
     pkg-config \
-    rr \
     tree \
     xxd \
     git \
