@@ -23,3 +23,9 @@ check:
 clean:
 	mdbook clean
 	cd scripts/word_count && cargo clean
+
+site:
+	rm -rf docs/
+	mdbook build
+	mv book/ docs/
+	cp CNAME docs/
