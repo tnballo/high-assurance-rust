@@ -41,7 +41,9 @@ That's a solid starting point for high assurance software.
 > CHESS was  DARPA research program[^CHESS] on "the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend".
 >
 > It's a response to the fact that in-depth security assessments are a **difficult to scale expert process**.
-> Though Rust was not considered a solution under the CHESS program, we can think of it as a **shift left** in the lifecycle: developers aided by the borrow checker don't introduce memory corruption bugs for assessors to find.
+> Rust was not considered a solution under the CHESS program.
+> It wouldn't have met all criteria.
+> But we can think of it as a **shift left** in the lifecycle: developers aided by the borrow checker don't introduce memory corruption bugs for assessors to find.
 >
 > From that perspective, Rust has an incredible **Return On Investment (ROI)**.
 > The bugs Rust prevents early would be more expensive to fix later in an asset's lifecycle:
@@ -83,7 +85,7 @@ int main() {
 }
 ```
 
-C++ doesn't have a borrow checker, so this program will compile without warnings.
+C++ doesn't have a borrow checker, so this program will compile without warnings[^Gpp].
 And the print at the end of this function (the line starting with `std::cout`) triggers UB.
 In the context of a larger program, any UB may lead to a crash or an exploit.
 
@@ -464,7 +466,11 @@ And it complements the robustness benefits coming from industry development tool
 
 [^ExampleCredit]: To give appropriate credit, this example is based on [this StackOverflow question](https://stackoverflow.com/questions/11137516/scope-vs-lifetime-of-variable) and [this part](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html) of TRPL book. In particular, we use the same ASCII diagram comments of TRPL.
 
+[^Gpp]: We compiled this program with command `g++ scope.cpp -o scope` using `g++` version 9.4.0 (latest shipping on Ubuntu 20.04 LTS at the time of this writing). No warning was emitted.
+
 [^TraitCopy]: [*Trait `std::marker::Copy`*](https://doc.rust-lang.org/std/marker/trait.Copy.html). The Rust Team (Accessed 2022).
+
+[^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).
 
 [^RefCell]: [*Module `std::cell`*](https://doc.rust-lang.org/std/cell/index.html). The Rust Team (Accessed 2022).
 
