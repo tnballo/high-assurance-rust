@@ -28,6 +28,7 @@ Listed alphabetically:
 * [duzumaki](https://github.com/duzumaki)
 * [jam1garner](https://github.com/jam1garner)
 * [kaylynn234](https://github.com/kaylynn234)
+* [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
 * [rrevi](https://github.com/rrevi)
 
