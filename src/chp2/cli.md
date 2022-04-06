@@ -7,7 +7,7 @@ Our tool will accept two arguments, a filename and a hexadecimal encryption key,
 
 Given the simplicity of those requirements, we could easily build our CLI tool using only Rust's standard library:
 
-* The `std::env` module[^StdEnv] provides OS-agnostic argument parsing, among other facilities.
+* The `std::env` module[^StdEnv] provides OS-agnostic argument access (not quite parsing), among other facilities.
 
 * The `std::fs` module[^StdFs] provides OS-agnostic filesystem input/output (e.g. reading/writing files).
 
