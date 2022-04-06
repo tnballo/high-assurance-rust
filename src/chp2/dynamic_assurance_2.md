@@ -97,7 +97,7 @@ Let's double down and try to make sense of it:
 
     * Have you ever swapped two variables using a third (probably named `temp`)? If your answer is "good God, a hundred times" then you'll appreciate how `swap` is a built-in method for arrays in Rust.
 
-    * Indexes are always register-width unsigned integers in Rust. So, in the call to `swap`, we promote `j` (a lowly `u8`) to a `usize` with the `as` keyword. Think of this minor detail as a "safe cast".
+    * Indexes are always register-width unsigned integers in Rust. So, in the call to `swap`, we promote `j` (a lowly `u8`) to a `usize` with the `as` keyword. Think of this minor detail as a "safe cast"[^Cast].
 
 * The final line of the `new` function returns an initialized instance of an `Rc4` structure. Rust functions don't need the `return` keyword unless you want to return early (e.g. halfway through the function body) for some reason.
 
@@ -264,6 +264,8 @@ Let's put this code through its paces!
 [^IDPerm]: [*Neutral element and inverses*](https://en.wikipedia.org/wiki/Permutation_group#Neutral_element_and_inverses). Wikipedia (Accessed 2022).
 
 [^ModArith]: [*Modular arithmetic*](https://en.wikipedia.org/wiki/Modular_arithmetic). Wikipedia (Accessed 2022).
+
+[^Cast]: There are best practices related to casting in Rust. Namely using traits `From` and `Into` for *infallible* conversions between types, and `TryFrom` and `TryInto` for *fallible* conversions. We'll discus this topic in detail later.
 
 [^RC4Wiki]: [*RC4*](https://en.wikipedia.org/wiki/RC4). Wikipedia (Accessed 2022).
 
