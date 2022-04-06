@@ -27,7 +27,7 @@ This is no such thing as information without bias.
 We encourage you to cultivate and maintain a mindset of healthy skepticism.
 It will pay dividends in any software security context.
 
-If you find a factual error, please [let us know](../engage.md#send-feedback-or-questions).
+If you find a factual error, please [let us know](../engage.md#submit-feedback-questions-issues-or-prs).
 
 ## Why learn about systems programming?
 

@@ -127,7 +127,7 @@ The entire book is publicly available at [https://highassurance.rs](https://high
 
 But it's still a **work in progress**.
 The long-term goal is to provide *everyone* in the community with a *high-quality* resource on fundamental topics.
-Building a well-rounded book will take time and iteration (your [feedback is appreciated](./engage.md#send-feedback-or-questions)).
+Building a well-rounded book will take time and iteration (your [feedback is appreciated](./engage.md#submit-feedback-questions-issues-or-prs)).
 
 If you find this book valuable, you can support this project via:
 

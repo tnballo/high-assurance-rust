@@ -11,7 +11,7 @@ preferred-dark-theme = "navy"
 cname = "highassurance.rs"
 git-repository-url = "https://github.com/tnballo/high-assurance-rust"
 git-repository-icon = "fa-github"
-edit-url-template = "https://highassurance.rs/engage.html#send-feedback-or-questions"
+edit-url-template = "https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs"
 
 [output.html.playground]
 editable = false        # allows editing the source code

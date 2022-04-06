@@ -4,6 +4,7 @@
 [Frequently Asked Questions (FAQ)](faq.md)
 [Engage with this Book!](engage.md)
 [Sponsor Call for Proposals (CFP)](cfp.md)
+[Download](download.md)
 [Changelog](changelog.md)
 [License](license.md)
 
