@@ -1,9 +1,8 @@
 # Engage with this Book!
 ---
 
-## Send Feedback or Questions
+## Submit Feedback, Questions, Issues, or PRs
 
-Spotted a factual or grammatical error?
 Have general feedback?
 Or maybe a burning question?
 
@@ -12,9 +11,14 @@ We'd love to hear from you, please send an email to:
 
 <a href="mailto:contact@highassurance.rs">**contact@highassurance.rs**</a>
 
+Spotted a factual or grammatical error?
+
+Please submit an Issue or Pull Request (PR) on GitHub.
+See the projects's [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md).
+
 ## Star the Repos
 
-You can help increase the visibility of this project by starring its GitHub repos.
+You can help increase the visibility of this project among developers by starring its GitHub repos.
 We greatly appreciate your support.
 
 **This Book:**
@@ -29,7 +33,7 @@ We greatly appreciate your support.
 
 Consider shooting a link to a friend, they can read the whole book for free!
 
-Note that click on a subheading within a chapter will display a targeted URL for that section, in your browser's address bar.
+Clicking on a subheading within a chapter will display a targeted URL in your browser's address bar.
 
 ## Cite *High Assurance Rust*
 

@@ -1,5 +1,7 @@
 # About the Team
 
+## Core Team
+
 **Tiemoko Ballo, *Author*** ([tiemoko.com](https://tiemoko.com))
 
 Tiemoko is a Senior Cybersecurity Researcher.
@@ -17,6 +19,17 @@ He received his PhD in Computer Science from the Warsaw University of Technology
 Alex is a Security Software Engineer.
 He works on web-scale secure architecture and cloud infrastructure, designing and implementing distributed security systems that serve over 300 million daily active users.
 He received his Masters degree in Information Security from Carnegie Mellon University.
+
+## Community Contributors
+
+Huge thank you to everyone making this book better!
+Listed alphabetically:
+
+* [duzumaki](https://github.com/duzumaki)
+* [jam1garner](https://github.com/jam1garner)
+* [kaylynn234](https://github.com/kaylynn234)
+* [Michcioperz](https://github.com/Michcioperz)
+* [rrevi](https://github.com/rrevi)
 
 <br>
 

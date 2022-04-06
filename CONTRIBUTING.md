@@ -14,9 +14,13 @@ Your efforts make the book better for all other readers and are greatly apprecia
 
     * Please open an [Issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) explaining the error found.
 
+* **Docker and CI Improvements:** Anything related to the testing or maintenance of this book's Docker container.
+
+    * Please open a [Pull Request (PR)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) with the fix or update.
+
 ## Contributions We Cannot Accept
 
-Anything outside of the above, including: rewording for style or clarity, new content, removal of existing content, etc.
+Anything outside of the above, including: rewording for style or clarity, addition of new content, removal of existing content, etc.
 
 These kinds of changes tend to be subjective and require back-and-forth collaboration to reach consensus.
 We'd like to maintain a consistent voice.
@@ -25,15 +29,15 @@ If you'd like to suggest a significant revision or have any questions about cont
 
 <a href="mailto:contact@highassurance.rs">**contact@highassurance.rs**</a>
 
-## Files to Change for a PR
+## Files to Change in a PR
 
 Please only modify `.md` files or `.rs` files.
 We'll generate the book using a local copy of the [`mdbook`](https://rust-lang.github.io/mdBook/) binary.
-This eliminates the need to review large diffs which may include JavaScript code.
+This eliminates the need to review large diffs which may include generated JavaScript code.
 
 ## Adding Yourself to the Community Contributors List
 
-If this is your first PR, please add your GitHub username/URL to the "Community Contributors" list here(TODO: LINK!).
+If this is your first PR, please add your GitHub username/URL to the "Community Contributors" list [here](./src/chp1/about_the_team.md#community-contributors).
 Be sure to maintain alphabetical order.
 
 If you open an Issue and a fix or update is made, you can open a subsequent PR adding yourself to the list and referencing the relevant issue.
@@ -49,13 +53,13 @@ cargo install mdbook
 If you're on Linux, you can leverage the `Makefile` provided in this repo.
 The supported `make` targets are below.
 
-Preview book (starts webserver listening on [http://localhost:3000](http://localhost:3000), will attempt to open in default browser):
+Render book (start webserver listening on [http://localhost:3000](http://localhost:3000), open book in default browser):
 
 ```
 make read
 ```
 
-Check progress (runs lints and does a page count):
+Check progress (run checks and perform a page count):
 
 ```
 make check
