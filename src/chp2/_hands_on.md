@@ -17,7 +17,7 @@ Feel free to implement your own ideas as well!
 
     * The RustCrypto organization maintains several AEAD algorithm implementations[^AEADList], but you may find other mature libraries suitable.
 
-    * The threat model for a hardware product may include an attacker with 24/7 physical access to a device. Can you find an algorithm and implementation that makes guarantees about timing and power side-channel resistance?
+    * The threat model for a hardware product may include an attacker with 24/7 physical access to a device. Can you find an algorithm and implementation that makes guarantees about timing and power side-channel resistance?[^SideChannel]
 
 ## CLI UX
 
@@ -41,3 +41,4 @@ Feel free to implement your own ideas as well!
 
 [^AEADList]: [*RustCrypto: Authenticated Encryption with Associated Data (AEAD) Algorithms*](https://github.com/RustCrypto/AEADs). RustCrypto organization (Accessed 2022).
 
+[^SideChannel]: Side-channel attacks leverage information *leaked* by a physical system (timing, power consumption, electromagnetic emissions, acoustic emissions, etc) to compromise security. In the context of cryptography, this often means extracting secret key material via an indirect means (no software bugs exploited!). Some cryptographic algorithms are designed with this threat model in mind. Their operations are carefully constructed to reduce any externally observable variance, making side-channel attacks significantly more difficult or outright impractical.
