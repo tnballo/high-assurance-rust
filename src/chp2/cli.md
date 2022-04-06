@@ -69,6 +69,11 @@ Notice that, unlike the `rc4` dependency, we don't provide a local `path` for `c
 >
 > In some contexts, it's safer to audit the source of a 3rd-party dependency and only use the pre-audited version for all our builds.
 > The setup of internal repositories and build systems is specific to individual companies and teams.
+>
+> Note that, for certain problem classes, 3rd-party code actually *reduces* risk.
+> Cryptography is a classic example: we're likely better off pulling in a mature library than writing our own implementation of the same algorithm(s).
+>
+> While manual argument parsing isn't as risky in Rust as it is in C, using `clap` still reduces chance of error.
 
 ## Parsing Arguments with `clap`
 
