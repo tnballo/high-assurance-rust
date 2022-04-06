@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction - High Assurance Rust: Developing Secure and Robust Software</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">4.1.</strong> A Software Perspective</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.2.</strong> An Attacker's Perspective</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.3.</strong> Rust's Memory Safety Guarantees</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.</strong> Integer Representation Issues</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> The #![no_std] Attribute</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Debugging with Mozilla rr</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Writing an Exploit</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.10.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">High Assurance Rust: Developing Secure and Robust Software</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/tnballo/high-assurance-rust" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<hr />
+<p>In systems programming - the world you're about to enter - we've become complacent.
+Maybe even complicit.</p>
+<p>We've promised our customers reliable and secure software, but with an implicit caveat: <em>not</em> at the cost of performance.
+And the fastest languages have traditionally been memory-unsafe.
+By using them, we actively risk both general functional requirements and our most base defensive posture:</p>
+<ul>
+<li>
+<p><strong>Reliability:</strong> Memory safety errors cause unpredictable crashes (e.g. &quot;segmentation faults&quot;), unreproducible errors (e.g. &quot;data races&quot;), and eventual outages (e.g. &quot;memory leaks&quot;).</p>
+</li>
+<li>
+<p><strong>Security:</strong> Those same memory errors might give an attacker the ability to read sensitive data (e.g. &quot;steal secrets&quot;) or execute nearly arbitrary commands under the privileges of the victim program (e.g. &quot;full control&quot;).</p>
+</li>
+</ul>
+<p>Your program crashing or producing incorrect output is one thing.
+Your machine joining a botnet is another<sup class="footnote-reference"><a href="#RustTrust">1</a></sup>.
+Memory-unsafe programs risk both outcomes, simultaneously.</p>
+<p>These incredible risks are largely mitigated<sup class="footnote-reference"><a href="#AppLang">2</a></sup> in most modern &quot;application languages&quot;, which use garbage collection and/or heavyweight runtimes (think Python, Java, or Go).
+Yet there are key verticals - safety-critical systems, high-performance distributed infrastructure, various kinds of firmware, etc. - that continue to rely on C and C++<sup class="footnote-reference"><a href="#CStory">3</a></sup>.</p>
+<p>Despite re-inventing themselves over time and powering much of the world's most critical software, these two traditional &quot;systems languages&quot; remain leading suppliers of worst-case security vulnerabilities (e.g. Heart Bleed<sup class="footnote-reference"><a href="#HBleed">4</a></sup>, Stagefright<sup class="footnote-reference"><a href="#StageFright">5</a></sup>, Eternal Blue<sup class="footnote-reference"><a href="#EternalBlue">6</a></sup>, Dirty Pipe<sup class="footnote-reference"><a href="#DirtyPipe">7</a></sup>, etc).
+The memory corruption threat remains unabated.</p>
+<p>Such is the cost of a multi-decade commitment to backwards compatibility.
+We don't seek to disparage the giants whose shoulders we stand on.</p>
+<p>Yet those shoulders bear an awful burden.
+A seminal 2012 research paper<sup class="footnote-reference"><a href="#Sok:EWoM">8</a></sup>, aptly titled <em>&quot;Systematization of Knowledge: Eternal War in Memory&quot;</em>, chronicled 30 years of <em>failed</em> C and C++ memory protection schemes.
+Fast forward to 2019.
+A Microsoft study<sup class="footnote-reference"><a href="#MSBlue">9</a></sup>, of all security issues in the company's products between 2004 and 2018, claims:</p>
+<blockquote>
+<p>~70% of the vulnerabilities addressed through a security update each year continue to be memory safety issues.</p>
+</blockquote>
+<p>That percentage accounts for engineer experience and software quality processes at Microsoft - a market-leading titan.
+If you're already a C or C++ programmer, this is an uncomfortable truth.
+Understandable:</p>
+<ul>
+<li>
+<p>C was the <em>revolution</em>, it gave the world &quot;high-level&quot; programs portable across processors<sup class="footnote-reference"><a href="#AdvC">10</a></sup>. And today it runs, at some deep level, in nearly every device.</p>
+</li>
+<li>
+<p>C++'s powerful abstractions enable performant systems of impressive scale: web browsers, graphics engines, databases, etc. Software we couldn't live without.</p>
+</li>
+</ul>
+<p>But <em>evolution</em> may be overdue.</p>
+<blockquote>
+<p><strong>What if I'm just <em>really</em> careful, <em>all</em> the time?</strong></p>
+<p>Best practices for modern C-family languages can reduce the <em>likelihood</em> of memory vulnerabilities.
+But they can't seem to <em>eliminate</em> them.
+And, unlike Rust's compile time errors and runtime checks, best practices are difficult to scale.</p>
+<p>Decades of data indicate that developer diligence and extensive testing cannot reliably solve the memory safety problem.
+It's time to seriously consider addressing the root cause.</p>
+</blockquote>
+<h2 id="we-dont-need-to-be-complacent-anymore"><a class="header" href="#we-dont-need-to-be-complacent-anymore">We Don't Need to Be Complacent Anymore</a></h2>
+<p>Rust, as a relatively new systems language, supports what have traditionally been C/C++ domains.
+It offers an alternative set of paradigms, namely compiler-enforced &quot;ownership&quot;<sup class="footnote-reference"><a href="#Lifetime">11</a></sup>.</p>
+<p>If you've never tried Rust, imagine pair programming alongside a nearly-omniscient but narrowly-focused perfectionist.
+That's what the borrow checker, a compiler component implementing the ownership concept, can sometimes feel like.</p>
+<p>In exchange for the associated learning curve, we get memory safety guarantees.
+That means we can, often but not always, prove the <em>absence of all memory errors with certainty</em>.</p>
+<p>Rust was announced by Mozilla in 2010<sup class="footnote-reference"><a href="#ProjServo">12</a></sup>, is led by an independent non-profit as of 2021<sup class="footnote-reference"><a href="#RFound">13</a></sup>, and largely solves the single most pressing security problem in the last 40 years of systems programming: memory safety.</p>
+<p>It's arguably the first commercially viable programming language simultaneously offering both memory safety and bare metal speed.</p>
+<h2 id="is-that-just-an-opinion"><a class="header" href="#is-that-just-an-opinion">Is that just an opinion?</a></h2>
+<p>It's an opinion gaining formidable momentum.
+Past some threshold of social acceptance and market pressures, it might even become a boring stance.
+Here are similar takes from some of Rust's production users:<sup class="footnote-reference"><a href="#ProdUsers">14</a></sup></p>
+<p>Amazon:<sup class="footnote-reference"><a href="#QuoteAmazon">15</a></sup></p>
+<blockquote>
+<p>...at AWS we increasingly build critical infrastructure like the Firecracker VMM using Rust because its out-of-the-box features reduce the time and effort needed to reach Amazon’s high security bar, while still delivering runtime performance similar to C and C++.</p>
+</blockquote>
+<p>Google:<sup class="footnote-reference"><a href="#QuoteGoogle">16</a></sup></p>
+<blockquote>
+<p>We feel that Rust is now ready to join C as a practical language for implementing the [Linux] kernel. It can help us reduce the number of potential bugs and security vulnerabilities in privileged code while playing nicely with the core kernel and preserving its performance characteristics.</p>
+</blockquote>
+<p>Microsoft:<sup class="footnote-reference"><a href="#QuoteMicrosoft">17</a></sup></p>
+<blockquote>
+<p>[Rust is] the industry's best chance for addressing this [memory safety] issue head-on.</p>
+</blockquote>
+<h2 id="does-that-mean-rust-programs-cant-be-compromised"><a class="header" href="#does-that-mean-rust-programs-cant-be-compromised">Does that mean Rust programs can't be compromised?</a></h2>
+<p>Definitely not.
+Memory corruption is just one bug class.
+It's particularly vicious and is often part of high-value exploit chains<sup class="footnote-reference"><a href="#ZP2O">18</a></sup>, but other bug classes exist.</p>
+<p>Many, if not most, security issues are language-agnostic (e.g. misconfiguration<sup class="footnote-reference"><a href="#MisConfig">19</a></sup>, command injection<sup class="footnote-reference"><a href="#Log4J">20</a></sup>, hardcoded secrets<sup class="footnote-reference"><a href="#GitLabVuln">21</a></sup>, etc).
+And memory-safe languages infrequently introduce their own issues (e.x. interpreter evaluation of untrusted input, aka &quot;eval injection&quot;).
+No programming language will make your code absolutely secure against all attacks.</p>
+<br>
+<p align="center">
+  <figure>
+  <img width="100%" src="bugs_venn.svg">
+  <figcaption><center>Diagram not to scale: language-agnostic bugs are likely most prevalent, followed by memory-unsafety.</center></figcaption><br>
+  </figure>
+</p>
+<p>Moreover, Rust has a dirty little secret.
+Let's address it up front: sometimes it's necessary to use Rust's <code>unsafe</code> keyword, which allows potentially memory-unsafe behavior within a specific block of code.
+The intention is for a human to carefully review the safety of actions the compiler can't automatically verify.
+And only in a few key places, instead of the entire codebase.</p>
+<p>We won't need to use <code>unsafe</code> <em>at all</em> in this book's core project!
+You'll learn how to reframe problems in an idiomatic way to maximize Rust's guarantees.
+That's a critical skill for getting tangible security value out of the language.</p>
+<p>But, for your situational awareness and future endeavors, we'll:</p>
+<ul>
+<li>Cover <code>unsafe</code>'s usage and implications in detail.</li>
+<li>Learn tools for auditing the safety of Rust applications.</li>
+<li>Review a handful of real-world vulnerabilities in Rust software, as case studies.</li>
+</ul>
+<p>Rust is a monumental leap forward in systems security, not a panacea.</p>
+<h2 id="is-rust-going-to-replace-c-andor-c"><a class="header" href="#is-rust-going-to-replace-c-andor-c">Is Rust going to replace C and/or C++?</a></h2>
+<p>C and C++ power some of the most widely used software in the modern world.
+A vast number of C-family codebases have been around for multiple decades, and will march on for several more.
+Because they provide time-tested solutions to important problems.</p>
+<p>Professional systems programmers stand to benefit from experience in all three languages.
+The C-family is not going away any time soon.
+And Rust integrates with existing C/C++ code.
+Without runtime overhead.</p>
+<p>This is a Rust book, but you'll see several small snippets of C.
+These will usually demonstrate subtle &quot;undefined behavior&quot; problems that all C programmers should be aware of.</p>
+<p>We'll also write bindings for calling the library you build from C via a Foreign Function Interface (CFFI).
+That's a prerequisite to integrating new Rust components into existing codebases written in another language.</p>
+<blockquote>
+<p><strong>The Curious Case of <code>curl</code></strong></p>
+<p><code>curl</code><sup class="footnote-reference"><a href="#Curl">22</a></sup>, a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
+Because the tool is so heavily relied upon, it's security impacts much of what we consider &quot;the internet&quot;<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.</p>
+<p>As of 2020, <code>curl</code> has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.
+Memory safe Rust code seamlessly integrates with the existing C code.
+It's all one compiled binary, there's no performance penalty for cross-language interoperability.</p>
+<p>Although the average end user can't tell the difference (and that's a good thing!), <code>curl</code> is now a safer, more reliable program<sup class="footnote-reference"><a href="#CurlCaveat">24</a></sup>.</p>
+</blockquote>
+<h2 id="is-adopting-a-new-language-really-worth-the-effort"><a class="header" href="#is-adopting-a-new-language-really-worth-the-effort">Is adopting a new language really worth the effort?</a></h2>
+<p>You've likely invested significant experience-hours in your language/toolchain/ecosystem of choice.
+Even if much of your knowledge is transferable, is Rust worth the effort?</p>
+<p>Not for every project.
+Rust is a compelling choice when performance, reliability, and security are all mission-critical requirements.
+At this intersection of polarized criteria, the barrier to justifiable confidence has traditionally been absurdly high.
+We're talking &quot;formal methods&quot;: machine-assisted proofs, model checking, symbolic execution, etc.
+Approaches that, while valuable, face roadblocks to significant adoption in industry.</p>
+<p>Now, Rust's guarantees are a small subset of what those verification approaches provide collectedly.
+But Rust also avoids many of the associated practicality pitfalls.</p>
+<p>Rust's compiler proves<sup class="footnote-reference"><a href="#TypeProof">25</a></sup> a specific set of important properties almost automatically, enabling us to ship quickly.
+On the surface, we get memory safety without sacrificing low-latency performance.
+Dig deeper, and our advantage is really principled verification at the pace of commercial development.
+We get [some] proofs at the speed of real-world code.</p>
+<blockquote>
+<p><strong>Isn't verification only for toy programs?</strong></p>
+<p>Most formally-backed guarantees are restricted to research prototypes; they simply don't scale to large, multi-threaded codebases.
+So formal methods have a bad rap with practicing software engineers - too much difficulty, not enough value.</p>
+<p>By contrast, the Rust compiler was originally designed to harden components of Firefox's browser engine<sup class="footnote-reference"><a href="#ProjServo">12</a></sup> - a multi-million line, highly parallel, commercial codebase.</p>
+</blockquote>
+<p>Now any tool, no matter how potentially beneficial, must be usable to see adoption and impact.</p>
+<p>Despite an initial learning curve, Rust was voted the &quot;most loved&quot; programming language for the last 6 years in a row.
+In StackOverflow's annual developer survey<sup class="footnote-reference"><a href="#StackSurvey1">26</a></sup>, which had over 82,000 responses in 2021<sup class="footnote-reference"><a href="#StackSurvey2">27</a></sup>.</p>
+<h2 id="alright-so-can-i-learn-rust"><a class="header" href="#alright-so-can-i-learn-rust">Alright. So can I learn Rust?</a></h2>
+<p>Imagine you chose to immigrate to a different country and learn to speak a new language.
+It wouldn't be easy, but it might be worth it.
+Our foray into high assurance programming in Rust will likewise be a challenging yet rewarding one.</p>
+<p>Here's the beauty of learning something new: anyone can do it.
+It takes a bit of time and the right resources, but if you stick with it long enough things will start to click.
+This book will help you quickly tame the high learning curve of Rust, so we can all build systems software we can collectively rely on.</p>
+<h2 id="learning-outcomes"><a class="header" href="#learning-outcomes">Learning Outcomes</a></h2>
+<ul>
+<li>Understand <em>what</em> this book covers and <em>why</em></li>
+<li>Understand where this book fits within the Dreyfus Model of Skill Acquisition</li>
+<li>Setup a development environment so you can start writing Rust</li>
+</ul>
+<hr />
+<div class="footnote-definition" id="RustTrust"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://gankra.github.io/blah/thesis.pdf"><em>You Can't Spell Trust Without Rust</em></a>. Alexis Beingessner (2015). This Master's thesis by one of the Rust standard library BTree authors is the source of this botnet analogy, and a general influence on this book.</p>
+</div>
+<div class="footnote-definition" id="AppLang"><sup class="footnote-definition-label">2</sup>
+<p>&quot;Largely&quot; is a caveat here: Python can have data races, Go can have segmentation faults, etc. But garbage collected languages don't give attackers the same powerful exploitation primitives as C and C++ (more details coming in Chapter 4), so they don't carry the same risks.</p>
+</div>
+<div class="footnote-definition" id="CStory"><sup class="footnote-definition-label">3</sup>
+<p>You'd be right to argue that C and C++ have as little in common with each other as they do with their former selves. C++11<sup class="footnote-reference"><a href="#Cpp11">28</a></sup> bears little resemblance to C++20<sup class="footnote-reference"><a href="#Cpp20">29</a></sup>. In lieu of a skim: the official C++ language standard grew by 515 pages, almost 40%, from 1,308<sup class="footnote-reference"><a href="#Cpp11">28</a></sup> to 1,823<sup class="footnote-reference"><a href="#Cpp20">29</a></sup> in total.</p>
+</div>
+<div class="footnote-definition" id="HBleed"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://blog.getreu.net/projects/embedded-system-security-with-Rust/"><em>Embedded System Security with Rust: Case Study of Heartbleed</em></a>. Jens Getreu (2016).</p>
+</div>
+<div class="footnote-definition" id="StageFright"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://www.blackhat.com/docs/us-15/materials/us-15-Drake-Stagefright-Scary-Code-In-The-Heart-Of-Android.pdf"><em>Stagefright: Scary Code in the Heart of Android</em></a>. Joshua Drake (2015)</p>
+</div>
+<div class="footnote-definition" id="EternalBlue"><sup class="footnote-definition-label">6</sup>
+<p><a href="https://www.sentinelone.com/blog/eternalblue-nsa-developed-exploit-just-wont-die/"><em>EternalBlue Exploit: What It Is And How It Works</em></a>. SentinelOne (2019).</p>
+</div>
+<div class="footnote-definition" id="DirtyPipe"><sup class="footnote-definition-label">7</sup>
+<p><a href="https://dirtypipe.cm4all.com/"><em>The Dirty Pipe Vulnerability</em></a>. Max Kellerman (2022).</p>
+</div>
+<div class="footnote-definition" id="Sok:EWoM"><sup class="footnote-definition-label">8</sup>
+<p><a href="https://people.eecs.berkeley.edu/%7Edawnsong/papers/Oakland13-SoK-CR.pdf"><em>SoK: Eternal War in Memory</em></a>. Laszlo Szekeres, Mathias Payer, Tao Wei, Dawn Song (2012).</p>
+</div>
+<div class="footnote-definition" id="MSBlue"><sup class="footnote-definition-label">9</sup>
+<p><a href="https://github.com/Microsoft/MSRC-Security-Research/blob/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf"><em>Trends, challenges, and strategic shifts in the software vulnerability mitigation landscape</em></a>. Mat Miller (2019)</p>
+</div>
+<div class="footnote-definition" id="AdvC"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://adventofcomputing.libsyn.com/episode-53-c-level-part-i"><em>Episode 53 - C Level, Part I</em></a>. Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.</p>
+</div>
+<div class="footnote-definition" id="Lifetime"><sup class="footnote-definition-label">11</sup>
+<p>Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while<sup class="footnote-reference"><a href="#LifetimeCpp">30</a></sup>. But Rust's novel ownership system <em>enforces</em> lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.</p>
+</div>
+<div class="footnote-definition" id="ProjServo"><sup class="footnote-definition-label">12</sup>
+<p><a href="http://venge.net/graydon/talks/intro-talk-2.pdf"><em>Project Servo, Technology from the past come to save the future from itself</em></a>. Graydon Hoare (2010).</p>
+</div>
+<div class="footnote-definition" id="RFound"><sup class="footnote-definition-label">13</sup>
+<p><a href="https://foundation.rust-lang.org/posts/2021-02-08-hello-world/"><em>Hello World!</em></a>. Ashley Williams (2021).</p>
+</div>
+<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">14</sup>
+<p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="QuoteAmazon"><sup class="footnote-definition-label">15</sup>
+<p><a href="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/"><em>Why AWS loves Rust, and how we’d like to help</em></a>. Matt Asay, Official AWS Open Source Blog (2020).</p>
+</div>
+<div class="footnote-definition" id="QuoteGoogle"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://security.googleblog.com/2021/04/rust-in-linux-kernel.html"><em>Rust in the Linux kernel</em></a>. Wedson Almeida Filho, Official Google Security Blog (2021).</p>
+</div>
+<div class="footnote-definition" id="QuoteMicrosoft"><sup class="footnote-definition-label">17</sup>
+<p><a href="https://thenewstack.io/microsoft-rust-is-the-industrys-best-chance-at-safe-systems-programming/"><em>Microsoft: Rust Is the Industry’s ‘Best Chance’ at Safe Systems Programming</em></a>. Joab Jackson (2020).</p>
+</div>
+<div class="footnote-definition" id="ZP2O"><sup class="footnote-definition-label">18</sup>
+<p><a href="https://sector7.computest.nl/post/2021-08-zoom/"><em>Zoom RCE from Pwn2Own 2021</em></a>. Thijs Alkemade, Daan Keupe (2021).</p>
+</div>
+<div class="footnote-definition" id="MisConfig"><sup class="footnote-definition-label">19</sup>
+<p><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"><em>A05:2021 – Security Misconfiguration</em></a>. OWASP (2021).</p>
+</div>
+<div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">20</sup>
+<p><a href="https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance"><em>Apache Log4j Vulnerability Guidance</em></a>. CISA (2021).</p>
+</div>
+<div class="footnote-definition" id="GitLabVuln"><sup class="footnote-definition-label">21</sup>
+<p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1162"><em>CVE-2022-1162</em></a>. National Vulnerability Database (2022).</p>
+</div>
+<div class="footnote-definition" id="Curl"><sup class="footnote-definition-label">22</sup>
+<p><a href="https://curl.se/"><em>curl</em></a>. Daniel Stenberg (2021).</p>
+</div>
+<div class="footnote-definition" id="MemSafeCurl"><sup class="footnote-definition-label">23</sup>
+<p><a href="https://www.abetterinternet.org/post/memory-safe-curl/"><em>Memory Safe ‘curl’ for a More Secure Internet</em></a>. Internet Security Research Group (2020).</p>
+</div>
+<div class="footnote-definition" id="CurlCaveat"><sup class="footnote-definition-label">24</sup>
+<p>As of this writing, the Rust-enabled build of <code>curl</code> is not its default configuration. It's up to those building and distributing <code>curl</code> (e.g. OS distro maintainers) to choose build configurations suitable for the platforms and users they support. A reasonable arrangement worth noting!</p>
+</div>
+<div class="footnote-definition" id="TypeProof"><sup class="footnote-definition-label">25</sup>
+<p><a href="https://www.eurekalert.org/news-releases/610682"><em>Computer Scientist proves safety claims of the programming language Rust</em></a>. Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.</p>
+</div>
+<div class="footnote-definition" id="StackSurvey1"><sup class="footnote-definition-label">26</sup>
+<p><a href="https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted">Technology: Most loved, dreaded, and wanted</a>. StackOverflow (2021).</p>
+</div>
+<div class="footnote-definition" id="StackSurvey2"><sup class="footnote-definition-label">27</sup>
+<p><a href="https://insights.stackoverflow.com/survey/2021#methodology-participants">Methodology: Participants</a>. StackOverflow (2021).</p>
+</div>
+<div class="footnote-definition" id="Cpp11"><sup class="footnote-definition-label">28</sup>
+<p><a href="http://open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3337.pdf"><em>[Final] Working Draft, Standard for Programming Language C++</em></a>. Document Number:N3337 (2012). Document number 3337 - so close to 1337! Missed opportunity.</p>
+</div>
+<div class="footnote-definition" id="Cpp20"><sup class="footnote-definition-label">29</sup>
+<p><a href="http://open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4861.pdf"><em>[Final] Working Draft, Standard for Programming Language C++</em></a>. Document Number:N4861 (2020).</p>
+</div>
+<div class="footnote-definition" id="LifetimeCpp"><sup class="footnote-definition-label">30</sup>
+<p><a href="https://en.cppreference.com/w/cpp/language/lifetime"><em>Lifetime</em></a>. cppreference.com (Accessed 2022).</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../license.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../chp1/why_this_book.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../license.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../chp1/why_this_book.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Warmup: Environment Setup - High Assurance Rust: Developing Secure and Robust Software</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html" class="active"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">4.1.</strong> A Software Perspective</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.2.</strong> An Attacker's Perspective</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.3.</strong> Rust's Memory Safety Guarantees</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.4.</strong> Integer Representation Issues</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> The #![no_std] Attribute</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Debugging with Mozilla rr</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Writing an Exploit</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.10.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">High Assurance Rust: Developing Secure and Robust Software</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/tnballo/high-assurance-rust" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="warmup-environment-setup"><a class="header" href="#warmup-environment-setup">Warmup: Environment Setup</a></h1>
+<p>In lieu of the usual chapter-end challenge, let's do a warm up: setting up the Rust toolchain.
+What you'll need to write and compile Rust programs.
+Consider this your bootstrap sequence!</p>
+<p>This book is developed on a Linux host.
+Throughout each chapter, you'll see commands you can retype (or copy/paste, note the button on the right) and execute.
+In a code-block-listing format, like this:</p>
+<pre><code class="language-ignore">whoami
+</code></pre>
+<p>The commands assume you're using a mainstream Linux distribution.
+To follow along, you have two options:</p>
+<ol>
+<li>
+<p><strong>Linux-native:</strong> Install each tool introduced on your host, using its current official documentation (we won't attempt to duplicate all installation instructions here) or your distro's package manager. Most of our tools have straightforward setups, often one or two commands.</p>
+</li>
+<li>
+<p><strong>Docker container:</strong> If you're on a non-Linux platform, install Docker<sup class="footnote-reference"><a href="#Docker">1</a></sup> (a popular containerization tool) and use this book's provided Dockerfile<sup class="footnote-reference"><a href="#BookDocker">2</a></sup> to build a self-contained development environment.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note: Current State of the Container</strong></p>
+<p>This book's container support is currently a work in progress.
+In the future, the container will be automatically tested and detailed instructions for working with it will be added to the appendix.</p>
+<p>Currently, we provide a simple Dockerfile within the book's repo<sup class="footnote-reference"><a href="#BookDocker">2</a></sup>.</p>
+</blockquote>
+<p>Regardless of which route you choose, you'll want to verify your toolchain is working.</p>
+<h2 id="try-the-toolchain"><a class="header" href="#try-the-toolchain">Try the Toolchain</a></h2>
+<p><code>rustup</code> is the official installer and update manager for the Rust toolchain.
+Among other pieces, it bundles Rust's:</p>
+<ul>
+<li>Compiler (<code>rustc</code>)</li>
+<li>Package manager (<code>cargo</code>)</li>
+<li>Standard library (<code>std</code>)</li>
+</ul>
+<p><code>rustup</code> can select toolchain components from three &quot;channels&quot;: stable, beta, and nightly.
+We'll cover the differences in Chapter 3.
+It can also add components to cross-compile for other platforms.
+We'll compile for an emulated ARM Cortex-M microcontroller in Chapter 8.</p>
+<p>If not using the container, you can install <code>rustup</code> by following the instructions here:</p>
+<ul>
+<li><a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a></li>
+</ul>
+<p>To verify the installation, execute the command:</p>
+<pre><code class="language-ignore">rustup --version
+</code></pre>
+<p>Let's ensure you can compile and run a Rust program.
+To create a new project named <code>hello_world</code>:</p>
+<pre><code class="language-ignore">cargo new --bin hello_world
+</code></pre>
+<p>Running <code>tree hello_world</code> should show the following directory layout:</p>
+<pre><code class="language-ignore">hello_world/
+├── Cargo.toml
+└── src
+    └── main.rs
+
+1 directory, 2 files
+</code></pre>
+<p><code>Cargo.toml</code> is a build configuration file.
+You won't need to edit it to compile this program.
+Take a look at the contents of <code>main.rs</code>, the sole source file:</p>
+<pre><code class="language-ignore">cd hello_world
+cat src/main.rs
+</code></pre>
+<p>A traditional &quot;Hello, world!&quot; program has been pre-populated:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;Hello, world!&quot;);
+}
+</code></pre></pre>
+<p>To compile and run it, from with the <code>hello_world</code> directory, use:</p>
+<pre><code class="language-ignore">cargo run
+</code></pre>
+<p>If you see the greeting printed to the console, you've got a working toolchain!</p>
+<h2 id="add-rust-analyzer-to-your-ide-of-choice"><a class="header" href="#add-rust-analyzer-to-your-ide-of-choice">Add <code>rust-analyzer</code> to Your IDE of Choice</a></h2>
+<p><code>rust-analyzer</code><sup class="footnote-reference"><a href="#RustAnalyzer">3</a></sup> is an implementation of the Language Server Protocol<sup class="footnote-reference"><a href="#LangProt">4</a></sup> for Rust.
+It integrates with several editors and Integrated Development Environments (IDEs) to support conveniences like:</p>
+<ul>
+<li>Syntax/warning/error highlighting</li>
+<li>Code completion</li>
+<li>&quot;Goto&quot; functionality for definitions</li>
+<li>Symbol renaming</li>
+</ul>
+<p>Workflow aids like these can boost productivity.
+Both for newcomers to a language and for professionals working on large codebases.
+While not a requirement, we strongly recommend installing <code>rust-analyzer</code> or an equivalent (several commercial IDEs offer similar Rust support).</p>
+<p>To get started with <code>rust-analyzer</code>, see it's manual:</p>
+<ul>
+<li><a href="https://rust-analyzer.github.io/manual.html">https://rust-analyzer.github.io/manual.html</a></li>
+</ul>
+<h2 id="the-optional-docker-route"><a class="header" href="#the-optional-docker-route">The Optional Docker Route</a></h2>
+<p>Docker<sup class="footnote-reference"><a href="#Docker">1</a></sup> is a popular containerization tool.
+Containers allow us to build and configure entire environments in a repeatable and reliable way:</p>
+<ul>
+<li>
+<p>In <strong>industry</strong>, containers can package a networked application alongside its dependencies so it's ready to deploy on cloud infrastructure.</p>
+</li>
+<li>
+<p>In <strong>academia</strong>, containers bundle prototypes and analyses so that research results can be independently reproduced.</p>
+</li>
+<li>
+<p>In <strong>open-source software</strong>, containers automate building a project and thus reduce the entry barrier for current/future contributors.</p>
+</li>
+</ul>
+<p>Our motivation is closest to the open-source use case.
+Instead of setting up a container to build a specific project, we'll use a container pre-setup for developing Rust projects.</p>
+<h3 id="but-i-want-to-learn-rust-not-docker"><a class="header" href="#but-i-want-to-learn-rust-not-docker">But I want to learn Rust, not Docker!</a></h3>
+<p>Modern software development involves multiple tools and processes.
+Docker solves problems that are orthogonal to those solved by any particular programming language.</p>
+<p>In the context of this book, it'll give you a reliable, supported environment for running examples and completing hands-on challenges.
+No &quot;it worked on my machine&quot; issues - you'll get the same hassle-free experience whether you're running Windows, Linux, or MacOS.</p>
+<p>It's worth at least knowing how to build and run pre-existing Docker containers.
+Which is the extent of our Docker coverage.
+We won't cover advanced <code>docker</code> usage or writing <code>Dockerfiles</code>.
+Or Docker internals, beyond the blurb below.</p>
+<blockquote>
+<p><strong>How does Docker actually work, in nutshell?</strong></p>
+<p>Traditional Virtual Machines (VMs) provide isolation via duplication: they run an entire OS kernel, atop a [Type 2<sup class="footnote-reference"><a href="#Type2">5</a></sup>] hypervisor, atop your system's kernel.
+That's quite slow because now you're running two OS kernels, host and guest, plus glue software.</p>
+<p>By contrast, a Linux Docker container on a Linux host leverages special features of the host kernel (&quot;control groups&quot;<sup class="footnote-reference"><a href="#Cgroups">6</a></sup> and &quot;namespaces&quot;<sup class="footnote-reference"><a href="#Namespaces">7</a></sup>) to isolate the container, as if it existed on a separate filesystem.
+There's no duplication of kernels.</p>
+<p>Relative to VMs, you can run isolated applications faster (throughput) and/or fit more on a single physical machine (density).</p>
+</blockquote>
+<h3 id="getting-started-with-the-books-docker-container"><a class="header" href="#getting-started-with-the-books-docker-container">Getting Started with the Book's Docker Container</a></h3>
+<p>Platform-specific installation instructions for Docker are available here:</p>
+<ul>
+<li><a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></li>
+</ul>
+<p>The book's Dockerfile is available here:</p>
+<ul>
+<li><a href="https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile">https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile</a></li>
+</ul>
+<p>Your IDE of choice may offer a plugin for connecting to and/or managing containers.
+For example, VSCode offers an official extension:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/remote/containers">https://code.visualstudio.com/docs/remote/containers</a></li>
+</ul>
+<h2 id="checkpoint"><a class="header" href="#checkpoint">Checkpoint</a></h2>
+<p>Before proceeding, please ensure you've successfully compiled and run the above &quot;Hello, world!&quot; program.
+Either natively or in a container.</p>
+<p>We're going to write a more interesting program in the next chapter, you'll want a working toolchain to follow along.</p>
+<hr />
+<div class="footnote-definition" id="Docker"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://docs.docker.com/get-started/overview/"><em>Docker overview</em></a> Docker (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="BookDocker"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile">https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile</a></p>
+</div>
+<div class="footnote-definition" id="RustAnalyzer"><sup class="footnote-definition-label">3</sup>
+<p><a href="https://microsoft.github.io/language-server-protocol/"><em><code>rust-analyzer</code></em></a>. rust-analyzer (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="LangProt"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://microsoft.github.io/language-server-protocol/"><em><code>Language Server Protocol</code></em></a>. Microsoft (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="Type2"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://en.wikipedia.org/wiki/Hypervisor#Classification"><em>Hypervisor: Classification</em></a>. Wikipedia (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="Cgroups"><sup class="footnote-definition-label">6</sup>
+<p><a href="https://www.linuxjournal.com/content/everything-you-need-know-about-linux-containers-part-i-linux-control-groups-and-process"><em>Everything You Need to Know about Linux Containers, Part I: Linux Control Groups and Process Isolation</em></a>. Petros Koutoupis (2018).</p>
+</div>
+<div class="footnote-definition" id="Namespaces"><sup class="footnote-definition-label">7</sup>
+<p><a href="https://code.visualstudio.com/docs/remote/containers"><em>Everything You Need to Know about Linux Containers, Part II: Working with Linux Containers (LXC)</em></a>. Petros Koutoupis (2018).</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chp1/about_the_team.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../chp2/_index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chp1/about_the_team.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../chp2/_index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
