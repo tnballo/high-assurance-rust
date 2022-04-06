@@ -692,7 +692,7 @@ Let's take a breather to talk about a simpler topic, control flow, before we del
 
 ---
 
-[^RustInfluence]: [*The Rust Reference: Influences*](https://doc.rust-lang.org/reference/influences.html). The Rust Team (2021)
+[^RustInfluence]: [*The Rust Reference: Influences*](https://doc.rust-lang.org/reference/influences.html). The Rust Team (2021).
 
 [^TockOS]: [*Tock*](https://www.tockos.org/). Tock OS (Accessed 2022). Operating systems, perhaps the quintessential example of systems software, are a domain for which Rust is well-suited. There are several OSs written in Rust, Tock is one of them.
 

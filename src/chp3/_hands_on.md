@@ -10,7 +10,7 @@ Now we're not advocates of the "Rewrite-It-In-Rust" (RIIR) trend, although there
 Rewriting a large piece of software is a risky proposition that, in many contexts, has questionable payoff.
 
 It's typically wiser to write new features, new services, or hardened components in Rust - such that they can interoperate with existing code.
-Chapter 14 will cover integrating Rust into non-Rust codebases.
+Chapter 13 will cover integrating Rust into non-Rust codebases.
 
 Our motivation for this challenge is gaining a deeper understanding of Rust via contrast.
 Not all idioms and patterns of other languages readily translate, so experiencing those differences first-hand can be enlightening.

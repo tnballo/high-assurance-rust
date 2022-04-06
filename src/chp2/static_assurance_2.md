@@ -32,6 +32,7 @@ That interoperability enables a lot of Rust's real-world use.
 > We can carefully design interfaces which uphold safety invariants no matter how they are called.
 > Despite using `unsafe` internally.
 > Granted the compiler can't automatically verify the correctness of such designs.
+> We'll discuss the difference between *unsafety* and *unsoundness* in Chapter 13.
 >
 > But let's consider a simpler perspective: the less `unsafe` we use, the less total code we need to audit for memory-related bugs.
 >

@@ -58,7 +58,7 @@ The cipher instance returned by the constructor will already be initialized.
 > **Function-related Terminology**
 >
 > This section will use two technical terms.
-> The concepts aren't unique to Rust, but the terms have specific meaning in Rust programs:
+> The concepts aren't unique to Rust, but the terms have specific meaning in Rust programs:[^AssocMeth]
 >
 > * **Associated function:** A function that is defined on a structure, but *does not* take `&self` (reference to instance of structure) as its first parameter. It doesn't read or write structure fields.
 >
@@ -95,7 +95,7 @@ Let's double down and try to make sense of it:
 
 	* We have to use the `wrapping_add` function instead of the addition operator (`+`) in cryptographic code because we want *integer overflow* (explanation coming in Chapter 3) to emulate modular arithmetic[^ModArith].
 
-    * Have you ever swapped two variables using a third (probably named `temp`)? If your answer is "good God, a hundred times" then you'll appreciate how `swap` is a built-in function for arrays in Rust.
+    * Have you ever swapped two variables using a third (probably named `temp`)? If your answer is "good God, a hundred times" then you'll appreciate how `swap` is a built-in method for arrays in Rust.
 
     * Indexes are always register-width unsigned integers in Rust. So, in the call to `swap`, we promote `j` (a lowly `u8`) to a `usize` with the `as` keyword. Think of this minor detail as a "safe cast".
 
@@ -255,6 +255,8 @@ Let's put this code through its paces!
 
 [^Obj]: In Rust, shared behavior is defined by *trait composition*, not by *object-oriented inheritance*. There's no "class hierarchy", like in C++ or Java. We'll cover traits in Chapter 3.
 
+[^AssocMeth]: Technically, per the Rust reference[^RustRef], "Associated functions are functions associated with a type" and "Associated functions whose first parameter is named `self` are called methods...". But that's pretty in the weeds. We treat *associated functions* and *methods* as distinct in this section for clarity.
+
 [^SliceEff]: Slices references are "fat pointers" (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall "pass-by-reference", from when we first talked about pointers).
 
 [^SliceFlex]: Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be "viewed" through a slice. So you'll encounter them often in idiomatic Rust code.
@@ -268,3 +270,5 @@ Let's put this code through its paces!
 [^UnderstandingCrypto]: [***[PERSONAL FAVORITE]** Understanding Cryptography*](https://amzn.to/3IEYuNd). Christof Paar, Jan Pelzl (2009).
 
 [^UnderstandingCryptoVideo]: [*Online Cryptography Course*](https://www.crypto-textbook.com/movies.php). Christof Paar, Jan Pelzl (2009).
+
+[^RustRef]: [*The Rust Reference: Associated Items*](https://doc.rust-lang.org/reference/items/associated-items.html). The Rust Team (2021).
