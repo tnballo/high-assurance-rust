@@ -14,7 +14,7 @@ We'd love to hear from you, please send an email to:
 Spotted a factual or grammatical error?
 
 Please submit an Issue or Pull Request (PR) on GitHub.
-See the projects's [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md).
+See the project's [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md).
 
 ## Star the Repos
 
