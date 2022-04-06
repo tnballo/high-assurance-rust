@@ -106,8 +106,8 @@ Those might be valuable in a range of contexts.
 ## 7. Can I use Rust in safety-critical domains?
 
 Not yet.
-Rust isn't certified for use in a *safety-critical* setting.
-Industry [standardization](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf) and [certification](https://ferrous-systems.com/ferrocene/) efforts currently are underway, so that may change in the future.
+Unlike [SPARK/Ada](https://www.adacore.com/about-spark), Rust isn't certified for use in a *safety-critical* setting.
+Industry [standardization](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf) and [qualification](https://ferrous-systems.com/ferrocene/) efforts are currently [underway](https://blog.adacore.com/adacore-and-ferrous-systems-joining-forces-to-support-rust), so that may change in the future.
 
 This book is about building secure and robust software in general, regardless of industry.
 As the regulatory landscape for Rust evolves, you'll be able to apply our topics in more verticals.
