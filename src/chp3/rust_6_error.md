@@ -25,7 +25,6 @@ We'll use the term "error" to capture both the catastrophic and handleable cases
 
 ## `Option` vs `Result`
 
-
 Rust's standard library provides two `enum` types for expressing fallible operations: `Option`[^Option] and `Result`[^Result].
 Strictly speaking, *error handling* refers only to `Result`.
 But the two are conceptually similar and widely used as function return types, so we'll cover both now.

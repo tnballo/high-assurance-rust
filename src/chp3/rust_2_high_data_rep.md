@@ -325,7 +325,7 @@ At this point we have two options:
 
 1. Review the documentation[^TraitDebug] for `std::fmt::Debug` to understand the interface it requires (in this case it's only one function) and implement the interface within a `impl Debug for Proc { ... }` block.
 
-2. Attempt to *derive* the trait automatically, with the attribute macro `#[derive(Debug)]`.
+2. Attempt to *derive* the trait automatically, with the derive macro `#[derive(Debug)]`.
 
 The latter option is easier, and is the route recommended by the documentation[^TraitDebug].
 

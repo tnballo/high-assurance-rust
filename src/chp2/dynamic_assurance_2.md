@@ -17,13 +17,19 @@ We'll want to add the following at the top of `crypto_tool/rc4/lib.rs`:
 {{#include ../../code_snippets/chp2/crypto_tool/rc4/src/lib.rs:Rc4}}
 ```
 
-* The first 2 lines are *macros*: statements that generate additional code. In this case, they communicate with the compiler to configure our project. Writing macros is an advanced topic, but you can leverage existing macros even as a beginner[^BeginMacro].
+* The first 2 lines are *attributes*: they communicate with the compiler to configure our project.
 
-* `#![cfg_attr(not(test), no_std)]` is a conditional attribute macro. It applies to the whole crate and informs the compiler that, unless doing a `test` build, our library makes no assumptions about the system it's going to run on. `no_std` roughly translates to "don't depend on a standard library or runtime support being available". Although this restricts us to a set of core Rust features, it makes our code portable for embedded use cases: firmware, bootloaders, kernels, etc. We'll discuss `#![no_std]` more thoroughly in Chapter 4.
+* `#![cfg_attr(not(test), no_std)]` is a conditional attribute. It applies to the whole crate and informs the compiler that, unless doing a `test` build, our library makes no assumptions about the system it's going to run on.
 
-* `#![forbid(unsafe_code)]` is an unconditional attribute macro. It again applies to the entire crate, telling the compiler to *ensure* the library has no `unsafe` code blocks. This allows our code to maximize Rust's memory safety guarantees, even if we refactor it or add new features later. We'll discuss `unsafe` throughout the book, but won't use this keyword in our main project.
+    * `no_std` roughly translates to "don't depend on a standard library or runtime support being available". Although this restricts us to a set of core Rust features, it makes our code portable for embedded use cases: firmware, bootloaders, kernels, etc. We'll discuss `#![no_std]` more thoroughly in Chapter 4.
 
-* `#[derive(Debug)]` is a derive macro for something called a *trait* (definition of shared behavior, explained in Chapter 3). Notice how it's sitting right on top of the `Rc4` structure? It only applies to this structure, telling the compiler how to pretty print it's contents to a console[^TraitDebug]. Using this macro makes our stream cipher convenient to visually debug in test builds.
+* `#![forbid(unsafe_code)]` is an unconditional attribute. It again applies to the entire crate, telling the compiler to *ensure* the library has no `unsafe` code blocks. This allows our code to maximize Rust's memory safety guarantees, even if we refactor it or add new features later.
+
+    * We'll discuss `unsafe` throughout the book, but won't use this keyword in our main project.
+
+* `#[derive(Debug)]` is a *derive macro* for something called a *trait* (definition of shared behavior, explained in Chapter 3). Macros generate additional code. Writing macros is an advanced topic, but you can leverage existing macros even as a beginner[^BeginMacro].
+
+    * Notice how `#[derive(Debug)]` sits atop the `Rc4` structure? It only applies to this structure, telling the compiler how to pretty print its contents to a console[^TraitDebug]. Using this macro makes our stream cipher convenient to visually debug in test builds.
 
 * The `Rc4` structure is the most important part of the above code. Though not an *object* in the traditional sense[^Obj], our structure encapsulates private data and we're going to define methods that operate on that data next. `Rc4`'s three fields are:
 
