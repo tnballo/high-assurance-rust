@@ -107,7 +107,7 @@ Examples of unsized types include:
 
 * **Slices:** An slice, `[T]`, can contain zero or more contiguous `T`s - thus different slice values could have different sizes.
 
-    * Note that `&[T]`, a reference to a slice, is always the size of a pointer.
+    * Note that `&[T]`, a reference to a slice, is always the size of a *fat* pointer (regular pointer plus slice length metadata).
 
 * **Trait Objects:** Rust has a mechanism for *dynamic dispatch*[^DynDis]. The `dyn` keyword indicates a *trait object*: a value that implements a given trait. That value can be *any type* and have *any size*, so long as it implements the trait.
 
