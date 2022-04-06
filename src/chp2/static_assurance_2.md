@@ -26,9 +26,14 @@ That interoperability enables a lot of Rust's real-world use.
 > **Isn't `unsafe` a weak link? Don't we lose all assurance?**
 >
 > Not exactly.
-> Work in formal verification of Rust's type system demonstrates the security claims can be upheld despite the presence of `unsafe`[^JungThesis].
+> Work in formal verification of Rust's type system demonstrates that security claims can be upheld despite the presence of `unsafe`[^JungThesis].
 >
-> But let's consider a more practical perspective: the less `unsafe` we use, the less total code we need to audit for memory-related bugs.
+> Even without formal methods, *safe abstractions* can be built atop *unsafe operations*[^UnsafeAbstraction].
+> We can carefully design interfaces which uphold safety invariants no matter how they are called.
+> Despite using `unsafe` internally.
+> Granted the compiler can't automatically verify the correctness of such designs.
+>
+> But let's consider a simpler perspective: the less `unsafe` we use, the less total code we need to audit for memory-related bugs.
 >
 > Even if a codebase is split 50/50 safe/`unsafe`, we're still saving significant costs in security review, debugging hours, and patch deployments. That's true even if that latter `unsafe` half is C or C++ that interoperates with safe Rust.
 
@@ -242,6 +247,8 @@ Let's move on to dynamic analysis, and start writing our first Rust program.
 [^MMIO]: Memory Mapped Input/Output (MMIO) is a context in which you need to spray some distant, seemingly random region of memory with a bunch of magic bytes. Perhaps surprisingly, that's one major way to control hardware peripherals. The "data sheet" (an official hardware manual written by the manufacturer) tells you which specific memory address to write what magic bytes to. It's the sort of thing where you just need raw pointers, danger be damned! [^SafeMMIO].
 
 [^JungThesis]: [*Understanding and Evolving the Rust Programming Language (PhD Thesis)*](https://www.ralfj.de/research/phd/thesis-screen.pdf). Ralf Jung (2020).
+
+[^UnsafeAbstraction]: [*Why Rust's Unsafe Works*](https://jam1.re/blog/why-rusts-unsafe-works). jam1garner (2020).
 
 [^TypeProof]: [*Computer Scientist proves safety claims of the programming language Rust*](https://www.eurekalert.org/news-releases/610682). Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.
 
