@@ -618,7 +618,7 @@ Your machine joining a botnet is another<sup class="footnote-reference"><a href=
 Memory-unsafe programs risk both outcomes, simultaneously.</p>
 <p>These incredible risks are largely mitigated<sup class="footnote-reference"><a href="#AppLang">2</a></sup> in most modern &quot;application languages&quot;, which use garbage collection and/or heavyweight runtimes (think Python, Java, or Go).
 Yet there are key verticals - safety-critical systems, high-performance distributed infrastructure, various kinds of firmware, etc. - that continue to rely on C and C++<sup class="footnote-reference"><a href="#CStory">3</a></sup>.</p>
-<p>Despite re-inventing themselves over time and powering much of the world's most critical software, these two traditional &quot;systems languages&quot; remain leading suppliers of worst-case security vulnerabilities (e.g. Heart Bleed<sup class="footnote-reference"><a href="#HBleed">4</a></sup>, Stagefright<sup class="footnote-reference"><a href="#StageFright">5</a></sup>, Eternal Blue<sup class="footnote-reference"><a href="#EternalBlue">6</a></sup>, Dirty Pipe<sup class="footnote-reference"><a href="#DirtyPipe">7</a></sup>, etc).
+<p>Despite re-inventing themselves over time and powering much of the world's most critical software, these two traditional &quot;systems languages&quot; remain leading suppliers of worst-case security vulnerabilities (e.g. Heartbleed<sup class="footnote-reference"><a href="#HBleed">4</a></sup>, Stagefright<sup class="footnote-reference"><a href="#StageFright">5</a></sup>, EternalBlue<sup class="footnote-reference"><a href="#EternalBlue">6</a></sup>, Dirty Pipe<sup class="footnote-reference"><a href="#DirtyPipe">7</a></sup>, etc).
 The memory corruption threat remains unabated.</p>
 <p>Such is the cost of a multi-decade commitment to backwards compatibility.
 We don't seek to disparage the giants whose shoulders we stand on.</p>
@@ -1170,6 +1170,7 @@ Listed alphabetically:</p>
 <li><a href="https://github.com/duzumaki">duzumaki</a></li>
 <li><a href="https://github.com/jam1garner">jam1garner</a></li>
 <li><a href="https://github.com/kaylynn234">kaylynn234</a></li>
+<li><a href="https://github.com/LoganDark">LoganDark</a></li>
 <li><a href="https://github.com/Michcioperz">Michcioperz</a></li>
 <li><a href="https://github.com/rrevi">rrevi</a></li>
 </ul>
@@ -8711,8 +8712,8 @@ They trust the compiler and, by extension, its backend.</p>
 They remove the compiler from the chain of trust.</p>
 <ul>
 <li><a href="https://valgrind.org/"><code>valgrind</code>*</a> (x86, x86_64, ARM32, ARM64, MIPS, PPC)</li>
-<li><a href="https://rr-project.org/"><code>rr</code></a> (x86, x86_64, ARM64)</li>
-<li><a href="https://llvm.org/docs/LibFuzzer.html"><code>libfuzzer</code> via <code>cargo-fuzz</code></a> (x86, x86_64)</li>
+<li><a href="https://rr-project.org/"><code>rr</code></a> (x86, x86_64)</li>
+<li><a href="https://llvm.org/docs/LibFuzzer.html"><code>libfuzzer</code> via <code>cargo-fuzz</code></a> (x86, x86_64, ARM64)</li>
 <li><a href="https://www.qemu.org/"><code>qemu</code></a> (x86, x86_64, ARM32, ARM64, MIPS, PPC, AVR, ...)</li>
 <li><a href="https://github.com/rust-lang/miri"><code>miri</code></a> (Rust-only)</li>
 </ul>
