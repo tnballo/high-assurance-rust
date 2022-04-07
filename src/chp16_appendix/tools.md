@@ -22,8 +22,8 @@ Most tools in this category test compiled executables to discover specific bugs 
 They remove the compiler from the chain of trust.
 
 * [`valgrind`*](https://valgrind.org/) (x86, x86_64, ARM32, ARM64, MIPS, PPC)
-* [`rr`](https://rr-project.org/) (x86, x86_64, ARM64)
-* [`libfuzzer` via `cargo-fuzz`](https://llvm.org/docs/LibFuzzer.html) (x86, x86_64)
+* [`rr`](https://rr-project.org/) (x86, x86_64)
+* [`libfuzzer` via `cargo-fuzz`](https://llvm.org/docs/LibFuzzer.html) (x86, x86_64, ARM64)
 * [`qemu`](https://www.qemu.org/) (x86, x86_64, ARM32, ARM64, MIPS, PPC, AVR, ...)
 * [`miri`](https://github.com/rust-lang/miri) (Rust-only)
 
