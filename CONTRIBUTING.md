@@ -42,6 +42,12 @@ Be sure to maintain alphabetical order.
 
 If you open an Issue and a fix or update is made, you can open a subsequent PR adding yourself to the list and referencing the relevant issue.
 
+> **Why Maintain a Contributors List?**
+>
+> 1. Every change counts. No matter how small, the cumulative effect is significant!
+>
+> 2. In a traditional book publishing process, proofreading is a paid, full-time job. Listing contributors is a simple way to recognize effort for the same task.
+
 ## Building and Reading the Book Locally
 
 Setup [`mdbook`](https://rust-lang.github.io/mdBook/index.html) (assumes you've already installed Rust per [these instructions](https://www.rust-lang.org/tools/install)):
