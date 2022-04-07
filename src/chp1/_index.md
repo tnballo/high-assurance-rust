@@ -34,7 +34,7 @@ Memory-unsafe programs risk both outcomes, simultaneously.
 These incredible risks are largely mitigated[^AppLang] in most modern "application languages", which use garbage collection and/or heavyweight runtimes (think Python, Java, or Go).
 Yet there are key verticals - safety-critical systems, high-performance distributed infrastructure, various kinds of firmware, etc. - that continue to rely on C and C++[^CStory].
 
-Despite re-inventing themselves over time and powering much of the world's most critical software, these two traditional "systems languages" remain leading suppliers of worst-case security vulnerabilities (e.g. Heart Bleed[^HBleed], Stagefright[^StageFright], Eternal Blue[^EternalBlue], Dirty Pipe[^DirtyPipe], etc).
+Despite re-inventing themselves over time and powering much of the world's most critical software, these two traditional "systems languages" remain leading suppliers of worst-case security vulnerabilities (e.g. Heartbleed[^HBleed], Stagefright[^StageFright], EternalBlue[^EternalBlue], Dirty Pipe[^DirtyPipe], etc).
 The memory corruption threat remains unabated.
 
 Such is the cost of a multi-decade commitment to backwards compatibility.
