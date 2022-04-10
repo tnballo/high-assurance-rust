@@ -77,7 +77,7 @@ One approach[^CSE545] is a quadrant with two axises - static vs. dynamic on the 
   </figure>
 </p>
 
-Let's traverse the quads in thier numbered oreder: left to right, top to bottom.
+Let's traverse the quads in their numbered order: left to right, top to bottom.
 Above the horizon, we can find **unknown bugs**.
 That means discovering brand new bugs, no existing data needed:
 
