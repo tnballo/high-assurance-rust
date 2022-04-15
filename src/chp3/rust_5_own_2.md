@@ -38,7 +38,7 @@ That's a solid starting point for high assurance software.
 
 > **Computers and Humans Exploring Software Security (CHESS)**
 >
-> CHESS was  DARPA research program[^CHESS] on "the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend".
+> CHESS was  DARPA research program[^CHESS] on "the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend"[^CHESSDesc].
 >
 > It's a response to the fact that in-depth security assessments are a **difficult to scale expert process**.
 > Rust was not considered a solution under the CHESS program.
@@ -463,6 +463,8 @@ And our next topic.
 And it complements the robustness benefits coming from industry development tools/practices (e.g. powerful IDEs and frameworks aiding product creation, and testing/deployment processes underpinning production-quality systems and services). Rust isn't special or a "silver bullet", it's one of many modern development tools. But Rust does tackle an important niche: fast && memory-safe.
 
 [^CHESS]: [*CHESS: Computers and Humans Exploring Software Security*](https://www.darpa.mil/attachments/CHESS-Slides-DISTAR.pdf). Dustin Fraze (2018, Public Domain).
+
+[^CHESSDesc]: [*Computers and Humans Exploring Software Security (CHESS)*](https://www.darpa.mil/program/computers-and-humans-exploring-software-security). William Martin (Accessed 2022).
 
 [^ExampleCredit]: To give appropriate credit, this example is based on [this StackOverflow question](https://stackoverflow.com/questions/11137516/scope-vs-lifetime-of-variable) and [this part](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html) of TRPL book. In particular, we use the same ASCII diagram comments of TRPL.
 

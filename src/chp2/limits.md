@@ -266,7 +266,7 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 ---
 
-[^IFC]: [*Compositional Information Flow Monitoring for Reactive Programs*](https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415). McKenna McCall, Abhishek Bichhawat, Limin Jia. Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.
+[^IFC]: [*Compositional Information Flow Monitoring for Reactive Programs*](https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415). McKenna McCall, Abhishek Bichhawat, Limin Jia (2022). Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.
 
 [^TypeState]: Although the "type state" pattern (in general, not unique to Rust) can help a bit. And "Session types"[^SessionTypes] are particularly useful for message-passing protocols.
 

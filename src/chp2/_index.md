@@ -126,7 +126,7 @@ Due to how we'll test, the encryption library carries evidence of logical correc
 > Rust projects can enable an optional attribute: `#![forbid(unsafe_code)]`.
 > It makes any use of `unsafe` a compile-time error, within the boundary of a single binary or library.
 >
-> Building a 3rd-party `#![forbid(unsafe_code)]` dependency from source allows the compiler to automatically verify that code provided by an external entity is memory-safe.
+> Building a 3rd-party `#![forbid(unsafe_code)]` dependency from source allows the compiler to automatically verify that code procured by an external entity is memory-safe.
 > Barring a bug in the compiler itself.
 
 But real-world teams can't expect to validate every single byte of executable code in any non-trivial system.

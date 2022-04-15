@@ -235,7 +235,7 @@ With that out of the way, let's start the zero-crash course.
 
 [^MisraPub]: [*The MISRA C Coding Standard and its Role in the Development and Analysis of Safety- and Security-Critical Embedded Software*](https://arxiv.org/pdf/1809.00821.pdf). Roberto Bagnara, Abramo Bagnara, and Patricia Hill (2018).
 
-[^MisraRust]: [*MISRA-Rust*](https://github.com/PolySync/misra-rust). Shea Newton (Accessed 2022).
+[^MisraRust]: [*MISRA-Rust*](https://github.com/PolySync/misra-rust/blob/master/MISRA-Rules.md). Shea Newton (Accessed 2022).
 
 [^CargoBook]: [*The Cargo Book*](https://doc.rust-lang.org/cargo/). The Cargo Team (Accessed 2022).
 
