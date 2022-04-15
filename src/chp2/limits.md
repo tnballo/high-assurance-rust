@@ -37,7 +37,7 @@ Each is incredibly difficult to design an effective automated analysis for, stat
 
     * *Example:* A web portal uses only client-side (e.g. bypass-able!) JavaScript to validate form entries, and one of the inputs is passed to a server-side shell when a command gets executed.
 
-2. **Information Leakage:** Expose sensitive or superfluous information.
+2. **Information Leakage:** Expose sensitive[^IFC] or superfluous information.
 
     * *Example:* An authentication service logs verbosely for internal troubleshooting purposes, but the logs include users' plaintext passwords - sensitive data otherwise stored only in hashed form.
 
@@ -152,7 +152,7 @@ Or backdoors.
 >
 > While this book isn't focused on offense, we should be generally aware of evasion tactics to be effective defenders.
 > For cryptographic code, that means subverting the *algorithm* in a subtle way that adversely affects its mathematical guarantees[^DHBackdoor].
-> Not inserting an `if` statement, like the above example.
+> Not inserting an `if` statement, like the above example (which doesn't even handle the decryption case).
 
 ## Situational Context for Real-world Systems
 
@@ -266,7 +266,9 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 ---
 
-[^TypeState]: Although the "type state" pattern (in general, not unique to Rust) can help a bit. "Session types"[^SessionTypes] are particularly useful for message-passing protocols.
+[^IFC]: [*Compositional Information Flow Monitoring for Reactive Programs*](https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415). McKenna McCall, Abhishek Bichhawat, Limin Jia. Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.
+
+[^TypeState]: Although the "type state" pattern (in general, not unique to Rust) can help a bit. And "Session types"[^SessionTypes] are particularly useful for message-passing protocols.
 
 [^DirtyPipe]: [*The Dirty Pipe Vulnerability*](https://dirtypipe.cm4all.com/). Max Kellerman (2022).
 
@@ -294,7 +296,7 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 [^RiceTheorem]: [*Rice's theorem*](https://en.wikipedia.org/wiki/Rice%27s_theorem). Wikipedia (Accessed 2022).
 
-[^SessionTypes]: [*An Introduction to Session Types*](https://wen.works/posts/2020-12-17-an-introduction-to-session-types.html). Wen Kokke (2020).
+[^SessionTypes]: [*An Introduction to Session Types*](https://wen.works/2020/12/17/an-introduction-to-session-types/). Wen Kokke (2020).
 
 [^TraitFrom]: [*Trait `std::convert::From`*](https://doc.rust-lang.org/std/convert/trait.From.html). The Rust Team (Accessed 2022).
 
