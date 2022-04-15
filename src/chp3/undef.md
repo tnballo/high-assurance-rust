@@ -311,6 +311,23 @@ Or in service disruption, should the UB lead to an exploitable vulnerability.
 So let's start learning that safe subset of Rust!
 Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
+> **`gcc` hasn't surrendered the fight!**
+>
+> Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings.
+> But important advances are still being made.
+> And, given C's widespread usage, every inch of progress is high-impact.
+>
+> `gcc` 12 offers improved, experimental, static taint analysis[^GCC] (flow tracking for untrusted data).
+> In conjunction with source annotations, that's a way to systematically review potential attack entry points.
+> And an advanced feature not currently offered by `rustc`.
+>
+> This same version adds a new `-Wanalyzer-use-of-uninitialized-value` flag[^GCC].
+> Unlike the `-Wuninitialized` warning our above use of `-Wall` encapsulated, this new flag uses branch-sensitive static analysis of flows between functions.
+> That may mean less false positives *and* more actionable warnings.
+>
+> We did not test `gcc` 12's ability to detect the aforementioned "Dirty Pipe"[^DirtyPipe] kernel vulnerability.
+> But that could be a worthwhile exercise for interested readers.
+
 ---
 
 [^MISRA_TALK]: [*The Misra C Coding Standard and its Role in the Development (SAS Talk)*](https://www.youtube.com/watch?v=LCZotsYizRI). Roberto Bagnara (2018).
@@ -338,3 +355,5 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 [^ASan]: [*AddressSanitizer*](https://clang.llvm.org/docs/AddressSanitizer.html). LLVM Project (Accessed 2022).
 
 [^TSan]: [*ThreadSanitizer*](https://clang.llvm.org/docs/ThreadSanitizer.html). LLVM Project (Accessed 2022).
+
+[^GCC]: [*The state of static analysis in the GCC 12 compiler*](https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler). David Malcom (2022).
