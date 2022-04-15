@@ -185,7 +185,7 @@ We get performant programs free of memory safety vulnerabilities and emphasizing
 That's a solid starting point for high assurance software.</p>
 <blockquote>
 <p><strong>Computers and Humans Exploring Software Security (CHESS)</strong></p>
-<p>CHESS was  DARPA research program<sup class="footnote-reference"><a href="#CHESS">3</a></sup> on &quot;the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend&quot;.</p>
+<p>CHESS was  DARPA research program<sup class="footnote-reference"><a href="#CHESS">3</a></sup> on &quot;the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend&quot;<sup class="footnote-reference"><a href="#CHESSDesc">4</a></sup>.</p>
 <p>It's a response to the fact that in-depth security assessments are a <strong>difficult to scale expert process</strong>.
 Rust was not considered a solution under the CHESS program.
 It wouldn't have met all criteria.
@@ -215,7 +215,7 @@ The bugs Rust prevents early would be more expensive to fix later in an asset's 
 </ul>
 <p>Rust's borrow checker blurs the line between these two concepts.
 It has a relentless obsession with scope-based lifetime enforcement.</p>
-<p>Let's get a feel for these ideas pan out with an example <em>borrowed from other sources</em><sup class="footnote-reference"><a href="#ExampleCredit">4</a></sup> (pun intended).
+<p>Let's get a feel for these ideas pan out with an example <em>borrowed from other sources</em><sup class="footnote-reference"><a href="#ExampleCredit">5</a></sup> (pun intended).
 We'll start with a tiny snippet of C++ code:</p>
 <pre><code class="language-cpp">#include &lt;iostream&gt;
 
@@ -232,7 +232,7 @@ int main() {
     return 0;
 }
 </code></pre>
-<p>C++ doesn't have a borrow checker, so this program will compile without warnings<sup class="footnote-reference"><a href="#Gpp">5</a></sup>.
+<p>C++ doesn't have a borrow checker, so this program will compile without warnings<sup class="footnote-reference"><a href="#Gpp">6</a></sup>.
 And the print at the end of this function (the line starting with <code>std::cout</code>) triggers UB.
 In the context of a larger program, any UB may lead to a crash or an exploit.</p>
 <p>The problem is that we're attempting to use a reference (<code>p</code>) to a value (<code>x</code>) that has gone out-of-scope.
@@ -376,7 +376,7 @@ The assignment operation was still cheap, but it created a tiny duplicate instea
 <p>The convenient part is that we don't have to think about ownership and moves, we can freely use our independent duplicates like the distinct values they are.
 This makes working with primitive types, like integers and floats, much more ergonomic.
 We get a welcome break from the cognitive load of Rust's move semantics.</p>
-<p>Assignment performs a copy for any type that implements the <code>Copy</code> trait<sup class="footnote-reference"><a href="#TraitCopy">6</a></sup>.
+<p>Assignment performs a copy for any type that implements the <code>Copy</code> trait<sup class="footnote-reference"><a href="#TraitCopy">7</a></sup>.
 You can derive or implement <code>Copy</code> for your own custom types if they don't hold externally-allocated data (like a <code>Vec</code> or <code>String</code> field).</p>
 <p>Why not just have everything implement <code>Copy</code> and never worry about moves again?
 Because duplicating data increases program runtime and memory consumption.
@@ -413,7 +413,7 @@ This implies they can only have <em>shorter</em> lifetimes in which they are <em
 We can't have &quot;dangling pointers&quot;, which lead to temporal memory safety issues.
 And thus are compliant with the below MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 18.6]</strong> When an object's lifetime expires, so should the reference<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[AR, Rule 18.6]</strong> When an object's lifetime expires, so should the reference<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <p>Moreover, there's an infamous rule: &quot;shared XOR mutable&quot;.
 Rust references can be either of (but never both):</p>
@@ -503,13 +503,13 @@ Below are two types often used in the interior mutability pattern.
 Don't worry about what these type signatures mean, let's focus on the tradeoffs:</p>
 <ul>
 <li>
-<p><strong><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>'s availability risk:</strong> if a statement in our code attempts to mutably borrow a value that another statement has already mutably borrowed, the thread will <code>panic!</code> (terminate immediately)<sup class="footnote-reference"><a href="#RefCell">8</a></sup>.</p>
+<p><strong><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>'s availability risk:</strong> if a statement in our code attempts to mutably borrow a value that another statement has already mutably borrowed, the thread will <code>panic!</code> (terminate immediately)<sup class="footnote-reference"><a href="#RefCell">9</a></sup>.</p>
 <ul>
 <li>E.g. risks terminating single-threaded applications.</li>
 </ul>
 </li>
 <li>
-<p><strong><code>Arc&lt;RwLock&lt;T&gt;&gt;</code>'s potential performance impact:</strong> - if thread A requests read access to data while thread B is holding a write lock, thread A is blocked (pauses execution) until thread B releases the lock. But multiple simultaneous readers are allowed<sup class="footnote-reference"><a href="#RwLock">9</a></sup>.</p>
+<p><strong><code>Arc&lt;RwLock&lt;T&gt;&gt;</code>'s potential performance impact:</strong> - if thread A requests read access to data while thread B is holding a write lock, thread A is blocked (pauses execution) until thread B releases the lock. But multiple simultaneous readers are allowed<sup class="footnote-reference"><a href="#RwLock">10</a></sup>.</p>
 <ul>
 <li>
 <p>E.g. risks performance degradation for multi-threaded applications.</p>
@@ -530,7 +530,7 @@ Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 We can build a feature-rich library without it.
 And, because a compile-time guarantee doesn't require a fallible runtime check, our implementation will enjoy a higher level of assurance.</p>
 <p>Interior mutability is still worth learning and using, eventually.
-It's a best practice for some classes of problems, and well-covered in other resources<sup class="footnote-reference"><a href="#TRPL">10</a></sup>.
+It's a best practice for some classes of problems, and well-covered in other resources<sup class="footnote-reference"><a href="#TRPL">11</a></sup>.
 But remember - Rust is a <em>big</em> language.
 We don't have to master every feature to be productive.</p>
 <blockquote>
@@ -576,25 +576,28 @@ And it complements the robustness benefits coming from industry development tool
 <div class="footnote-definition" id="CHESS"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://www.darpa.mil/attachments/CHESS-Slides-DISTAR.pdf"><em>CHESS: Computers and Humans Exploring Software Security</em></a>. Dustin Fraze (2018, Public Domain).</p>
 </div>
-<div class="footnote-definition" id="ExampleCredit"><sup class="footnote-definition-label">4</sup>
+<div class="footnote-definition" id="CHESSDesc"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://www.darpa.mil/program/computers-and-humans-exploring-software-security"><em>Computers and Humans Exploring Software Security (CHESS)</em></a>. William Martin (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="ExampleCredit"><sup class="footnote-definition-label">5</sup>
 <p>To give appropriate credit, this example is based on <a href="https://stackoverflow.com/questions/11137516/scope-vs-lifetime-of-variable">this StackOverflow question</a> and <a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html">this part</a> of TRPL book. In particular, we use the same ASCII diagram comments of TRPL.</p>
 </div>
-<div class="footnote-definition" id="Gpp"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="Gpp"><sup class="footnote-definition-label">6</sup>
 <p>We compiled this program with command <code>g++ scope.cpp -o scope</code> using <code>g++</code> version 9.4.0 (latest shipping on Ubuntu 20.04 LTS at the time of this writing). No warning was emitted.</p>
 </div>
-<div class="footnote-definition" id="TraitCopy"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="TraitCopy"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html"><em>Trait <code>std::marker::Copy</code></em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
 </div>
-<div class="footnote-definition" id="RefCell"><sup class="footnote-definition-label">8</sup>
+<div class="footnote-definition" id="RefCell"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://doc.rust-lang.org/std/cell/index.html"><em>Module <code>std::cell</code></em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RwLock"><sup class="footnote-definition-label">9</sup>
+<div class="footnote-definition" id="RwLock"><sup class="footnote-definition-label">10</sup>
 <p><a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><em>Struct <code>std::sync::RwLock</code></em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="TRPL"><sup class="footnote-definition-label">10</sup>
+<div class="footnote-definition" id="TRPL"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://doc.rust-lang.org/book/ch15-05-interior-mutability.html"><em><code>RefCell&lt;T&gt;</code> and the Interior Mutability Pattern</em></a>. by Steve Klabnik, Carol Nichols (Accessed 2022).</p>
 </div>
 

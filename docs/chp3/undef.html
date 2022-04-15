@@ -426,6 +426,20 @@ Winners pay an incredible engineering cost - in tool licensing, processes that s
 Or in service disruption, should the UB lead to an exploitable vulnerability.</p>
 <p>So let's start learning that safe subset of Rust!
 Rust isn't perfect, but eliminating UB is certainly its strong suit.</p>
+<blockquote>
+<p><strong><code>gcc</code> hasn't surrendered the fight!</strong></p>
+<p>Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings.
+But important advances are still being made.
+And, given C's widespread usage, every inch of progress is high-impact.</p>
+<p><code>gcc</code> 12 offers improved, experimental, static taint analysis<sup class="footnote-reference"><a href="#GCC">14</a></sup> (flow tracking for untrusted data).
+In conjunction with source annotations, that's a way to systematically review potential attack entry points.
+And an advanced feature not currently offered by <code>rustc</code>.</p>
+<p>This same version adds a new <code>-Wanalyzer-use-of-uninitialized-value</code> flag<sup class="footnote-reference"><a href="#GCC">14</a></sup>.
+Unlike the <code>-Wuninitialized</code> warning our above use of <code>-Wall</code> encapsulated, this new flag uses branch-sensitive static analysis of flows between functions.
+That may mean less false positives <em>and</em> more actionable warnings.</p>
+<p>We did not test <code>gcc</code> 12's ability to detect the aforementioned &quot;Dirty Pipe&quot;<sup class="footnote-reference"><a href="#DirtyPipe">5</a></sup> kernel vulnerability.
+But that could be a worthwhile exercise for interested readers.</p>
+</blockquote>
 <hr />
 <div class="footnote-definition" id="MISRA_TALK"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://www.youtube.com/watch?v=LCZotsYizRI"><em>The Misra C Coding Standard and its Role in the Development (SAS Talk)</em></a>. Roberto Bagnara (2018).</p>
@@ -465,6 +479,9 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.</p>
 </div>
 <div class="footnote-definition" id="TSan"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://clang.llvm.org/docs/ThreadSanitizer.html"><em>ThreadSanitizer</em></a>. LLVM Project (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="GCC"><sup class="footnote-definition-label">14</sup>
+<p><a href="https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler"><em>The state of static analysis in the GCC 12 compiler</em></a>. David Malcom (2022).</p>
 </div>
 
                     </main>

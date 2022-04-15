@@ -275,7 +275,7 @@ Due to how we'll test, the encryption library carries evidence of logical correc
 <p><strong>Memory Safety Validation for 3rd Party Libraries</strong></p>
 <p>Rust projects can enable an optional attribute: <code>#![forbid(unsafe_code)]</code>.
 It makes any use of <code>unsafe</code> a compile-time error, within the boundary of a single binary or library.</p>
-<p>Building a 3rd-party <code>#![forbid(unsafe_code)]</code> dependency from source allows the compiler to automatically verify that code provided by an external entity is memory-safe.
+<p>Building a 3rd-party <code>#![forbid(unsafe_code)]</code> dependency from source allows the compiler to automatically verify that code procured by an external entity is memory-safe.
 Barring a bug in the compiler itself.</p>
 </blockquote>
 <p>But real-world teams can't expect to validate every single byte of executable code in any non-trivial system.
