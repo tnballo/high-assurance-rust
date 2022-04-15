@@ -27,4 +27,12 @@ It's curated, not exhaustive.
 
     * [https://anssi-fr.github.io/rust-guide/](https://anssi-fr.github.io/rust-guide/)
 
+* **Rust Fuzz Book** (`cargo-fuzz`)
+
+    * [https://rust-fuzz.github.io/book/](https://rust-fuzz.github.io/book/)
+
+* **The Kani Rust Verifier** (`kani`)
+
+    * [https://model-checking.github.io/kani/](https://model-checking.github.io/kani/)
+
 ---

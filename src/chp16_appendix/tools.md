@@ -4,6 +4,11 @@ This is a complete inventory of all the software assurance tools and Rust librar
 You'll get deep experience in a few, but only a taste of most.
 Each name below is a link to the tool's homepage or documentation.
 
+> **Rust's Open Formal Verification Ecosystem**
+>
+> With a spectrum of open-source options, Rust's assurance ecosystem is thriving.
+> The Rust Formal Methods Interest Group (RFMIG) maintains a list of verification tools, [available here](https://rust-formal-methods.github.io/tools.html), more comprehensive than the sample we cover in this book.
+
 ### Core Tooling
 
 **Static Assurance**
