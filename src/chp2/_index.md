@@ -159,7 +159,7 @@ As the security landscape changes, so must requirements and measures taken.
 
 ## Motivation
 
-Before pressing forward, let's take a quick setup back: why prioritize software assurance in the first place?
+Before pressing forward, let's take a quick step back: why prioritize software assurance in the first place?
 
 We'd wager another DoD statement sums it up nicely.
 Feel free to replace *"mission critical"* with "business critical" in the below description of the price of insecure software[^DoD]:
