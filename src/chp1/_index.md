@@ -154,7 +154,7 @@ That's a prerequisite to integrating new Rust components into existing codebases
 > **The Curious Case of `curl`**
 >
 > `curl`[^Curl], a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
-> Because the tool is so heavily relied upon, it's security impacts much of what we consider "the internet"[^MemSafeCurl].
+> Because the tool is so heavily relied upon, its security impacts much of what we consider "the internet"[^MemSafeCurl].
 >
 > As of 2020, `curl` has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security[^MemSafeCurl].
 > Memory safe Rust code seamlessly integrates with the existing C code.
