@@ -428,13 +428,13 @@ Or in service disruption, should the UB lead to an exploitable vulnerability.</p
 Rust isn't perfect, but eliminating UB is certainly its strong suit.</p>
 <blockquote>
 <p><strong><code>gcc</code> hasn't surrendered the fight!</strong></p>
-<p>Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings.
+<p>Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings with respect to memory safety<sup class="footnote-reference"><a href="#CompilerAssurance">14</a></sup>.
 But important advances are still being made.
 And, given C's widespread usage, every inch of progress is high-impact.</p>
-<p><code>gcc</code> 12 offers improved, experimental, static taint analysis<sup class="footnote-reference"><a href="#GCC">14</a></sup> (flow tracking for untrusted data).
+<p><code>gcc</code> 12 offers improved, experimental, static taint analysis<sup class="footnote-reference"><a href="#GCC">15</a></sup> (flow tracking for untrusted data).
 In conjunction with source annotations, that's a way to systematically review potential attack entry points.
 And an advanced feature not currently offered by <code>rustc</code>.</p>
-<p>This same version adds a new <code>-Wanalyzer-use-of-uninitialized-value</code> flag<sup class="footnote-reference"><a href="#GCC">14</a></sup>.
+<p>This same version adds a new <code>-Wanalyzer-use-of-uninitialized-value</code> flag<sup class="footnote-reference"><a href="#GCC">15</a></sup>.
 Unlike the <code>-Wuninitialized</code> warning our above use of <code>-Wall</code> encapsulated, this new flag uses branch-sensitive static analysis of flows between functions.
 That may mean less false positives <em>and</em> more actionable warnings.</p>
 <p>We did not test <code>gcc</code> 12's ability to detect the aforementioned &quot;Dirty Pipe&quot;<sup class="footnote-reference"><a href="#DirtyPipe">5</a></sup> kernel vulnerability.
@@ -480,8 +480,14 @@ But that could be a worthwhile exercise for interested readers.</p>
 <div class="footnote-definition" id="TSan"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://clang.llvm.org/docs/ThreadSanitizer.html"><em>ThreadSanitizer</em></a>. LLVM Project (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="GCC"><sup class="footnote-definition-label">14</sup>
+<div class="footnote-definition" id="CompilerAssurance"><sup class="footnote-definition-label">14</sup>
+<p>On the other hand, C compilers are mature and well-understood from a safety qualification perspective. And further ahead in formal verification. As an example, the CompCert<sup class="footnote-reference"><a href="#CompCert">16</a></sup> C compiler proves that source code semantics match machine code semantics. No current Rust compiler can claim that level or kind of assurance.</p>
+</div>
+<div class="footnote-definition" id="GCC"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler"><em>The state of static analysis in the GCC 12 compiler</em></a>. David Malcom (2022).</p>
+</div>
+<div class="footnote-definition" id="CompCert"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://compcert.org/"><em>CompCert</em></a>. Xavier Leroy (Accessed 2022).</p>
 </div>
 
                     </main>

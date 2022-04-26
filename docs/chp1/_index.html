@@ -279,7 +279,7 @@ That's a prerequisite to integrating new Rust components into existing codebases
 <blockquote>
 <p><strong>The Curious Case of <code>curl</code></strong></p>
 <p><code>curl</code><sup class="footnote-reference"><a href="#Curl">22</a></sup>, a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
-Because the tool is so heavily relied upon, it's security impacts much of what we consider &quot;the internet&quot;<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.</p>
+Because the tool is so heavily relied upon, its security impacts much of what we consider &quot;the internet&quot;<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.</p>
 <p>As of 2020, <code>curl</code> has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.
 Memory safe Rust code seamlessly integrates with the existing C code.
 It's all one compiled binary, there's no performance penalty for cross-language interoperability.</p>
