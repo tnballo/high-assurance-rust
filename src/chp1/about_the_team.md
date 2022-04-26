@@ -32,6 +32,7 @@ Listed alphabetically:
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
 * [rrevi](https://github.com/rrevi)
+* [samestep](https://github.com/samestep)
 
 <br>
 
