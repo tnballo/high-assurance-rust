@@ -313,7 +313,7 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 > **`gcc` hasn't surrendered the fight!**
 >
-> Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings.
+> Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings with respect to memory safety[^CompilerAssurance].
 > But important advances are still being made.
 > And, given C's widespread usage, every inch of progress is high-impact.
 >
@@ -356,4 +356,8 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 [^TSan]: [*ThreadSanitizer*](https://clang.llvm.org/docs/ThreadSanitizer.html). LLVM Project (Accessed 2022).
 
+[^CompilerAssurance]: On the other hand, C compilers are mature and well-understood from a safety qualification perspective. And further ahead in formal verification. As an example, the CompCert[^CompCert] C compiler proves that source code semantics match machine code semantics. No current Rust compiler can claim that level or kind of assurance.
+
 [^GCC]: [*The state of static analysis in the GCC 12 compiler*](https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler). David Malcom (2022).
+
+[^CompCert]: [*CompCert*](https://compcert.org/). Xavier Leroy (Accessed 2022).
