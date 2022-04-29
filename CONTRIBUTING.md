@@ -37,7 +37,7 @@ If you'd like to suggest a content revision, have any questions about contributi
 
 ## Files to Change in a PR
 
-Please only modify `.md` files or `.rs` files.
+Please only modify `.md`, `.rs`, or `.svg` files.
 We'll generate the book using a local copy of the [`mdbook`](https://rust-lang.github.io/mdBook/) binary.
 This eliminates the need to review large diffs which may include generated JavaScript code.
 
