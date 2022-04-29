@@ -18,6 +18,10 @@ Your efforts make the book better for all other readers and are greatly apprecia
 
     * Please open a [Pull Request (PR)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) with the fix or update.
 
+* **Formatting Fixes:** Almost every diagram in this book was created using [diagrams.net](https://github.com/jgraph/drawio) and there may be SVG rendering issues on mobile, with different browsers or font settings, etc. Text content could also be subject to device-specific formatting issues.
+
+    * Please open a [Pull Request (PR)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) with the fix or update. If it fixes your formatting issue and still works on our version of Firefox on Linux desktop, we'll accept it!
+
 ## Contributions We Cannot Accept
 
 Anything outside of the above, including: rewording for style or clarity, addition of new content, removal of existing content, etc.
@@ -25,9 +29,11 @@ Anything outside of the above, including: rewording for style or clarity, additi
 These kinds of changes tend to be subjective and require back-and-forth collaboration to reach consensus.
 We'd like to maintain a consistent voice.
 
-If you'd like to suggest a significant revision or have any questions about contributing not answered by this guide, please reach out via email:
+If you'd like to suggest a content revision, have any questions about contributing not answered by this guide, or do not wish to use GitHub for any reason, please reach out via email:
 
 <a href="mailto:contact@highassurance.rs">**contact@highassurance.rs**</a>
+
+**These contributing guidelines are not set in stone, we're very much "learning as we go".** If there's a change to the contribution model that'd make this project better in the long-term, please feel free to suggest it via email or GitHub issue!
 
 ## Files to Change in a PR
 
