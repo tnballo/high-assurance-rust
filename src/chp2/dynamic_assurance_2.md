@@ -11,7 +11,7 @@ Like any stream cipher, RC4 needs to generate a *keystream* and bitwise XOR it w
 Keystream generation is implemented using a buffer to represent *cipher state*.
 Mechanically, RC4's cipher state is a 256 byte array, named `s`, and indexed with two variables, `i` and `j`.
 Our first step is creating a structure to store this ever-changing state and the current values of its indexes.
-We'll want to add the following at the top of `crypto_tool/rc4/lib.rs`:
+We'll want to add the following at the top of `crypto_tool/rc4/src/lib.rs`:
 
 ```rust,ignore
 {{#include ../../code_snippets/chp2/crypto_tool/rc4/src/lib.rs:Rc4}}
