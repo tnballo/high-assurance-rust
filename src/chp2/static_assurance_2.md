@@ -197,7 +197,7 @@ If Rust grants C-like control over memory, shouldn't the compiler's internal ana
 Perhaps surprisingly, no.
 Three related factors are at play:
 
-* **Type-system Support:** Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system, which implements a flavor of "affine types"[^AffineTypes] and doesn't permit arbitrary type casting.
+* **Type-system Support:** Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. Which implements a flavor of "affine types"[^AffineTypes] and doesn't permit arbitrary type casting.
 
     * Performing static analysis on a weakly-typed language (like C) doesn't have comparable co-design advantages. The Rust compiler can prove properties no C-family compiler or analysis tool can prove, by design.
 
