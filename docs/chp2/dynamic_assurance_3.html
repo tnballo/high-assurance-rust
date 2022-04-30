@@ -149,7 +149,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dynamic-assurance-3-of-3"><a class="header" href="#dynamic-assurance-3-of-3">Dynamic Assurance (3 of 3)</a></h1>
-<p>You may have noticed a little module (scope of the <code>mod</code> keyword) hanging out at the bottom of <code>crypto_tool/rc4/lib.rs</code>:</p>
+<p>You may have noticed a little module (scope of the <code>mod</code> keyword) hanging out at the bottom of <code>crypto_tool/rc4/src/lib.rs</code>:</p>
 <pre><code class="language-rust noplaypen">#[cfg(test)]
 mod tests {
     #[test]
@@ -276,7 +276,7 @@ DEC 4080 HEX  ff0:  06 83 26 a2  11 84 16 d2   1f 9d 04 b2  cd 1c a0 50
 DEC 4096 HEX 1000:  ff 25 b5 89  95 99 67 07   e5 1f bd f0  8b 34 d8 75
 </code></pre>
 <p>We're given a key (line 2) and 18 samples from the keystream a valid RC4 implementation should produce (the subsequent rows).
-Each sample is 16 byte long and preceded by its offset into the keystream (given in both decimal and hex).</p>
+Each sample is 16 bytes long and preceded by its offset into the keystream (given in both decimal and hex).</p>
 <p>Translating every sample from every table into a test suite would be important for a real library, but tedious for our example.
 So we'll use just the first 4 rows of the table above:</p>
 <pre><code class="language-rust ignore">#[cfg(test)]
@@ -364,7 +364,7 @@ Your RC4 library is:</p>
 <p>A study of C and C++ cryptographic libraries found that only 27.2% of reported vulnerabilities were caused by flaws related to the cryptography itself, but 37.2% were memory safety issues<sup class="footnote-reference"><a href="#CryptoStudy">3</a></sup>.</p>
 <p>Because both performance and security are core requirements, cryptography is a prime use case for Rust (pun intended).
 The language has a thriving cryptographic ecosystem.
-<code>rustls</code><sup class="footnote-reference"><a href="#RusTLS">4</a></sup>, pure-Rust TLS library, is one notable project.
+<code>rustls</code><sup class="footnote-reference"><a href="#RusTLS">4</a></sup>, a pure-Rust TLS library, is one notable project.
 In 2019, it outperformed OpenSSL by significant margins<sup class="footnote-reference"><a href="#FastRust">5</a></sup>.</p>
 </blockquote>
 <hr />

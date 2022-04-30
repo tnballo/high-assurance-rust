@@ -1835,7 +1835,7 @@ A classic over-approximation.</p>
 <p><code>*a += *b;</code> is shorthand for <code>*a = *a + *b;</code>, a semicolon-terminated statement.</p>
 </li>
 <li>
-<p>Here, unlike in the signature, the <code>*</code> operator means &quot;dereference the pointer&quot;, e.g. read the the value of it's target.</p>
+<p>Here, unlike in the signature, the <code>*</code> operator means &quot;dereference the pointer&quot;, e.g. read the value of its target.</p>
 </li>
 <li>
 <p><code>*</code> takes precedence over <code>+</code>, meaning the read happens first. Precedence mistakes can be tricky with pointer arithmetic!</p>
@@ -2023,7 +2023,7 @@ We'll discuss the difference between <em>unsafety</em> and <em>unsoundness</em> 
     *a += *b;
 }
 </code></pre>
-<p>We broke down the C version down piece-by-piece, so you already know what this function does.
+<p>We broke down the C version piece-by-piece, so you already know what this function does.
 Take a second to review the above.
 Can you make some guesses about the syntax?</p>
 <p>The body of the function is exactly the same.
@@ -2150,7 +2150,7 @@ If Rust grants C-like control over memory, shouldn't the compiler's internal ana
 Three related factors are at play:</p>
 <ul>
 <li>
-<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. Which implements a flavor of &quot;affine types&quot;<sup class="footnote-reference"><a href="#AffineTypes">8</a></sup> and doesn't permit arbitrary type casting.</p>
+<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. This type system implements a flavor of &quot;affine types&quot;<sup class="footnote-reference"><a href="#AffineTypes">8</a></sup> and doesn't permit arbitrary type casting.</p>
 <ul>
 <li>Performing static analysis on a weakly-typed language (like C) doesn't have comparable co-design advantages. The Rust compiler can prove properties no C-family compiler or analysis tool can prove, by design.</li>
 </ul>
@@ -2438,7 +2438,7 @@ You don't need to fully understand the minutiae to proceed.</p>
 <p>Keystream generation is implemented using a buffer to represent <em>cipher state</em>.
 Mechanically, RC4's cipher state is a 256 byte array, named <code>s</code>, and indexed with two variables, <code>i</code> and <code>j</code>.
 Our first step is creating a structure to store this ever-changing state and the current values of its indexes.
-We'll want to add the following at the top of <code>crypto_tool/rc4/lib.rs</code>:</p>
+We'll want to add the following at the top of <code>crypto_tool/rc4/src/lib.rs</code>:</p>
 <pre><code class="language-rust ignore">#![cfg_attr(not(test), no_std)]
 #![forbid(unsafe_code)]
 
@@ -2777,7 +2777,7 @@ And the book is supplemented by free video lectures<sup class="footnote-referenc
 <p><a href="https://doc.rust-lang.org/reference/items/associated-items.html"><em>The Rust Reference: Associated Items</em></a>. The Rust Team (2021).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dynamic-assurance-3-of-3"><a class="header" href="#dynamic-assurance-3-of-3">Dynamic Assurance (3 of 3)</a></h1>
-<p>You may have noticed a little module (scope of the <code>mod</code> keyword) hanging out at the bottom of <code>crypto_tool/rc4/lib.rs</code>:</p>
+<p>You may have noticed a little module (scope of the <code>mod</code> keyword) hanging out at the bottom of <code>crypto_tool/rc4/src/lib.rs</code>:</p>
 <pre><code class="language-rust noplaypen">#[cfg(test)]
 mod tests {
     #[test]
@@ -2904,7 +2904,7 @@ DEC 4080 HEX  ff0:  06 83 26 a2  11 84 16 d2   1f 9d 04 b2  cd 1c a0 50
 DEC 4096 HEX 1000:  ff 25 b5 89  95 99 67 07   e5 1f bd f0  8b 34 d8 75
 </code></pre>
 <p>We're given a key (line 2) and 18 samples from the keystream a valid RC4 implementation should produce (the subsequent rows).
-Each sample is 16 byte long and preceded by its offset into the keystream (given in both decimal and hex).</p>
+Each sample is 16 bytes long and preceded by its offset into the keystream (given in both decimal and hex).</p>
 <p>Translating every sample from every table into a test suite would be important for a real library, but tedious for our example.
 So we'll use just the first 4 rows of the table above:</p>
 <pre><code class="language-rust ignore">#[cfg(test)]
@@ -2992,7 +2992,7 @@ Your RC4 library is:</p>
 <p>A study of C and C++ cryptographic libraries found that only 27.2% of reported vulnerabilities were caused by flaws related to the cryptography itself, but 37.2% were memory safety issues<sup class="footnote-reference"><a href="#CryptoStudy">3</a></sup>.</p>
 <p>Because both performance and security are core requirements, cryptography is a prime use case for Rust (pun intended).
 The language has a thriving cryptographic ecosystem.
-<code>rustls</code><sup class="footnote-reference"><a href="#RusTLS">4</a></sup>, pure-Rust TLS library, is one notable project.
+<code>rustls</code><sup class="footnote-reference"><a href="#RusTLS">4</a></sup>, a pure-Rust TLS library, is one notable project.
 In 2019, it outperformed OpenSSL by significant margins<sup class="footnote-reference"><a href="#FastRust">5</a></sup>.</p>
 </blockquote>
 <hr />
