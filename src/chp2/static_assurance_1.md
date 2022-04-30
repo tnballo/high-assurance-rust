@@ -134,7 +134,7 @@ Since this might be your first glimpse of C, let's take a minute to break down w
 
     * `*a += *b;` is shorthand for `*a = *a + *b;`, a semicolon-terminated statement.
 
-    * Here, unlike in the signature, the `*` operator means "dereference the pointer", e.g. read the the value of it's target.
+    * Here, unlike in the signature, the `*` operator means "dereference the pointer", e.g. read the value of its target.
 
     * `*` takes precedence over `+`, meaning the read happens first. Precedence mistakes can be tricky with pointer arithmetic!
 

@@ -48,7 +48,7 @@ fn incr(a: &mut isize, b: &isize) {
 }
 ```
 
-We broke down the C version down piece-by-piece, so you already know what this function does.
+We broke down the C version piece-by-piece, so you already know what this function does.
 Take a second to review the above.
 Can you make some guesses about the syntax?
 
