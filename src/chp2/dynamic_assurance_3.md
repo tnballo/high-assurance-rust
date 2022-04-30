@@ -1,6 +1,6 @@
 # Dynamic Assurance (3 of 3)
 
-You may have noticed a little module (scope of the `mod` keyword) hanging out at the bottom of `crypto_tool/rc4/lib.rs`:
+You may have noticed a little module (scope of the `mod` keyword) hanging out at the bottom of `crypto_tool/rc4/src/lib.rs`:
 
 ```rust,noplaypen
 #[cfg(test)]
