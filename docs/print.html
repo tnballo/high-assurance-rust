@@ -3095,7 +3095,7 @@ Sometimes casting errors introduce <em>type confusion</em> vulnerabilities, wher
 <blockquote>
 <p><strong>How does type confusion happen in C++?</strong></p>
 <p>Although C++ is statically typed, it remains a type-unsafe language.
-On the extreme end, it's weak typing means programmers can cast between arbitrary types that have no logical relationship.</p>
+On the extreme end, its weak typing means programmers can cast between arbitrary types that have no logical relationship.</p>
 <p>More commonly, programmers cast between types within a given hierarchy of objects.
 This makes logical sense in the context, but introduces potential for subtle errors.
 Despite a static check passing, we can experience serious type issues at runtime:</p>
@@ -3287,7 +3287,7 @@ Making that determination is provably impossible (Rice's Theorem<sup class="foot
 <p>Systems we <em>consider</em> secure are typically those that have stood the test of time.
 Like well-studied protocols or heavily audited open-source projects.
 But a new vulnerability is always a possibility.</p>
-<p>Remember: this is <em>no absolute</em> security.
+<p>Remember: there is <em>no absolute</em> security.
 Only levels of <em>assurance</em>.</p>
 <p>With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.</p>
 <hr />
@@ -3463,7 +3463,7 @@ fn main() {
 </code></pre>
 <ul>
 <li>
-<p>The <code>Args</code> has is a <code>struct</code> with 2 fields:</p>
+<p><code>Args</code> is a <code>struct</code> with 2 fields:</p>
 <ul>
 <li>
 <p><code>file</code>, a string that will contain the path/name of the file to be en/decrypted.</p>
