@@ -58,7 +58,7 @@ Sometimes casting errors introduce *type confusion* vulnerabilities, where memor
 > **How does type confusion happen in C++?**
 >
 > Although C++ is statically typed, it remains a type-unsafe language.
-> On the extreme end, it's weak typing means programmers can cast between arbitrary types that have no logical relationship.
+> On the extreme end, its weak typing means programmers can cast between arbitrary types that have no logical relationship.
 >
 > More commonly, programmers cast between types within a given hierarchy of objects.
 > This makes logical sense in the context, but introduces potential for subtle errors.
@@ -259,7 +259,7 @@ Systems we *consider* secure are typically those that have stood the test of tim
 Like well-studied protocols or heavily audited open-source projects.
 But a new vulnerability is always a possibility.
 
-Remember: this is *no absolute* security.
+Remember: there is *no absolute* security.
 Only levels of *assurance*.
 
 With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.
