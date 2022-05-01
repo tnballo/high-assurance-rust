@@ -40,7 +40,7 @@ fn main() -> std::io::Result<()> {
         .collect::<Vec<u8>>();
 
     // Validation note:
-    // `Args` enforces (5 <= key_bytes.len() && key_bytes.len() <= 256)
+    // `Args` enforces (5 >= key_bytes.len() && key_bytes.len() <= 256)
 
     // Open the file for both reading and writing
     let mut file = File::options().read(true).write(true).open(&args.file)?;
