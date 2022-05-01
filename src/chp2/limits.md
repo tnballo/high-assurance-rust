@@ -58,7 +58,7 @@ Sometimes casting errors introduce *type confusion* vulnerabilities, where memor
 > **How does type confusion happen in C++?**
 >
 > Although C++ is statically typed, it remains a type-unsafe language.
-> On the extreme end, it's weak typing means programmers can cast between arbitrary types that have no logical relationship.
+> On the extreme end, its weak typing means programmers can cast between arbitrary types that have no logical relationship.
 >
 > More commonly, programmers cast between types within a given hierarchy of objects.
 > This makes logical sense in the context, but introduces potential for subtle errors.
