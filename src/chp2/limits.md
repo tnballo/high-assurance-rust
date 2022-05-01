@@ -259,7 +259,7 @@ Systems we *consider* secure are typically those that have stood the test of tim
 Like well-studied protocols or heavily audited open-source projects.
 But a new vulnerability is always a possibility.
 
-Remember: this is *no absolute* security.
+Remember: there is *no absolute* security.
 Only levels of *assurance*.
 
 With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.
