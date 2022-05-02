@@ -33,7 +33,7 @@ impl Rc4 {
         // Process for 256 iterations, get starting cipher state permutation
         let mut j: u8 = 0;
         for i in 0..256 {
-            // j = (j + s[i] + key[i % key_len]) % 256
+            // j = j + s[i] + key[i % key_len]
             j = j.wrapping_add(rc4.s[i]).wrapping_add(key[i % key.len()]);
 
             // Swap values of s[i] and s[j]
