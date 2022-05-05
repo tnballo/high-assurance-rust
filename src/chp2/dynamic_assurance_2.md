@@ -257,7 +257,7 @@ Let's put this code through its paces!
 
 [^AssocMeth]: Technically, per the Rust reference[^RustRef], "Associated functions are functions associated with a type" and "Associated functions whose first parameter is named `self` are called methods...". But that's pretty in the weeds. We treat *associated functions* and *methods* as distinct in this section for clarity.
 
-[^SliceEff]: Slices references are "fat pointers" (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall "pass-by-reference", from when we first talked about pointers).
+[^SliceEff]: Slice references are "fat pointers" (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall "pass-by-reference", from when we first talked about pointers).
 
 [^SliceFlex]: Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be "viewed" through a slice. So you'll encounter them often in idiomatic Rust code.
 
