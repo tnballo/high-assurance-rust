@@ -194,7 +194,7 @@ Encryption algorithms address only one [core] part of an overall threat model.
 ## The Big Picture: Threat Modeling
 
 We've alluded to a "big picture" perspective, system design context beyond individual blocks of code, several times in this section.
-High-level security design review involves a process called **threat modeling**[^OSWAPThreat].
+High-level security design review involves a process called **threat modeling**[^OWASPThreat].
 Generally, the workflow is something like this:
 
 1. Identify assets (data or resources of value) within a system.
@@ -229,7 +229,7 @@ It aims to be applicable to a broad range of products, systems, and services.
 Hence the focus on generally desirable properties.
 
 More granular threat enumeration frameworks can aid realistic threat model development.
-**MITRE ATT&CK** is a modern example, it self-describes as[^MIREAttack]:
+**MITRE ATT&CK** is a modern example, it self-describes as[^MITREAttack]:
 
 > ...a globally-accessible knowledge base of adversary tactics and techniques based on real-world observations. The ATT&CK knowledge base is used as a foundation for the development of specific threat models and methodologies in the private sector, in government, and in the cybersecurity product and service community.
 
@@ -264,6 +264,20 @@ Only levels of *assurance*.
 
 With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.
 
+> **Supply Chain Attacks are a Serious Problem**
+>
+> Software supply chain attacks aren't relegated exclusively to targeted espionage, like the aforementioned SolarWinds case.
+> Any software project that relies on 3rd party dependencies should be wary of backdoored or otherwise malicious packages as a potential threat vector.
+> Consider two recent examples:
+>
+> * In April of 2022, authors of the popular  `npm` package `node-ipc` intentionally inserted malware to protest Russia's invasion of Ukraine. The malicious code attempted to identify hosts in Russia and Belarus based on IP geo-location, and replace the contents of all on-disk files if location matches[^NodeIPCMalware] (data loss).
+>
+> * In May of 2022, a malicious Rust crate, named `rustdecimal`, was reported. The name is a "typosquatting attack" targeting users of the benign `rust_decimal` crate. On call to a specific function, the malicious crate would download an executable payload if a CI-related environment variable was set. The payload's logic is unknown, the download URL was inactive by the time the issue was discovered[^RustdecimalMalware].
+>
+> Tools like `cargo-crev`[^CargoCrev] and `cargo-supply-chain`[^CargoSupplyChain] can aid evaluation of a Rust project's dependencies and their authorship.
+> But no technical control will prevent all supply chain attacks.
+> Mature organizations may mitigate risk by adopting processes and policies for dependency vetting and maintenance.
+
 ---
 
 [^IFC]: [*Compositional Information Flow Monitoring for Reactive Programs*](https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415). McKenna McCall, Abhishek Bichhawat, Limin Jia (2022). Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.
@@ -274,19 +288,17 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 [^HexType]: [*HexType: Efficient Detection of Type Confusion Errors for C++*](https://dl.acm.org/doi/pdf/10.1145/3133956.3134062). Yuseok Jeon, Priyam Biswas, Scott Carr, Byoungyoung Lee, and Mathias Payer (2017).
 
-[^RustTypes]: In Rust, certain primitive types can be converted with the `as` keyword. Integers of different sizes are one example. Conversions between user-defined types use "traits" (interfaces for shared behavior we'll cover in chapter 3). Specifically `From`[^TraitFrom] and `Into`[^TraitInto]. These safely cover the majority of type casting use cases. If a Rust programmer *really* needs to arbitrarily re-interpret a sequence of bits, the `unsafe` function `std::mem::transmute`[^FuncTrasmut] is a last resort.
-
-[^FuncTransmut]: [*Function `std::mem::transmute`*](https://doc.rust-lang.org/std/mem/fn.transmute.html). The Rust Team (Accessed 2022).
+[^RustTypes]: In Rust, certain primitive types can be converted with the `as` keyword. Integers of different sizes are one example. Conversions between user-defined types use "traits" (interfaces for shared behavior we'll cover in chapter 3). Specifically `From`[^TraitFrom] and `Into`[^TraitInto]. These safely cover the majority of type casting use cases. If a Rust programmer *really* needs to arbitrarily re-interpret a sequence of bits, the `unsafe` function `std::mem::transmute`[^FuncTransmut] is a last resort.
 
 [^CWETop25]: [*CWE Top 25 Most Dangerous Software Weaknesses*](https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html). The MITRE Corporation (2021).
 
 [^OWASP]: [*Top 10 Web Application Security Risks*](https://owasp.org/www-project-top-ten/). OWASP (2021).
 
-[^TestVec]: [*Test Vectors for the Stream Cipher RC4*](https://datatracker.ietf.org/doc/html/rfc6229). Internet Engineering Task Force (2011).
-
 [^Covid19]: [*Our Pandemic Year—A COVID-19 Timeline*](https://www.yalemedicine.org/news/covid-timeline). Kathy Katella (2021).
 
 [^SolarWinds]: [*SolarWinds hack explained: Everything you need to know*](https://whatis.techtarget.com/feature/SolarWinds-hack-explained-Everything-you-need-to-know). Saheed Oladimeji, Sean Michael Kerner (2021).
+
+[^TestVec]: [*Test Vectors for the Stream Cipher RC4*](https://datatracker.ietf.org/doc/html/rfc6229). Internet Engineering Task Force (2011).
 
 [^DHBackdoor]: [*How to Backdoor Diffie-Hellman*](https://eprint.iacr.org/2016/644.pdf). David Wong (2016).
 
@@ -294,7 +306,21 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 [^AEADList]: [*RustCrypto: Authenticated Encryption with Associated Data (AEAD) Algorithms*](https://github.com/RustCrypto/AEADs). RustCrypto organization (Accessed 2022).
 
+[^OWASPThreat]: [Threat Modeling Cheat Sheet](https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/). OWASP (2021).
+
+[^SEIThreat]: [Threat Modeling: 12 Available Methods ](https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/). CMU SEI (2018).
+
+[^MITREAttack]: [MITRE ATT&CK](https://attack.mitre.org/). MITRE (Accessed 2022).
+
 [^RiceTheorem]: [*Rice's theorem*](https://en.wikipedia.org/wiki/Rice%27s_theorem). Wikipedia (Accessed 2022).
+
+[^NodeIPCMalware]: [*Embedded Malicious Code in `node-ipc`*](https://github.com/advisories/GHSA-97m3-w2cp-4xx6). GitHub (2022).
+
+[^RustdecimalMalware]: [*Security advisory: malicious crate rustdecimal*](https://blog.rust-lang.org/2022/05/10/malicious-crate-rustdecimal.html). The Rust Team (2022).
+
+[^CargoCrev]: [*`cargo-crev`*](https://github.com/crev-dev/cargo-crev). `cargo-crev` Contributors (Accessed 2022).
+
+[^CargoSupplyChain]: [*`cargo-supply-chain`*](https://github.com/rust-secure-code/cargo-supply-chain). Rust Secure Code Working Group (Accessed 2022).
 
 [^SessionTypes]: [*An Introduction to Session Types*](https://wen.works/2020/12/17/an-introduction-to-session-types/). Wen Kokke (2020).
 
@@ -302,8 +328,4 @@ With all of this context out of the way, let's return to our RC4 library and lev
 
 [^TraitInto]: [*Trait `std::convert::Into`*](https://doc.rust-lang.org/std/convert/trait.Into.html). The Rust Team (Accessed 2022).
 
-[^OWASPThreat]: [Threat Modeling Cheat Sheet](https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/). OWASP (2021).
-
-[^SEIThreat]: [Threat Modeling: 12 Available Methods ](https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/). CMU SEI (2018).
-
-[^MITREAttack]: [MITRE ATT&CK](https://attack.mitre.org/). MITRE (Accessed 2022).
+[^FuncTransmut]: [*Function `std::mem::transmute`*](https://doc.rust-lang.org/std/mem/fn.transmute.html). The Rust Team (Accessed 2022).

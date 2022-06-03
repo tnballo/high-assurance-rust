@@ -251,7 +251,7 @@ Let's get a taste for how Rust handles the pointer problem.
 > Here's the kicker: a recent peer-reviewed human study[^VSA] found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find "information leakage" vulnerabilities).
 > Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts[^VSA] for certain problem types.
 >
-> Even an approximate static analysis can, in certain contexts, be demonstrably useful.
+> Approximate static analyses can, in many contexts, be demonstrably useful.
 
 ---
 
