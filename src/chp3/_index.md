@@ -66,7 +66,7 @@ On wisdom tested in the most unforgiving of production environments.
 The Motor Industry Software Reliability Association (MISRA) C[^MISRA] guidelines are a set of C software development rules originally created for, as the acronym implies, the automotive industry.
 
 Unlike a *style* guide, MISRA C outlines *best practices* for developers of safety-critical systems.
-It's intended to maximize reliability, security, and maintainability.
+It's intended to maximize reliability, security, and maintainability[^AntiMISRA].
 For systems in which a bug can potentially endanger lives.
 
 Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C[^DO-178C] and ISO-26262[^ISO-26262]).
@@ -220,6 +220,8 @@ With that out of the way, let's start the zero-crash course.
 [^BuildJosh]: [*Josh Triplett on Building the Build System of his Dreams*](https://anchor.fm/building-with-rust/episodes/Josh-Triplett-on-Building-the-Build-System-of-his-Dreams-e1dt81c). Sean Chen (2022).
 
 [^MISRA]: [*MISRA C*](https://www.misra.org.uk/misra-c/). MISRA (Accessed 2022).
+
+[^AntiMISRA]: [*Assessing the Value of Coding Standards: An Empirical Study*](https://ieeexplore.ieee.org/abstract/document/4658076). Cathal Boogerd, Leon Moonen (2008). This paper, which evaluated the MISRA C 2004 standard, makes the claim that only 12 of 72 MISRA rules were significantly effective for fault detection and that adherence to certain rules might, counter intuitively, actually *increase* fault rate. These conclusions are controversial, MISRA C and similar coding standards continue to be best practices in several industries. But such claims are worth noting for completeness. We encourage readers to maintain a mindset of healthy skepticism!
 
 [^DO-178C]: [*DO-178C*](https://en.wikipedia.org/wiki/DO-178C). Wikipedia (Accessed 2022).
 
