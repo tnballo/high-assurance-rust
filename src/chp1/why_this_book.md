@@ -76,6 +76,40 @@ At these always-present low levels, memory-unsafe **systems languages** (C and C
   </figure>
 </p>
 
+## Which languages offer safer systems programming?
+
+Programming languages are ultimately just tools.
+Language choice may invoke passionate debate, but at the end of the day it's important to choose the best tool for the job.
+
+We can't be objective if we aren't aware of available options.
+Before starting our Rust journey, we should briefly mention two alternatives for safer systems programming: Zig and Ada.
+Like Rust, both are natively compiled, don't use garbage collection, and have safety advantages over the C-family.
+All three languages are similarly suitable for modern low-level programming.
+
+In lieu of an in-depth comparison, let's contrast the three options in terms of maturity for development of mission and safety critical systems.
+Assume that *mission-critical* systems run in production, where a security or reliability failure is expensive to a business.
+And that *safety-critical* systems drive physical phenomena, so a security or reliability failure could endanger human life, property, or the environment.
+
+<br>
+<p align="center">
+  <img width="70%" src="sys_langs.svg">
+  <figure>
+  <figcaption><center>Safer systems programming languages contrasted by {safety,mission}-critical maturity.</center></figcaption><br>
+  </figure>
+</p>
+
+* **Zig** (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users[^UberZig], any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety[^ZigSafety]. And its own unique merits[^WhyZig].
+
+* **Rust** (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production uses[^ProdUsers]. Early efforts to bring Rust into the safety-critical domain include a collaboration between Ferrocene and AdaCore[^Ferrda], an AUTOSAR Working Group[^AUTOSAR], and ongoing R&D in formal verification tooling[^RFMIG]. At the time of this writing, Rust is not yet qualified for use in safety-critical environments.
+
+* **Ada** (High Maturity) - Ada's 1.0 specification was released in 1996. Its commercially-supported runtime libraries and compiler are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)[^AdaCert]. The SPARK subset of Ada offers mature deductive verification capabilities[^SPARK]. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system[^SPARKHeap].
+
+Learning a programming language, whichever it may be, is a great way to grow as a developer.
+Newer languages may find their own niches and develop their own innovations over time.
+More established languages may offer richer tooling and library ecosystems.
+
+We believe that Rust is an exceptional tool for many projects today, and will be a viable choice for many more projects tomorrow.
+
 ## Why build a data structure library?
 
 Maybe a white-board coding interview left a bad taste in your mouth.
@@ -166,8 +200,29 @@ It may not *be easy* - but it can *be*.
 
 [^Thread]: [*Processes and Threads*](https://wiki.osdev.org/Processes_and_Threads#Threads). OSDev Wiki (2021).
 
+[^UberZig]: [*How Uber Uses Zig*](https://jakstys.lt/2022/how-uber-uses-zig/). Motiejus Jakstys (2022).
+
+[^ZigSafety]: [*How safe is Zig?*](https://www.scattered-thoughts.net/writing/how-safe-is-zig/). Jamie Brandon (2021).
+
+[^WhyZig]: [*Why Zig When There is Already C++, D, and Rust?*](https://ziglang.org/learn/why_zig_rust_d_cpp/). The Zig Team (Accessed 2022).
+
+[^ProdUsers]: [*Production Users*](https://www.rust-lang.org/production/users). The Rust Team (Accessed 2022).
+
+[^Ferrda]: [*Ferrous Systems and AdaCore to join forces on Ferrocene*](https://ferrous-systems.com/blog/ferrous-systems-adacore-joining-forces/). Ferrous Systems (2022).
+
+[^AUTOSAR]: [*AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context*](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf). AUTOSAR (2022).
+
+[^RFMIG]: [*Rust verification tools*](https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021). Rust Formal Methods Interest Group (2021).
+
+[^AdaCert]: [*Certification Evidence for the Ada Run-Time Libraries and Compiler*](https://www.adacore.com/certification-qualification). AdaCore (Accessed 2022).
+
+[^SPARK]: [*About SPARK*](https://www.adacore.com/about-spark). AdaCore (Accessed 2022).
+
+[^SPARKHeap]: [*Safe Dynamic Memory Management in Ada and SPARK*](https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf). Maroua Maalej, Tucker Taft, Yannick Moy (2021).
+
+
 [^PyList]: [*dictobject.c*](https://github.com/python/cpython/blob/master/Objects/dictobject.c). CPython Interpreter (2021).
 
 [^TooManyLink]: [*Learn Rust With Entirely Too Many Linked Lists*](https://rust-unofficial.github.io/too-many-lists/). Alexis Beingessner (2021).
 
-[^Moore]: [*Moore's law*](https://en.wikipedia.org/wiki/Moore%27s_law) Wikipedia (Accessed 2022).
+[^Moore]: [*Moore's law*](https://en.wikipedia.org/wiki/Moore%27s_law). Wikipedia (Accessed 2022).
