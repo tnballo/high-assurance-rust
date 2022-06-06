@@ -105,10 +105,24 @@ And that *safety-critical* systems drive physical phenomena, so a security or re
 * **Ada** (High Maturity) - Ada's 1.0 specification was released in 1996. Its commercially-supported runtime libraries and compiler are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)[^AdaCert]. The SPARK subset of Ada offers mature deductive verification capabilities[^SPARK]. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system[^SPARKHeap].
 
 Learning a programming language, whichever it may be, is a great way to grow as a developer.
-Newer languages may find their own niches and develop their own innovations over time.
-More established languages may offer richer tooling and library ecosystems.
+Newer languages with healthy communities may find their own niches and develop their own innovations over time.
+Established languages can offer richer tooling and library ecosystems in the present.
 
 We believe that Rust is an exceptional tool for many projects today, and will be a viable choice for many more projects tomorrow.
+
+> **Safety by Design**
+>
+> Zig, Rust, and Ada employ various strategies for one or more of:
+>
+> * Building safety features directly into the type system (compile time check)
+> * Requiring explicit opt-out of default runtime safety enforcement (runtime detection)
+>
+> Baking safety into the core design of a language makes defect elimination easier to scale reliably.
+> Relative to training in opt-in best practices and/or using 3rd-party error checkers.
+>
+> On the flip-side, the cost to learn and adopt a new language toolchain can be high for existing projects.
+> And, occasionally, there are valid reasons to choose unsafe languages for new projects.
+> Tool selection is a highly situational problem.
 
 ## Why build a data structure library?
 

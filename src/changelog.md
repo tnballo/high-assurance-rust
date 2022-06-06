@@ -4,6 +4,10 @@
 **Note:** This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please [get in touch](./engage.md#submit-feedback-questions-issues-or-prs).
 
+* **v0.3.2:**
+    * New diagrams and discussion in 1.1.
+    * New asides in 2.2 and 2.7.
+
 * **v0.3.1:**
     * [Community Contributors list](./chp1/about_the_team.md#community-contributors) started, [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md) added.
     * Several fixes and improvements based on community feedback.
