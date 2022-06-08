@@ -186,4 +186,4 @@ We're going to write a more interesting program in the next chapter, you'll want
 
 [^Cgroups]: [*Everything You Need to Know about Linux Containers, Part I: Linux Control Groups and Process Isolation*](https://www.linuxjournal.com/content/everything-you-need-know-about-linux-containers-part-i-linux-control-groups-and-process). Petros Koutoupis (2018).
 
-[^Namespaces]: [*Everything You Need to Know about Linux Containers, Part II: Working with Linux Containers (LXC)*](https://code.visualstudio.com/docs/remote/containers). Petros Koutoupis (2018).
+[^Namespaces]: [*Everything You Need to Know about Linux Containers, Part II: Working with Linux Containers (LXC)*](https://www.linuxjournal.com/content/everything-you-need-know-about-linux-containers-part-ii-working-linux-containers-lxc). Petros Koutoupis (2018).
