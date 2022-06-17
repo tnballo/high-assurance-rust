@@ -85,6 +85,7 @@ We can't be objective if we aren't aware of available options.
 Before starting our Rust journey, we should briefly mention two alternatives for safer systems programming: Zig and Ada.
 Like Rust, both are natively compiled, don't use garbage collection, and have safety advantages over the C-family.
 All three languages are similarly suitable for modern low-level programming.
+All three are great choices in specific contexts.
 
 In lieu of an in-depth comparison, let's contrast the three options in terms of maturity for development of mission and safety critical systems.
 Assume that *mission-critical* systems run in production, where a security or reliability failure is expensive to a business.
@@ -100,13 +101,14 @@ And that *safety-critical* systems drive physical phenomena, so a security or re
 
 * **Zig** (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users[^UberZig], any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety[^ZigSafety]. And its own unique merits[^WhyZig].
 
-* **Rust** (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production uses[^ProdUsers]. Early efforts to bring Rust into the safety-critical domain include a collaboration between Ferrocene and AdaCore[^Ferrda], an AUTOSAR Working Group[^AUTOSAR], and ongoing R&D in formal verification tooling[^RFMIG]. At the time of this writing, Rust is not yet qualified for use in safety-critical environments.
+* **Rust** (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses[^ProdUsers]. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore[^Ferrda], an AUTOSAR Working Group[^AUTOSAR], an SAE International Task Force[^SAE], and ongoing R&D in formal verification tooling[^RFMIG]. At the time of this writing, no Rust toolchain is yet qualified for use in safety-critical environments.
 
-* **Ada** (High Maturity) - Ada's 1.0 specification was released in 1996. Its commercially-supported runtime libraries and compiler are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)[^AdaCert]. The SPARK subset of Ada offers mature deductive verification capabilities[^SPARK]. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system[^SPARKHeap].
+* **Ada** (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A[^AdaHistory], was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)[^AdaCert]. The SPARK subset of Ada offers mature deductive verification capabilities[^SPARK]. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system[^SPARKHeap].
 
 Learning a programming language, whichever it may be, is a great way to grow as a developer.
-Newer languages with healthy communities may find their own niches and develop their own innovations over time.
-Established languages can offer richer tooling and library ecosystems in the present.
+Newer languages with healthy communities may find their own niches and refine their innovations over time.
+Established languages can offer richer tooling and/or library ecosystems in the present.
+Having multiple available options is good for developers and, ultimately, customers.
 
 We believe that Rust is an exceptional tool for many projects today, and will be a viable choice for many more projects tomorrow.
 
@@ -114,7 +116,7 @@ We believe that Rust is an exceptional tool for many projects today, and will be
 >
 > Zig, Rust, and Ada employ various strategies for one or more of:
 >
-> * Building safety features directly into the type system (compile time check)
+> * Building safety features directly into the type system (compile time enforcement)
 > * Requiring explicit opt-out of default runtime safety enforcement (runtime detection)
 >
 > Baking safety into the core design of a language makes defect elimination easier to scale reliably.
@@ -226,14 +228,17 @@ It may not *be easy* - but it can *be*.
 
 [^AUTOSAR]: [*AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context*](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf). AUTOSAR (2022).
 
+[^SAE]: [*SAfEr Rust Task Force*](https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6). SAE International (Accessed 2022).
+
 [^RFMIG]: [*Rust verification tools*](https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021). Rust Formal Methods Interest Group (2021).
+
+[^AdaHistory]: In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA "Grand Challenges"). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named "Ada", after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate.
 
 [^AdaCert]: [*Certification Evidence for the Ada Run-Time Libraries and Compiler*](https://www.adacore.com/certification-qualification). AdaCore (Accessed 2022).
 
 [^SPARK]: [*About SPARK*](https://www.adacore.com/about-spark). AdaCore (Accessed 2022).
 
 [^SPARKHeap]: [*Safe Dynamic Memory Management in Ada and SPARK*](https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf). Maroua Maalej, Tucker Taft, Yannick Moy (2021).
-
 
 [^PyList]: [*dictobject.c*](https://github.com/python/cpython/blob/master/Objects/dictobject.c). CPython Interpreter (2021).
 
