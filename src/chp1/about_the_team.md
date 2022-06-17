@@ -36,6 +36,7 @@ Listed alphabetically:
 * [rrevi](https://github.com/rrevi)
 * [samestep](https://github.com/samestep)
 * [shak360](https://github.com/shak360)
+* [tshepang](https://github.com/tshepang)
 
 <br>
 

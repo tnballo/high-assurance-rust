@@ -80,7 +80,7 @@ Visually, this book covers the below topics (contrasted roughly on tradeoff of *
 Don't worry, we'll provide clear explanations and context for each.
 
 Notice the bias toward development speed.
-We're interested in **lightweight processes** that, in the long run, enable us **ship quality code faster** and spend **less time patching** security and reliability failures.
+We're interested in **lightweight processes** that, in the long run, enable us to **ship quality code faster** and spend **less time patching** security and reliability failures.
 Techniques you can apply to real-world code.
 Today.
 
