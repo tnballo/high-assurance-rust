@@ -201,7 +201,7 @@ But Rust's ownership model blurs the line:</p>
 <p><strong>Are lifetimes present in the executable?</strong></p>
 <p>No, lifetimes are a compile-time construct.
 They don't appear in the machine code emitted, they're only used by the compiler to analyze a program for safety.
-There's no run-time check or cost.</p>
+There's no runtime check or cost.</p>
 </blockquote>
 <p>Every value has a single, unique <strong>owner</strong>.
 In the exact place in the source where the owner &quot;drops&quot; out of scope (the end of a function in which it was declared, for example), the lifetime of all its owned values ends.
@@ -376,7 +376,7 @@ And it's <em>dropped</em> when the <code>main</code> function finished running.
 So the compiler adds freeing logic just after <code>dbg!(init);</code>, the last line of <code>main</code>.
 A <em>destructor</em> is implemented for us, automatically.
 By traversing the ownership hierarchy, this destructor knows how to clean up the other structs owned by <code>init</code>.</p>
-<p>With just one more <code>println!</code>, we can trace the run-time deallocation sequence.
+<p>With just one more <code>println!</code>, we can trace the runtime deallocation sequence.
 Rust supports running arbitrary logic before destructors, simply by implementing the <code>Drop</code> trait<sup class="footnote-reference"><a href="#Drop">6</a></sup> for a type.
 In case you need to run custom code to release an external resource (e.g. close a network or database connection) or similar.</p>
 <p>In our case we'll print the <code>name</code> field and <code>Proc</code> struct's memory address on every drop:</p>

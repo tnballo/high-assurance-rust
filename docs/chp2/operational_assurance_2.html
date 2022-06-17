@@ -171,9 +171,31 @@ Likewise, native executables can serve different agendas:</p>
 </blockquote>
 <h2 id="building-a-free-standing-binary"><a class="header" href="#building-a-free-standing-binary">Building a Free-standing Binary</a></h2>
 <p>Static binaries are a tried-and-true way to bundle a program and its dependencies.
-They provide an alternative to dynamic linking, a default which locates and loads dependencies at runtime.</p>
-<p>The idea is to take all of the executable code needed for a program, including any services typically provided by system libraries, and bake everything into one larger file.
-The result is a stand-alone application.</p>
+They provide an alternative to dynamic linking, a default which locates and loads dependencies at runtime.
+Let's briefly visualize the mechanical distinction.</p>
+<p>With <strong>dynamic linking</strong>, multiple processes use the same copy of a shared dependency (e.g. shared library).
+The shared functions are &quot;resolved&quot; (address to call into is determined) at runtime.
+Typically that means on the first call a process makes to a shared function, but it can also be when the process is first &quot;loaded&quot; (e.g. the program is started)<sup class="footnote-reference"><a href="#BindNow">2</a></sup>.
+It's common, but not required, for shared libraries to make systems calls - requests to the OS kernel to interact with hardware.
+Reading or writing a file requires a system call.</p>
+<br>
+<p align="center">
+  <img width="80%" src="link_dynamic.svg">
+  <figure>
+  <figcaption><center>Two dynamically-linked processes with a shared dependency.</center></figcaption><br>
+  </figure>
+</p>
+<p><strong>Static linking</strong> takes all of the executable code needed for a program, including any services typically provided by system libraries, and bakes everything into one larger file.
+The result is a stand-alone application.
+No need to resolve anything at runtime.
+System calls are made directly as necessary.</p>
+<br>
+<p align="center">
+  <img width="80%" src="link_static.svg">
+  <figure>
+  <figcaption><center>A statically-linked process and dynamically-linked processes.</center></figcaption><br>
+  </figure>
+</p>
 <blockquote>
 <p><strong>Are we making an operational tradeoff?</strong></p>
 <p>Yes.
@@ -182,6 +204,7 @@ Typically, an OS's package manager keeps system libraries up to date.
 And individual programs can link against a single, recent copy of the relevant library.</p>
 <p>Static linking means each individual program needs to be replaced to keep its dependencies up to date.
 We lose the ability to manage centralized copies of certain components.</p>
+<p>If multiple processes rely on the same dependency, then a statically linked process may also mean duplicated code and thus higher RAM usage.</p>
 <p>But static linking is great for portability and isn't readily supported by many programming languages.
 So let's see how it's done in Rust.</p>
 </blockquote>
@@ -203,13 +226,13 @@ libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f0936975000)
 <p>The second item (line starting with <code>libc.so.6</code>) is the C standard library.
 Recall from this chapter's intro that our <code>rcli</code> front-end code links against parts of <code>libc</code> (e.g. for dynamic memory allocation).
 Although our RC4 library does not (it's a <code>#![no_std]</code> component).</p>
-<p>To avoid being reliant on the presence of these libraries, we can compile a static binary that will use <code>musl</code> (a tiny <code>libc</code> alternative<sup class="footnote-reference"><a href="#MUSL">2</a></sup>) instead:</p>
+<p>To avoid being reliant on the presence of these libraries, we can compile a static binary that will use <code>musl</code> (a tiny <code>libc</code> alternative<sup class="footnote-reference"><a href="#MUSL">3</a></sup>) instead:</p>
 <pre><code class="language-ignore">rustup target add x86_64-unknown-linux-musl
 cargo build --release --target x86_64-unknown-linux-musl
 </code></pre>
 <ul>
 <li>
-<p>The first command adds a new compilation target<sup class="footnote-reference"><a href="#PlatformSupport">3</a></sup>, which is generally specified by a &quot;target triple&quot; in the form <code>{Arch}-{Vendor}-{Sys}-{ABI}</code>.</p>
+<p>The first command adds a new compilation target<sup class="footnote-reference"><a href="#PlatformSupport">4</a></sup>, which is generally specified by a &quot;target triple&quot; in the form <code>{Arch}-{Vendor}-{Sys}-{ABI}</code>.</p>
 </li>
 <li>
 <p>The second command builds <code>rcli</code> as before, but this time for the target triple <code>x86_64-unknown-linux-musl</code>.</p>
@@ -230,42 +253,45 @@ All you need to do is copy over the binary.</p>
 strip = true
 </code></pre>
 <p>The setting applies to any target built with the flag <code>--release</code> (which enables optimizations).
-We could've also used <code>strip</code><sup class="footnote-reference"><a href="#Strip">4</a></sup>, a standalone Linux utility, but we leveraged <code>cargo</code> to more cleanly integrate into the build pipeline.</p>
+We could've also used <code>strip</code><sup class="footnote-reference"><a href="#Strip">5</a></sup>, a standalone Linux utility, but we leveraged <code>cargo</code> to more cleanly integrate into the build pipeline.</p>
 <blockquote>
 <p><strong>An Alternative to <code>musl</code></strong></p>
 <p>Though leveraging <code>musl</code> is a popular way to build small-ish static binaries, <code>musl</code> has its quirks.
 Particularly with regard to performance.</p>
-<p>To statically link your platform's standard C runtime (&quot;CRT&quot;) instead<sup class="footnote-reference"><a href="#RFC">5</a></sup>:</p>
+<p>To statically link your platform's standard C runtime (&quot;CRT&quot;) instead<sup class="footnote-reference"><a href="#RFC">6</a></sup>:</p>
 <pre><code class="language-ignore">RUSTFLAGS='-C target-feature=+crt-static' cargo build --release --target x86_64-unknown-linux-gnu
 </code></pre>
-<p>Warning: unlike the <code>musl</code> route, the resulting binary might still be dynamic linked against something like <code>vdso</code><sup class="footnote-reference"><a href="#VDSO">6</a></sup>. You can use <code>ldd</code> to verify.</p>
+<p>Warning: unlike the <code>musl</code> route, the resulting binary might still be dynamic linked against something like <code>vdso</code><sup class="footnote-reference"><a href="#VDSO">7</a></sup>. You can use <code>ldd</code> to verify.</p>
 </blockquote>
 <h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
 <p>We've demonstrated building a completely free-standing tool.
-Our binary will run natively, on nearly any client of given OS and ISA<sup class="footnote-reference"><a href="#ISA">7</a></sup>.</p>
+Our binary will run natively, on nearly any client of given OS and ISA<sup class="footnote-reference"><a href="#ISA">8</a></sup>.</p>
 <p>That concludes our tour of software assurance!
 In the next chapter, we'll dig into Rust proper.</p>
 <hr />
 <div class="footnote-definition" id="Hellscape"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://github.com/meme/hellscape"><em><code>hellscape</code></em></a>. meme (Archived 2021).</p>
 </div>
-<div class="footnote-definition" id="MUSL"><sup class="footnote-definition-label">2</sup>
+<div class="footnote-definition" id="BindNow"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://man7.org/linux/man-pages/man8/ld.so.8.html"><em><code>ld.so</code></em></a>. Linux manual (Accessed 2022). On Linux, this behavior can be activated by setting the <code>LD_BIND_NOW</code> environment variable to a non-empty string. The advantage of doing shared function resolution at load-time is slightly more predictable runtime performance. May also be useful for process debugging.</p>
+</div>
+<div class="footnote-definition" id="MUSL"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://musl.libc.org/"><em>musl libc</em></a>. Rich Felker and contributors (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="PlatformSupport"><sup class="footnote-definition-label">3</sup>
+<div class="footnote-definition" id="PlatformSupport"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://doc.rust-lang.org/nightly/rustc/platform-support.html"><em>Platform Support</em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RFC"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="Strip"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://man7.org/linux/man-pages/man1/strip.1.html"><em><code>strip</code></em></a>. Linux manual (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RFC"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://rust-lang.github.io/rfcs/1721-crt-static.html"><em>RFC 1721</em></a>. The Rust RFC Book (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="VDSO"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="VDSO"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://man7.org/linux/man-pages/man7/vdso.7.html"><em><code>vdso</code></em></a>. Linux manual (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="ISA"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="ISA"><sup class="footnote-definition-label">8</sup>
 <p>Instruction Set Architecture, e.g. x86_64.</p>
-</div>
-<div class="footnote-definition" id="Strip"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://man7.org/linux/man-pages/man1/strip.1.html"><em><code>strip</code></em></a>. Linux manual (Accessed 2022).</p>
 </div>
 
                     </main>

@@ -364,7 +364,7 @@ Maybe the attacker just doubled their money.</p>
 Encryption algorithms address only one [core] part of an overall threat model.</p>
 <h2 id="the-big-picture-threat-modeling"><a class="header" href="#the-big-picture-threat-modeling">The Big Picture: Threat Modeling</a></h2>
 <p>We've alluded to a &quot;big picture&quot; perspective, system design context beyond individual blocks of code, several times in this section.
-High-level security design review involves a process called <strong>threat modeling</strong><sup class="footnote-reference"><a href="#OSWAPThreat">14</a></sup>.
+High-level security design review involves a process called <strong>threat modeling</strong><sup class="footnote-reference"><a href="#OWASPThreat">14</a></sup>.
 Generally, the workflow is something like this:</p>
 <ol>
 <li>
@@ -401,7 +401,7 @@ The acronym is broken down as follows<sup class="footnote-reference"><a href="#S
 It aims to be applicable to a broad range of products, systems, and services.
 Hence the focus on generally desirable properties.</p>
 <p>More granular threat enumeration frameworks can aid realistic threat model development.
-<strong>MITRE ATT&amp;CK</strong> is a modern example, it self-describes as<sup class="footnote-reference"><a href="#MIREAttack">16</a></sup>:</p>
+<strong>MITRE ATT&amp;CK</strong> is a modern example, it self-describes as<sup class="footnote-reference"><a href="#MITREAttack">16</a></sup>:</p>
 <blockquote>
 <p>...a globally-accessible knowledge base of adversary tactics and techniques based on real-world observations. The ATT&amp;CK knowledge base is used as a foundation for the development of specific threat models and methodologies in the private sector, in government, and in the cybersecurity product and service community.</p>
 </blockquote>
@@ -426,12 +426,29 @@ But a new vulnerability is always a possibility.</p>
 <p>Remember: there is <em>no absolute</em> security.
 Only levels of <em>assurance</em>.</p>
 <p>With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.</p>
+<blockquote>
+<p><strong>Supply Chain Attacks are a Serious Problem</strong></p>
+<p>Software supply chain attacks aren't relegated exclusively to targeted espionage, like the aforementioned SolarWinds case.
+Any software project that relies on 3rd party dependencies should be wary of backdoored or otherwise malicious packages as a potential threat vector.
+Consider two recent examples:</p>
+<ul>
+<li>
+<p>In April of 2022, authors of the popular  <code>npm</code> package <code>node-ipc</code> intentionally inserted malware to protest Russia's invasion of Ukraine. The malicious code attempted to identify hosts in Russia and Belarus based on IP geo-location, and replace the contents of all on-disk files if location matches<sup class="footnote-reference"><a href="#NodeIPCMalware">18</a></sup> (data loss).</p>
+</li>
+<li>
+<p>In May of 2022, a malicious Rust crate, named <code>rustdecimal</code>, was reported. The name is a &quot;typosquatting attack&quot; targeting users of the benign <code>rust_decimal</code> crate. On call to a specific function, the malicious crate would download an executable payload if a CI-related environment variable was set. The payload's logic is unknown, the download URL was inactive by the time the issue was discovered<sup class="footnote-reference"><a href="#RustdecimalMalware">19</a></sup>.</p>
+</li>
+</ul>
+<p>Tools like <code>cargo-crev</code><sup class="footnote-reference"><a href="#CargoCrev">20</a></sup> and <code>cargo-supply-chain</code><sup class="footnote-reference"><a href="#CargoSupplyChain">21</a></sup> can aid evaluation of a Rust project's dependencies and their authorship.
+But no technical control will prevent all supply chain attacks.
+Mature organizations may mitigate risk by adopting processes and policies for dependency vetting and maintenance.</p>
+</blockquote>
 <hr />
 <div class="footnote-definition" id="IFC"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415"><em>Compositional Information Flow Monitoring for Reactive Programs</em></a>. McKenna McCall, Abhishek Bichhawat, Limin Jia (2022). Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.</p>
 </div>
 <div class="footnote-definition" id="TypeState"><sup class="footnote-definition-label">2</sup>
-<p>Although the &quot;type state&quot; pattern (in general, not unique to Rust) can help a bit. And &quot;Session types&quot;<sup class="footnote-reference"><a href="#SessionTypes">18</a></sup> are particularly useful for message-passing protocols.</p>
+<p>Although the &quot;type state&quot; pattern (in general, not unique to Rust) can help a bit. And &quot;Session types&quot;<sup class="footnote-reference"><a href="#SessionTypes">22</a></sup> are particularly useful for message-passing protocols.</p>
 </div>
 <div class="footnote-definition" id="DirtyPipe"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://dirtypipe.cm4all.com/"><em>The Dirty Pipe Vulnerability</em></a>. Max Kellerman (2022).</p>
@@ -440,10 +457,7 @@ Only levels of <em>assurance</em>.</p>
 <p><a href="https://dl.acm.org/doi/pdf/10.1145/3133956.3134062"><em>HexType: Efficient Detection of Type Confusion Errors for C++</em></a>. Yuseok Jeon, Priyam Biswas, Scott Carr, Byoungyoung Lee, and Mathias Payer (2017).</p>
 </div>
 <div class="footnote-definition" id="RustTypes"><sup class="footnote-definition-label">5</sup>
-<p>In Rust, certain primitive types can be converted with the <code>as</code> keyword. Integers of different sizes are one example. Conversions between user-defined types use &quot;traits&quot; (interfaces for shared behavior we'll cover in chapter 3). Specifically <code>From</code><sup class="footnote-reference"><a href="#TraitFrom">19</a></sup> and <code>Into</code><sup class="footnote-reference"><a href="#TraitInto">20</a></sup>. These safely cover the majority of type casting use cases. If a Rust programmer <em>really</em> needs to arbitrarily re-interpret a sequence of bits, the <code>unsafe</code> function <code>std::mem::transmute</code><sup class="footnote-reference"><a href="#FuncTrasmut">21</a></sup> is a last resort.</p>
-</div>
-<div class="footnote-definition" id="FuncTransmut"><sup class="footnote-definition-label">22</sup>
-<p><a href="https://doc.rust-lang.org/std/mem/fn.transmute.html"><em>Function <code>std::mem::transmute</code></em></a>. The Rust Team (Accessed 2022).</p>
+<p>In Rust, certain primitive types can be converted with the <code>as</code> keyword. Integers of different sizes are one example. Conversions between user-defined types use &quot;traits&quot; (interfaces for shared behavior we'll cover in chapter 3). Specifically <code>From</code><sup class="footnote-reference"><a href="#TraitFrom">23</a></sup> and <code>Into</code><sup class="footnote-reference"><a href="#TraitInto">24</a></sup>. These safely cover the majority of type casting use cases. If a Rust programmer <em>really</em> needs to arbitrarily re-interpret a sequence of bits, the <code>unsafe</code> function <code>std::mem::transmute</code><sup class="footnote-reference"><a href="#FuncTransmut">25</a></sup> is a last resort.</p>
 </div>
 <div class="footnote-definition" id="CWETop25"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html"><em>CWE Top 25 Most Dangerous Software Weaknesses</em></a>. The MITRE Corporation (2021).</p>
@@ -451,14 +465,14 @@ Only levels of <em>assurance</em>.</p>
 <div class="footnote-definition" id="OWASP"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://owasp.org/www-project-top-ten/"><em>Top 10 Web Application Security Risks</em></a>. OWASP (2021).</p>
 </div>
-<div class="footnote-definition" id="TestVec"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011).</p>
-</div>
 <div class="footnote-definition" id="Covid19"><sup class="footnote-definition-label">8</sup>
 <p><a href="https://www.yalemedicine.org/news/covid-timeline"><em>Our Pandemic Year—A COVID-19 Timeline</em></a>. Kathy Katella (2021).</p>
 </div>
 <div class="footnote-definition" id="SolarWinds"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://whatis.techtarget.com/feature/SolarWinds-hack-explained-Everything-you-need-to-know"><em>SolarWinds hack explained: Everything you need to know</em></a>. Saheed Oladimeji, Sean Michael Kerner (2021).</p>
+</div>
+<div class="footnote-definition" id="TestVec"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011).</p>
 </div>
 <div class="footnote-definition" id="DHBackdoor"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://eprint.iacr.org/2016/644.pdf"><em>How to Backdoor Diffie-Hellman</em></a>. David Wong (2016).</p>
@@ -469,26 +483,41 @@ Only levels of <em>assurance</em>.</p>
 <div class="footnote-definition" id="AEADList"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://github.com/RustCrypto/AEADs"><em>RustCrypto: Authenticated Encryption with Associated Data (AEAD) Algorithms</em></a>. RustCrypto organization (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RiceTheorem"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://en.wikipedia.org/wiki/Rice%27s_theorem"><em>Rice's theorem</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SessionTypes"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://wen.works/2020/12/17/an-introduction-to-session-types/"><em>An Introduction to Session Types</em></a>. Wen Kokke (2020).</p>
-</div>
-<div class="footnote-definition" id="TraitFrom"><sup class="footnote-definition-label">19</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TraitInto"><sup class="footnote-definition-label">20</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="OWASPThreat"><sup class="footnote-definition-label">23</sup>
+<div class="footnote-definition" id="OWASPThreat"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/">Threat Modeling Cheat Sheet</a>. OWASP (2021).</p>
 </div>
 <div class="footnote-definition" id="SEIThreat"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/">Threat Modeling: 12 Available Methods </a>. CMU SEI (2018).</p>
 </div>
-<div class="footnote-definition" id="MITREAttack"><sup class="footnote-definition-label">24</sup>
+<div class="footnote-definition" id="MITREAttack"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://attack.mitre.org/">MITRE ATT&amp;CK</a>. MITRE (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RiceTheorem"><sup class="footnote-definition-label">17</sup>
+<p><a href="https://en.wikipedia.org/wiki/Rice%27s_theorem"><em>Rice's theorem</em></a>. Wikipedia (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="NodeIPCMalware"><sup class="footnote-definition-label">18</sup>
+<p><a href="https://github.com/advisories/GHSA-97m3-w2cp-4xx6"><em>Embedded Malicious Code in <code>node-ipc</code></em></a>. GitHub (2022).</p>
+</div>
+<div class="footnote-definition" id="RustdecimalMalware"><sup class="footnote-definition-label">19</sup>
+<p><a href="https://blog.rust-lang.org/2022/05/10/malicious-crate-rustdecimal.html"><em>Security advisory: malicious crate rustdecimal</em></a>. The Rust Team (2022).</p>
+</div>
+<div class="footnote-definition" id="CargoCrev"><sup class="footnote-definition-label">20</sup>
+<p><a href="https://github.com/crev-dev/cargo-crev"><em><code>cargo-crev</code></em></a>. <code>cargo-crev</code> Contributors (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="CargoSupplyChain"><sup class="footnote-definition-label">21</sup>
+<p><a href="https://github.com/rust-secure-code/cargo-supply-chain"><em><code>cargo-supply-chain</code></em></a>. Rust Secure Code Working Group (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SessionTypes"><sup class="footnote-definition-label">22</sup>
+<p><a href="https://wen.works/2020/12/17/an-introduction-to-session-types/"><em>An Introduction to Session Types</em></a>. Wen Kokke (2020).</p>
+</div>
+<div class="footnote-definition" id="TraitFrom"><sup class="footnote-definition-label">23</sup>
+<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="TraitInto"><sup class="footnote-definition-label">24</sup>
+<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="FuncTransmut"><sup class="footnote-definition-label">25</sup>
+<p><a href="https://doc.rust-lang.org/std/mem/fn.transmute.html"><em>Function <code>std::mem::transmute</code></em></a>. The Rust Team (Accessed 2022).</p>
 </div>
 
                     </main>

@@ -498,7 +498,7 @@ It's called <strong>interior mutability</strong> and relaxes enforcement of the 
 <p>We must still obey the rule, but we don't have to prove mutual exclusion for all possible executions with <em>compile-time verification</em> (static assurance).
 That strictness makes encoding certain problems too difficult.
 But if it compiles, it's guaranteed.</p>
-<p>Instead, interior mutability allows us to do <em>run-time validation</em> (dynamic assurance).
+<p>Instead, interior mutability allows us to do <em>runtime validation</em> (dynamic assurance).
 Below are two types often used in the interior mutability pattern.
 Don't worry about what these type signatures mean, let's focus on the tradeoffs:</p>
 <ul>
@@ -523,7 +523,7 @@ Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 <p align="center">
   <img width="80%" src="ref_venn_interior_mut.svg">
   <figure>
-  <figcaption><center>Interior mutability: run-time enforced shared readable xor exclusive writeable</center></figcaption><br>
+  <figcaption><center>Interior mutability: runtime enforced shared readable xor exclusive writeable</center></figcaption><br>
   </figure>
 </p>
 <p>To reiterate, <strong>we will not be using interior mutability in this book.</strong>
@@ -534,9 +534,9 @@ It's a best practice for some classes of problems, and well-covered in other res
 But remember - Rust is a <em>big</em> language.
 We don't have to master every feature to be productive.</p>
 <blockquote>
-<p><strong>We're not out of the run-time woods!</strong></p>
+<p><strong>We're not out of the runtime woods!</strong></p>
 <p>Our code does index-based array access, e.g. <code>arr[i]</code>.
-That incurs a run-time bounds check.
+That incurs a runtime bounds check.
 A failure (out-of-bounds index attempt) would mean <code>panic!</code>, just like <code>RefCell</code>.
 But array indexing is easier to reason about.</p>
 <p>To justify confidence in indexing logic and more general reliability, Chapter 12 introduces an advanced form of stress testing: differential fuzzing.</p>
@@ -555,7 +555,7 @@ Including four ways to work with the borrow checker:</p>
 <p><strong>Borrowing</strong> (accessing) to data for a subset of its lifetime.</p>
 </li>
 <li>
-<p><del><strong>Interior mutability</strong> - a form of relaxed, run-time ownership enforcement.</del></p>
+<p><del><strong>Interior mutability</strong> - a form of relaxed, runtime ownership enforcement.</del></p>
 </li>
 </ol>
 <p>That's it!

@@ -234,6 +234,27 @@ You'll learn how to <em>reason</em> about software security at the leading edge.
 To think like an attacker.
 And to write code resistant to attack.
 That mental model is valuable no matter what programming language you primarily use.</p>
+<h2 id="sponsors-supporting-this-book"><a class="header" href="#sponsors-supporting-this-book">Sponsors Supporting this Book</a></h2>
+<p>The development of this book (research, writing, and coding) is made possible through the generous support of:</p>
+<style>
+p#sponsor {
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+}
+</style>
+<p id="sponsor">
+</br>
+<a href="https://foundation.rust-lang.org/">
+<img src="../img/rust_foundation_logo.png" width="70%" alt="The Rust Foundation">
+</a>
+</br>
+</br>
+Under the first tranche of the <a href="https://foundation.rust-lang.org/grants/">2022 Project Grants Program</a>.
+A full list of awarded projects is <a href="https://foundation.rust-lang.org/news/2022-06-14-community-grants-program-awards-announcement/">available here</a>, please check out the range of exciting work happening within the global Rust community!
+</br>
+</br>
+</p>
 <blockquote>
 <p><em>You need to build a data structure library to serve a mission-critical application.
 It must run on nearly any device, operate in the field for years on end without error, and tolerate attacker-controlled input.
@@ -519,15 +540,31 @@ But we'd also love to connect those stakeholders - should both parties stand to 
 For offline viewing, you can clone <a href="https://github.com/tnballo/high-assurance-rust">the repo</a> to get a full local copy.
 Alternatively:</p>
 <ul>
-<li><a href="https://tiemoko.com/publications/har.epub">EPUB</a></li>
+<li><a href="https://tiemoko.com/publications/har.epub">EPUB</a>
+<ul>
+<li>Last export: 6/17/22</li>
+<li>SHA-3-256: <code>b78376f5a28e5da2306fbd36110fc7a5639fb2fd35bad328c4c34c09930258d4</code></li>
+</ul>
+</li>
 <li>PDF (coming soon-ish)</li>
 </ul>
+<p>Hashes can be verified with: <code>openssl dgst -sha3-256 &lt;file_name&gt;</code>.</p>
 <p>Enjoy!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
 <hr />
 <p><strong>Note:</strong> This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please <a href="./engage.html#submit-feedback-questions-issues-or-prs">get in touch</a>.</p>
 <ul>
+<li>
+<p><strong>v0.3.2:</strong></p>
+<ul>
+<li><a href="https://foundation.rust-lang.org/">Rust Foundation</a> sponsorship via the <a href="https://foundation.rust-lang.org/news/2022-06-14-community-grants-program-awards-announcement/">2022 Project Grants Program</a>!</li>
+<li>New diagrams and discussion in 1.1, 2.10.</li>
+<li>New asides in 2.2 and 2.7.</li>
+<li><a href="https://github.com/tnballo/high-assurance-rust/blob/main/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT.md</code></a> added.</li>
+<li>EPUB download now includes a SHA-3-256 hash and timestamp.</li>
+</ul>
+</li>
 <li>
 <p><strong>v0.3.1:</strong></p>
 <ul>
@@ -791,7 +828,7 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 <p><a href="https://adventofcomputing.libsyn.com/episode-53-c-level-part-i"><em>Episode 53 - C Level, Part I</em></a>. Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.</p>
 </div>
 <div class="footnote-definition" id="Lifetime"><sup class="footnote-definition-label">11</sup>
-<p>Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while<sup class="footnote-reference"><a href="#LifetimeCpp">30</a></sup>. But Rust's novel ownership system <em>enforces</em> lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.</p>
+<p>Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while<sup class="footnote-reference"><a href="#LifetimeCpp">30</a></sup>. But Rust's novel ownership system <em>enforces</em> lifetime rules at compile time. In C++, lifetime assumptions can be violated at runtime if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.</p>
 </div>
 <div class="footnote-definition" id="ProjServo"><sup class="footnote-definition-label">12</sup>
 <p><a href="http://venge.net/graydon/talks/intro-talk-2.pdf"><em>Project Servo, Technology from the past come to save the future from itself</em></a>. Graydon Hoare (2010).</p>
@@ -927,6 +964,53 @@ At these always-present low levels, memory-unsafe <strong>systems languages</str
   <figcaption><center>Mapping programming languages to levels of the software stack.</center></figcaption><br>
   </figure>
 </p>
+<h2 id="which-languages-offer-safer-systems-programming"><a class="header" href="#which-languages-offer-safer-systems-programming">Which languages offer safer systems programming?</a></h2>
+<p>Programming languages are ultimately just tools.
+Language choice may invoke passionate debate, but at the end of the day it's important to choose the best tool for the job.</p>
+<p>We can't be objective if we aren't aware of available options.
+Before starting our Rust journey, we should briefly mention two alternatives for safer systems programming: Zig and Ada.
+Like Rust, both are natively compiled, don't use garbage collection, and have safety advantages over the C-family.
+All three languages are similarly suitable for modern low-level programming.
+All three are great choices in specific contexts.</p>
+<p>In lieu of an in-depth comparison, let's contrast the three options in terms of maturity for development of mission and safety critical systems.
+Assume that <em>mission-critical</em> systems run in production, where a security or reliability failure is expensive to a business.
+And that <em>safety-critical</em> systems drive physical phenomena, so a security or reliability failure could endanger human life, property, or the environment.</p>
+<br>
+<p align="center">
+  <img width="70%" src="chp1/sys_langs.svg">
+  <figure>
+  <figcaption><center>Safer systems programming languages contrasted by {safety,mission}-critical maturity.</center></figcaption><br>
+  </figure>
+</p>
+<ul>
+<li>
+<p><strong>Zig</strong> (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users<sup class="footnote-reference"><a href="#UberZig">4</a></sup>, any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety<sup class="footnote-reference"><a href="#ZigSafety">5</a></sup>. And its own unique merits<sup class="footnote-reference"><a href="#WhyZig">6</a></sup>.</p>
+</li>
+<li>
+<p><strong>Rust</strong> (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses<sup class="footnote-reference"><a href="#ProdUsers">7</a></sup>. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore<sup class="footnote-reference"><a href="#Ferrda">8</a></sup>, an AUTOSAR Working Group<sup class="footnote-reference"><a href="#AUTOSAR">9</a></sup>, an SAE International Task Force<sup class="footnote-reference"><a href="#SAE">10</a></sup>, and ongoing R&amp;D in formal verification tooling<sup class="footnote-reference"><a href="#RFMIG">11</a></sup>. At the time of this writing, no Rust toolchain is yet qualified for use in safety-critical environments.</p>
+</li>
+<li>
+<p><strong>Ada</strong> (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A<sup class="footnote-reference"><a href="#AdaHistory">12</a></sup>, was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)<sup class="footnote-reference"><a href="#AdaCert">13</a></sup>. The SPARK subset of Ada offers mature deductive verification capabilities<sup class="footnote-reference"><a href="#SPARK">14</a></sup>. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system<sup class="footnote-reference"><a href="#SPARKHeap">15</a></sup>.</p>
+</li>
+</ul>
+<p>Learning a programming language, whichever it may be, is a great way to grow as a developer.
+Newer languages with healthy communities may find their own niches and refine their innovations over time.
+Established languages can offer richer tooling and/or library ecosystems in the present.
+Having multiple available options is good for developers and, ultimately, customers.</p>
+<p>We believe that Rust is an exceptional tool for many projects today, and will be a viable choice for many more projects tomorrow.</p>
+<blockquote>
+<p><strong>Safety by Design</strong></p>
+<p>Zig, Rust, and Ada employ various strategies for one or more of:</p>
+<ul>
+<li>Building safety features directly into the type system (compile time enforcement)</li>
+<li>Requiring explicit opt-out of default runtime safety enforcement (runtime detection)</li>
+</ul>
+<p>Baking safety into the core design of a language makes defect elimination easier to scale reliably.
+Relative to training in opt-in best practices and/or using 3rd-party error checkers.</p>
+<p>On the flip-side, the cost to learn and adopt a new language toolchain can be high for existing projects.
+And, occasionally, there are valid reasons to choose unsafe languages for new projects.
+Tool selection is a highly situational problem.</p>
+</blockquote>
 <h2 id="why-build-a-data-structure-library"><a class="header" href="#why-build-a-data-structure-library">Why build a data structure library?</a></h2>
 <p>Maybe a white-board coding interview left a bad taste in your mouth.
 Maybe your college data structures class didn't quite click.
@@ -940,7 +1024,7 @@ Where the math rubber meets the code road, if you will.</p>
 These APIs get used by nearly every program written in that language.
 Because a single data structure implementation can be so ubiquitous, performance is critical.
 Thus real-world data structures are typically implemented in a <strong>compiled</strong> language, like Rust or C, for speed.
-This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference"><a href="#PyList">4</a></sup>!</p>
+This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference"><a href="#PyList">16</a></sup>!</p>
 <p>Building a data structure library involves taking a complex set of functional requirements and translating them into compact and correct code.
 It walks you through accomplishing a goal at a strategic level (the overall algorithm) and at a tactical one (the mechanics of individual structure operations - like <code>insert</code>, <code>get</code>, or <code>remove</code> - in the language you're using).</p>
 <p>You'll learn both generally-applicable problem solving skills and language-specific development skills.</p>
@@ -954,7 +1038,7 @@ It walks you through accomplishing a goal at a strategic level (the overall algo
 <h2 id="arent-data-structures-particularly-challenging-in-rust"><a class="header" href="#arent-data-structures-particularly-challenging-in-rust">Aren't data structures particularly challenging in Rust?</a></h2>
 <p>Rust's memory safety guarantees are a significant evolution in the security of systems software.
 With growing industry adoption and a thriving library ecosystem, Rust is a deserving ambassador for both systems programming and secure coding.</p>
-<p>Yet certain data structures are infamously difficult<sup class="footnote-reference"><a href="#TooManyLink">5</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
+<p>Yet certain data structures are infamously difficult<sup class="footnote-reference"><a href="#TooManyLink">17</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
 This is especially true for structures where one element knows how to reach another and vice versa (e.g. those with &quot;cyclical references&quot;).
 Some developers get so frustrated by this that they snap their keyboards in half, with a swift upward knee, and give up on Rust altogether!</p>
 <p>That's why you'll be <em>starting</em> your Rust journey with advanced data structures.
@@ -964,7 +1048,7 @@ If a Rust implementation of a troublesome data structure doesn't already exist, 
 Once you build a mental model for how memory works and how Rust manages it, you're well on your way to shipping safe systems software.</p>
 <h2 id="besides-security-why-rust"><a class="header" href="#besides-security-why-rust">Besides security, why Rust?</a></h2>
 <p>Because Rust enables you to maximize performance.</p>
-<p>Moore's law<sup class="footnote-reference"><a href="#Moore">6</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
+<p>Moore's law<sup class="footnote-reference"><a href="#Moore">18</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
 Assuming the bottleneck is actually program CPU time (and not, say, network latency or disk I/O limits) there's typically two ways to improve performance:</p>
 <ol>
 <li>Implement a superior algorithm for your problem, if one exists.</li>
@@ -996,14 +1080,50 @@ It may not <em>be easy</em> - but it can <em>be</em>.</p>
 <div class="footnote-definition" id="Thread"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://wiki.osdev.org/Processes_and_Threads#Threads"><em>Processes and Threads</em></a>. OSDev Wiki (2021).</p>
 </div>
-<div class="footnote-definition" id="PyList"><sup class="footnote-definition-label">4</sup>
+<div class="footnote-definition" id="UberZig"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://jakstys.lt/2022/how-uber-uses-zig/"><em>How Uber Uses Zig</em></a>. Motiejus Jakstys (2022).</p>
+</div>
+<div class="footnote-definition" id="ZigSafety"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://www.scattered-thoughts.net/writing/how-safe-is-zig/"><em>How safe is Zig?</em></a>. Jamie Brandon (2021).</p>
+</div>
+<div class="footnote-definition" id="WhyZig"><sup class="footnote-definition-label">6</sup>
+<p><a href="https://ziglang.org/learn/why_zig_rust_d_cpp/"><em>Why Zig When There is Already C++, D, and Rust?</em></a>. The Zig Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">7</sup>
+<p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="Ferrda"><sup class="footnote-definition-label">8</sup>
+<p><a href="https://ferrous-systems.com/blog/ferrous-systems-adacore-joining-forces/"><em>Ferrous Systems and AdaCore to join forces on Ferrocene</em></a>. Ferrous Systems (2022).</p>
+</div>
+<div class="footnote-definition" id="AUTOSAR"><sup class="footnote-definition-label">9</sup>
+<p><a href="https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf"><em>AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context</em></a>. AUTOSAR (2022).</p>
+</div>
+<div class="footnote-definition" id="SAE"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6"><em>SAfEr Rust Task Force</em></a>. SAE International (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RFMIG"><sup class="footnote-definition-label">11</sup>
+<p><a href="https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021"><em>Rust verification tools</em></a>. Rust Formal Methods Interest Group (2021).</p>
+</div>
+<div class="footnote-definition" id="AdaHistory"><sup class="footnote-definition-label">12</sup>
+<p>In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA &quot;Grand Challenges&quot;). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named &quot;Ada&quot;, after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate.</p>
+</div>
+<div class="footnote-definition" id="AdaCert"><sup class="footnote-definition-label">13</sup>
+<p><a href="https://www.adacore.com/certification-qualification"><em>Certification Evidence for the Ada Run-Time Libraries and Compiler</em></a>. AdaCore (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SPARK"><sup class="footnote-definition-label">14</sup>
+<p><a href="https://www.adacore.com/about-spark"><em>About SPARK</em></a>. AdaCore (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SPARKHeap"><sup class="footnote-definition-label">15</sup>
+<p><a href="https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf"><em>Safe Dynamic Memory Management in Ada and SPARK</em></a>. Maroua Maalej, Tucker Taft, Yannick Moy (2021).</p>
+</div>
+<div class="footnote-definition" id="PyList"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c"><em>dictobject.c</em></a>. CPython Interpreter (2021).</p>
 </div>
-<div class="footnote-definition" id="TooManyLink"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="TooManyLink"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://rust-unofficial.github.io/too-many-lists/"><em>Learn Rust With Entirely Too Many Linked Lists</em></a>. Alexis Beingessner (2021).</p>
 </div>
-<div class="footnote-definition" id="Moore"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a> Wikipedia (Accessed 2022).</p>
+<div class="footnote-definition" id="Moore"><sup class="footnote-definition-label">18</sup>
+<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-is-this-book-structured"><a class="header" href="#how-is-this-book-structured">How is this book structured?</a></h1>
 <p>Bottom line up front: this book will help you develop expertise by working through a large project in scaffolded stages.
@@ -1943,6 +2063,17 @@ At least not without breaking backwards compatibility.
 Remember: memory safety is a multi-decade-difficult problem.
 Many have tried, most have failed.</p>
 <p>Let's get a taste for how Rust handles the pointer problem.</p>
+<blockquote>
+<p><strong>Imprecise Analyses Can Still Be Useful!</strong></p>
+<p>Pointer analysis has a close cousin: Value Set Analysis (VSA).
+It can be applied to compiled binaries, supporting use cases where source code isn't available (e.g. reverse engineering).
+Unlike pointer analysis, VSA doesn't differentiate between pointer and integer variables.
+It computes a <em>range of possible runtime values</em> for either type of numeric variable.</p>
+<p>For the above <code>incr</code> example, a precise VSA of a correct program might determine that integer <code>a</code> has an inclusive value range of <code>[40, 42]</code> - capturing both the pre and post increment values. And that pointer <code>*a</code> is similarly within some range of valid memory addresses, notionally something like <code>[0x7ffe455e5c40, 0x7ffe455e5bf0]</code>.</p>
+<p>Here's the kicker: a recent peer-reviewed human study<sup class="footnote-reference"><a href="#VSA">16</a></sup> found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find &quot;information leakage&quot; vulnerabilities).
+Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts<sup class="footnote-reference"><a href="#VSA">16</a></sup> for certain problem types.</p>
+<p>Approximate static analyses can, in many contexts, be demonstrably useful.</p>
+</blockquote>
 <hr />
 <div class="footnote-definition" id="AbsInt"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://dl.acm.org/doi/10.1145/512950.512973"><em>Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints</em></a>. Patrick Cousot, Radhia Cousot (1977).</p>
@@ -1988,6 +2119,9 @@ Many have tried, most have failed.</p>
 </div>
 <div class="footnote-definition" id="SegFault"><sup class="footnote-definition-label">15</sup>
 <p>&quot;segmentation fault&quot; , or &quot;segfault&quot; for short, is an error thrown by the operating system when your program attempts to access regions of memory that don't belong to it (outside allotted &quot;segment&quot;). While it can be frustrating to debug, imagine how difficult things would be if the OS didn't stop you!</p>
+</div>
+<div class="footnote-definition" id="VSA"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://www.ndss-symposium.org/wp-content/uploads/bar2021_23002_paper.pdf"><em>Effects of Precise and Imprecise Value-Set Analysis (VSA) Information on Manual Code Analysis</em></a>. Laura Matzen, Michelle Leger, Geoffrey Reedy (2021).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="static-assurance-2-of-2"><a class="header" href="#static-assurance-2-of-2">Static Assurance (2 of 2)</a></h1>
 <p>We now have an informal understanding of challenges in static program analysis.
@@ -3229,7 +3363,7 @@ Maybe the attacker just doubled their money.</p>
 Encryption algorithms address only one [core] part of an overall threat model.</p>
 <h2 id="the-big-picture-threat-modeling"><a class="header" href="#the-big-picture-threat-modeling">The Big Picture: Threat Modeling</a></h2>
 <p>We've alluded to a &quot;big picture&quot; perspective, system design context beyond individual blocks of code, several times in this section.
-High-level security design review involves a process called <strong>threat modeling</strong><sup class="footnote-reference"><a href="#OSWAPThreat">14</a></sup>.
+High-level security design review involves a process called <strong>threat modeling</strong><sup class="footnote-reference"><a href="#OWASPThreat">14</a></sup>.
 Generally, the workflow is something like this:</p>
 <ol>
 <li>
@@ -3266,7 +3400,7 @@ The acronym is broken down as follows<sup class="footnote-reference"><a href="#S
 It aims to be applicable to a broad range of products, systems, and services.
 Hence the focus on generally desirable properties.</p>
 <p>More granular threat enumeration frameworks can aid realistic threat model development.
-<strong>MITRE ATT&amp;CK</strong> is a modern example, it self-describes as<sup class="footnote-reference"><a href="#MIREAttack">16</a></sup>:</p>
+<strong>MITRE ATT&amp;CK</strong> is a modern example, it self-describes as<sup class="footnote-reference"><a href="#MITREAttack">16</a></sup>:</p>
 <blockquote>
 <p>...a globally-accessible knowledge base of adversary tactics and techniques based on real-world observations. The ATT&amp;CK knowledge base is used as a foundation for the development of specific threat models and methodologies in the private sector, in government, and in the cybersecurity product and service community.</p>
 </blockquote>
@@ -3291,12 +3425,29 @@ But a new vulnerability is always a possibility.</p>
 <p>Remember: there is <em>no absolute</em> security.
 Only levels of <em>assurance</em>.</p>
 <p>With all of this context out of the way, let's return to our RC4 library and leverage it for something useful: encrypting local files via a command line interface.</p>
+<blockquote>
+<p><strong>Supply Chain Attacks are a Serious Problem</strong></p>
+<p>Software supply chain attacks aren't relegated exclusively to targeted espionage, like the aforementioned SolarWinds case.
+Any software project that relies on 3rd party dependencies should be wary of backdoored or otherwise malicious packages as a potential threat vector.
+Consider two recent examples:</p>
+<ul>
+<li>
+<p>In April of 2022, authors of the popular  <code>npm</code> package <code>node-ipc</code> intentionally inserted malware to protest Russia's invasion of Ukraine. The malicious code attempted to identify hosts in Russia and Belarus based on IP geo-location, and replace the contents of all on-disk files if location matches<sup class="footnote-reference"><a href="#NodeIPCMalware">18</a></sup> (data loss).</p>
+</li>
+<li>
+<p>In May of 2022, a malicious Rust crate, named <code>rustdecimal</code>, was reported. The name is a &quot;typosquatting attack&quot; targeting users of the benign <code>rust_decimal</code> crate. On call to a specific function, the malicious crate would download an executable payload if a CI-related environment variable was set. The payload's logic is unknown, the download URL was inactive by the time the issue was discovered<sup class="footnote-reference"><a href="#RustdecimalMalware">19</a></sup>.</p>
+</li>
+</ul>
+<p>Tools like <code>cargo-crev</code><sup class="footnote-reference"><a href="#CargoCrev">20</a></sup> and <code>cargo-supply-chain</code><sup class="footnote-reference"><a href="#CargoSupplyChain">21</a></sup> can aid evaluation of a Rust project's dependencies and their authorship.
+But no technical control will prevent all supply chain attacks.
+Mature organizations may mitigate risk by adopting processes and policies for dependency vetting and maintenance.</p>
+</blockquote>
 <hr />
 <div class="footnote-definition" id="IFC"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://kilthub.cmu.edu/articles/report/Compositional_Information_Flow_Monitoring_for_Reactive_Programs/19214415"><em>Compositional Information Flow Monitoring for Reactive Programs</em></a>. McKenna McCall, Abhishek Bichhawat, Limin Jia (2022). Information Flow Control (IFC), this paper's field, explores ways to address sensitive information leakage. Though formal, the problems tackled by this work - namely its titular support for event-driven programs and composition of heterogenous components - are representative of real-world systems. Information leakage might eventually be a problem we can solve in a systematic and principled fashion.</p>
 </div>
 <div class="footnote-definition" id="TypeState"><sup class="footnote-definition-label">2</sup>
-<p>Although the &quot;type state&quot; pattern (in general, not unique to Rust) can help a bit. And &quot;Session types&quot;<sup class="footnote-reference"><a href="#SessionTypes">18</a></sup> are particularly useful for message-passing protocols.</p>
+<p>Although the &quot;type state&quot; pattern (in general, not unique to Rust) can help a bit. And &quot;Session types&quot;<sup class="footnote-reference"><a href="#SessionTypes">22</a></sup> are particularly useful for message-passing protocols.</p>
 </div>
 <div class="footnote-definition" id="DirtyPipe"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://dirtypipe.cm4all.com/"><em>The Dirty Pipe Vulnerability</em></a>. Max Kellerman (2022).</p>
@@ -3305,10 +3456,7 @@ Only levels of <em>assurance</em>.</p>
 <p><a href="https://dl.acm.org/doi/pdf/10.1145/3133956.3134062"><em>HexType: Efficient Detection of Type Confusion Errors for C++</em></a>. Yuseok Jeon, Priyam Biswas, Scott Carr, Byoungyoung Lee, and Mathias Payer (2017).</p>
 </div>
 <div class="footnote-definition" id="RustTypes"><sup class="footnote-definition-label">5</sup>
-<p>In Rust, certain primitive types can be converted with the <code>as</code> keyword. Integers of different sizes are one example. Conversions between user-defined types use &quot;traits&quot; (interfaces for shared behavior we'll cover in chapter 3). Specifically <code>From</code><sup class="footnote-reference"><a href="#TraitFrom">19</a></sup> and <code>Into</code><sup class="footnote-reference"><a href="#TraitInto">20</a></sup>. These safely cover the majority of type casting use cases. If a Rust programmer <em>really</em> needs to arbitrarily re-interpret a sequence of bits, the <code>unsafe</code> function <code>std::mem::transmute</code><sup class="footnote-reference"><a href="#FuncTrasmut">21</a></sup> is a last resort.</p>
-</div>
-<div class="footnote-definition" id="FuncTransmut"><sup class="footnote-definition-label">22</sup>
-<p><a href="https://doc.rust-lang.org/std/mem/fn.transmute.html"><em>Function <code>std::mem::transmute</code></em></a>. The Rust Team (Accessed 2022).</p>
+<p>In Rust, certain primitive types can be converted with the <code>as</code> keyword. Integers of different sizes are one example. Conversions between user-defined types use &quot;traits&quot; (interfaces for shared behavior we'll cover in chapter 3). Specifically <code>From</code><sup class="footnote-reference"><a href="#TraitFrom">23</a></sup> and <code>Into</code><sup class="footnote-reference"><a href="#TraitInto">24</a></sup>. These safely cover the majority of type casting use cases. If a Rust programmer <em>really</em> needs to arbitrarily re-interpret a sequence of bits, the <code>unsafe</code> function <code>std::mem::transmute</code><sup class="footnote-reference"><a href="#FuncTransmut">25</a></sup> is a last resort.</p>
 </div>
 <div class="footnote-definition" id="CWETop25"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html"><em>CWE Top 25 Most Dangerous Software Weaknesses</em></a>. The MITRE Corporation (2021).</p>
@@ -3316,14 +3464,14 @@ Only levels of <em>assurance</em>.</p>
 <div class="footnote-definition" id="OWASP"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://owasp.org/www-project-top-ten/"><em>Top 10 Web Application Security Risks</em></a>. OWASP (2021).</p>
 </div>
-<div class="footnote-definition" id="TestVec"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011).</p>
-</div>
 <div class="footnote-definition" id="Covid19"><sup class="footnote-definition-label">8</sup>
 <p><a href="https://www.yalemedicine.org/news/covid-timeline"><em>Our Pandemic Year—A COVID-19 Timeline</em></a>. Kathy Katella (2021).</p>
 </div>
 <div class="footnote-definition" id="SolarWinds"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://whatis.techtarget.com/feature/SolarWinds-hack-explained-Everything-you-need-to-know"><em>SolarWinds hack explained: Everything you need to know</em></a>. Saheed Oladimeji, Sean Michael Kerner (2021).</p>
+</div>
+<div class="footnote-definition" id="TestVec"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011).</p>
 </div>
 <div class="footnote-definition" id="DHBackdoor"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://eprint.iacr.org/2016/644.pdf"><em>How to Backdoor Diffie-Hellman</em></a>. David Wong (2016).</p>
@@ -3334,26 +3482,41 @@ Only levels of <em>assurance</em>.</p>
 <div class="footnote-definition" id="AEADList"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://github.com/RustCrypto/AEADs"><em>RustCrypto: Authenticated Encryption with Associated Data (AEAD) Algorithms</em></a>. RustCrypto organization (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RiceTheorem"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://en.wikipedia.org/wiki/Rice%27s_theorem"><em>Rice's theorem</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SessionTypes"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://wen.works/2020/12/17/an-introduction-to-session-types/"><em>An Introduction to Session Types</em></a>. Wen Kokke (2020).</p>
-</div>
-<div class="footnote-definition" id="TraitFrom"><sup class="footnote-definition-label">19</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TraitInto"><sup class="footnote-definition-label">20</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="OWASPThreat"><sup class="footnote-definition-label">23</sup>
+<div class="footnote-definition" id="OWASPThreat"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/">Threat Modeling Cheat Sheet</a>. OWASP (2021).</p>
 </div>
 <div class="footnote-definition" id="SEIThreat"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://insights.sei.cmu.edu/blog/threat-modeling-12-available-methods/">Threat Modeling: 12 Available Methods </a>. CMU SEI (2018).</p>
 </div>
-<div class="footnote-definition" id="MITREAttack"><sup class="footnote-definition-label">24</sup>
+<div class="footnote-definition" id="MITREAttack"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://attack.mitre.org/">MITRE ATT&amp;CK</a>. MITRE (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RiceTheorem"><sup class="footnote-definition-label">17</sup>
+<p><a href="https://en.wikipedia.org/wiki/Rice%27s_theorem"><em>Rice's theorem</em></a>. Wikipedia (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="NodeIPCMalware"><sup class="footnote-definition-label">18</sup>
+<p><a href="https://github.com/advisories/GHSA-97m3-w2cp-4xx6"><em>Embedded Malicious Code in <code>node-ipc</code></em></a>. GitHub (2022).</p>
+</div>
+<div class="footnote-definition" id="RustdecimalMalware"><sup class="footnote-definition-label">19</sup>
+<p><a href="https://blog.rust-lang.org/2022/05/10/malicious-crate-rustdecimal.html"><em>Security advisory: malicious crate rustdecimal</em></a>. The Rust Team (2022).</p>
+</div>
+<div class="footnote-definition" id="CargoCrev"><sup class="footnote-definition-label">20</sup>
+<p><a href="https://github.com/crev-dev/cargo-crev"><em><code>cargo-crev</code></em></a>. <code>cargo-crev</code> Contributors (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="CargoSupplyChain"><sup class="footnote-definition-label">21</sup>
+<p><a href="https://github.com/rust-secure-code/cargo-supply-chain"><em><code>cargo-supply-chain</code></em></a>. Rust Secure Code Working Group (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SessionTypes"><sup class="footnote-definition-label">22</sup>
+<p><a href="https://wen.works/2020/12/17/an-introduction-to-session-types/"><em>An Introduction to Session Types</em></a>. Wen Kokke (2020).</p>
+</div>
+<div class="footnote-definition" id="TraitFrom"><sup class="footnote-definition-label">23</sup>
+<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="TraitInto"><sup class="footnote-definition-label">24</sup>
+<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="FuncTransmut"><sup class="footnote-definition-label">25</sup>
+<p><a href="https://doc.rust-lang.org/std/mem/fn.transmute.html"><em>Function <code>std::mem::transmute</code></em></a>. The Rust Team (Accessed 2022).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="diy-cli-encryption-tool"><a class="header" href="#diy-cli-encryption-tool">DIY CLI Encryption Tool</a></h1>
 <p>Unit tests demonstrated that our library is correct (at least the first, non-backdoored version).
@@ -3882,9 +4045,31 @@ Likewise, native executables can serve different agendas:</p>
 </blockquote>
 <h2 id="building-a-free-standing-binary"><a class="header" href="#building-a-free-standing-binary">Building a Free-standing Binary</a></h2>
 <p>Static binaries are a tried-and-true way to bundle a program and its dependencies.
-They provide an alternative to dynamic linking, a default which locates and loads dependencies at runtime.</p>
-<p>The idea is to take all of the executable code needed for a program, including any services typically provided by system libraries, and bake everything into one larger file.
-The result is a stand-alone application.</p>
+They provide an alternative to dynamic linking, a default which locates and loads dependencies at runtime.
+Let's briefly visualize the mechanical distinction.</p>
+<p>With <strong>dynamic linking</strong>, multiple processes use the same copy of a shared dependency (e.g. shared library).
+The shared functions are &quot;resolved&quot; (address to call into is determined) at runtime.
+Typically that means on the first call a process makes to a shared function, but it can also be when the process is first &quot;loaded&quot; (e.g. the program is started)<sup class="footnote-reference"><a href="#BindNow">2</a></sup>.
+It's common, but not required, for shared libraries to make systems calls - requests to the OS kernel to interact with hardware.
+Reading or writing a file requires a system call.</p>
+<br>
+<p align="center">
+  <img width="80%" src="chp2/link_dynamic.svg">
+  <figure>
+  <figcaption><center>Two dynamically-linked processes with a shared dependency.</center></figcaption><br>
+  </figure>
+</p>
+<p><strong>Static linking</strong> takes all of the executable code needed for a program, including any services typically provided by system libraries, and bakes everything into one larger file.
+The result is a stand-alone application.
+No need to resolve anything at runtime.
+System calls are made directly as necessary.</p>
+<br>
+<p align="center">
+  <img width="80%" src="chp2/link_static.svg">
+  <figure>
+  <figcaption><center>A statically-linked process and dynamically-linked processes.</center></figcaption><br>
+  </figure>
+</p>
 <blockquote>
 <p><strong>Are we making an operational tradeoff?</strong></p>
 <p>Yes.
@@ -3893,6 +4078,7 @@ Typically, an OS's package manager keeps system libraries up to date.
 And individual programs can link against a single, recent copy of the relevant library.</p>
 <p>Static linking means each individual program needs to be replaced to keep its dependencies up to date.
 We lose the ability to manage centralized copies of certain components.</p>
+<p>If multiple processes rely on the same dependency, then a statically linked process may also mean duplicated code and thus higher RAM usage.</p>
 <p>But static linking is great for portability and isn't readily supported by many programming languages.
 So let's see how it's done in Rust.</p>
 </blockquote>
@@ -3914,13 +4100,13 @@ libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f0936975000)
 <p>The second item (line starting with <code>libc.so.6</code>) is the C standard library.
 Recall from this chapter's intro that our <code>rcli</code> front-end code links against parts of <code>libc</code> (e.g. for dynamic memory allocation).
 Although our RC4 library does not (it's a <code>#![no_std]</code> component).</p>
-<p>To avoid being reliant on the presence of these libraries, we can compile a static binary that will use <code>musl</code> (a tiny <code>libc</code> alternative<sup class="footnote-reference"><a href="#MUSL">2</a></sup>) instead:</p>
+<p>To avoid being reliant on the presence of these libraries, we can compile a static binary that will use <code>musl</code> (a tiny <code>libc</code> alternative<sup class="footnote-reference"><a href="#MUSL">3</a></sup>) instead:</p>
 <pre><code class="language-ignore">rustup target add x86_64-unknown-linux-musl
 cargo build --release --target x86_64-unknown-linux-musl
 </code></pre>
 <ul>
 <li>
-<p>The first command adds a new compilation target<sup class="footnote-reference"><a href="#PlatformSupport">3</a></sup>, which is generally specified by a &quot;target triple&quot; in the form <code>{Arch}-{Vendor}-{Sys}-{ABI}</code>.</p>
+<p>The first command adds a new compilation target<sup class="footnote-reference"><a href="#PlatformSupport">4</a></sup>, which is generally specified by a &quot;target triple&quot; in the form <code>{Arch}-{Vendor}-{Sys}-{ABI}</code>.</p>
 </li>
 <li>
 <p>The second command builds <code>rcli</code> as before, but this time for the target triple <code>x86_64-unknown-linux-musl</code>.</p>
@@ -3941,42 +4127,45 @@ All you need to do is copy over the binary.</p>
 strip = true
 </code></pre>
 <p>The setting applies to any target built with the flag <code>--release</code> (which enables optimizations).
-We could've also used <code>strip</code><sup class="footnote-reference"><a href="#Strip">4</a></sup>, a standalone Linux utility, but we leveraged <code>cargo</code> to more cleanly integrate into the build pipeline.</p>
+We could've also used <code>strip</code><sup class="footnote-reference"><a href="#Strip">5</a></sup>, a standalone Linux utility, but we leveraged <code>cargo</code> to more cleanly integrate into the build pipeline.</p>
 <blockquote>
 <p><strong>An Alternative to <code>musl</code></strong></p>
 <p>Though leveraging <code>musl</code> is a popular way to build small-ish static binaries, <code>musl</code> has its quirks.
 Particularly with regard to performance.</p>
-<p>To statically link your platform's standard C runtime (&quot;CRT&quot;) instead<sup class="footnote-reference"><a href="#RFC">5</a></sup>:</p>
+<p>To statically link your platform's standard C runtime (&quot;CRT&quot;) instead<sup class="footnote-reference"><a href="#RFC">6</a></sup>:</p>
 <pre><code class="language-ignore">RUSTFLAGS='-C target-feature=+crt-static' cargo build --release --target x86_64-unknown-linux-gnu
 </code></pre>
-<p>Warning: unlike the <code>musl</code> route, the resulting binary might still be dynamic linked against something like <code>vdso</code><sup class="footnote-reference"><a href="#VDSO">6</a></sup>. You can use <code>ldd</code> to verify.</p>
+<p>Warning: unlike the <code>musl</code> route, the resulting binary might still be dynamic linked against something like <code>vdso</code><sup class="footnote-reference"><a href="#VDSO">7</a></sup>. You can use <code>ldd</code> to verify.</p>
 </blockquote>
 <h2 id="takeaway-5"><a class="header" href="#takeaway-5">Takeaway</a></h2>
 <p>We've demonstrated building a completely free-standing tool.
-Our binary will run natively, on nearly any client of given OS and ISA<sup class="footnote-reference"><a href="#ISA">7</a></sup>.</p>
+Our binary will run natively, on nearly any client of given OS and ISA<sup class="footnote-reference"><a href="#ISA">8</a></sup>.</p>
 <p>That concludes our tour of software assurance!
 In the next chapter, we'll dig into Rust proper.</p>
 <hr />
 <div class="footnote-definition" id="Hellscape"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://github.com/meme/hellscape"><em><code>hellscape</code></em></a>. meme (Archived 2021).</p>
 </div>
-<div class="footnote-definition" id="MUSL"><sup class="footnote-definition-label">2</sup>
+<div class="footnote-definition" id="BindNow"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://man7.org/linux/man-pages/man8/ld.so.8.html"><em><code>ld.so</code></em></a>. Linux manual (Accessed 2022). On Linux, this behavior can be activated by setting the <code>LD_BIND_NOW</code> environment variable to a non-empty string. The advantage of doing shared function resolution at load-time is slightly more predictable runtime performance. May also be useful for process debugging.</p>
+</div>
+<div class="footnote-definition" id="MUSL"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://musl.libc.org/"><em>musl libc</em></a>. Rich Felker and contributors (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="PlatformSupport"><sup class="footnote-definition-label">3</sup>
+<div class="footnote-definition" id="PlatformSupport"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://doc.rust-lang.org/nightly/rustc/platform-support.html"><em>Platform Support</em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RFC"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="Strip"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://man7.org/linux/man-pages/man1/strip.1.html"><em><code>strip</code></em></a>. Linux manual (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RFC"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://rust-lang.github.io/rfcs/1721-crt-static.html"><em>RFC 1721</em></a>. The Rust RFC Book (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="VDSO"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="VDSO"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://man7.org/linux/man-pages/man7/vdso.7.html"><em><code>vdso</code></em></a>. Linux manual (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="ISA"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="ISA"><sup class="footnote-definition-label">8</sup>
 <p>Instruction Set Architecture, e.g. x86_64.</p>
-</div>
-<div class="footnote-definition" id="Strip"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://man7.org/linux/man-pages/man1/strip.1.html"><em><code>strip</code></em></a>. Linux manual (Accessed 2022).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hands-on-challenge-extend-the-cli-encryption-tool"><a class="header" href="#hands-on-challenge-extend-the-cli-encryption-tool">Hands-on Challenge: Extend the CLI Encryption Tool</a></h1>
 <p>The <code>rcli</code> tool we wrote in this chapter is rather basic.
@@ -4095,10 +4284,10 @@ Hence the <em>zero-crash</em> pun in this chapter's title.</p>
 On wisdom tested in the most unforgiving of production environments.</p>
 <p>The Motor Industry Software Reliability Association (MISRA) C<sup class="footnote-reference"><a href="#MISRA">4</a></sup> guidelines are a set of C software development rules originally created for, as the acronym implies, the automotive industry.</p>
 <p>Unlike a <em>style</em> guide, MISRA C outlines <em>best practices</em> for developers of safety-critical systems.
-It's intended to maximize reliability, security, and maintainability.
+It's intended to maximize reliability, security, and maintainability<sup class="footnote-reference"><a href="#AntiMISRA">5</a></sup>.
 For systems in which a bug can potentially endanger lives.</p>
-<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference"><a href="#DO-178C">5</a></sup> and ISO-26262<sup class="footnote-reference"><a href="#ISO-26262">6</a></sup>).
-The most recent version<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup> introduces itself as:</p>
+<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference"><a href="#DO-178C">6</a></sup> and ISO-26262<sup class="footnote-reference"><a href="#ISO-26262">7</a></sup>).
+The most recent version<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> introduces itself as:</p>
 <blockquote>
 <p>The MISRA C Guidelines define a subset of the C language in which the opportunity to make mistakes is either removed or reduced.
 Many standards for the development of safety-related software require, or recommend, the use of a language subset, and this can also be used to develop any application with security, high integrity or high reliability requirements.</p>
@@ -4120,9 +4309,9 @@ We will not attempt to formally define a safe subset in this book.</p>
 <p><code>#![no_std]</code>: We don't use standard library facilities (which contain <code>unsafe</code> code). More strictly, we opt out of all dynamic memory usage. Not relying on an external allocator has certain robustness benefits.</p>
 </li>
 </ul>
-<p>Because the core project is based on an open-source library<sup class="footnote-reference"><a href="#Scapegoat">8</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
+<p>Because the core project is based on an open-source library<sup class="footnote-reference"><a href="#Scapegoat">9</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
 </blockquote>
-<p>Now, being a new language, Rust is not yet certified for use in a safety-critical setting - although this is an area of industry effort<sup class="footnote-reference"><a href="#Ferrocene">9</a></sup> and research<sup class="footnote-reference"><a href="#RustCrit">10</a></sup>.
+<p>Now, being a new language, Rust is not yet certified for use in a safety-critical setting - although this is an area of industry effort<sup class="footnote-reference"><a href="#Ferrocene">10</a></sup> and research<sup class="footnote-reference"><a href="#RustCrit">11</a></sup>.
 There is no Rust counterpart to the MISRA C guidelines.
 Yet.</p>
 <p>Many MISRA C rules are specific to the C language.
@@ -4135,17 +4324,17 @@ We'll split a portion of the remainder into two categories, using these labels t
 <p><strong>Reliably for Rust (RR):</strong> Rule generally applicable to the design and implementation programs prioritizing correctness and robustness. Can be readily applied in Rust, just not automatically. Conscious effort is required on the programmer's part.</p>
 </li>
 </ul>
-<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup> rule.
+<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> rule.
 Both in this chapter and throughout the book, preceded by one the the labels above.</p>
 <p>As a preview - here's three MISRA C rules we'll conform to for the core library we write (but not for development tools we build or use, since those aren't safety-critical):</p>
 <blockquote>
-<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <p>Note we're omitting rationale.
 Which can be convincing, if the above three rules appear restrictive.
@@ -4153,9 +4342,9 @@ Fortunately, Rust makes it feasible and ergonomic to meet this sort of high assu
 <blockquote>
 <p><strong>A Distinct Take on MISRA C</strong></p>
 <p>To be cautious of respecting copyright, we'll only provide a rough paraphrase of each MISRA rule's &quot;heading&quot; - not its exact phrasing, full explanation, rationale, exceptions, category, etc.
-This is the same approach taken by academic publications<sup class="footnote-reference"><a href="#MisraPub">11</a></sup> that enumerate MISRA rules.</p>
+This is the same approach taken by academic publications<sup class="footnote-reference"><a href="#MisraPub">12</a></sup> that enumerate MISRA rules.</p>
 <p>In several cases, our paraphrase will introduce Rust-specific terminology not present in the MISRA C Guidelines.
-Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference"><a href="#MisraRust">12</a></sup>, we're not aiming to be exhaustive.
+Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference"><a href="#MisraRust">13</a></sup>, we're not aiming to be exhaustive.
 We're sampling rules for the purpose of learning assurance concepts.</p>
 </blockquote>
 <p>We can taxonomize the MISRA rules and directives mentioned in this chapter as follows:</p>
@@ -4181,7 +4370,7 @@ We'll focus on tools in this book.</p>
 <p>Using <code>clap</code> in the last chapter already gave us a taste for integrating 3rd party libraries into our builds.
 We also leveraged Rust's built-in, 1st-party unit testing framework to verify our RC4 implementation against official test vectors.
 Yet we've only scratched the surface on what <code>cargo</code> can do to aid day-to-day development tasks.
-The Cargo Book<sup class="footnote-reference"><a href="#CargoBook">13</a></sup> offers a more complete overview.</p>
+The Cargo Book<sup class="footnote-reference"><a href="#CargoBook">14</a></sup> offers a more complete overview.</p>
 <p>In this chapter, we'll highlight a few more components of Rust's tooling ecosystem, both 1st and 3rd party.
 We'll also discuss Rust's release cycle to understand how stability is enabled for production systems.
 More generally, we'll cover a key pillar of successful software projects: code organization.</p>
@@ -4210,7 +4399,7 @@ For now, think of it like this:</p>
 <p><strong>Heap memory</strong> is long-term (live until freed) storage that has to be requested explicitly and cleaned up later. But it can store variables whose <strong>size is decided at runtime</strong>.</p>
 <ul>
 <li>
-<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference"><a href="#Malloc">14</a></sup>, implements complex logic to manage chunks of RAM.</p>
+<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference"><a href="#Malloc">15</a></sup>, implements complex logic to manage chunks of RAM.</p>
 </li>
 <li>
 <p>Vectors and non-literal strings are typically stored on the heap.</p>
@@ -4255,34 +4444,37 @@ It's a concept that spans every kind of programming language:</p>
 <div class="footnote-definition" id="MISRA"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://www.misra.org.uk/misra-c/"><em>MISRA C</em></a>. MISRA (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="DO-178C"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="AntiMISRA"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://ieeexplore.ieee.org/abstract/document/4658076"><em>Assessing the Value of Coding Standards: An Empirical Study</em></a>. Cathal Boogerd, Leon Moonen (2008). This paper, which evaluated the MISRA C 2004 standard, makes the claim that only 12 of 72 MISRA rules were significantly effective for fault detection and that adherence to certain rules might, counter intuitively, actually <em>increase</em> fault rate. These conclusions are controversial, MISRA C and similar coding standards continue to be best practices in several industries. Outside of a subsequent study by the same authors, we couldn't find other research arriving at similar conclusions. But such claims are worth noting for completeness. We encourage readers to maintain a mindset of healthy skepticism! At the very least, we can agree there is nuance to the impact and application of coding standards.</p>
+</div>
+<div class="footnote-definition" id="DO-178C"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://en.wikipedia.org/wiki/DO-178C"><em>DO-178C</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="ISO-26262"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="ISO-26262"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://en.wikipedia.org/wiki/ISO_26262"><em>ISO 26262</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
 </div>
-<div class="footnote-definition" id="Scapegoat"><sup class="footnote-definition-label">8</sup>
+<div class="footnote-definition" id="Scapegoat"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://github.com/tnballo/scapegoat"><em><code>scapegoat</code></em></a>. Tiemoko Ballo (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">9</sup>
+<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">10</sup>
 <p><a href="https://ferrous-systems.com/ferrocene/">Ferrocene</a>. Ferrous Systems (2021).</p>
 </div>
-<div class="footnote-definition" id="RustCrit"><sup class="footnote-definition-label">10</sup>
+<div class="footnote-definition" id="RustCrit"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://ieeexplore.ieee.org/document/8990314"><em>Towards Rust for Critical Systems</em></a>. Andre Pinho, Luis Couto, Jose Oliveira (2019).</p>
 </div>
-<div class="footnote-definition" id="MisraPub"><sup class="footnote-definition-label">11</sup>
+<div class="footnote-definition" id="MisraPub"><sup class="footnote-definition-label">12</sup>
 <p><a href="https://arxiv.org/pdf/1809.00821.pdf"><em>The MISRA C Coding Standard and its Role in the Development and Analysis of Safety- and Security-Critical Embedded Software</em></a>. Roberto Bagnara, Abramo Bagnara, and Patricia Hill (2018).</p>
 </div>
-<div class="footnote-definition" id="MisraRust"><sup class="footnote-definition-label">12</sup>
+<div class="footnote-definition" id="MisraRust"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://github.com/PolySync/misra-rust/blob/master/MISRA-Rules.md"><em>MISRA-Rust</em></a>. Shea Newton (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="CargoBook"><sup class="footnote-definition-label">13</sup>
+<div class="footnote-definition" id="CargoBook"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://doc.rust-lang.org/cargo/"><em>The Cargo Book</em></a>. The Cargo Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="Malloc"><sup class="footnote-definition-label">14</sup>
+<div class="footnote-definition" id="Malloc"><sup class="footnote-definition-label">15</sup>
 <p>A user space &quot;memory allocator&quot; can issue &quot;system calls&quot; to an OS to grow heap capacity as needed. If your program uses heap memory, it must link against this runtime support library. This is extremely common, it's how most programs work.</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="on-undefined-behavior"><a class="header" href="#on-undefined-behavior">On Undefined Behavior</a></h1>
@@ -4689,7 +4881,7 @@ Had we written <code>assert_eq!(x + y, 44);</code> instead of <code>assert_eq!(x
   = note: `#[deny(arithmetic_overflow)]` on by default
 </code></pre>
 <p>We got lucky here in the sense that both <code>x</code> and <code>y</code> are constants, so the overflow could be detected at compile-time.
-Rust uses optional run-time checks to catch overflow for variables whose values aren't known beforehand - a topic we'll return to in Chapter 4 when discussing safety in-depth.</p>
+Rust uses optional runtime checks to catch overflow for variables whose values aren't known beforehand - a topic we'll return to in Chapter 4 when discussing safety in-depth.</p>
 <p>There's one more detail to keep in mind about integer overflow in Rust: unlike C/C++, it's not a potential source of UB.
 The rules of wrap around are specified and universal across target platforms<sup class="footnote-reference"><a href="#IntWrap">1</a></sup>.</p>
 <h3 id="2-host-specific-integers"><a class="header" href="#2-host-specific-integers">2) Host-specific Integers</a></h3>
@@ -4867,7 +5059,7 @@ Because they can actually result in <em>faster</em> code.</p>
 <p>Why?
 There's an implicit contract in the first loop above: <code>i</code> has to be smaller than the length of the array.
 Otherwise we'd <em>write out-of-bounds</em>, past the end of the array.
-To ensure safety, the compiler has to add a run-time bounds check to the first loop (but not the second).
+To ensure safety, the compiler has to add a runtime bounds check to the first loop (but not the second).
 That check has a cost.
 We'll see what failing the check looks like when discussing error handling later in this chapter.</p>
 <blockquote>
@@ -6069,7 +6261,7 @@ But Rust's ownership model blurs the line:</p>
 <p><strong>Are lifetimes present in the executable?</strong></p>
 <p>No, lifetimes are a compile-time construct.
 They don't appear in the machine code emitted, they're only used by the compiler to analyze a program for safety.
-There's no run-time check or cost.</p>
+There's no runtime check or cost.</p>
 </blockquote>
 <p>Every value has a single, unique <strong>owner</strong>.
 In the exact place in the source where the owner &quot;drops&quot; out of scope (the end of a function in which it was declared, for example), the lifetime of all its owned values ends.
@@ -6244,7 +6436,7 @@ And it's <em>dropped</em> when the <code>main</code> function finished running.
 So the compiler adds freeing logic just after <code>dbg!(init);</code>, the last line of <code>main</code>.
 A <em>destructor</em> is implemented for us, automatically.
 By traversing the ownership hierarchy, this destructor knows how to clean up the other structs owned by <code>init</code>.</p>
-<p>With just one more <code>println!</code>, we can trace the run-time deallocation sequence.
+<p>With just one more <code>println!</code>, we can trace the runtime deallocation sequence.
 Rust supports running arbitrary logic before destructors, simply by implementing the <code>Drop</code> trait<sup class="footnote-reference"><a href="#Drop">6</a></sup> for a type.
 In case you need to run custom code to release an external resource (e.g. close a network or database connection) or similar.</p>
 <p>In our case we'll print the <code>name</code> field and <code>Proc</code> struct's memory address on every drop:</p>
@@ -6963,7 +7155,7 @@ It's called <strong>interior mutability</strong> and relaxes enforcement of the 
 <p>We must still obey the rule, but we don't have to prove mutual exclusion for all possible executions with <em>compile-time verification</em> (static assurance).
 That strictness makes encoding certain problems too difficult.
 But if it compiles, it's guaranteed.</p>
-<p>Instead, interior mutability allows us to do <em>run-time validation</em> (dynamic assurance).
+<p>Instead, interior mutability allows us to do <em>runtime validation</em> (dynamic assurance).
 Below are two types often used in the interior mutability pattern.
 Don't worry about what these type signatures mean, let's focus on the tradeoffs:</p>
 <ul>
@@ -6988,7 +7180,7 @@ Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 <p align="center">
   <img width="80%" src="chp3/ref_venn_interior_mut.svg">
   <figure>
-  <figcaption><center>Interior mutability: run-time enforced shared readable xor exclusive writeable</center></figcaption><br>
+  <figcaption><center>Interior mutability: runtime enforced shared readable xor exclusive writeable</center></figcaption><br>
   </figure>
 </p>
 <p>To reiterate, <strong>we will not be using interior mutability in this book.</strong>
@@ -6999,9 +7191,9 @@ It's a best practice for some classes of problems, and well-covered in other res
 But remember - Rust is a <em>big</em> language.
 We don't have to master every feature to be productive.</p>
 <blockquote>
-<p><strong>We're not out of the run-time woods!</strong></p>
+<p><strong>We're not out of the runtime woods!</strong></p>
 <p>Our code does index-based array access, e.g. <code>arr[i]</code>.
-That incurs a run-time bounds check.
+That incurs a runtime bounds check.
 A failure (out-of-bounds index attempt) would mean <code>panic!</code>, just like <code>RefCell</code>.
 But array indexing is easier to reason about.</p>
 <p>To justify confidence in indexing logic and more general reliability, Chapter 12 introduces an advanced form of stress testing: differential fuzzing.</p>
@@ -7020,7 +7212,7 @@ Including four ways to work with the borrow checker:</p>
 <p><strong>Borrowing</strong> (accessing) to data for a subset of its lifetime.</p>
 </li>
 <li>
-<p><del><strong>Interior mutability</strong> - a form of relaxed, run-time ownership enforcement.</del></p>
+<p><del><strong>Interior mutability</strong> - a form of relaxed, runtime ownership enforcement.</del></p>
 </li>
 </ol>
 <p>That's it!
@@ -7077,7 +7269,7 @@ Error handling is also one area where Rust differentiates itself - both in mecha
 <p><strong>Link-time errors</strong> - Symbol resolution errors that prevent multiple modules from composing. Thanks to <code>cargo</code>, linking errors should be a rarity when working on pure-Rust codebases. But they may appear in large, multilingual projects or when using C/C++ libraries as dependencies.</p>
 </li>
 <li>
-<p><strong>Run-time errors</strong> - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling run-time errors in Rust.</p>
+<p><strong>Runtime errors</strong> - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling runtime errors in Rust.</p>
 </li>
 </ol>
 <p>Notice that <em>logical errors</em> (e.g. implementing an incorrect algorithm) are not listed above.
@@ -7374,7 +7566,7 @@ rc4 = { path = &quot;../rc4&quot;, version = &quot;0.1.0&quot;, features = [&quo
 <p>This enables the best of both worlds - support embedded systems by default, but allow richer error reporting if a library user enables an optional feature when building for non-embedded targets.</p>
 </blockquote>
 <h2 id="takeaway-12"><a class="header" href="#takeaway-12">Takeaway</a></h2>
-<p>Rust's <code>Result</code> type, not to be confused with the conceptually similar <code>Option</code>, is our main mechanism for reporting run-time errors and enforcing their handling.
+<p>Rust's <code>Result</code> type, not to be confused with the conceptually similar <code>Option</code>, is our main mechanism for reporting runtime errors and enforcing their handling.
 Like C++ exceptions, it can't be ignored.
 Unlike C++ exceptions, it's part of the regular call chain.</p>
 <p>Error handling is essential for assurance, but the specific actions to be taken are ultimately application specific.
