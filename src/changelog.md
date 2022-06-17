@@ -9,7 +9,7 @@ If you've found an error, please [get in touch](./engage.md#submit-feedback-ques
     * New diagrams and discussion in 1.1, 2.10.
     * New asides in 2.2 and 2.7.
     * [`CODE_OF_CONDUCT.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CODE_OF_CONDUCT.md) added.
-    * EPUB download now includes a SHA-3 hash.
+    * EPUB download now includes a SHA-3-256 hash and timestamp.
 
 * **v0.3.1:**
     * [Community Contributors list](./chp1/about_the_team.md#community-contributors) started, [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md) added.
