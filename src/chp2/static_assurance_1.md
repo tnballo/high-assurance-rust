@@ -239,6 +239,20 @@ Many have tried, most have failed.
 
 Let's get a taste for how Rust handles the pointer problem.
 
+> **Imprecise Analyses Can Still Be Useful!**
+>
+> Pointer analysis has a close cousin: Value Set Analysis (VSA).
+> It can be applied to compiled binaries, supporting use cases where source code isn't available (e.g. reverse engineering).
+> Unlike pointer analysis, VSA doesn't differentiate between pointer and integer variables.
+> It computes a *range of possible runtime values* for either type of numeric variable.
+>
+> For the above `incr` example, a precise VSA of a correct program might determine that integer `a` has an inclusive value range of `[40, 42]` - capturing both the pre and post increment values. And that pointer `*a` is similarly within some range of valid memory addresses, notionally something like `[0x7ffe455e5c40, 0x7ffe455e5bf0]`.
+>
+> Here's the kicker: a recent peer-reviewed human study[^VSA] found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find "information leakage" vulnerabilities).
+> Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts[^VSA] for certain problem types.
+>
+> Approximate static analyses can, in many contexts, be demonstrably useful.
+
 ---
 
 [^AbsInt]: [*Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints*](https://dl.acm.org/doi/10.1145/512950.512973). Patrick Cousot, Radhia Cousot (1977).
@@ -271,3 +285,5 @@ Let's get a taste for how Rust handles the pointer problem.
 [^UndefResearch]: [*Undefined Behavior: What Happened to My Code?*](https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf). Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012).
 
 [^SegFault]: "segmentation fault" , or "segfault" for short, is an error thrown by the operating system when your program attempts to access regions of memory that don't belong to it (outside allotted "segment"). While it can be frustrating to debug, imagine how difficult things would be if the OS didn't stop you!
+
+[^VSA]: [*Effects of Precise and Imprecise Value-Set Analysis (VSA) Information on Manual Code Analysis*](https://www.ndss-symposium.org/wp-content/uploads/bar2021_23002_paper.pdf). Laura Matzen, Michelle Leger, Geoffrey Reedy (2021).

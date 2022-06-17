@@ -78,7 +78,7 @@ error: this arithmetic operation will overflow
 ```
 
 We got lucky here in the sense that both `x` and `y` are constants, so the overflow could be detected at compile-time.
-Rust uses optional run-time checks to catch overflow for variables whose values aren't known beforehand - a topic we'll return to in Chapter 4 when discussing safety in-depth.
+Rust uses optional runtime checks to catch overflow for variables whose values aren't known beforehand - a topic we'll return to in Chapter 4 when discussing safety in-depth.
 
 There's one more detail to keep in mind about integer overflow in Rust: unlike C/C++, it's not a potential source of UB.
 The rules of wrap around are specified and universal across target platforms[^IntWrap].
@@ -283,7 +283,7 @@ Because they can actually result in *faster* code.
 Why?
 There's an implicit contract in the first loop above: `i` has to be smaller than the length of the array.
 Otherwise we'd *write out-of-bounds*, past the end of the array.
-To ensure safety, the compiler has to add a run-time bounds check to the first loop (but not the second).
+To ensure safety, the compiler has to add a runtime bounds check to the first loop (but not the second).
 That check has a cost.
 We'll see what failing the check looks like when discussing error handling later in this chapter.
 

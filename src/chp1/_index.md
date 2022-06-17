@@ -231,7 +231,7 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^AdvC]: [*Episode 53 - C Level, Part I*](https://adventofcomputing.libsyn.com/episode-53-c-level-part-i). Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.
 
-[^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
+[^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at runtime if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
 
 [^ProjServo]: [*Project Servo, Technology from the past come to save the future from itself*](http://venge.net/graydon/talks/intro-talk-2.pdf). Graydon Hoare (2010).
 

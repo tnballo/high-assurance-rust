@@ -22,9 +22,34 @@ We want it to work for every user, every time.
 
 Static binaries are a tried-and-true way to bundle a program and its dependencies.
 They provide an alternative to dynamic linking, a default which locates and loads dependencies at runtime.
+Let's briefly visualize the mechanical distinction.
 
-The idea is to take all of the executable code needed for a program, including any services typically provided by system libraries, and bake everything into one larger file.
+With **dynamic linking**, multiple processes use the same copy of a shared dependency (e.g. shared library).
+The shared functions are "resolved" (address to call into is determined) at runtime.
+Typically that means on the first call a process makes to a shared function, but it can also be when the process is first "loaded" (e.g. the program is started)[^BindNow].
+It's common, but not required, for shared libraries to make systems calls - requests to the OS kernel to interact with hardware.
+Reading or writing a file requires a system call.
+
+<br>
+<p align="center">
+  <img width="80%" src="link_dynamic.svg">
+  <figure>
+  <figcaption><center>Two dynamically-linked processes with a shared dependency.</center></figcaption><br>
+  </figure>
+</p>
+
+**Static linking** takes all of the executable code needed for a program, including any services typically provided by system libraries, and bakes everything into one larger file.
 The result is a stand-alone application.
+No need to resolve anything at runtime.
+System calls are made directly as necessary.
+
+<br>
+<p align="center">
+  <img width="80%" src="link_static.svg">
+  <figure>
+  <figcaption><center>A statically-linked process and dynamically-linked processes.</center></figcaption><br>
+  </figure>
+</p>
 
 > **Are we making an operational tradeoff?**
 >
@@ -35,6 +60,8 @@ The result is a stand-alone application.
 >
 > Static linking means each individual program needs to be replaced to keep its dependencies up to date.
 > We lose the ability to manage centralized copies of certain components.
+>
+> If multiple processes rely on the same dependency, then a statically linked process may also mean duplicated code and thus higher RAM usage.
 >
 > But static linking is great for portability and isn't readily supported by many programming languages.
 > So let's see how it's done in Rust.
@@ -131,15 +158,17 @@ In the next chapter, we'll dig into Rust proper.
 
 [^Hellscape]: [*`hellscape`*](https://github.com/meme/hellscape). meme (Archived 2021).
 
+
+[^BindNow]: [*`ld.so`*](https://man7.org/linux/man-pages/man8/ld.so.8.html). Linux manual (Accessed 2022). On Linux, this behavior can be activated by setting the `LD_BIND_NOW` environment variable to a non-empty string. The advantage of doing shared function resolution at load-time is slightly more predictable runtime performance. May also be useful for process debugging.
+
 [^MUSL]: [*musl libc*](https://musl.libc.org/). Rich Felker and contributors (Accessed 2022).
 
 [^PlatformSupport]: [*Platform Support*](https://doc.rust-lang.org/nightly/rustc/platform-support.html). The Rust Team (Accessed 2022).
+
+[^Strip]: [*`strip`*](https://man7.org/linux/man-pages/man1/strip.1.html). Linux manual (Accessed 2022).
 
 [^RFC]: [*RFC 1721*](https://rust-lang.github.io/rfcs/1721-crt-static.html). The Rust RFC Book (Accessed 2022).
 
 [^VDSO]: [*`vdso`*](https://man7.org/linux/man-pages/man7/vdso.7.html). Linux manual (Accessed 2022).
 
 [^ISA]: Instruction Set Architecture, e.g. x86_64.
-
-[^Strip]: [*`strip`*](https://man7.org/linux/man-pages/man1/strip.1.html). Linux manual (Accessed 2022).
-
