@@ -42,6 +42,8 @@ We don't seek to disparage the giants whose shoulders we stand on.
 
 Yet those shoulders bear an awful burden.
 A seminal 2012 research paper[^Sok:EWoM], aptly titled *"Systematization of Knowledge: Eternal War in Memory"*, chronicled 30 years of *failed* C and C++ memory protection schemes.
+Every new defense has been undermined by a new bypass technique.
+
 Fast forward to 2019.
 A Microsoft study[^MSBlue], of all security issues in the company's products between 2004 and 2018, claims:
 
@@ -56,6 +58,14 @@ Understandable:
 * C++'s powerful abstractions enable performant systems of impressive scale: web browsers, graphics engines, databases, etc. Software we couldn't live without.
 
 But *evolution* may be overdue.
+Google's 2022 analysis[^ProjZero2021Review] of previously-unknown (e.g. "zero-day") exploits "detected and disclosed as used in-the-wild" found that:
+
+> Out of the 58 in-the-wild 0-days for the year [2021], 39, or 67% were memory corruption vulnerabilities.
+> Memory corruption vulnerabilities have been the standard for attacking software for the last few decades and it's still how attackers are having success.
+
+Some of the exploits surveyed were actively used to target journalists, politicians, activists, and minority populations[^ProjZero2021Review].
+Memory corruption is not a theoretical problem.
+It's a pressing and severe issue that, in the worst case, causes tangible human harm.
 
 > **What if I'm just *really* careful, *all* the time?**
 >
@@ -230,6 +240,8 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 [^MSBlue]: [*Trends, challenges, and strategic shifts in the software vulnerability mitigation landscape*](https://github.com/Microsoft/MSRC-Security-Research/blob/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf). Mat Miller (2019)
 
 [^AdvC]: [*Episode 53 - C Level, Part I*](https://adventofcomputing.libsyn.com/episode-53-c-level-part-i). Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.
+
+[^ProjZero2021Review]: [*The More You Know, The More You Know You Don't Know*](https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html). Maddie Stone, Google Project Zero (2022).
 
 [^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at runtime if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
 
