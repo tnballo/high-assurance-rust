@@ -190,8 +190,8 @@ We get [some] proofs at the speed of real-world code.
 
 Now any tool, no matter how potentially beneficial, must be usable to see adoption and impact.
 
-Despite an initial learning curve, Rust was voted the "most loved" programming language for the last 6 years in a row.
-In StackOverflow's annual developer survey[^StackSurvey1], which had over 82,000 responses in 2021[^StackSurvey2].
+Despite an initial learning curve, Rust was voted the "most loved" programming language for the last 7 years in a row.
+In StackOverflow's annual developer survey[^StackSurvey1], which had over 73,000 responses in 2022[^StackSurvey2].
 
 ## Alright. So can I learn Rust?
 
@@ -261,9 +261,9 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^TypeProof]: [*Computer Scientist proves safety claims of the programming language Rust*](https://www.eurekalert.org/news-releases/610682). Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.
 
-[^StackSurvey1]: [Technology: Most loved, dreaded, and wanted](https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted). StackOverflow (2021).
+[^StackSurvey1]: [Technology: Most loved, dreaded, and wanted](https://survey.stackoverflow.co/2022/#technology-most-loved-dreaded-and-wanted). StackOverflow (2022).
 
-[^StackSurvey2]: [Methodology: Participants](https://insights.stackoverflow.com/survey/2021#methodology-participants). StackOverflow (2021).
+[^StackSurvey2]: [Methodology: Participants](https://survey.stackoverflow.co/2022/#methodology-participants). StackOverflow (2022).
 
 [^Cpp11]: [*[Final] Working Draft, Standard for Programming Language C++*](http://open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3337.pdf). Document Number:N3337 (2012). Document number 3337 - so close to 1337! Missed opportunity.
 
