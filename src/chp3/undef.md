@@ -14,7 +14,7 @@ Consequently, **Undefined Behavior (UB)** is defined as[^ISOC]:
 > Behavior, upon use of a nonportable or erroneous program construct or of erroneous data, for which this International Standard imposes no requirements.
 
 In other words, should a developer inadvertently trigger UB, *the program can do absolutely anything*.
-It may crash, produce an incorrect result, or even execute a sequence of seemingly unrelated operations.
+It may crash, produce an incorrect result, or even execute a sequence of seemingly unrelated operations[^NasalDemons].
 
 Notice we didn't say "the undefined operation can do absolutely anything", we said "the program".
 It's important to understand one fact about UB:
@@ -112,17 +112,21 @@ Rust removes UB, nearly entirely, by default.
 
 > **Why the "almost eliminated" and "nearly entirely" caveats?**
 >
-> At the time of this writing, Rust does not yet have an official language standard or specification, like C or C++.
+> At the time of this writing, Rust does not yet have an official language standard or specification.
+> There's no Rust equivalent to C or C++'s ISO documents.
 > So it's difficult to make a definitive claim.
 >
 > The Rust Reference contains a non-exhaustive list of behaviors considered undefined in Rust[^UndefRust], all of which would require the `unsafe` keyword to introduce.
 > So there are likely only two potential sources of UB in Rust:
 >
-> * `unsafe` blocks whose invariants aren't actually upheld (our fault).
+> * `unsafe` functions or blocks whose invariants aren't actually upheld (our fault).
 >
 > * Rare compiler bugs[^RustcBug] that threaten soundness (patched once discovered).
 >
 > We'll use `miri`[^Miri], an experimental dynamic tool for detecting UB in Rust programs, in Chapter 12.
+>
+> An unofficial Rust language specification effort is currently underway[^FLS] to support Ferrocene, a vendored Rust toolchain to be qualified for safety-critical use.
+> While this specification does not aim to document the entire Rust language and standard library, it will enumerate UB where relevant and be publicly available[^FLS].
 
 To make Rust's benefits more visceral, let's port our buggy C program to Rust:
 
@@ -174,7 +178,29 @@ It entails designing failure modes, which is where UB comes in[^CppUndef] - it's
 
 So the standard draws a boundary: it defines an "abstract machine" general enough to represent a variety of underlying hardware.
 This has the upside of giving compiler developers room to introduce platform-specific optimizations.
-Which is one of the main jobs of a compiler: it repeatedly applies rewrite rules to generate efficient machine code.
+Which is one of the main jobs of a compiler: it repeatedly applies *rewrite rules* to generate efficient machine code.
+
+An optimizing compiler assumes that input source code never introduces UB, per the language specification.
+If this assumption is:
+
+* **True** (source is indeed UB-free) - rewrite rules replace existing code with new code that is both faster and *logically equivalent*.
+
+    * These rules often take advantage of the "wiggle room" an abstract specification provides to play with architecture-specific instruction and/or memory model semantics. Or remove checks that prove necessary[^RalfUB].
+
+* **False** (source contains UB) - application of rewrite rules may lead to *logical contradiction*.
+
+    * If the UB present is "triggered", results include incorrect code replacements and/or arbitrary runtime operations.
+
+This dichotomy begs the question: couldn't a sufficiently "smart" compiler simply *verify* its assumption of UB-free source?
+Just like it checks syntax and typing at compile time?
+
+The answer is yes!
+As alluded to, that's exactly what `rustc` does when compiling fully-safe Rust code[^IntOverflow].
+Using a combination of its advanced type system and runtime check insertion.
+
+But guaranteeing absence of all UB automatically is technically infeasible for C, C++, *and* `unsafe` Rust.
+Futhermore, even the safest of Rust programs might link against *some* `unsafe` code internally, like C's `libc` or parts of Rust's `core`[^Core].
+From an assurance perspective, we're betting that such widely-used and well-vetted dependencies are less likely to contain UB than `unsafe` code we'd write ourselves.
 
 > **What's an example of an optimization?**
 >
@@ -334,6 +360,8 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 [^ISOC]: [*ISO/IEC 9899:TC3*](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf). International Organization for Standardization (2007). Note newer standards for the C language must be paid for, they are not freely available online. The points we make in this book are still applicable to newer C standards.
 
+[^NasalDemons]: [*nasal demons*](http://www.catb.org/jargon/html/N/nasal-demons.html). According to an infamous Usenet post, the arbitrary consequences of UB could include making "demons fly out of your nose". Hence UB is sometimes joking referred to as "nasal demons".
+
 [^UndefResearch]: [*Undefined Behavior: What Happened to My Code?*](https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf). Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012).
 
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).
@@ -346,7 +374,15 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 [^Miri]: [*`miri`*](https://github.com/rust-lang/miri). Ralf Jung (Accessed 2022).
 
+[^FLS]: [*Introducing the Ferrocene Language Specification*](https://ferrous-systems.com/blog/ferrocene-language-specification/). Ferrous Systems (2022).
+
 [^CppUndef]: [*CppCon 2017: "Undefined Behavior in 2017"*](https://www.youtube.com/watch?v=v1COuU2vU_w). John Regehr (2017).
+
+[^RalfUB]: [*Undefined Behavior deserves a better reputation*](https://www.ralfj.de/blog/2021/11/18/ub-good-idea.html). Ralf Jung (2021).
+
+[^IntOverflow]: This claim may have debatable edge cases. For example, if `overflow-checks = false` is specified in `Cargo.toml` (the default setting for the optimized `release` profile) then integer overflow can happen at runtime. That's not technically UB in Rust, like it is in C/C++, because you can reliably expect two's complement wrap. But it might still cause unanticipated bugs in the context of your larger application.
+
+[^Core]: [*The Rust Core Library*](https://doc.rust-lang.org/core/). The Rust Team (Accessed 2022).
 
 [^EAX]: Technically, `%eax` is the lower 4 bytes of the 8-byte `%rax` register on an x86-64 system. `%rax` is used for return values. In this example, we're dereferencing 8-byte pointers but returning a 4-byte integer.
 

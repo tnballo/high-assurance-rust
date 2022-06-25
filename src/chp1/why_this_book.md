@@ -117,7 +117,8 @@ We believe that Rust is an exceptional tool for many projects today, and will be
 > Zig, Rust, and Ada employ various strategies for one or more of:
 >
 > * Building safety features directly into the type system (compile time enforcement)
-> * Requiring explicit opt-out of default runtime safety enforcement (runtime detection)
+>
+> * Requiring explicit opt-out of default runtime safety checks (runtime detection)
 >
 > Baking safety into the core design of a language makes defect elimination easier to scale reliably.
 > Relative to training in opt-in best practices and/or using 3rd-party error checkers.
