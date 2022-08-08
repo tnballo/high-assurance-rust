@@ -30,7 +30,7 @@ Dynamic analysis is conceptually easy to understand: learn about a program by ex
 > For example, a debugger can read the current values of variables at specific points in execution.
 > A unit test can check return values of a specific function run with specific parameters.
 
-## Let's Roll Some Crypto in Rust!
+## Let's Roll Some Cryptography in Rust!
 
 Realistically, some non-trivial percentage of readers may never make it past this 2nd chapter.
 Real-life priorities shift, learning a new language and a new skill set is a tough task to follow through on.
