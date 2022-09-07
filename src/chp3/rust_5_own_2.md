@@ -329,7 +329,7 @@ To preview the exclusive-mutable restriction, this code would fail to compile:
 let mut x = "Hello!".to_string();
 
 let r1 = &mut x; // 1st mutable borrow
-let r2 = &mut x; // 1nd mutable borrow - problem!
+let r2 = &mut x; // 2nd mutable borrow - problem!
 
 println!("{}, {}", r1, r2);
 ```
@@ -342,7 +342,7 @@ error[E0499]: cannot borrow `x` as mutable more than once at a time
   |
 6 | let r1 = &mut x; // 1st mutable borrow
   |          ------ first mutable borrow occurs here
-7 | let r2 = &mut x; // 1nd mutable borrow - problem!
+7 | let r2 = &mut x; // 2nd mutable borrow - problem!
   |          ^^^^^^ second mutable borrow occurs here
 8 |
 9 | println!("{}, {}", r1, r2);
