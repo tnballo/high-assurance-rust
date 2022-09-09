@@ -38,6 +38,7 @@ Listed alphabetically:
 * [shak360](https://github.com/shak360)
 * [tshepang](https://github.com/tshepang)
 * [U007D](https://github.com/U007D)
+* [qrilka](https://github.com/qrilka)
 
 <br>
 
