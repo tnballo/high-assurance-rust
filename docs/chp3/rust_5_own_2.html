@@ -443,7 +443,7 @@ To preview the exclusive-mutable restriction, this code would fail to compile:</
 <pre><code class="language-rust ignore">let mut x = &quot;Hello!&quot;.to_string();
 
 let r1 = &amp;mut x; // 1st mutable borrow
-let r2 = &amp;mut x; // 1nd mutable borrow - problem!
+let r2 = &amp;mut x; // 2nd mutable borrow - problem!
 
 println!(&quot;{}, {}&quot;, r1, r2);
 </code></pre>
@@ -453,7 +453,7 @@ println!(&quot;{}, {}&quot;, r1, r2);
   |
 6 | let r1 = &amp;mut x; // 1st mutable borrow
   |          ------ first mutable borrow occurs here
-7 | let r2 = &amp;mut x; // 1nd mutable borrow - problem!
+7 | let r2 = &amp;mut x; // 2nd mutable borrow - problem!
   |          ^^^^^^ second mutable borrow occurs here
 8 |
 9 | println!(&quot;{}, {}&quot;, r1, r2);
