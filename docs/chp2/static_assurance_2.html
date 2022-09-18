@@ -184,7 +184,7 @@ We'll discuss the difference between <em>unsafety</em> and <em>unsoundness</em> 
     *a += *b;
 }
 </code></pre>
-<p>We broke down the C version down piece-by-piece, so you already know what this function does.
+<p>We broke down the C version piece-by-piece, so you already know what this function does.
 Take a second to review the above.
 Can you make some guesses about the syntax?</p>
 <p>The body of the function is exactly the same.
@@ -311,7 +311,7 @@ If Rust grants C-like control over memory, shouldn't the compiler's internal ana
 Three related factors are at play:</p>
 <ul>
 <li>
-<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. Which implements a flavor of &quot;affine types&quot;<sup class="footnote-reference"><a href="#AffineTypes">8</a></sup> and doesn't permit arbitrary type casting.</p>
+<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. This type system implements a flavor of &quot;affine types&quot;<sup class="footnote-reference"><a href="#AffineTypes">8</a></sup> and doesn't permit arbitrary type casting.</p>
 <ul>
 <li>Performing static analysis on a weakly-typed language (like C) doesn't have comparable co-design advantages. The Rust compiler can prove properties no C-family compiler or analysis tool can prove, by design.</li>
 </ul>

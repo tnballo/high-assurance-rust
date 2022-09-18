@@ -98,7 +98,7 @@ fn main() {
 }
 ```
 
-* The `Args` has is a `struct` with 2 fields:
+* `Args` is a `struct` with 2 fields:
 
     * `file`, a string that will contain the path/name of the file to be en/decrypted.
 

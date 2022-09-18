@@ -186,7 +186,8 @@ The memory corruption threat remains unabated.</p>
 We don't seek to disparage the giants whose shoulders we stand on.</p>
 <p>Yet those shoulders bear an awful burden.
 A seminal 2012 research paper<sup class="footnote-reference"><a href="#Sok:EWoM">8</a></sup>, aptly titled <em>&quot;Systematization of Knowledge: Eternal War in Memory&quot;</em>, chronicled 30 years of <em>failed</em> C and C++ memory protection schemes.
-Fast forward to 2019.
+Every new defense has been undermined by a new bypass technique.</p>
+<p>Fast forward to 2019.
 A Microsoft study<sup class="footnote-reference"><a href="#MSBlue">9</a></sup>, of all security issues in the company's products between 2004 and 2018, claims:</p>
 <blockquote>
 <p>~70% of the vulnerabilities addressed through a security update each year continue to be memory safety issues.</p>
@@ -202,7 +203,15 @@ Understandable:</p>
 <p>C++'s powerful abstractions enable performant systems of impressive scale: web browsers, graphics engines, databases, etc. Software we couldn't live without.</p>
 </li>
 </ul>
-<p>But <em>evolution</em> may be overdue.</p>
+<p>But <em>evolution</em> may be overdue.
+Google's 2022 analysis<sup class="footnote-reference"><a href="#ProjZero2021Review">11</a></sup> of previously-unknown (e.g. &quot;zero-day&quot;) exploits &quot;detected and disclosed as used in-the-wild&quot; found that:</p>
+<blockquote>
+<p>Out of the 58 in-the-wild 0-days for the year [2021], 39, or 67% were memory corruption vulnerabilities.
+Memory corruption vulnerabilities have been the standard for attacking software for the last few decades and it's still how attackers are having success.</p>
+</blockquote>
+<p>Some of the exploits surveyed were actively used to target journalists, politicians, activists, and minority populations<sup class="footnote-reference"><a href="#ProjZero2021Review">11</a></sup>.
+Memory corruption is not a theoretical problem.
+It's a pressing and severe issue that, in the worst case, causes tangible human harm.</p>
 <blockquote>
 <p><strong>What if I'm just <em>really</em> careful, <em>all</em> the time?</strong></p>
 <p>Best practices for modern C-family languages can reduce the <em>likelihood</em> of memory vulnerabilities.
@@ -213,34 +222,34 @@ It's time to seriously consider addressing the root cause.</p>
 </blockquote>
 <h2 id="we-dont-need-to-be-complacent-anymore"><a class="header" href="#we-dont-need-to-be-complacent-anymore">We Don't Need to Be Complacent Anymore</a></h2>
 <p>Rust, as a relatively new systems language, supports what have traditionally been C/C++ domains.
-It offers an alternative set of paradigms, namely compiler-enforced &quot;ownership&quot;<sup class="footnote-reference"><a href="#Lifetime">11</a></sup>.</p>
+It offers an alternative set of paradigms, namely compiler-enforced &quot;ownership&quot;<sup class="footnote-reference"><a href="#Lifetime">12</a></sup>.</p>
 <p>If you've never tried Rust, imagine pair programming alongside a nearly-omniscient but narrowly-focused perfectionist.
 That's what the borrow checker, a compiler component implementing the ownership concept, can sometimes feel like.</p>
 <p>In exchange for the associated learning curve, we get memory safety guarantees.
 That means we can, often but not always, prove the <em>absence of all memory errors with certainty</em>.</p>
-<p>Rust was announced by Mozilla in 2010<sup class="footnote-reference"><a href="#ProjServo">12</a></sup>, is led by an independent non-profit as of 2021<sup class="footnote-reference"><a href="#RFound">13</a></sup>, and largely solves the single most pressing security problem in the last 40 years of systems programming: memory safety.</p>
+<p>Rust was announced by Mozilla in 2010<sup class="footnote-reference"><a href="#ProjServo">13</a></sup>, is led by an independent non-profit as of 2021<sup class="footnote-reference"><a href="#RFound">14</a></sup>, and largely solves the single most pressing security problem in the last 40 years of systems programming: memory safety.</p>
 <p>It's arguably the first commercially viable programming language simultaneously offering both memory safety and bare metal speed.</p>
 <h2 id="is-that-just-an-opinion"><a class="header" href="#is-that-just-an-opinion">Is that just an opinion?</a></h2>
 <p>It's an opinion gaining formidable momentum.
 Past some threshold of social acceptance and market pressures, it might even become a boring stance.
-Here are similar takes from some of Rust's production users:<sup class="footnote-reference"><a href="#ProdUsers">14</a></sup></p>
-<p>Amazon:<sup class="footnote-reference"><a href="#QuoteAmazon">15</a></sup></p>
+Here are similar takes from some of Rust's production users:<sup class="footnote-reference"><a href="#ProdUsers">15</a></sup></p>
+<p>Amazon:<sup class="footnote-reference"><a href="#QuoteAmazon">16</a></sup></p>
 <blockquote>
 <p>...at AWS we increasingly build critical infrastructure like the Firecracker VMM using Rust because its out-of-the-box features reduce the time and effort needed to reach Amazon’s high security bar, while still delivering runtime performance similar to C and C++.</p>
 </blockquote>
-<p>Google:<sup class="footnote-reference"><a href="#QuoteGoogle">16</a></sup></p>
+<p>Google:<sup class="footnote-reference"><a href="#QuoteGoogle">17</a></sup></p>
 <blockquote>
 <p>We feel that Rust is now ready to join C as a practical language for implementing the [Linux] kernel. It can help us reduce the number of potential bugs and security vulnerabilities in privileged code while playing nicely with the core kernel and preserving its performance characteristics.</p>
 </blockquote>
-<p>Microsoft:<sup class="footnote-reference"><a href="#QuoteMicrosoft">17</a></sup></p>
+<p>Microsoft:<sup class="footnote-reference"><a href="#QuoteMicrosoft">18</a></sup></p>
 <blockquote>
 <p>[Rust is] the industry's best chance for addressing this [memory safety] issue head-on.</p>
 </blockquote>
 <h2 id="does-that-mean-rust-programs-cant-be-compromised"><a class="header" href="#does-that-mean-rust-programs-cant-be-compromised">Does that mean Rust programs can't be compromised?</a></h2>
 <p>Definitely not.
 Memory corruption is just one bug class.
-It's particularly vicious and is often part of high-value exploit chains<sup class="footnote-reference"><a href="#ZP2O">18</a></sup>, but other bug classes exist.</p>
-<p>Many, if not most, security issues are language-agnostic (e.g. misconfiguration<sup class="footnote-reference"><a href="#MisConfig">19</a></sup>, command injection<sup class="footnote-reference"><a href="#Log4J">20</a></sup>, hardcoded secrets<sup class="footnote-reference"><a href="#GitLabVuln">21</a></sup>, etc).
+It's particularly vicious and is often part of high-value exploit chains<sup class="footnote-reference"><a href="#ZP2O">19</a></sup>, but other bug classes exist.</p>
+<p>Many, if not most, security issues are language-agnostic (e.g. misconfiguration<sup class="footnote-reference"><a href="#MisConfig">20</a></sup>, command injection<sup class="footnote-reference"><a href="#Log4J">21</a></sup>, hardcoded secrets<sup class="footnote-reference"><a href="#GitLabVuln">22</a></sup>, etc).
 And memory-safe languages infrequently introduce their own issues (e.x. interpreter evaluation of untrusted input, aka &quot;eval injection&quot;).
 No programming language will make your code absolutely secure against all attacks.</p>
 <br>
@@ -278,12 +287,12 @@ These will usually demonstrate subtle &quot;undefined behavior&quot; problems th
 That's a prerequisite to integrating new Rust components into existing codebases written in another language.</p>
 <blockquote>
 <p><strong>The Curious Case of <code>curl</code></strong></p>
-<p><code>curl</code><sup class="footnote-reference"><a href="#Curl">22</a></sup>, a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
-Because the tool is so heavily relied upon, it's security impacts much of what we consider &quot;the internet&quot;<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.</p>
-<p>As of 2020, <code>curl</code> has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security<sup class="footnote-reference"><a href="#MemSafeCurl">23</a></sup>.
+<p><code>curl</code><sup class="footnote-reference"><a href="#Curl">23</a></sup>, a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
+Because the tool is so heavily relied upon, its security impacts much of what we consider &quot;the internet&quot;<sup class="footnote-reference"><a href="#MemSafeCurl">24</a></sup>.</p>
+<p>As of 2020, <code>curl</code> has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security<sup class="footnote-reference"><a href="#MemSafeCurl">24</a></sup>.
 Memory safe Rust code seamlessly integrates with the existing C code.
 It's all one compiled binary, there's no performance penalty for cross-language interoperability.</p>
-<p>Although the average end user can't tell the difference (and that's a good thing!), <code>curl</code> is now a safer, more reliable program<sup class="footnote-reference"><a href="#CurlCaveat">24</a></sup>.</p>
+<p>Although the average end user can't tell the difference (and that's a good thing!), <code>curl</code> is now a safer, more reliable program<sup class="footnote-reference"><a href="#CurlCaveat">25</a></sup>.</p>
 </blockquote>
 <h2 id="is-adopting-a-new-language-really-worth-the-effort"><a class="header" href="#is-adopting-a-new-language-really-worth-the-effort">Is adopting a new language really worth the effort?</a></h2>
 <p>You've likely invested significant experience-hours in your language/toolchain/ecosystem of choice.
@@ -295,7 +304,7 @@ We're talking &quot;formal methods&quot;: machine-assisted proofs, model checkin
 Approaches that, while valuable, face roadblocks to significant adoption in industry.</p>
 <p>Now, Rust's guarantees are a small subset of what those verification approaches provide collectedly.
 But Rust also avoids many of the associated practicality pitfalls.</p>
-<p>Rust's compiler proves<sup class="footnote-reference"><a href="#TypeProof">25</a></sup> a specific set of important properties almost automatically, enabling us to ship quickly.
+<p>Rust's compiler proves<sup class="footnote-reference"><a href="#TypeProof">26</a></sup> a specific set of important properties almost automatically, enabling us to ship quickly.
 On the surface, we get memory safety without sacrificing low-latency performance.
 Dig deeper, and our advantage is really principled verification at the pace of commercial development.
 We get [some] proofs at the speed of real-world code.</p>
@@ -303,11 +312,11 @@ We get [some] proofs at the speed of real-world code.</p>
 <p><strong>Isn't verification only for toy programs?</strong></p>
 <p>Most formally-backed guarantees are restricted to research prototypes; they simply don't scale to large, multi-threaded codebases.
 So formal methods have a bad rap with practicing software engineers - too much difficulty, not enough value.</p>
-<p>By contrast, the Rust compiler was originally designed to harden components of Firefox's browser engine<sup class="footnote-reference"><a href="#ProjServo">12</a></sup> - a multi-million line, highly parallel, commercial codebase.</p>
+<p>By contrast, the Rust compiler was originally designed to harden components of Firefox's browser engine<sup class="footnote-reference"><a href="#ProjServo">13</a></sup> - a multi-million line, highly parallel, commercial codebase.</p>
 </blockquote>
 <p>Now any tool, no matter how potentially beneficial, must be usable to see adoption and impact.</p>
-<p>Despite an initial learning curve, Rust was voted the &quot;most loved&quot; programming language for the last 6 years in a row.
-In StackOverflow's annual developer survey<sup class="footnote-reference"><a href="#StackSurvey1">26</a></sup>, which had over 82,000 responses in 2021<sup class="footnote-reference"><a href="#StackSurvey2">27</a></sup>.</p>
+<p>Despite an initial learning curve, Rust was voted the &quot;most loved&quot; programming language for the last 7 years in a row.
+In StackOverflow's annual developer survey<sup class="footnote-reference"><a href="#StackSurvey1">27</a></sup>, which had over 73,000 responses in 2022<sup class="footnote-reference"><a href="#StackSurvey2">28</a></sup>.</p>
 <h2 id="alright-so-can-i-learn-rust"><a class="header" href="#alright-so-can-i-learn-rust">Alright. So can I learn Rust?</a></h2>
 <p>Imagine you chose to immigrate to a different country and learn to speak a new language.
 It wouldn't be easy, but it might be worth it.
@@ -329,7 +338,7 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 <p>&quot;Largely&quot; is a caveat here: Python can have data races, Go can have segmentation faults, etc. But garbage collected languages don't give attackers the same powerful exploitation primitives as C and C++ (more details coming in Chapter 4), so they don't carry the same risks.</p>
 </div>
 <div class="footnote-definition" id="CStory"><sup class="footnote-definition-label">3</sup>
-<p>You'd be right to argue that C and C++ have as little in common with each other as they do with their former selves. C++11<sup class="footnote-reference"><a href="#Cpp11">28</a></sup> bears little resemblance to C++20<sup class="footnote-reference"><a href="#Cpp20">29</a></sup>. In lieu of a skim: the official C++ language standard grew by 515 pages, almost 40%, from 1,308<sup class="footnote-reference"><a href="#Cpp11">28</a></sup> to 1,823<sup class="footnote-reference"><a href="#Cpp20">29</a></sup> in total.</p>
+<p>You'd be right to argue that C and C++ have as little in common with each other as they do with their former selves. C++11<sup class="footnote-reference"><a href="#Cpp11">29</a></sup> bears little resemblance to C++20<sup class="footnote-reference"><a href="#Cpp20">30</a></sup>. In lieu of a skim: the official C++ language standard grew by 515 pages, almost 40%, from 1,308<sup class="footnote-reference"><a href="#Cpp11">29</a></sup> to 1,823<sup class="footnote-reference"><a href="#Cpp20">30</a></sup> in total.</p>
 </div>
 <div class="footnote-definition" id="HBleed"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://blog.getreu.net/projects/embedded-system-security-with-Rust/"><em>Embedded System Security with Rust: Case Study of Heartbleed</em></a>. Jens Getreu (2016).</p>
@@ -352,64 +361,67 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 <div class="footnote-definition" id="AdvC"><sup class="footnote-definition-label">10</sup>
 <p><a href="https://adventofcomputing.libsyn.com/episode-53-c-level-part-i"><em>Episode 53 - C Level, Part I</em></a>. Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.</p>
 </div>
-<div class="footnote-definition" id="Lifetime"><sup class="footnote-definition-label">11</sup>
-<p>Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while<sup class="footnote-reference"><a href="#LifetimeCpp">30</a></sup>. But Rust's novel ownership system <em>enforces</em> lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.</p>
+<div class="footnote-definition" id="ProjZero2021Review"><sup class="footnote-definition-label">11</sup>
+<p><a href="https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html"><em>The More You Know, The More You Know You Don't Know</em></a>. Maddie Stone, Google Project Zero (2022).</p>
 </div>
-<div class="footnote-definition" id="ProjServo"><sup class="footnote-definition-label">12</sup>
+<div class="footnote-definition" id="Lifetime"><sup class="footnote-definition-label">12</sup>
+<p>Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while<sup class="footnote-reference"><a href="#LifetimeCpp">31</a></sup>. But Rust's novel ownership system <em>enforces</em> lifetime rules at compile time. In C++, lifetime assumptions can be violated at runtime if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.</p>
+</div>
+<div class="footnote-definition" id="ProjServo"><sup class="footnote-definition-label">13</sup>
 <p><a href="http://venge.net/graydon/talks/intro-talk-2.pdf"><em>Project Servo, Technology from the past come to save the future from itself</em></a>. Graydon Hoare (2010).</p>
 </div>
-<div class="footnote-definition" id="RFound"><sup class="footnote-definition-label">13</sup>
+<div class="footnote-definition" id="RFound"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://foundation.rust-lang.org/posts/2021-02-08-hello-world/"><em>Hello World!</em></a>. Ashley Williams (2021).</p>
 </div>
-<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">14</sup>
+<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="QuoteAmazon"><sup class="footnote-definition-label">15</sup>
+<div class="footnote-definition" id="QuoteAmazon"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/"><em>Why AWS loves Rust, and how we’d like to help</em></a>. Matt Asay, Official AWS Open Source Blog (2020).</p>
 </div>
-<div class="footnote-definition" id="QuoteGoogle"><sup class="footnote-definition-label">16</sup>
+<div class="footnote-definition" id="QuoteGoogle"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://security.googleblog.com/2021/04/rust-in-linux-kernel.html"><em>Rust in the Linux kernel</em></a>. Wedson Almeida Filho, Official Google Security Blog (2021).</p>
 </div>
-<div class="footnote-definition" id="QuoteMicrosoft"><sup class="footnote-definition-label">17</sup>
+<div class="footnote-definition" id="QuoteMicrosoft"><sup class="footnote-definition-label">18</sup>
 <p><a href="https://thenewstack.io/microsoft-rust-is-the-industrys-best-chance-at-safe-systems-programming/"><em>Microsoft: Rust Is the Industry’s ‘Best Chance’ at Safe Systems Programming</em></a>. Joab Jackson (2020).</p>
 </div>
-<div class="footnote-definition" id="ZP2O"><sup class="footnote-definition-label">18</sup>
+<div class="footnote-definition" id="ZP2O"><sup class="footnote-definition-label">19</sup>
 <p><a href="https://sector7.computest.nl/post/2021-08-zoom/"><em>Zoom RCE from Pwn2Own 2021</em></a>. Thijs Alkemade, Daan Keupe (2021).</p>
 </div>
-<div class="footnote-definition" id="MisConfig"><sup class="footnote-definition-label">19</sup>
+<div class="footnote-definition" id="MisConfig"><sup class="footnote-definition-label">20</sup>
 <p><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"><em>A05:2021 – Security Misconfiguration</em></a>. OWASP (2021).</p>
 </div>
-<div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">20</sup>
+<div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">21</sup>
 <p><a href="https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance"><em>Apache Log4j Vulnerability Guidance</em></a>. CISA (2021).</p>
 </div>
-<div class="footnote-definition" id="GitLabVuln"><sup class="footnote-definition-label">21</sup>
+<div class="footnote-definition" id="GitLabVuln"><sup class="footnote-definition-label">22</sup>
 <p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1162"><em>CVE-2022-1162</em></a>. National Vulnerability Database (2022).</p>
 </div>
-<div class="footnote-definition" id="Curl"><sup class="footnote-definition-label">22</sup>
+<div class="footnote-definition" id="Curl"><sup class="footnote-definition-label">23</sup>
 <p><a href="https://curl.se/"><em>curl</em></a>. Daniel Stenberg (2021).</p>
 </div>
-<div class="footnote-definition" id="MemSafeCurl"><sup class="footnote-definition-label">23</sup>
+<div class="footnote-definition" id="MemSafeCurl"><sup class="footnote-definition-label">24</sup>
 <p><a href="https://www.abetterinternet.org/post/memory-safe-curl/"><em>Memory Safe ‘curl’ for a More Secure Internet</em></a>. Internet Security Research Group (2020).</p>
 </div>
-<div class="footnote-definition" id="CurlCaveat"><sup class="footnote-definition-label">24</sup>
+<div class="footnote-definition" id="CurlCaveat"><sup class="footnote-definition-label">25</sup>
 <p>As of this writing, the Rust-enabled build of <code>curl</code> is not its default configuration. It's up to those building and distributing <code>curl</code> (e.g. OS distro maintainers) to choose build configurations suitable for the platforms and users they support. A reasonable arrangement worth noting!</p>
 </div>
-<div class="footnote-definition" id="TypeProof"><sup class="footnote-definition-label">25</sup>
+<div class="footnote-definition" id="TypeProof"><sup class="footnote-definition-label">26</sup>
 <p><a href="https://www.eurekalert.org/news-releases/610682"><em>Computer Scientist proves safety claims of the programming language Rust</em></a>. Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.</p>
 </div>
-<div class="footnote-definition" id="StackSurvey1"><sup class="footnote-definition-label">26</sup>
-<p><a href="https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted">Technology: Most loved, dreaded, and wanted</a>. StackOverflow (2021).</p>
+<div class="footnote-definition" id="StackSurvey1"><sup class="footnote-definition-label">27</sup>
+<p><a href="https://survey.stackoverflow.co/2022/#technology-most-loved-dreaded-and-wanted">Technology: Most loved, dreaded, and wanted</a>. StackOverflow (2022).</p>
 </div>
-<div class="footnote-definition" id="StackSurvey2"><sup class="footnote-definition-label">27</sup>
-<p><a href="https://insights.stackoverflow.com/survey/2021#methodology-participants">Methodology: Participants</a>. StackOverflow (2021).</p>
+<div class="footnote-definition" id="StackSurvey2"><sup class="footnote-definition-label">28</sup>
+<p><a href="https://survey.stackoverflow.co/2022/#methodology-participants">Methodology: Participants</a>. StackOverflow (2022).</p>
 </div>
-<div class="footnote-definition" id="Cpp11"><sup class="footnote-definition-label">28</sup>
+<div class="footnote-definition" id="Cpp11"><sup class="footnote-definition-label">29</sup>
 <p><a href="http://open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3337.pdf"><em>[Final] Working Draft, Standard for Programming Language C++</em></a>. Document Number:N3337 (2012). Document number 3337 - so close to 1337! Missed opportunity.</p>
 </div>
-<div class="footnote-definition" id="Cpp20"><sup class="footnote-definition-label">29</sup>
+<div class="footnote-definition" id="Cpp20"><sup class="footnote-definition-label">30</sup>
 <p><a href="http://open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4861.pdf"><em>[Final] Working Draft, Standard for Programming Language C++</em></a>. Document Number:N4861 (2020).</p>
 </div>
-<div class="footnote-definition" id="LifetimeCpp"><sup class="footnote-definition-label">30</sup>
+<div class="footnote-definition" id="LifetimeCpp"><sup class="footnote-definition-label">31</sup>
 <p><a href="https://en.cppreference.com/w/cpp/language/lifetime"><em>Lifetime</em></a>. cppreference.com (Accessed 2022).</p>
 </div>
 

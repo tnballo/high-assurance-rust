@@ -50,7 +50,7 @@ To reason soundly, the compiler needs lifetime information for every value in th
 >
 > No, lifetimes are a compile-time construct.
 > They don't appear in the machine code emitted, they're only used by the compiler to analyze a program for safety.
-> There's no run-time check or cost.
+> There's no runtime check or cost.
 
 Every value has a single, unique **owner**.
 In the exact place in the source where the owner "drops" out of scope (the end of a function in which it was declared, for example), the lifetime of all its owned values ends.
@@ -205,7 +205,7 @@ So the compiler adds freeing logic just after `dbg!(init);`, the last line of `m
 A *destructor* is implemented for us, automatically.
 By traversing the ownership hierarchy, this destructor knows how to clean up the other structs owned by `init`.
 
-With just one more `println!`, we can trace the run-time deallocation sequence.
+With just one more `println!`, we can trace the runtime deallocation sequence.
 Rust supports running arbitrary logic before destructors, simply by implementing the `Drop` trait[^Drop] for a type.
 In case you need to run custom code to release an external resource (e.g. close a network or database connection) or similar.
 

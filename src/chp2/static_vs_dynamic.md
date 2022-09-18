@@ -65,7 +65,7 @@ In fitting dualistic fashion, they offer a contrasting set of strengths and weak
 
 ## A Lay of the Land for Practicing Engineers
 
-Before we get too far into Computer Science territory, like's break down the solution space from a practicing engineer's perspective.
+Before we get too far into Computer Science territory, let's break down the solution space from a practicing engineer's perspective.
 Assume we're interested in tooling because we need to either expedite or scale testing processes.
 Broadly speaking, how can we cluster today's static and dynamic tools?
 

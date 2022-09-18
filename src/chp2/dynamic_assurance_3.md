@@ -1,6 +1,6 @@
 # Dynamic Assurance (3 of 3)
 
-You may have noticed a little module (scope of the `mod` keyword) hanging out at the bottom of `crypto_tool/rc4/lib.rs`:
+You may have noticed a little module (scope of the `mod` keyword) hanging out at the bottom of `crypto_tool/rc4/src/lib.rs`:
 
 ```rust,noplaypen
 #[cfg(test)]
@@ -107,7 +107,7 @@ DEC 4096 HEX 1000:  ff 25 b5 89  95 99 67 07   e5 1f bd f0  8b 34 d8 75
 ```
 
 We're given a key (line 2) and 18 samples from the keystream a valid RC4 implementation should produce (the subsequent rows).
-Each sample is 16 byte long and preceded by its offset into the keystream (given in both decimal and hex).
+Each sample is 16 bytes long and preceded by its offset into the keystream (given in both decimal and hex).
 
 Translating every sample from every table into a test suite would be important for a real library, but tedious for our example.
 So we'll use just the first 4 rows of the table above:
@@ -156,7 +156,7 @@ Before we get to the fun and tangible part - writing a command line tool that us
 >
 > Because both performance and security are core requirements, cryptography is a prime use case for Rust (pun intended).
 > The language has a thriving cryptographic ecosystem.
-> `rustls`[^RusTLS], pure-Rust TLS library, is one notable project.
+> `rustls`[^RusTLS], a pure-Rust TLS library, is one notable project.
 > In 2019, it outperformed OpenSSL by significant margins[^FastRust].
 
 ---

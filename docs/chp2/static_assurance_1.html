@@ -278,7 +278,7 @@ A classic over-approximation.</p>
 <p><code>*a += *b;</code> is shorthand for <code>*a = *a + *b;</code>, a semicolon-terminated statement.</p>
 </li>
 <li>
-<p>Here, unlike in the signature, the <code>*</code> operator means &quot;dereference the pointer&quot;, e.g. read the the value of it's target.</p>
+<p>Here, unlike in the signature, the <code>*</code> operator means &quot;dereference the pointer&quot;, e.g. read the value of its target.</p>
 </li>
 <li>
 <p><code>*</code> takes precedence over <code>+</code>, meaning the read happens first. Precedence mistakes can be tricky with pointer arithmetic!</p>
@@ -384,6 +384,17 @@ At least not without breaking backwards compatibility.
 Remember: memory safety is a multi-decade-difficult problem.
 Many have tried, most have failed.</p>
 <p>Let's get a taste for how Rust handles the pointer problem.</p>
+<blockquote>
+<p><strong>Imprecise Analyses Can Still Be Useful!</strong></p>
+<p>Pointer analysis has a close cousin: Value Set Analysis (VSA).
+It can be applied to compiled binaries, supporting use cases where source code isn't available (e.g. reverse engineering).
+Unlike pointer analysis, VSA doesn't differentiate between pointer and integer variables.
+It computes a <em>range of possible runtime values</em> for either type of numeric variable.</p>
+<p>For the above <code>incr</code> example, a precise VSA of a correct program might determine that integer <code>a</code> has an inclusive value range of <code>[40, 42]</code> - capturing both the pre and post increment values. And that pointer <code>*a</code> is similarly within some range of valid memory addresses, notionally something like <code>[0x7ffe455e5c40, 0x7ffe455e5bf0]</code>.</p>
+<p>Here's the kicker: a recent peer-reviewed human study<sup class="footnote-reference"><a href="#VSA">16</a></sup> found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find &quot;information leakage&quot; vulnerabilities).
+Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts<sup class="footnote-reference"><a href="#VSA">16</a></sup> for certain problem types.</p>
+<p>Approximate static analyses can, in many contexts, be demonstrably useful.</p>
+</blockquote>
 <hr />
 <div class="footnote-definition" id="AbsInt"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://dl.acm.org/doi/10.1145/512950.512973"><em>Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints</em></a>. Patrick Cousot, Radhia Cousot (1977).</p>
@@ -429,6 +440,9 @@ Many have tried, most have failed.</p>
 </div>
 <div class="footnote-definition" id="SegFault"><sup class="footnote-definition-label">15</sup>
 <p>&quot;segmentation fault&quot; , or &quot;segfault&quot; for short, is an error thrown by the operating system when your program attempts to access regions of memory that don't belong to it (outside allotted &quot;segment&quot;). While it can be frustrating to debug, imagine how difficult things would be if the OS didn't stop you!</p>
+</div>
+<div class="footnote-definition" id="VSA"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://www.ndss-symposium.org/wp-content/uploads/bar2021_23002_paper.pdf"><em>Effects of Precise and Imprecise Value-Set Analysis (VSA) Information on Manual Code Analysis</em></a>. Laura Matzen, Michelle Leger, Geoffrey Reedy (2021).</p>
 </div>
 
                     </main>

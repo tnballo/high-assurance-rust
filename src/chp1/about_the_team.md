@@ -25,14 +25,22 @@ He received his Masters degree in Information Security from Carnegie Mellon Univ
 Huge thank you to everyone making this book better!
 Listed alphabetically:
 
+* [aelnona](https://github.com/aelnona)
 * [duzumaki](https://github.com/duzumaki)
 * [humb1t](https://github.com/humb1t)
 * [jam1garner](https://github.com/jam1garner)
+* [jamesreprise](https://github.com/jamesreprise)
 * [kaylynn234](https://github.com/kaylynn234)
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
 * [rrevi](https://github.com/rrevi)
+* [samestep](https://github.com/samestep)
+* [shak360](https://github.com/shak360)
 * [SilvanCodes](https://github.com/SilvanCodes)
+* [tshepang](https://github.com/tshepang)
+* [U007D](https://github.com/U007D)
+* [qrilka](https://github.com/qrilka)
+
 
 <br>
 
