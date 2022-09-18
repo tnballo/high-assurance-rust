@@ -9,7 +9,7 @@ Broadly speaking, we can bin errors into one of three classes:
 
 2. **Link-time errors** - Symbol resolution errors that prevent multiple modules from composing. Thanks to `cargo`, linking errors should be a rarity when working on pure-Rust codebases. But they may appear in large, multilingual projects or when using C/C++ libraries as dependencies.
 
-3. **Run-time errors** - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling run-time errors in Rust.
+3. **Runtime errors** - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling runtime errors in Rust.
 
 Notice that *logical errors* (e.g. implementing an incorrect algorithm) are not listed above.
 We consider these to be general *bugs* and outside the scope of an error handling discussion.
@@ -309,7 +309,7 @@ Thus we can't import `std::error::Error` in a `#![no_std]` library.
 
 ## Takeaway
 
-Rust's `Result` type, not to be confused with the conceptually similar `Option`, is our main mechanism for reporting run-time errors and enforcing their handling.
+Rust's `Result` type, not to be confused with the conceptually similar `Option`, is our main mechanism for reporting runtime errors and enforcing their handling.
 Like C++ exceptions, it can't be ignored.
 Unlike C++ exceptions, it's part of the regular call chain.
 

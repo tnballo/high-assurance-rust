@@ -1,5 +1,11 @@
+# VSCode
+.vscode/
+
 # Generated mdbook
 book/
+
+# VSCode
+.vscode/*
 
 # C/C++ Binaries
 bypass

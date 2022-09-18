@@ -42,6 +42,8 @@ We don't seek to disparage the giants whose shoulders we stand on.
 
 Yet those shoulders bear an awful burden.
 A seminal 2012 research paper[^Sok:EWoM], aptly titled *"Systematization of Knowledge: Eternal War in Memory"*, chronicled 30 years of *failed* C and C++ memory protection schemes.
+Every new defense has been undermined by a new bypass technique.
+
 Fast forward to 2019.
 A Microsoft study[^MSBlue], of all security issues in the company's products between 2004 and 2018, claims:
 
@@ -56,6 +58,14 @@ Understandable:
 * C++'s powerful abstractions enable performant systems of impressive scale: web browsers, graphics engines, databases, etc. Software we couldn't live without.
 
 But *evolution* may be overdue.
+Google's 2022 analysis[^ProjZero2021Review] of previously-unknown (e.g. "zero-day") exploits "detected and disclosed as used in-the-wild" found that:
+
+> Out of the 58 in-the-wild 0-days for the year [2021], 39, or 67% were memory corruption vulnerabilities.
+> Memory corruption vulnerabilities have been the standard for attacking software for the last few decades and it's still how attackers are having success.
+
+Some of the exploits surveyed were actively used to target journalists, politicians, activists, and minority populations[^ProjZero2021Review].
+Memory corruption is not a theoretical problem.
+It's a pressing and severe issue that, in the worst case, causes tangible human harm.
 
 > **What if I'm just *really* careful, *all* the time?**
 >
@@ -154,7 +164,7 @@ That's a prerequisite to integrating new Rust components into existing codebases
 > **The Curious Case of `curl`**
 >
 > `curl`[^Curl], a utility for transferring data with URLs that's been ubiquitous since 1998, is written in C.
-> Because the tool is so heavily relied upon, it's security impacts much of what we consider "the internet"[^MemSafeCurl].
+> Because the tool is so heavily relied upon, its security impacts much of what we consider "the internet"[^MemSafeCurl].
 >
 > As of 2020, `curl` has integrated Rust backends for HTTP and TLS (called via CFFI) to bolster security[^MemSafeCurl].
 > Memory safe Rust code seamlessly integrates with the existing C code.
@@ -190,8 +200,8 @@ We get [some] proofs at the speed of real-world code.
 
 Now any tool, no matter how potentially beneficial, must be usable to see adoption and impact.
 
-Despite an initial learning curve, Rust was voted the "most loved" programming language for the last 6 years in a row.
-In StackOverflow's annual developer survey[^StackSurvey1], which had over 82,000 responses in 2021[^StackSurvey2].
+Despite an initial learning curve, Rust was voted the "most loved" programming language for the last 7 years in a row.
+In StackOverflow's annual developer survey[^StackSurvey1], which had over 73,000 responses in 2022[^StackSurvey2].
 
 ## Alright. So can I learn Rust?
 
@@ -231,7 +241,9 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^AdvC]: [*Episode 53 - C Level, Part I*](https://adventofcomputing.libsyn.com/episode-53-c-level-part-i). Sean Haas (2021). As this podcast explains, C was not the first language to compile to assembly - it's a practical variant of the idea that gained widespread adoption.
 
-[^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at run-time if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
+[^ProjZero2021Review]: [*The More You Know, The More You Know You Don't Know*](https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html). Maddie Stone, Google Project Zero (2022).
+
+[^Lifetime]: Ownership isn't entirely new, similar concepts were pioneered by research languages. Lifetimes, a closely related concept, has existed in the C++ community for a while[^LifetimeCpp]. But Rust's novel ownership system *enforces* lifetime rules at compile time. In C++, lifetime assumptions can be violated at runtime if you're not careful. Bugs and vulnerabilities can ensue. Some people argue that Rust crystallizes certain C++ best practices in the compiler itself.
 
 [^ProjServo]: [*Project Servo, Technology from the past come to save the future from itself*](http://venge.net/graydon/talks/intro-talk-2.pdf). Graydon Hoare (2010).
 
@@ -261,9 +273,9 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^TypeProof]: [*Computer Scientist proves safety claims of the programming language Rust*](https://www.eurekalert.org/news-releases/610682). Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.
 
-[^StackSurvey1]: [Technology: Most loved, dreaded, and wanted](https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted). StackOverflow (2021).
+[^StackSurvey1]: [Technology: Most loved, dreaded, and wanted](https://survey.stackoverflow.co/2022/#technology-most-loved-dreaded-and-wanted). StackOverflow (2022).
 
-[^StackSurvey2]: [Methodology: Participants](https://insights.stackoverflow.com/survey/2021#methodology-participants). StackOverflow (2021).
+[^StackSurvey2]: [Methodology: Participants](https://survey.stackoverflow.co/2022/#methodology-participants). StackOverflow (2022).
 
 [^Cpp11]: [*[Final] Working Draft, Standard for Programming Language C++*](http://open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3337.pdf). Document Number:N3337 (2012). Document number 3337 - so close to 1337! Missed opportunity.
 

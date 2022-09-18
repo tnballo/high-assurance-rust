@@ -164,7 +164,7 @@
 <p>Keystream generation is implemented using a buffer to represent <em>cipher state</em>.
 Mechanically, RC4's cipher state is a 256 byte array, named <code>s</code>, and indexed with two variables, <code>i</code> and <code>j</code>.
 Our first step is creating a structure to store this ever-changing state and the current values of its indexes.
-We'll want to add the following at the top of <code>crypto_tool/rc4/lib.rs</code>:</p>
+We'll want to add the following at the top of <code>crypto_tool/rc4/src/lib.rs</code>:</p>
 <pre><code class="language-rust ignore">#![cfg_attr(not(test), no_std)]
 #![forbid(unsafe_code)]
 

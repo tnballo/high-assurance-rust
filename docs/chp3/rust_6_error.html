@@ -160,7 +160,7 @@ Error handling is also one area where Rust differentiates itself - both in mecha
 <p><strong>Link-time errors</strong> - Symbol resolution errors that prevent multiple modules from composing. Thanks to <code>cargo</code>, linking errors should be a rarity when working on pure-Rust codebases. But they may appear in large, multilingual projects or when using C/C++ libraries as dependencies.</p>
 </li>
 <li>
-<p><strong>Run-time errors</strong> - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling run-time errors in Rust.</p>
+<p><strong>Runtime errors</strong> - Errors caused by a broken invariant or an operation failure, at runtime. This class impacts assurance. It's the subject of this section, we'll look at strategies for handling runtime errors in Rust.</p>
 </li>
 </ol>
 <p>Notice that <em>logical errors</em> (e.g. implementing an incorrect algorithm) are not listed above.
@@ -457,7 +457,7 @@ rc4 = { path = &quot;../rc4&quot;, version = &quot;0.1.0&quot;, features = [&quo
 <p>This enables the best of both worlds - support embedded systems by default, but allow richer error reporting if a library user enables an optional feature when building for non-embedded targets.</p>
 </blockquote>
 <h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
-<p>Rust's <code>Result</code> type, not to be confused with the conceptually similar <code>Option</code>, is our main mechanism for reporting run-time errors and enforcing their handling.
+<p>Rust's <code>Result</code> type, not to be confused with the conceptually similar <code>Option</code>, is our main mechanism for reporting runtime errors and enforcing their handling.
 Like C++ exceptions, it can't be ignored.
 Unlike C++ exceptions, it's part of the regular call chain.</p>
 <p>Error handling is essential for assurance, but the specific actions to be taken are ultimately application specific.

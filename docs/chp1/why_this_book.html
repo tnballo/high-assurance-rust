@@ -225,6 +225,57 @@ At these always-present low levels, memory-unsafe <strong>systems languages</str
   <figcaption><center>Mapping programming languages to levels of the software stack.</center></figcaption><br>
   </figure>
 </p>
+<h2 id="which-languages-offer-safer-systems-programming"><a class="header" href="#which-languages-offer-safer-systems-programming">Which languages offer safer systems programming?</a></h2>
+<p>Programming languages are ultimately just tools.
+Language choice may invoke passionate debate, but at the end of the day it's important to choose the best tool for the job.</p>
+<p>We can't be objective if we aren't aware of available options.
+Before starting our Rust journey, we should briefly mention two alternatives for safer systems programming: Zig and Ada.
+Like Rust, both are natively compiled, don't use garbage collection, and have safety advantages over the C-family.
+All three languages are similarly suitable for modern low-level programming.
+All three are great choices in specific contexts.</p>
+<p>In lieu of an in-depth comparison, let's contrast the three options in terms of maturity for development of mission and safety critical systems.
+Assume that <em>mission-critical</em> systems run in production, where a security or reliability failure is expensive to a business.
+And that <em>safety-critical</em> systems drive physical phenomena, so a security or reliability failure could endanger human life, property, or the environment.</p>
+<br>
+<p align="center">
+  <img width="70%" src="sys_langs.svg">
+  <figure>
+  <figcaption><center>Safer systems programming languages contrasted by {safety,mission}-critical maturity.</center></figcaption><br>
+  </figure>
+</p>
+<ul>
+<li>
+<p><strong>Zig</strong> (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users<sup class="footnote-reference"><a href="#UberZig">4</a></sup>, any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety<sup class="footnote-reference"><a href="#ZigSafety">5</a></sup>. And its own unique merits<sup class="footnote-reference"><a href="#WhyZig">6</a></sup>.</p>
+</li>
+<li>
+<p><strong>Rust</strong> (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses<sup class="footnote-reference"><a href="#ProdUsers">7</a></sup>. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore<sup class="footnote-reference"><a href="#Ferrda">8</a></sup>, an AUTOSAR Working Group<sup class="footnote-reference"><a href="#AUTOSAR">9</a></sup>, an SAE International Task Force<sup class="footnote-reference"><a href="#SAE">10</a></sup>, and ongoing R&amp;D in formal verification tooling<sup class="footnote-reference"><a href="#RFMIG">11</a></sup>. At the time of this writing, no Rust toolchain is yet qualified for use in safety-critical environments.</p>
+</li>
+<li>
+<p><strong>Ada</strong> (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A<sup class="footnote-reference"><a href="#AdaHistory">12</a></sup>, was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)<sup class="footnote-reference"><a href="#AdaCert">13</a></sup>. The SPARK subset of Ada offers mature deductive verification capabilities<sup class="footnote-reference"><a href="#SPARK">14</a></sup>. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system<sup class="footnote-reference"><a href="#SPARKHeap">15</a></sup>.</p>
+</li>
+</ul>
+<p>Learning a programming language, whichever it may be, is a great way to grow as a developer.
+Newer languages with healthy communities may find their own niches and refine their innovations over time.
+Established languages can offer richer tooling and/or library ecosystems in the present.
+Having multiple available options is good for developers and, ultimately, customers.</p>
+<p>We believe that Rust is an exceptional tool for many projects today, and will be a viable choice for many more projects tomorrow.</p>
+<blockquote>
+<p><strong>Safety by Design</strong></p>
+<p>Zig, Rust, and Ada employ various strategies for one or more of:</p>
+<ul>
+<li>
+<p>Building safety features directly into the type system (compile time enforcement)</p>
+</li>
+<li>
+<p>Requiring explicit opt-out of default runtime safety checks (runtime detection)</p>
+</li>
+</ul>
+<p>Baking safety into the core design of a language makes defect elimination easier to scale reliably.
+Relative to training in opt-in best practices and/or using 3rd-party error checkers.</p>
+<p>On the flip-side, the cost to learn and adopt a new language toolchain can be high for existing projects.
+And, occasionally, there are valid reasons to choose unsafe languages for new projects.
+Tool selection is a highly situational problem.</p>
+</blockquote>
 <h2 id="why-build-a-data-structure-library"><a class="header" href="#why-build-a-data-structure-library">Why build a data structure library?</a></h2>
 <p>Maybe a white-board coding interview left a bad taste in your mouth.
 Maybe your college data structures class didn't quite click.
@@ -238,7 +289,7 @@ Where the math rubber meets the code road, if you will.</p>
 These APIs get used by nearly every program written in that language.
 Because a single data structure implementation can be so ubiquitous, performance is critical.
 Thus real-world data structures are typically implemented in a <strong>compiled</strong> language, like Rust or C, for speed.
-This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference"><a href="#PyList">4</a></sup>!</p>
+This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference"><a href="#PyList">16</a></sup>!</p>
 <p>Building a data structure library involves taking a complex set of functional requirements and translating them into compact and correct code.
 It walks you through accomplishing a goal at a strategic level (the overall algorithm) and at a tactical one (the mechanics of individual structure operations - like <code>insert</code>, <code>get</code>, or <code>remove</code> - in the language you're using).</p>
 <p>You'll learn both generally-applicable problem solving skills and language-specific development skills.</p>
@@ -252,7 +303,7 @@ It walks you through accomplishing a goal at a strategic level (the overall algo
 <h2 id="arent-data-structures-particularly-challenging-in-rust"><a class="header" href="#arent-data-structures-particularly-challenging-in-rust">Aren't data structures particularly challenging in Rust?</a></h2>
 <p>Rust's memory safety guarantees are a significant evolution in the security of systems software.
 With growing industry adoption and a thriving library ecosystem, Rust is a deserving ambassador for both systems programming and secure coding.</p>
-<p>Yet certain data structures are infamously difficult<sup class="footnote-reference"><a href="#TooManyLink">5</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
+<p>Yet certain data structures are infamously difficult<sup class="footnote-reference"><a href="#TooManyLink">17</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
 This is especially true for structures where one element knows how to reach another and vice versa (e.g. those with &quot;cyclical references&quot;).
 Some developers get so frustrated by this that they snap their keyboards in half, with a swift upward knee, and give up on Rust altogether!</p>
 <p>That's why you'll be <em>starting</em> your Rust journey with advanced data structures.
@@ -262,7 +313,7 @@ If a Rust implementation of a troublesome data structure doesn't already exist, 
 Once you build a mental model for how memory works and how Rust manages it, you're well on your way to shipping safe systems software.</p>
 <h2 id="besides-security-why-rust"><a class="header" href="#besides-security-why-rust">Besides security, why Rust?</a></h2>
 <p>Because Rust enables you to maximize performance.</p>
-<p>Moore's law<sup class="footnote-reference"><a href="#Moore">6</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
+<p>Moore's law<sup class="footnote-reference"><a href="#Moore">18</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
 Assuming the bottleneck is actually program CPU time (and not, say, network latency or disk I/O limits) there's typically two ways to improve performance:</p>
 <ol>
 <li>Implement a superior algorithm for your problem, if one exists.</li>
@@ -294,14 +345,50 @@ It may not <em>be easy</em> - but it can <em>be</em>.</p>
 <div class="footnote-definition" id="Thread"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://wiki.osdev.org/Processes_and_Threads#Threads"><em>Processes and Threads</em></a>. OSDev Wiki (2021).</p>
 </div>
-<div class="footnote-definition" id="PyList"><sup class="footnote-definition-label">4</sup>
+<div class="footnote-definition" id="UberZig"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://jakstys.lt/2022/how-uber-uses-zig/"><em>How Uber Uses Zig</em></a>. Motiejus Jakstys (2022).</p>
+</div>
+<div class="footnote-definition" id="ZigSafety"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://www.scattered-thoughts.net/writing/how-safe-is-zig/"><em>How safe is Zig?</em></a>. Jamie Brandon (2021).</p>
+</div>
+<div class="footnote-definition" id="WhyZig"><sup class="footnote-definition-label">6</sup>
+<p><a href="https://ziglang.org/learn/why_zig_rust_d_cpp/"><em>Why Zig When There is Already C++, D, and Rust?</em></a>. The Zig Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">7</sup>
+<p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="Ferrda"><sup class="footnote-definition-label">8</sup>
+<p><a href="https://ferrous-systems.com/blog/ferrous-systems-adacore-joining-forces/"><em>Ferrous Systems and AdaCore to join forces on Ferrocene</em></a>. Ferrous Systems (2022).</p>
+</div>
+<div class="footnote-definition" id="AUTOSAR"><sup class="footnote-definition-label">9</sup>
+<p><a href="https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf"><em>AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context</em></a>. AUTOSAR (2022).</p>
+</div>
+<div class="footnote-definition" id="SAE"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6"><em>SAfEr Rust Task Force</em></a>. SAE International (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="RFMIG"><sup class="footnote-definition-label">11</sup>
+<p><a href="https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021"><em>Rust verification tools</em></a>. Rust Formal Methods Interest Group (2021).</p>
+</div>
+<div class="footnote-definition" id="AdaHistory"><sup class="footnote-definition-label">12</sup>
+<p>In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA &quot;Grand Challenges&quot;). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named &quot;Ada&quot;, after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate.</p>
+</div>
+<div class="footnote-definition" id="AdaCert"><sup class="footnote-definition-label">13</sup>
+<p><a href="https://www.adacore.com/certification-qualification"><em>Certification Evidence for the Ada Run-Time Libraries and Compiler</em></a>. AdaCore (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SPARK"><sup class="footnote-definition-label">14</sup>
+<p><a href="https://www.adacore.com/about-spark"><em>About SPARK</em></a>. AdaCore (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="SPARKHeap"><sup class="footnote-definition-label">15</sup>
+<p><a href="https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf"><em>Safe Dynamic Memory Management in Ada and SPARK</em></a>. Maroua Maalej, Tucker Taft, Yannick Moy (2021).</p>
+</div>
+<div class="footnote-definition" id="PyList"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c"><em>dictobject.c</em></a>. CPython Interpreter (2021).</p>
 </div>
-<div class="footnote-definition" id="TooManyLink"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="TooManyLink"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://rust-unofficial.github.io/too-many-lists/"><em>Learn Rust With Entirely Too Many Linked Lists</em></a>. Alexis Beingessner (2021).</p>
 </div>
-<div class="footnote-definition" id="Moore"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a> Wikipedia (Accessed 2022).</p>
+<div class="footnote-definition" id="Moore"><sup class="footnote-definition-label">18</sup>
+<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
 
                     </main>

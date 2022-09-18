@@ -83,7 +83,7 @@ Chapter 2's RC4 implementation should give you a feel for how this all works in 
 
 ## Where can I learn more about cryptography?
 
-We recommend *Understanding Cryptography* by Paar and Pelzl[^UnderstandingCrypto] and it's corresponding video lectures[^UnderstandingCryptoVideo].
+We recommend *Understanding Cryptography* by Paar and Pelzl[^UnderstandingCrypto] and its corresponding video lectures[^UnderstandingCryptoVideo].
 
 Many cryptography books assume a PhD-level math background, making them almost unreadable for the average practicing engineer.
 Others dumb it down too much, replacing all math with cartoonish diagrams (a sin this section is guilty of).

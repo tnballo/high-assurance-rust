@@ -162,7 +162,7 @@ So let's tackle the topic now, before we get into Rust syntax.</p>
 <p>Behavior, upon use of a nonportable or erroneous program construct or of erroneous data, for which this International Standard imposes no requirements.</p>
 </blockquote>
 <p>In other words, should a developer inadvertently trigger UB, <em>the program can do absolutely anything</em>.
-It may crash, produce an incorrect result, or even execute a sequence of seemingly unrelated operations.</p>
+It may crash, produce an incorrect result, or even execute a sequence of seemingly unrelated operations<sup class="footnote-reference"><a href="#NasalDemons">3</a></sup>.</p>
 <p>Notice we didn't say &quot;the undefined operation can do absolutely anything&quot;, we said &quot;the program&quot;.
 It's important to understand one fact about UB:</p>
 <ul>
@@ -176,7 +176,7 @@ So it's unlikely to happen.</p>
 That means heavy auditing and thorough testing of C-family codebases and, where possible, introducing Rust.</p>
 <h2 id="how-easy-is-it-to-introduce-ub-in-c"><a class="header" href="#how-easy-is-it-to-introduce-ub-in-c">How easy is it to introduce UB in C?</a></h2>
 <p>C and C++ programs are, relative to memory-safe languages, difficult to debug and easy to exploit because introducing UB is both <em>trivial</em> and <em>common</em>.</p>
-<p>Researchers have found instances of UB in widely used projects, like the Linux kernel and PostgreSQL<sup class="footnote-reference"><a href="#UndefResearch">3</a></sup>.
+<p>Researchers have found instances of UB in widely used projects, like the Linux kernel and PostgreSQL<sup class="footnote-reference"><a href="#UndefResearch">4</a></sup>.
 Memory corruption bugs, whose severity and prevalence we discussed in Chapter 1, are just one consequence of UB.</p>
 <p>Let's get a tangible feel for what UB looks like.
 Consider the below C program - what does it return?</p>
@@ -214,7 +214,7 @@ The C Standard (6.7.8, paragraph 10<sup class="footnote-reference"><a href="#ISO
 <p>Neither case bodes well for program reliability.
 This simple function violates a MISRA C rule that explicitly targets this part of the standard:</p>
 <blockquote>
-<p><strong>[AR, Rule 9.1]</strong> The value of an object shouldn't be read if it hasn't been written<sup class="footnote-reference"><a href="#MISRA_2012">4</a></sup></p>
+<p><strong>[AR, Rule 9.1]</strong> The value of an object shouldn't be read if it hasn't been written<sup class="footnote-reference"><a href="#MISRA_2012">5</a></sup></p>
 </blockquote>
 <p>By default <code>gcc</code> - a popular, open-source C compiler - will not warn about this serious error.
 We have to remember to pass the <code>-Wall</code> flag to get the below warning, and even then the program will build and run:</p>
@@ -228,35 +228,38 @@ C has <em>hundreds</em> of possible undefined behaviors and the <em>vast majorit
 Thus, these &quot;misbehaviors&quot; rapidly creep into codebases as they grow in complexity.</p>
 <blockquote>
 <p><strong>What's a real example of this problem? In a security context?</strong></p>
-<p>CVE-2022-0847, aka &quot;Dirty Pipe&quot;, was a highly exploitable vulnerability affecting Linux kernel versions after 5.8 (patched in stable releases 5.16.11, 5.15.25 and 5.10.102.<sup class="footnote-reference"><a href="#DirtyPipe">5</a></sup>).
+<p>CVE-2022-0847, aka &quot;Dirty Pipe&quot;, was a highly exploitable vulnerability affecting Linux kernel versions after 5.8 (patched in stable releases 5.16.11, 5.15.25 and 5.10.102.<sup class="footnote-reference"><a href="#DirtyPipe">6</a></sup>).
 A code refactor caused a structure's field to be uninitialized, and the instance of UB wasn't caught by compiler warnings or testing.</p>
 <p>The uninitialized field was the <code>flags</code> member of a kernel-space <code>pipe_buffer</code> data structure.
 This is used by the kernel to set up &quot;pipes&quot;, an Inter-Process Communication (IPC) mechanism.</p>
-<p>By performing a sequence of normal, unprivileged operations, an attacker could reliably control the in-memory value that would later be read (instead of being reset/initialized correctly) as a flag for page cache write permissions<sup class="footnote-reference"><a href="#DirtyPipe">5</a></sup>.</p>
+<p>By performing a sequence of normal, unprivileged operations, an attacker could reliably control the in-memory value that would later be read (instead of being reset/initialized correctly) as a flag for page cache write permissions<sup class="footnote-reference"><a href="#DirtyPipe">6</a></sup>.</p>
 <p>By abusing this ill-gotten permission to pipe into files, an attacker can overwrite small chunks of content in system files that should be read-only.
 This can enable, among other things, changing the root password to escalate local privileges and then overwriting SSH key data used for remote access.</p>
 <p>Effectively, an attacker can gain &quot;full control&quot; of a vulnerable system just by getting a user to execute an unprivileged program. All because of one uninitialized field!
 Give the attacker an inch, they might take a mile.</p>
 </blockquote>
 <h2 id="lets-try-that-in-rust"><a class="header" href="#lets-try-that-in-rust">Let's try that in Rust</a></h2>
-<p>Undefined behavior is still possible in Rust, if using <code>unsafe</code> keyword<sup class="footnote-reference"><a href="#UndefRust">6</a></sup>, but it's <em>almost eliminated</em> in the safe subset of Rust.
+<p>Undefined behavior is still possible in Rust, if using <code>unsafe</code> keyword<sup class="footnote-reference"><a href="#UndefRust">7</a></sup>, but it's <em>almost eliminated</em> in the safe subset of Rust.
 That's a major part of why the Rust language is so amenable to writing correct, reliable software.
 Rust removes UB, nearly entirely, by default.</p>
 <blockquote>
 <p><strong>Why the &quot;almost eliminated&quot; and &quot;nearly entirely&quot; caveats?</strong></p>
-<p>At the time of this writing, Rust does not yet have an official language standard or specification, like C or C++.
+<p>At the time of this writing, Rust does not yet have an official language standard or specification.
+There's no Rust equivalent to C or C++'s ISO documents.
 So it's difficult to make a definitive claim.</p>
-<p>The Rust Reference contains a non-exhaustive list of behaviors considered undefined in Rust<sup class="footnote-reference"><a href="#UndefRust">6</a></sup>, all of which would require the <code>unsafe</code> keyword to introduce.
+<p>The Rust Reference contains a non-exhaustive list of behaviors considered undefined in Rust<sup class="footnote-reference"><a href="#UndefRust">7</a></sup>, all of which would require the <code>unsafe</code> keyword to introduce.
 So there are likely only two potential sources of UB in Rust:</p>
 <ul>
 <li>
-<p><code>unsafe</code> blocks whose invariants aren't actually upheld (our fault).</p>
+<p><code>unsafe</code> functions or blocks whose invariants aren't actually upheld (our fault).</p>
 </li>
 <li>
-<p>Rare compiler bugs<sup class="footnote-reference"><a href="#RustcBug">7</a></sup> that threaten soundness (patched once discovered).</p>
+<p>Rare compiler bugs<sup class="footnote-reference"><a href="#RustcBug">8</a></sup> that threaten soundness (patched once discovered).</p>
 </li>
 </ul>
-<p>We'll use <code>miri</code><sup class="footnote-reference"><a href="#Miri">8</a></sup>, an experimental dynamic tool for detecting UB in Rust programs, in Chapter 12.</p>
+<p>We'll use <code>miri</code><sup class="footnote-reference"><a href="#Miri">9</a></sup>, an experimental dynamic tool for detecting UB in Rust programs, in Chapter 12.</p>
+<p>An unofficial Rust language specification effort is currently underway<sup class="footnote-reference"><a href="#FLS">10</a></sup> to support Ferrocene, a vendored Rust toolchain to be qualified for safety-critical use.
+While this specification does not aim to document the entire Rust language and standard library, it will enumerate UB where relevant and be publicly available<sup class="footnote-reference"><a href="#FLS">10</a></sup>.</p>
 </blockquote>
 <p>To make Rust's benefits more visceral, let's port our buggy C program to Rust:</p>
 <pre><code class="language-rust ignore">fn undef_func() -&gt; isize {
@@ -287,7 +290,7 @@ In other words, all safe Rust programs obey the aforementioned MISRA C Rule 9.1.
 <p>More generally, successfully compiling a safe Rust project means UB is likely eliminated.
 So obeying the below buys us a great deal of assurance:</p>
 <blockquote>
-<p><strong>[RR, Directive 2.1]</strong> The entire project should compile without error<sup class="footnote-reference"><a href="#MISRA_2012">4</a></sup></p>
+<p><strong>[RR, Directive 2.1]</strong> The entire project should compile without error<sup class="footnote-reference"><a href="#MISRA_2012">5</a></sup></p>
 </blockquote>
 <h2 id="why-does-ub-even-exist"><a class="header" href="#why-does-ub-even-exist">Why does UB even exist?</a></h2>
 <p>Let's assume it's desirable to have multiple compilers for a language, whether they be commercial or open-source.
@@ -295,13 +298,37 @@ Each compiler implementation may serve a different niche, offer unique features,
 Just like we have multiple web browsers that all support the same standards and protocols (HTML, HTTP2, etc).</p>
 <p>Thus, a singular language standard (like the ISO C standard<sup class="footnote-reference"><a href="#ISOC">2</a></sup> we've mentioned) needs to be applicable to any compiler implementation targeting any platform architecture.
 This is akin to an interface design problem.
-It entails designing failure modes, which is where UB comes in<sup class="footnote-reference"><a href="#CppUndef">9</a></sup> - it's one way to &quot;handle&quot; edge cases the standard won't, shouldn't, or can't impose a universal rule for.</p>
+It entails designing failure modes, which is where UB comes in<sup class="footnote-reference"><a href="#CppUndef">11</a></sup> - it's one way to &quot;handle&quot; edge cases the standard won't, shouldn't, or can't impose a universal rule for.</p>
 <p>So the standard draws a boundary: it defines an &quot;abstract machine&quot; general enough to represent a variety of underlying hardware.
 This has the upside of giving compiler developers room to introduce platform-specific optimizations.
-Which is one of the main jobs of a compiler: it repeatedly applies rewrite rules to generate efficient machine code.</p>
+Which is one of the main jobs of a compiler: it repeatedly applies <em>rewrite rules</em> to generate efficient machine code.</p>
+<p>An optimizing compiler assumes that input source code never introduces UB, per the language specification.
+If this assumption is:</p>
+<ul>
+<li>
+<p><strong>True</strong> (source is indeed UB-free) - rewrite rules replace existing code with new code that is both faster and <em>logically equivalent</em>.</p>
+<ul>
+<li>These rules often take advantage of the &quot;wiggle room&quot; an abstract specification provides to play with architecture-specific instruction and/or memory model semantics. Or remove checks that prove necessary<sup class="footnote-reference"><a href="#RalfUB">12</a></sup>.</li>
+</ul>
+</li>
+<li>
+<p><strong>False</strong> (source contains UB) - application of rewrite rules may lead to <em>logical contradiction</em>.</p>
+<ul>
+<li>If the UB present is &quot;triggered&quot;, results include incorrect code replacements and/or arbitrary runtime operations.</li>
+</ul>
+</li>
+</ul>
+<p>This dichotomy begs the question: couldn't a sufficiently &quot;smart&quot; compiler simply <em>verify</em> its assumption of UB-free source?
+Just like it checks syntax and typing at compile time?</p>
+<p>The answer is yes!
+As alluded to, that's exactly what <code>rustc</code> does when compiling fully-safe Rust code<sup class="footnote-reference"><a href="#IntOverflow">13</a></sup>.
+Using a combination of its advanced type system and runtime check insertion.</p>
+<p>But guaranteeing absence of all UB automatically is technically infeasible for C, C++, <em>and</em> <code>unsafe</code> Rust.
+Futhermore, even the safest of Rust programs might link against <em>some</em> <code>unsafe</code> code internally, like C's <code>libc</code> or parts of Rust's <code>core</code><sup class="footnote-reference"><a href="#Core">14</a></sup>.
+From an assurance perspective, we're betting that such widely-used and well-vetted dependencies are less likely to contain UB than <code>unsafe</code> code we'd write ourselves.</p>
 <blockquote>
 <p><strong>What's an example of an optimization?</strong></p>
-<p>John Regehr presented a compelling snippet in a 2017 talk<sup class="footnote-reference"><a href="#CppUndef">9</a></sup>, we'll adapt it here.
+<p>John Regehr presented a compelling snippet in a 2017 talk<sup class="footnote-reference"><a href="#CppUndef">11</a></sup>, we'll adapt it here.
 Say we have this function:</p>
 <pre><code class="language-c">int set(int* a, int* b) {
    *b = 3;
@@ -328,7 +355,7 @@ Something akin to the following snippet of x86-64 assembly may be emitted (ATT s
 <p><code>(%rsi)</code> is a dereference of the pointer, we read the data it points to.</p>
 </li>
 <li>
-<p><code>movl (%rsi), %eax</code> copies the data read into <code>%eax</code>, the register used for return values<sup class="footnote-reference"><a href="#EAX">10</a></sup>.</p>
+<p><code>movl (%rsi), %eax</code> copies the data read into <code>%eax</code>, the register used for return values<sup class="footnote-reference"><a href="#EAX">15</a></sup>.</p>
 </li>
 </ul>
 <p>Now say the two parameters are pointers to different integer types:</p>
@@ -366,12 +393,12 @@ int main() {
 }
 </code></pre>
 <p>For various reasons, casting is a common operation in C and C++ programs.
-Projects like the Linux kernel explicitly disable this specific optimization for safety<sup class="footnote-reference"><a href="#UndefResearch">3</a></sup>.</p>
+Projects like the Linux kernel explicitly disable this specific optimization for safety<sup class="footnote-reference"><a href="#UndefResearch">4</a></sup>.</p>
 <p>In safe Rust, we can't cast references. And we're able to guarantee absence of mutable aliasing at all times.
 So, in this particular case, Rust is capable of performing the optimization without the UB danger.</p>
 </blockquote>
 <h2 id="what-are-the-consequences-of-ub-in-practice"><a class="header" href="#what-are-the-consequences-of-ub-in-practice">What are the consequences of UB in practice?</a></h2>
-<p>There are four possible outcomes<sup class="footnote-reference"><a href="#CppUndef">9</a></sup>.
+<p>There are four possible outcomes<sup class="footnote-reference"><a href="#CppUndef">11</a></sup>.
 We can enumerate them, roughly in order of best to worst case:</p>
 <ol>
 <li>
@@ -403,7 +430,7 @@ We can enumerate them, roughly in order of best to worst case:</p>
 The fourth is a threat to security.
 That's why the MISRA C standard includes this broad rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 1.3]</strong> Eliminate all occurrences of undefined behavior<sup class="footnote-reference"><a href="#MISRA_2012">4</a></sup></p>
+<p><strong>[AR, Rule 1.3]</strong> Eliminate all occurrences of undefined behavior<sup class="footnote-reference"><a href="#MISRA_2012">5</a></sup></p>
 </blockquote>
 <p>Rust's design generally makes it easier to comply with the rule.
 The developer isn't responsible for remembering hundreds of obscure UB edge cases simultaneously, and then enforcing them without fail across a million-line codebase.
@@ -416,7 +443,7 @@ Automatically and accurately.</p>
 <p>Commercial static analysis tools suffer from false positives: actionable results are often buried in noise. Moreover, a lot of UB is difficult to design a detection algorithm for. As you may recall from Chapter 2, important problems in static analysis, like aliasing, are mathematically undecidable.</p>
 </li>
 <li>
-<p>Dynamic tools (like LLVM's open-source <code>UBSan</code><sup class="footnote-reference"><a href="#UBSan">11</a></sup>, <code>ASan</code><sup class="footnote-reference"><a href="#ASan">12</a></sup>, and <code>TSan</code><sup class="footnote-reference"><a href="#TSan">13</a></sup>) have improved greatly in recent years, but still miss bugs due to fundamental limitations of dynamic testing (tiny sample of program state-space). Even when combined with coverage-guided fuzzing (introduced in Chapter 12).</p>
+<p>Dynamic tools (like LLVM's open-source <code>UBSan</code><sup class="footnote-reference"><a href="#UBSan">16</a></sup>, <code>ASan</code><sup class="footnote-reference"><a href="#ASan">17</a></sup>, and <code>TSan</code><sup class="footnote-reference"><a href="#TSan">18</a></sup>) have improved greatly in recent years, but still miss bugs due to fundamental limitations of dynamic testing (tiny sample of program state-space). Even when combined with coverage-guided fuzzing (introduced in Chapter 12).</p>
 </li>
 </ul>
 <p>That's a part of why standards like MISRA C exist, and why countless engineering hours are devoted to ensuring these standards are followed.</p>
@@ -428,16 +455,16 @@ Or in service disruption, should the UB lead to an exploitable vulnerability.</p
 Rust isn't perfect, but eliminating UB is certainly its strong suit.</p>
 <blockquote>
 <p><strong><code>gcc</code> hasn't surrendered the fight!</strong></p>
-<p>Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings.
+<p>Given a weak type system and a high-UB written specification, we believe that C compilers have low assurance ceilings with respect to memory safety<sup class="footnote-reference"><a href="#CompilerAssurance">19</a></sup>.
 But important advances are still being made.
 And, given C's widespread usage, every inch of progress is high-impact.</p>
-<p><code>gcc</code> 12 offers improved, experimental, static taint analysis<sup class="footnote-reference"><a href="#GCC">14</a></sup> (flow tracking for untrusted data).
+<p><code>gcc</code> 12 offers improved, experimental, static taint analysis<sup class="footnote-reference"><a href="#GCC">20</a></sup> (flow tracking for untrusted data).
 In conjunction with source annotations, that's a way to systematically review potential attack entry points.
 And an advanced feature not currently offered by <code>rustc</code>.</p>
-<p>This same version adds a new <code>-Wanalyzer-use-of-uninitialized-value</code> flag<sup class="footnote-reference"><a href="#GCC">14</a></sup>.
+<p>This same version adds a new <code>-Wanalyzer-use-of-uninitialized-value</code> flag<sup class="footnote-reference"><a href="#GCC">20</a></sup>.
 Unlike the <code>-Wuninitialized</code> warning our above use of <code>-Wall</code> encapsulated, this new flag uses branch-sensitive static analysis of flows between functions.
 That may mean less false positives <em>and</em> more actionable warnings.</p>
-<p>We did not test <code>gcc</code> 12's ability to detect the aforementioned &quot;Dirty Pipe&quot;<sup class="footnote-reference"><a href="#DirtyPipe">5</a></sup> kernel vulnerability.
+<p>We did not test <code>gcc</code> 12's ability to detect the aforementioned &quot;Dirty Pipe&quot;<sup class="footnote-reference"><a href="#DirtyPipe">6</a></sup> kernel vulnerability.
 But that could be a worthwhile exercise for interested readers.</p>
 </blockquote>
 <hr />
@@ -447,41 +474,62 @@ But that could be a worthwhile exercise for interested readers.</p>
 <div class="footnote-definition" id="ISOC"><sup class="footnote-definition-label">2</sup>
 <p><a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf"><em>ISO/IEC 9899:TC3</em></a>. International Organization for Standardization (2007). Note newer standards for the C language must be paid for, they are not freely available online. The points we make in this book are still applicable to newer C standards.</p>
 </div>
-<div class="footnote-definition" id="UndefResearch"><sup class="footnote-definition-label">3</sup>
+<div class="footnote-definition" id="NasalDemons"><sup class="footnote-definition-label">3</sup>
+<p><a href="http://www.catb.org/jargon/html/N/nasal-demons.html"><em>nasal demons</em></a>. According to an infamous Usenet post, the arbitrary consequences of UB could include making &quot;demons fly out of your nose&quot;. Hence UB is sometimes joking referred to as &quot;nasal demons&quot;.</p>
+</div>
+<div class="footnote-definition" id="UndefResearch"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf"><em>Undefined Behavior: What Happened to My Code?</em></a>. Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012).</p>
 </div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">4</sup>
+<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">5</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
 </div>
-<div class="footnote-definition" id="DirtyPipe"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="DirtyPipe"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://dirtypipe.cm4all.com/"><em>The Dirty Pipe Vulnerability</em></a>. Max Kellerman (2022).</p>
 </div>
-<div class="footnote-definition" id="UndefRust"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="UndefRust"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://doc.rust-lang.org/reference/behavior-considered-undefined.html"><em>Behavior considered undefined</em></a>. The Rust Reference (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="RustcBug"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="RustcBug"><sup class="footnote-definition-label">8</sup>
 <p><a href="https://internals.rust-lang.org/t/unsoundness-in-pin/11311">Unsoundness in <code>Pin</code></a>. comex (2019).</p>
 </div>
-<div class="footnote-definition" id="Miri"><sup class="footnote-definition-label">8</sup>
+<div class="footnote-definition" id="Miri"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://github.com/rust-lang/miri"><em><code>miri</code></em></a>. Ralf Jung (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="CppUndef"><sup class="footnote-definition-label">9</sup>
+<div class="footnote-definition" id="FLS"><sup class="footnote-definition-label">10</sup>
+<p><a href="https://ferrous-systems.com/blog/ferrocene-language-specification/"><em>Introducing the Ferrocene Language Specification</em></a>. Ferrous Systems (2022).</p>
+</div>
+<div class="footnote-definition" id="CppUndef"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://www.youtube.com/watch?v=v1COuU2vU_w"><em>CppCon 2017: &quot;Undefined Behavior in 2017&quot;</em></a>. John Regehr (2017).</p>
 </div>
-<div class="footnote-definition" id="EAX"><sup class="footnote-definition-label">10</sup>
+<div class="footnote-definition" id="RalfUB"><sup class="footnote-definition-label">12</sup>
+<p><a href="https://www.ralfj.de/blog/2021/11/18/ub-good-idea.html"><em>Undefined Behavior deserves a better reputation</em></a>. Ralf Jung (2021).</p>
+</div>
+<div class="footnote-definition" id="IntOverflow"><sup class="footnote-definition-label">13</sup>
+<p>This claim may have debatable edge cases. For example, if <code>overflow-checks = false</code> is specified in <code>Cargo.toml</code> (the default setting for the optimized <code>release</code> profile) then integer overflow can happen at runtime. That's not technically UB in Rust, like it is in C/C++, because you can reliably expect two's complement wrap. But it might still cause unanticipated bugs in the context of your larger application.</p>
+</div>
+<div class="footnote-definition" id="Core"><sup class="footnote-definition-label">14</sup>
+<p><a href="https://doc.rust-lang.org/core/"><em>The Rust Core Library</em></a>. The Rust Team (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="EAX"><sup class="footnote-definition-label">15</sup>
 <p>Technically, <code>%eax</code> is the lower 4 bytes of the 8-byte <code>%rax</code> register on an x86-64 system. <code>%rax</code> is used for return values. In this example, we're dereferencing 8-byte pointers but returning a 4-byte integer.</p>
 </div>
-<div class="footnote-definition" id="UBSan"><sup class="footnote-definition-label">11</sup>
+<div class="footnote-definition" id="UBSan"><sup class="footnote-definition-label">16</sup>
 <p><a href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html"><em>UndefinedBehaviorSanitizer</em></a>. LLVM Project (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="ASan"><sup class="footnote-definition-label">12</sup>
+<div class="footnote-definition" id="ASan"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://clang.llvm.org/docs/AddressSanitizer.html"><em>AddressSanitizer</em></a>. LLVM Project (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="TSan"><sup class="footnote-definition-label">13</sup>
+<div class="footnote-definition" id="TSan"><sup class="footnote-definition-label">18</sup>
 <p><a href="https://clang.llvm.org/docs/ThreadSanitizer.html"><em>ThreadSanitizer</em></a>. LLVM Project (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="GCC"><sup class="footnote-definition-label">14</sup>
+<div class="footnote-definition" id="CompilerAssurance"><sup class="footnote-definition-label">19</sup>
+<p>On the other hand, C compilers are mature and well-understood from a safety qualification perspective. And further ahead in formal verification. As an example, the CompCert<sup class="footnote-reference"><a href="#CompCert">21</a></sup> C compiler proves that source code semantics match machine code semantics. No current Rust compiler can claim that level or kind of assurance.</p>
+</div>
+<div class="footnote-definition" id="GCC"><sup class="footnote-definition-label">20</sup>
 <p><a href="https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler"><em>The state of static analysis in the GCC 12 compiler</em></a>. David Malcom (2022).</p>
+</div>
+<div class="footnote-definition" id="CompCert"><sup class="footnote-definition-label">21</sup>
+<p><a href="https://compcert.org/"><em>CompCert</em></a>. Xavier Leroy (Accessed 2022).</p>
 </div>
 
                     </main>

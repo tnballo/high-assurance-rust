@@ -80,7 +80,7 @@ Visually, this book covers the below topics (contrasted roughly on tradeoff of *
 Don't worry, we'll provide clear explanations and context for each.
 
 Notice the bias toward development speed.
-We're interested in **lightweight processes** that, in the long run, enable us **ship quality code faster** and spend **less time patching** security and reliability failures.
+We're interested in **lightweight processes** that, in the long run, enable us to **ship quality code faster** and spend **less time patching** security and reliability failures.
 Techniques you can apply to real-world code.
 Today.
 
@@ -92,6 +92,31 @@ You'll learn how to *reason* about software security at the leading edge.
 To think like an attacker.
 And to write code resistant to attack.
 That mental model is valuable no matter what programming language you primarily use.
+
+## Sponsors Supporting this Book
+
+The development of this book (research, writing, and coding) is made possible through the generous support of:
+
+<style>
+p#sponsor {
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+}
+</style>
+
+<p id="sponsor">
+</br>
+<a href="https://foundation.rust-lang.org/">
+<img src="../img/rust_foundation_logo.png" width="70%" alt="The Rust Foundation">
+</a>
+</br>
+</br>
+Under the first tranche of the <a href="https://foundation.rust-lang.org/grants/">2022 Project Grants Program</a>.
+A full list of awarded projects is <a href="https://foundation.rust-lang.org/news/2022-06-14-community-grants-program-awards-announcement/">available here</a>, please check out the range of exciting work happening within the global Rust community!
+</br>
+</br>
+</p>
 
 > *You need to build a data structure library to serve a mission-critical application.
 > It must run on nearly any device, operate in the field for years on end without error, and tolerate attacker-controlled input.

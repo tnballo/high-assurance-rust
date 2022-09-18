@@ -329,7 +329,7 @@ To preview the exclusive-mutable restriction, this code would fail to compile:
 let mut x = "Hello!".to_string();
 
 let r1 = &mut x; // 1st mutable borrow
-let r2 = &mut x; // 1nd mutable borrow - problem!
+let r2 = &mut x; // 2nd mutable borrow - problem!
 
 println!("{}, {}", r1, r2);
 ```
@@ -342,7 +342,7 @@ error[E0499]: cannot borrow `x` as mutable more than once at a time
   |
 6 | let r1 = &mut x; // 1st mutable borrow
   |          ------ first mutable borrow occurs here
-7 | let r2 = &mut x; // 1nd mutable borrow - problem!
+7 | let r2 = &mut x; // 2nd mutable borrow - problem!
   |          ^^^^^^ second mutable borrow occurs here
 8 |
 9 | println!("{}, {}", r1, r2);
@@ -394,7 +394,7 @@ We must still obey the rule, but we don't have to prove mutual exclusion for all
 That strictness makes encoding certain problems too difficult.
 But if it compiles, it's guaranteed.
 
-Instead, interior mutability allows us to do *run-time validation* (dynamic assurance).
+Instead, interior mutability allows us to do *runtime validation* (dynamic assurance).
 Below are two types often used in the interior mutability pattern.
 Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 
@@ -411,7 +411,7 @@ Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 <p align="center">
   <img width="80%" src="ref_venn_interior_mut.svg">
   <figure>
-  <figcaption><center>Interior mutability: run-time enforced shared readable xor exclusive writeable</center></figcaption><br>
+  <figcaption><center>Interior mutability: runtime enforced shared readable xor exclusive writeable</center></figcaption><br>
   </figure>
 </p>
 
@@ -424,10 +424,10 @@ It's a best practice for some classes of problems, and well-covered in other res
 But remember - Rust is a *big* language.
 We don't have to master every feature to be productive.
 
-> **We're not out of the run-time woods!**
+> **We're not out of the runtime woods!**
 >
 > Our code does index-based array access, e.g. `arr[i]`.
-> That incurs a run-time bounds check.
+> That incurs a runtime bounds check.
 > A failure (out-of-bounds index attempt) would mean `panic!`, just like `RefCell`.
 > But array indexing is easier to reason about.
 >
@@ -444,7 +444,7 @@ Including four ways to work with the borrow checker:
 
 3. **Borrowing** (accessing) to data for a subset of its lifetime.
 
-4. ~~**Interior mutability** - a form of relaxed, run-time ownership enforcement.~~
+4. ~~**Interior mutability** - a form of relaxed, runtime ownership enforcement.~~
 
 That's it!
 We've covered the most difficult and infamous aspect of the Rust programming language.

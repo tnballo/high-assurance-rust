@@ -21,7 +21,7 @@ If you purchase a book using one of the affiliate links below, it helps support 
 <a href="https://amzn.to/36GfSDU"> <img src="../img/recommended_books/book_rust_2.jpg" width="200"> </a>
 </div>
 
-* ***Rust for Rustaceans***. John Gjengset (2021).
+* ***Rust for Rustaceans***. Jon Gjengset (2021).
 
     * [https://amzn.to/36GfSDU](https://amzn.to/36GfSDU)
 

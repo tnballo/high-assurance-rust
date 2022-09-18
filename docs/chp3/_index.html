@@ -210,10 +210,10 @@ Hence the <em>zero-crash</em> pun in this chapter's title.</p>
 On wisdom tested in the most unforgiving of production environments.</p>
 <p>The Motor Industry Software Reliability Association (MISRA) C<sup class="footnote-reference"><a href="#MISRA">4</a></sup> guidelines are a set of C software development rules originally created for, as the acronym implies, the automotive industry.</p>
 <p>Unlike a <em>style</em> guide, MISRA C outlines <em>best practices</em> for developers of safety-critical systems.
-It's intended to maximize reliability, security, and maintainability.
+It's intended to maximize reliability, security, and maintainability<sup class="footnote-reference"><a href="#AntiMISRA">5</a></sup>.
 For systems in which a bug can potentially endanger lives.</p>
-<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference"><a href="#DO-178C">5</a></sup> and ISO-26262<sup class="footnote-reference"><a href="#ISO-26262">6</a></sup>).
-The most recent version<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup> introduces itself as:</p>
+<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference"><a href="#DO-178C">6</a></sup> and ISO-26262<sup class="footnote-reference"><a href="#ISO-26262">7</a></sup>).
+The most recent version<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> introduces itself as:</p>
 <blockquote>
 <p>The MISRA C Guidelines define a subset of the C language in which the opportunity to make mistakes is either removed or reduced.
 Many standards for the development of safety-related software require, or recommend, the use of a language subset, and this can also be used to develop any application with security, high integrity or high reliability requirements.</p>
@@ -235,9 +235,9 @@ We will not attempt to formally define a safe subset in this book.</p>
 <p><code>#![no_std]</code>: We don't use standard library facilities (which contain <code>unsafe</code> code). More strictly, we opt out of all dynamic memory usage. Not relying on an external allocator has certain robustness benefits.</p>
 </li>
 </ul>
-<p>Because the core project is based on an open-source library<sup class="footnote-reference"><a href="#Scapegoat">8</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
+<p>Because the core project is based on an open-source library<sup class="footnote-reference"><a href="#Scapegoat">9</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
 </blockquote>
-<p>Now, being a new language, Rust is not yet certified for use in a safety-critical setting - although this is an area of industry effort<sup class="footnote-reference"><a href="#Ferrocene">9</a></sup> and research<sup class="footnote-reference"><a href="#RustCrit">10</a></sup>.
+<p>Now, being a new language, Rust is not yet certified for use in a safety-critical setting - although this is an area of industry effort<sup class="footnote-reference"><a href="#Ferrocene">10</a></sup> and research<sup class="footnote-reference"><a href="#RustCrit">11</a></sup>.
 There is no Rust counterpart to the MISRA C guidelines.
 Yet.</p>
 <p>Many MISRA C rules are specific to the C language.
@@ -250,17 +250,17 @@ We'll split a portion of the remainder into two categories, using these labels t
 <p><strong>Reliably for Rust (RR):</strong> Rule generally applicable to the design and implementation programs prioritizing correctness and robustness. Can be readily applied in Rust, just not automatically. Conscious effort is required on the programmer's part.</p>
 </li>
 </ul>
-<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup> rule.
+<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> rule.
 Both in this chapter and throughout the book, preceded by one the the labels above.</p>
 <p>As a preview - here's three MISRA C rules we'll conform to for the core library we write (but not for development tools we build or use, since those aren't safety-critical):</p>
 <blockquote>
-<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">7</a></sup></p>
+<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
 </blockquote>
 <p>Note we're omitting rationale.
 Which can be convincing, if the above three rules appear restrictive.
@@ -268,9 +268,9 @@ Fortunately, Rust makes it feasible and ergonomic to meet this sort of high assu
 <blockquote>
 <p><strong>A Distinct Take on MISRA C</strong></p>
 <p>To be cautious of respecting copyright, we'll only provide a rough paraphrase of each MISRA rule's &quot;heading&quot; - not its exact phrasing, full explanation, rationale, exceptions, category, etc.
-This is the same approach taken by academic publications<sup class="footnote-reference"><a href="#MisraPub">11</a></sup> that enumerate MISRA rules.</p>
+This is the same approach taken by academic publications<sup class="footnote-reference"><a href="#MisraPub">12</a></sup> that enumerate MISRA rules.</p>
 <p>In several cases, our paraphrase will introduce Rust-specific terminology not present in the MISRA C Guidelines.
-Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference"><a href="#MisraRust">12</a></sup>, we're not aiming to be exhaustive.
+Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference"><a href="#MisraRust">13</a></sup>, we're not aiming to be exhaustive.
 We're sampling rules for the purpose of learning assurance concepts.</p>
 </blockquote>
 <p>We can taxonomize the MISRA rules and directives mentioned in this chapter as follows:</p>
@@ -296,7 +296,7 @@ We'll focus on tools in this book.</p>
 <p>Using <code>clap</code> in the last chapter already gave us a taste for integrating 3rd party libraries into our builds.
 We also leveraged Rust's built-in, 1st-party unit testing framework to verify our RC4 implementation against official test vectors.
 Yet we've only scratched the surface on what <code>cargo</code> can do to aid day-to-day development tasks.
-The Cargo Book<sup class="footnote-reference"><a href="#CargoBook">13</a></sup> offers a more complete overview.</p>
+The Cargo Book<sup class="footnote-reference"><a href="#CargoBook">14</a></sup> offers a more complete overview.</p>
 <p>In this chapter, we'll highlight a few more components of Rust's tooling ecosystem, both 1st and 3rd party.
 We'll also discuss Rust's release cycle to understand how stability is enabled for production systems.
 More generally, we'll cover a key pillar of successful software projects: code organization.</p>
@@ -325,7 +325,7 @@ For now, think of it like this:</p>
 <p><strong>Heap memory</strong> is long-term (live until freed) storage that has to be requested explicitly and cleaned up later. But it can store variables whose <strong>size is decided at runtime</strong>.</p>
 <ul>
 <li>
-<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference"><a href="#Malloc">14</a></sup>, implements complex logic to manage chunks of RAM.</p>
+<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference"><a href="#Malloc">15</a></sup>, implements complex logic to manage chunks of RAM.</p>
 </li>
 <li>
 <p>Vectors and non-literal strings are typically stored on the heap.</p>
@@ -370,34 +370,37 @@ It's a concept that spans every kind of programming language:</p>
 <div class="footnote-definition" id="MISRA"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://www.misra.org.uk/misra-c/"><em>MISRA C</em></a>. MISRA (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="DO-178C"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="AntiMISRA"><sup class="footnote-definition-label">5</sup>
+<p><a href="https://ieeexplore.ieee.org/abstract/document/4658076"><em>Assessing the Value of Coding Standards: An Empirical Study</em></a>. Cathal Boogerd, Leon Moonen (2008). This paper, which evaluated the MISRA C 2004 standard, makes the claim that only 12 of 72 MISRA rules were significantly effective for fault detection and that adherence to certain rules might, counter intuitively, actually <em>increase</em> fault rate. These conclusions are controversial, MISRA C and similar coding standards continue to be best practices in several industries. Outside of a subsequent study by the same authors, we couldn't find other research arriving at similar conclusions. But such claims are worth noting for completeness. We encourage readers to maintain a mindset of healthy skepticism! At the very least, we can agree there is nuance to the impact and application of coding standards.</p>
+</div>
+<div class="footnote-definition" id="DO-178C"><sup class="footnote-definition-label">6</sup>
 <p><a href="https://en.wikipedia.org/wiki/DO-178C"><em>DO-178C</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="ISO-26262"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="ISO-26262"><sup class="footnote-definition-label">7</sup>
 <p><a href="https://en.wikipedia.org/wiki/ISO_26262"><em>ISO 26262</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
 </div>
-<div class="footnote-definition" id="Scapegoat"><sup class="footnote-definition-label">8</sup>
+<div class="footnote-definition" id="Scapegoat"><sup class="footnote-definition-label">9</sup>
 <p><a href="https://github.com/tnballo/scapegoat"><em><code>scapegoat</code></em></a>. Tiemoko Ballo (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">9</sup>
+<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">10</sup>
 <p><a href="https://ferrous-systems.com/ferrocene/">Ferrocene</a>. Ferrous Systems (2021).</p>
 </div>
-<div class="footnote-definition" id="RustCrit"><sup class="footnote-definition-label">10</sup>
+<div class="footnote-definition" id="RustCrit"><sup class="footnote-definition-label">11</sup>
 <p><a href="https://ieeexplore.ieee.org/document/8990314"><em>Towards Rust for Critical Systems</em></a>. Andre Pinho, Luis Couto, Jose Oliveira (2019).</p>
 </div>
-<div class="footnote-definition" id="MisraPub"><sup class="footnote-definition-label">11</sup>
+<div class="footnote-definition" id="MisraPub"><sup class="footnote-definition-label">12</sup>
 <p><a href="https://arxiv.org/pdf/1809.00821.pdf"><em>The MISRA C Coding Standard and its Role in the Development and Analysis of Safety- and Security-Critical Embedded Software</em></a>. Roberto Bagnara, Abramo Bagnara, and Patricia Hill (2018).</p>
 </div>
-<div class="footnote-definition" id="MisraRust"><sup class="footnote-definition-label">12</sup>
+<div class="footnote-definition" id="MisraRust"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://github.com/PolySync/misra-rust/blob/master/MISRA-Rules.md"><em>MISRA-Rust</em></a>. Shea Newton (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="CargoBook"><sup class="footnote-definition-label">13</sup>
+<div class="footnote-definition" id="CargoBook"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://doc.rust-lang.org/cargo/"><em>The Cargo Book</em></a>. The Cargo Team (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="Malloc"><sup class="footnote-definition-label">14</sup>
+<div class="footnote-definition" id="Malloc"><sup class="footnote-definition-label">15</sup>
 <p>A user space &quot;memory allocator&quot; can issue &quot;system calls&quot; to an OS to grow heap capacity as needed. If your program uses heap memory, it must link against this runtime support library. This is extremely common, it's how most programs work.</p>
 </div>
 
