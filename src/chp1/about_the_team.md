@@ -41,7 +41,6 @@ Listed alphabetically:
 * [U007D](https://github.com/U007D)
 * [qrilka](https://github.com/qrilka)
 
-
 <br>
 
 ---
