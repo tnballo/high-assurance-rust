@@ -34,7 +34,7 @@ Let's contrast two scenarios to clarify the distinction:
     * Everyone, including legitimate users, *can't* access data.
     * That's a *bug*, the software doesn't work correctly.
 
-2. Can login with an invalid credentials?
+2. Can login with invalid credentials?
     * Authentication is broken.
     * Anyone, including an attacker, *can* access data.
     * That's a *vulnerability* which might be exploited to view or modify sensitive data.
