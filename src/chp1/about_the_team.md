@@ -33,13 +33,14 @@ Listed alphabetically:
 * [kaylynn234](https://github.com/kaylynn234)
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
+* [qrilka](https://github.com/qrilka)
 * [rrevi](https://github.com/rrevi)
 * [samestep](https://github.com/samestep)
 * [shak360](https://github.com/shak360)
 * [SilvanCodes](https://github.com/SilvanCodes)
 * [tshepang](https://github.com/tshepang)
 * [U007D](https://github.com/U007D)
-* [qrilka](https://github.com/qrilka)
+* [Vishal Lama](https://github.com/vishallama)
 
 <br>
 
