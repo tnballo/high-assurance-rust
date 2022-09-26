@@ -211,9 +211,9 @@ fn compute_30_60_90_tri_side_len(short_side: f64) -> (f64, f64, f64) {
 }
 
 fn main() {
-  // Tuple constant indexing
   let tri_sides = compute_30_60_90_tri_side_len(10.0);
 
+  // Tuple constant indexing
   assert_eq!(tri_sides.0, 10.0);
   assert_eq!(tri_sides.1, 20.0);
   assert_eq!(tri_sides.2, 17.32050807568877);
