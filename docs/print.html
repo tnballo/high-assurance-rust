@@ -1311,12 +1311,14 @@ Listed alphabetically:</p>
 <li><a href="https://github.com/kaylynn234">kaylynn234</a></li>
 <li><a href="https://github.com/LoganDark">LoganDark</a></li>
 <li><a href="https://github.com/Michcioperz">Michcioperz</a></li>
+<li><a href="https://github.com/qrilka">qrilka</a></li>
 <li><a href="https://github.com/rrevi">rrevi</a></li>
 <li><a href="https://github.com/samestep">samestep</a></li>
 <li><a href="https://github.com/shak360">shak360</a></li>
+<li><a href="https://github.com/SilvanCodes">SilvanCodes</a></li>
 <li><a href="https://github.com/tshepang">tshepang</a></li>
 <li><a href="https://github.com/U007D">U007D</a></li>
-<li><a href="https://github.com/qrilka">qrilka</a></li>
+<li><a href="https://github.com/vishallama">Vishal Lama</a></li>
 </ul>
 <br>
 <hr />
@@ -1515,7 +1517,7 @@ Let's contrast two scenarios to clarify the distinction:</p>
 </ul>
 </li>
 <li>
-<p>Can login with an invalid credentials?</p>
+<p>Can login with invalid credentials?</p>
 <ul>
 <li>Authentication is broken.</li>
 <li>Anyone, including an attacker, <em>can</em> access data.</li>
@@ -1643,7 +1645,7 @@ But since its debut in 1987<sup class="footnote-reference"><a href="#Rivest">6</
 <p>This is a microcosm of an important axiom: assurance is a moving target.
 As the security landscape changes, so must requirements and measures taken.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>Before pressing forward, let's take a quick setup back: why prioritize software assurance in the first place?</p>
+<p>Before pressing forward, let's take a quick step back: why prioritize software assurance in the first place?</p>
 <p>We'd wager another DoD statement sums it up nicely.
 Feel free to replace <em>&quot;mission critical&quot;</em> with &quot;business critical&quot; in the below description of the price of insecure software<sup class="footnote-reference"><a href="#DoD">1</a></sup>:</p>
 <blockquote>
@@ -1820,7 +1822,7 @@ Again, tools are a supplement for scale - not a substitute for smarts.</p>
 <h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
 <p>Software assurance entails a &quot;level of confidence&quot;.
 Tests bolster our confidence in a match between a business-relevant specification and a particular implementation of a system or product.</p>
-<p>Static analyses, which reason about a program without running it, tend be be good a proving the absence of a class of bug.
+<p>Static analyses, which reason about a program without running it, tend be be good at proving the absence of a class of bugs.
 But those classes are <em>limited</em>.
 Often, there are no false negatives (the analysis doesn't miss anything).</p>
 <p>Dynamic analyses, which run a program, tend to be good at finding at least one bug.
@@ -2905,7 +2907,7 @@ And the book is supplemented by free video lectures<sup class="footnote-referenc
 <p>Technically, per the Rust reference<sup class="footnote-reference"><a href="#RustRef">13</a></sup>, &quot;Associated functions are functions associated with a type&quot; and &quot;Associated functions whose first parameter is named <code>self</code> are called methods...&quot;. But that's pretty in the weeds. We treat <em>associated functions</em> and <em>methods</em> as distinct in this section for clarity.</p>
 </div>
 <div class="footnote-definition" id="SliceEff"><sup class="footnote-definition-label">5</sup>
-<p>Slices references are &quot;fat pointers&quot; (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall &quot;pass-by-reference&quot;, from when we first talked about pointers).</p>
+<p>Slice references are &quot;fat pointers&quot; (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall &quot;pass-by-reference&quot;, from when we first talked about pointers).</p>
 </div>
 <div class="footnote-definition" id="SliceFlex"><sup class="footnote-definition-label">6</sup>
 <p>Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be &quot;viewed&quot; through a slice. So you'll encounter them often in idiomatic Rust code.</p>
@@ -4340,7 +4342,7 @@ We'll split a portion of the remainder into two categories, using these labels t
 <p><strong>Automated by Rust (AR):</strong> Rule that is easy to follow consistently or natural to express in idiomatic Rust. For any Rust program, if it compiles it likely adheres to this category.</p>
 </li>
 <li>
-<p><strong>Reliably for Rust (RR):</strong> Rule generally applicable to the design and implementation programs prioritizing correctness and robustness. Can be readily applied in Rust, just not automatically. Conscious effort is required on the programmer's part.</p>
+<p><strong>Reliably for Rust (RR):</strong> Rule generally applicable to the design and implementation of programs prioritizing correctness and robustness. Can be readily applied in Rust, just not automatically. Conscious effort is required on the programmer's part.</p>
 </li>
 </ul>
 <p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> rule.
@@ -5057,9 +5059,9 @@ fn compute_30_60_90_tri_side_len(short_side: f64) -&gt; (f64, f64, f64) {
 }
 
 fn main() {
-  // Tuple constant indexing
   let tri_sides = compute_30_60_90_tri_side_len(10.0);
 
+  // Tuple constant indexing
   assert_eq!(tri_sides.0, 10.0);
   assert_eq!(tri_sides.1, 20.0);
   assert_eq!(tri_sides.2, 17.32050807568877);

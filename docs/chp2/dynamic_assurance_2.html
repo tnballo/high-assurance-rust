@@ -476,7 +476,7 @@ And the book is supplemented by free video lectures<sup class="footnote-referenc
 <p>Technically, per the Rust reference<sup class="footnote-reference"><a href="#RustRef">13</a></sup>, &quot;Associated functions are functions associated with a type&quot; and &quot;Associated functions whose first parameter is named <code>self</code> are called methods...&quot;. But that's pretty in the weeds. We treat <em>associated functions</em> and <em>methods</em> as distinct in this section for clarity.</p>
 </div>
 <div class="footnote-definition" id="SliceEff"><sup class="footnote-definition-label">5</sup>
-<p>Slices references are &quot;fat pointers&quot; (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall &quot;pass-by-reference&quot;, from when we first talked about pointers).</p>
+<p>Slice references are &quot;fat pointers&quot; (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall &quot;pass-by-reference&quot;, from when we first talked about pointers).</p>
 </div>
 <div class="footnote-definition" id="SliceFlex"><sup class="footnote-definition-label">6</sup>
 <p>Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be &quot;viewed&quot; through a slice. So you'll encounter them often in idiomatic Rust code.</p>
