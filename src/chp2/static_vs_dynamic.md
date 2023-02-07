@@ -123,7 +123,7 @@ Again, tools are a supplement for scale - not a substitute for smarts.
 Software assurance entails a "level of confidence".
 Tests bolster our confidence in a match between a business-relevant specification and a particular implementation of a system or product.
 
-Static analyses, which reason about a program without running it, tend be be good at proving the absence of a class of bugs.
+Static analyses, which reason about a program without running it, tend to be good at proving the absence of a class of bugs.
 But those classes are *limited*.
 Often, there are no false negatives (the analysis doesn't miss anything).
 
