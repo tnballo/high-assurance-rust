@@ -54,7 +54,7 @@ We need to be able to respond to malicious actors in a constantly changing envir
 >
 > * **Always enable Multi-Factor Authentication (MFA) and review logs in addition to using random, unique passwords?**
 >
->   * That's **good operational assurance**. You've strengthened authentication, regularly perform historical audit, and protect confidentiality.
+>   * That's **good operational assurance**. You're strengthening authentication, regularly performimg historical audits, and protecting confidentiality.
 >
 >   * If you notice login attempts from an IP in an odd geo-location appear in historical data, it could indicate a breach attempt.
 >
