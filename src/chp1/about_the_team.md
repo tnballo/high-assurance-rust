@@ -26,6 +26,7 @@ Huge thank you to everyone making this book better!
 Listed alphabetically:
 
 * [aelnona](https://github.com/aelnona)
+* [drlef](https://github.com/drlef)
 * [duzumaki](https://github.com/duzumaki)
 * [humb1t](https://github.com/humb1t)
 * [jam1garner](https://github.com/jam1garner)
