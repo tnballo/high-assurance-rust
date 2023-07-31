@@ -213,9 +213,9 @@ Some static memory sections are read-only, others are writeable - this is releva
 > Multiple threads co-exist within the address space of one process.
 > Each thread has its own stack (not pictured in the right-hand side of the above diagram - but imagine the single existing stack space being segmented into multiple).
 >
-> Multithreading has two important advantages over Multiprocessing:
+> Multithreading has two important advantages over multiprocessing:
 >
-> 1. **Scheduling Efficiency** - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's "hyper-threading"[^HyperThread] technology).
+> 1. **Scheduling efficiency** - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's "hyper-threading"[^HyperThread] technology).
 >
 > 2. **Data passing between concurrent components** - threads can share data amongst themselves more easily and efficiently than processes, they often don't need to wait for or rely on the kernel as an intermediary for data passing. Static memory is one direct means, since it's shared among the multiple threads within a single process.
 
@@ -282,7 +282,7 @@ There's one for `main`, one for `square`, and one for *each* recursive call to `
 
   * For simplicity, We'll omit this detail, and a similar push/pop mechanisms for saving/restoring *callee-saved* registers.
 
-With argument passing and register saving omitted, our stack looks when `Boom!` is printed looks like:
+With argument passing and register saving omitted, our stack when `Boom!` is printed looks like:
 
 </br>
 <p align="center">
