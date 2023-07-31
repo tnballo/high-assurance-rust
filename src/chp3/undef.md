@@ -157,7 +157,7 @@ error[E0381]: use of possibly-uninitialized variable: `uninit_var`
 For more information about this error, try `rustc --explain E0381`.
 ```
 
-The `gcc` warning was similar, but it heeding it was entirely optional.
+The `gcc` warning was similar, but heeding it was entirely optional.
 In Rust, this same mistake is a hard error - the program will not compile unless we address the issue.
 In other words, all safe Rust programs obey the aforementioned MISRA C Rule 9.1.
 

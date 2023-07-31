@@ -39,6 +39,7 @@ Listed alphabetically:
 * [samestep](https://github.com/samestep)
 * [shak360](https://github.com/shak360)
 * [SilvanCodes](https://github.com/SilvanCodes)
+* [sshine](https://github.com/sshine)
 * [tshepang](https://github.com/tshepang)
 * [U007D](https://github.com/U007D)
 * [Vishal Lama](https://github.com/vishallama)
