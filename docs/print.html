@@ -1350,6 +1350,7 @@ Listed alphabetically:</p>
 <li><a href="https://github.com/samestep">samestep</a></li>
 <li><a href="https://github.com/shak360">shak360</a></li>
 <li><a href="https://github.com/SilvanCodes">SilvanCodes</a></li>
+<li><a href="https://github.com/sshine">sshine</a></li>
 <li><a href="https://github.com/tshepang">tshepang</a></li>
 <li><a href="https://github.com/U007D">U007D</a></li>
 <li><a href="https://github.com/vishallama">Vishal Lama</a></li>
@@ -4654,7 +4655,7 @@ fn main() {
 
 For more information about this error, try `rustc --explain E0381`.
 </code></pre>
-<p>The <code>gcc</code> warning was similar, but it heeding it was entirely optional.
+<p>The <code>gcc</code> warning was similar, but heeding it was entirely optional.
 In Rust, this same mistake is a hard error - the program will not compile unless we address the issue.
 In other words, all safe Rust programs obey the aforementioned MISRA C Rule 9.1.</p>
 <p>More generally, successfully compiling a safe Rust project means UB is likely eliminated.
@@ -8782,10 +8783,10 @@ For Rust specifically:</p>
 <p>Processes have a lightweight alternative: threads.
 Multiple threads co-exist within the address space of one process.
 Each thread has its own stack (not pictured in the right-hand side of the above diagram - but imagine the single existing stack space being segmented into multiple).</p>
-<p>Multithreading has two important advantages over Multiprocessing:</p>
+<p>Multithreading has two important advantages over multiprocessing:</p>
 <ol>
 <li>
-<p><strong>Scheduling Efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's &quot;hyper-threading&quot;<sup class="footnote-reference"><a href="#HyperThread">18</a></sup> technology).</p>
+<p><strong>Scheduling efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's &quot;hyper-threading&quot;<sup class="footnote-reference"><a href="#HyperThread">18</a></sup> technology).</p>
 </li>
 <li>
 <p><strong>Data passing between concurrent components</strong> - threads can share data amongst themselves more easily and efficiently than processes, they often don't need to wait for or rely on the kernel as an intermediary for data passing. Static memory is one direct means, since it's shared among the multiple threads within a single process.</p>
@@ -8892,7 +8893,7 @@ There's one for <code>main</code>, one for <code>square</code>, and one for <em>
 </ul>
 </li>
 </ul>
-<p>With argument passing and register saving omitted, our stack looks when <code>Boom!</code> is printed looks like:</p>
+<p>With argument passing and register saving omitted, our stack when <code>Boom!</code> is printed looks like:</p>
 </br>
 <p align="center">
   <img width="70%" src="chp4/stack_example.svg">

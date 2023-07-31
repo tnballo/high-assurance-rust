@@ -414,10 +414,10 @@ For Rust specifically:</p>
 <p>Processes have a lightweight alternative: threads.
 Multiple threads co-exist within the address space of one process.
 Each thread has its own stack (not pictured in the right-hand side of the above diagram - but imagine the single existing stack space being segmented into multiple).</p>
-<p>Multithreading has two important advantages over Multiprocessing:</p>
+<p>Multithreading has two important advantages over multiprocessing:</p>
 <ol>
 <li>
-<p><strong>Scheduling Efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's &quot;hyper-threading&quot;<sup class="footnote-reference"><a href="#HyperThread">18</a></sup> technology).</p>
+<p><strong>Scheduling efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's &quot;hyper-threading&quot;<sup class="footnote-reference"><a href="#HyperThread">18</a></sup> technology).</p>
 </li>
 <li>
 <p><strong>Data passing between concurrent components</strong> - threads can share data amongst themselves more easily and efficiently than processes, they often don't need to wait for or rely on the kernel as an intermediary for data passing. Static memory is one direct means, since it's shared among the multiple threads within a single process.</p>
@@ -524,7 +524,7 @@ There's one for <code>main</code>, one for <code>square</code>, and one for <em>
 </ul>
 </li>
 </ul>
-<p>With argument passing and register saving omitted, our stack looks when <code>Boom!</code> is printed looks like:</p>
+<p>With argument passing and register saving omitted, our stack when <code>Boom!</code> is printed looks like:</p>
 </br>
 <p align="center">
   <img width="70%" src="stack_example.svg">
