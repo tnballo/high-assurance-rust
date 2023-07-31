@@ -6,7 +6,7 @@
 
 #### What does this book aim to do?
 
-1. Provide an accessible but principled introduction to developing secure and robust systems. At the overlap of "state-of-the-art" and "near-term practical": mostly production-grade tools and techniques, but also some-cutting edge research projects. All open-source.
+1. Provide an accessible but principled introduction to developing secure and robust systems. At the overlap of "state-of-the-art" and "near-term practical": mostly production-grade tools and techniques, but also some cutting-edge research projects. All open-source.
 
 2. Help experienced developers both learn a new language and delve deeper into fundamental Computer Science and Computer Architecture topics.
 
