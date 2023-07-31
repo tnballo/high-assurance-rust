@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Attacker&#x27;s Perspective: Unifying Theory (2/2) - High Assurance Rust: Developing Secure and Robust Software</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Stack</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.2.</strong> DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html" class="active"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging with Mozilla rr</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.10.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">High Assurance Rust: Developing Secure and Robust Software</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/tnballo/high-assurance-rust" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="an-attackers-perspective-unifying-theory-22"><a class="header" href="#an-attackers-perspective-unifying-theory-22">An Attacker's Perspective: Unifying Theory (2/2)</a></h1>
+<p>A motivated adversary has the time and resources to discover vulnerabilities.
+And weaponize the corresponding exploits.
+In industry, we see evidence constantly.
+A stream of CVEs, PoCs, and patches gets logged in release notes.
+Companies are plagued by breaches, users by malware.</p>
+<p>Software assurance is broader in scope than vulnerability elimination.
+To paraphrase the <a href="https://highassurance.rs/chp2/_index.html#software-assurance">full DoD definition</a> from chapter 2 - <strong>assurance</strong> is a level of confidence that a specific software<sup class="footnote-reference"><a href="#DoD">1</a></sup>:</p>
+<ol>
+<li><em>&quot;is free of vulnerabilities&quot;</em></li>
+<li><em>&quot;functions as intended&quot;</em></li>
+</ol>
+<p>Memory and type safety violations can compromise both (1) security and (2) general functionality.
+They <em>degrade confidence significantly</em> for <em>both</em> the above assurance criteria.</p>
+<blockquote>
+<p><strong>By the way, what's the inspiration for this book's title?</strong></p>
+<p>&quot;High Assurance&quot; is not a standard term, it means different things to different people.
+We could even debate whether or not it is a suitable title for this book!</p>
+<p>Our title draws inspiration from a DARPA research program than concluded in 2014<sup class="footnote-reference"><a href="#HACMSMain">2</a></sup>.
+The &quot;High Assurance Cyber Military Systems (HACMS)&quot; program investigated applications of formal methods to cyber-physical embedded systems.
+With the goal of using formal methods (principled, mathematically rigorous approaches) to gain confidence in the security and functionality of critical software (software assurance).</p>
+<p>The program investigated a wide range of approaches and techniques<sup class="footnote-reference"><a href="#HACMSPaper">3</a></sup>.
+One participating team invented a Domain Specific Language (DSL)<sup class="footnote-reference"><a href="#Galois">4</a></sup>.
+This functional, Haskell-like language had two important properties for the purpose of being &quot;high assurance&quot;:</p>
+<ol>
+<li>
+<p><strong>Memory safe</strong> - Strong guarantee that the output executable would not contain spatial or temporal memory safety violations.</p>
+</li>
+<li>
+<p><strong>No heap usage</strong> - Only static and stack memory is used during program execution. This bolsters reliability (worst case execution time not dependent on heap state, operations cannot fail due to heap exhaustion) and portability (programs can be deployed on tiny microcontrollers).</p>
+</li>
+</ol>
+<p>Those DSL properties should sound awfully familiar.
+Rust can largely achieve (1) with the <code>#![forbid(unsafe_code)]</code> attribute and (2) with <code>#![no_std]</code>.</p>
+<p>Thus it's tempting to claim that Rust is a commercially-viable, increasingly-popular programming language which can achieve the same assurance criteria as a novel DSL in a relatively-recent, cutting-edge, government-funded research program.
+That's an extraordinary claim.</p>
+<p>But is it actually true?
+How exactly, in terms of concrete implementation, can a programmer achieve those high assurance properties?
+What context, limitations, and insights underpin this goal?
+More importantly, can we combine Rust with other open-source tools to push the assurance level <em>even higher</em>?</p>
+<p>This book seeks to answer those questions, in a manner that's both accessible and valuable to as many real-world developers as possible.</p>
+</blockquote>
+<h2 id="building-a-mental-framework-for-exploitation"><a class="header" href="#building-a-mental-framework-for-exploitation">Building a Mental Framework for Exploitation</a></h2>
+<p>We're going to stray into theoretical territory for a bit.
+Don't worry, there'll be a hands-on exercise later in the chapter.
+But first - things are going to be abstract, even <em>weird</em>.</p>
+<p>Consider the potential behaviors of a program, across all possible executions, visualized as overlapping sets <sup class="footnote-reference"><a href="#SetNote">5</a></sup>:</p>
+</br>
+<p align="center">
+  <img width="80%" src="behavior_concentric.svg">
+  <figure>
+  <figcaption><center>Conceptualizing assurance relative to kinds of behavior a program may exhibit across all possible executions.</center></figcaption><br>
+  </figure>
+</p>
+<p>In the context of binary exploitation, we can think of exploits as malicious behavior that's a strict subset<sup class="footnote-reference"><a href="#ExpSub">6</a></sup> of Undefined Behavior (UB).</p>
+<ul>
+<li>
+<p><strong>Note:</strong> For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).</p>
+<ul>
+<li>
+<p>Example exploit: path/directory traversal<sup class="footnote-reference"><a href="#DirTrav">7</a></sup>. In a client-server context, returning a file when a path is requested is arguably defined, intended behavior. But if that file isn't one that should be exposed to a less-trusted client - we may have a critical vulnerability.</p>
+</li>
+<li>
+<p>What is a path traversal attack, exactly? OWASP offers a clear definition<sup class="footnote-reference"><a href="#DirTrav">7</a></sup>, excerpt:</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>By manipulating variables that reference files with &quot;dot-dot-slash (../)&quot; sequences and its variations or by using absolute file paths, it may be possible to <strong>access arbitrary files</strong> and directories stored on [the] file system including <strong>application source code</strong> or <strong>configuration</strong> and critical <strong>system files</strong>...</p>
+</blockquote>
+<p>Consider the scenario labeled <strong>Actual Behavior (Average Assurance)</strong> in the above diagram.
+Even if the program passes all tests and works most of the time, there are cases in which it may fail in production (e.g. an inexplicable error, the rare race condition, any prior or future vulnerability)<sup class="footnote-reference"><a href="#UBNote">8</a></sup>.</p>
+<p>Ideally, a program would maintain correct function for any input and under any circumstance.
+It's set of behaviors would:</p>
+<ul>
+<li>Intersect with every correct action the actual set contains (above diagram not to scale).</li>
+<li>Implement additional correct behavior, covering use cases and edge cases the actual set fails to.</li>
+<li>Be mutually exclusive from the undefined set - including its malicious subset.</li>
+</ul>
+<p>This scenario is labeled <strong>Ideal Behavior (Highest Assurance)</strong> above.
+No such ideal program exists.
+Or can ever exist.
+We can never be solely in that green, HA set.
+Our goal, as defenders and developers of high assurance software, is to <em>approximate this ideal set</em> as closely as possible.</p>
+<p>But for the remainder of this section we'll return to the attackers perspective.
+We're going to dig deeper into that red circle - the malicious set.</p>
+<h2 id="the-weird-machine-theory-of-exploitation"><a class="header" href="#the-weird-machine-theory-of-exploitation">The &quot;Weird Machine&quot; Theory of Exploitation</a></h2>
+<p>What do memory corruption exploits (e.g. control flow hijacking, code injection, code reuse) have in common?
+At a fundamental level, they're means by which an attacker <em>re-writes</em> part of your program.
+Or, as one school of thought frames it, attackers develop for a tiny, constrained machine <em>inside</em> of your program.
+Bratus et. al.<sup class="footnote-reference"><a href="#WeirdMachine">9</a></sup> pose that an abstract &quot;weird machine&quot; executes the attacker's data/code.</p>
+<p>This conceptualization might make more sense if we start from what a &quot;normal machine&quot;<sup class="footnote-reference"><a href="#IFSM">10</a></sup> looks like.
+We'll use network sockets as an example and diagram two state machines: one normal, one weird.</p>
+<blockquote>
+<p><strong>Network Socket Basics</strong></p>
+<p>Sockets are a way to represent the endpoint of a network connection.
+They allow processes to treat sending/receiving data over a network much like writing/reading a local file.
+Regardless of the underlying network protocol.</p>
+<p>Socket communication assumes two kinds of entities: a client and server.
+Clients are active, they initiate connection requests on a user's behalf.
+Servers are passive, they wait to receive a connection before serving the requested content.</p>
+</blockquote>
+<p>Imagine a web server which uses the POSIX sockets API<sup class="footnote-reference"><a href="#PosixSock">11</a></sup> to accept incoming network connections.
+This standard interface describes sockets as having five states:</p>
+<ol>
+<li><strong>Ready</strong> - an initial state for a newly created socket.</li>
+<li><strong>Bound</strong> - bound to a network address (likely IP and port number).</li>
+<li><strong>Listening</strong> - listening for incoming connections.</li>
+<li><strong>Open</strong> - ready to send and receive data (stays in this state while actually transmitting).</li>
+<li><strong>Closed</strong> - no longer active, the session has ended.</li>
+</ol>
+<p>Visually, we can represent a server's socket as the below Finite State Machine (FSM):</p>
+</br>
+<p align="center">
+  <img width="80%" src="socket_state_machine.svg">
+  <figure>
+  <figcaption><center>POSIX Socket API FSM (server focus)</center></figcaption><br>
+  </figure>
+</p>
+<p>An average user's requests are processed by this <em>normal machinery</em>.
+The server starts up, binds, and begins listening (&quot;Bind&quot; transition above).
+The user connects to request a given webpage - at which point the server accepts the connection (&quot;Listen&quot;), opens the socket (&quot;Accept&quot;) and transmits the requested content (&quot;Transmit&quot;).
+The socket is closed (&quot;Close&quot;) and the page content is rendered by the user's browser.
+Nothing untoward occurs.</p>
+<p>Now imagine this server has been misconfigured: it reports its exact software and version number when an error page is hit by any client (information leakage, poor operational assurance).
+Now an attacker can &quot;fingerprint&quot; the server's software.</p>
+<p>Worse yet: say the reported version is out of date - it contains a spatial memory safety vulnerability in the web server's request parsing logic.
+This particular software version uses a fixed-size stack buffer to process a certain HTTP header that, when well formed, should comfortably fit.
+But there's no bounds check on string copy into the buffer.</p>
+<p>An attacker creates a specially crafted request that overflows the buffer, leverages code re-use to call <code>libc</code> functions, and ultimately spawns a shell that will take additional and arbitrary commands over the active socket.
+Here, request data has been processed by a <em>weird machine</em>!</p>
+<ul>
+<li>
+<p>Memory safety is broken (vulnerability), the overly-long header field's data becomes code interpreted as a sort of ad hoc, secondary program.</p>
+</li>
+<li>
+<p>Each snippet of data written past the end of the buffer becomes a &quot;weird instruction&quot; borrowed from the code already present (code reuse).</p>
+</li>
+<li>
+<p>A sequence of such instructions co-opts program execution and forces the CPU under the control of a weird program's state machine (exploit).</p>
+</li>
+</ul>
+<p>In our example, this weird machine has two states:</p>
+<ol>
+<li><strong>Buffering</strong> - receiving characters to build a command string.</li>
+<li><strong>Executing</strong> - running a command as a shell subprocess.</li>
+</ol>
+<p>A 2nd, malicious, shadow-machine is always present just beneath the surface.
+In any non-ideal program.
+Just waiting to be activated, to emerge.
+Visually, we transition to the weird machine from the normal machine's <strong>Open</strong> state if an exploit payload is received by the server:</p>
+</br>
+<p align="center">
+  <img width="100%" src="socket_weird_machine.svg">
+  <figure>
+  <figcaption><center>Weird machine programmed via remote exploit payload</center></figcaption><br>
+  </figure>
+</p>
+<p>Finding and executing a weird machine like this one is proof-by-counterexample for the insecurity of a program.
+To quote Bratus et. al., exploits demonstrate<sup class="footnote-reference"><a href="#WeirdMachine">9</a></sup>:</p>
+<blockquote>
+<p>...an <em>execution model and mechanism</em> that is explicitly or implicitly present in the attacked environment - unbeknownst to most of its users or administrators...The attack then comes as a <em>constructive proof</em> that such unforeseen computations are indeed possible, and therefore as <em>evidence</em> that the target actually includes the described [weird] execution model.</p>
+<p><em>Exploit</em> programming has been a productive empirical study of these accidental or unanticipated machines and models and of the ways they emerge from bugs, composition, and cross-layer interactions.</p>
+</blockquote>
+<p>For readers wanting a formal proof, Dullien further solidifies the weird machine model with mathematical rigor<sup class="footnote-reference"><a href="#FormalWeirdness">12</a></sup>. Notably, Dullien's work differs from our coverage of exploitation in two interesting ways:</p>
+<ol>
+<li>
+<p>He offers a formal proof of <em>non-exploitability</em> for a theoretical program's finite state machine. To demonstrate that such a proof is possible to construct under specific constraints, even if impractical.</p>
+<ul>
+<li>We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea and makes Dullien's work significant to our understanding computer security as a science.</li>
+</ul>
+</li>
+<li>
+<p>He demonstrates the exploitability (proof-by-counterexample) of different implementation of that same theoretical program <em>without</em> altering control flow.</p>
+<ul>
+<li>We won't demonstrate any exploit that can maintain perfect control flow integrity in this book. Just know that &quot;data-oriented attacks&quot; are possible (even if uncommon) examples of weird machine programming.</li>
+</ul>
+</li>
+</ol>
+<h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
+<p>The behavior of any realistic, sufficiently large program includes <em>some</em> Undefined Behavior (UB).
+This is also true for Rust programs - unless every last dependency is <code>#![forbid(unsafe_code)]</code>, no CFFI functions are called, and none of the program's code triggers a known or unknown bug <code>rustc</code> itself.</p>
+<p>In binary exploitation, an attacker leverages UB to elicit malicious behavior.
+They co-opt program execution to perform nefarious operations.</p>
+<p>That's possible because almost all programs contain the building blocks of another, unintended program.
+Those building blocks constitute a &quot;weird machine&quot;.
+When attackers write working exploits, they're, in essence, developing a new application for this inner machine.</p>
+<p>In the abstract game that is computer security, an attacker wins if they can successfully leverage any weird machine they discover.
+In practice, a defender cannot eliminate weird machines entirely.
+From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">13</a></sup> gives the attacker a significant advantage.</p>
+<p>Defenders strive to reduce and/or detect possible transitions out of the normal states and into the weird ones.
+Strongly-enforced memory and type-safety eliminate <em>a lot</em> of possible transitions to malicious states.</p>
+<p>With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.</p>
+<hr />
+<div class="footnote-definition" id="DoD"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf"><em>DoD Software Assurance Initiative</em></a>. Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)</p>
+</div>
+<div class="footnote-definition" id="HACMSMain"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://www.darpa.mil/program/high-assurance-cyber-military-systems"><em>High-Assurance Cyber Military Systems (HACMS) (Archived)</em></a>. DARPA (Accessed 2023).</p>
+</div>
+<div class="footnote-definition" id="HACMSPaper"><sup class="footnote-definition-label">3</sup>
+<p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597724/pdf/rsta20150401.pdf"><em>The HACMS program: using formal methods to eliminate exploitable bugs</em></a>. Kathleen Fisher, John Launchbury, Raymond Richards (2017).</p>
+</div>
+<div class="footnote-definition" id="Galois"><sup class="footnote-definition-label">4</sup>
+<p><a href="https://galois.com/project/hacms-high-assurance-cyber-military-systems/"><em>HACMS (High-Assurance Cyber Military Systems)</em></a>. Galois (Accessed 2023).</p>
+</div>
+<div class="footnote-definition" id="SetNote"><sup class="footnote-definition-label">5</sup>
+<p>Note the behavior of any given program of sufficient complexity, in all likelihood, is a large set that has <em>some</em> overlap with both the malicious and undefined sets. Remember we're talking about all possible executions - for any possible input - and there is no absolute security. Nor absolute assurance.</p>
+</div>
+<div class="footnote-definition" id="ExpSub"><sup class="footnote-definition-label">6</sup>
+<p>This assumption doesn't always hold. For example, command injection vulnerabilities (e.g. Log4J) make for extremely reliable and powerful exploits yet their effects are defined as far as a language specification is concerned. We still have a well-defined program that faithfully executed the provided command - it just wasn't the author-intended command!</p>
+</div>
+<div class="footnote-definition" id="DirTrav"><sup class="footnote-definition-label">7</sup>
+<p><a href="https://owasp.org/www-community/attacks/Path_Traversal"><em>Path Traversal</em></a>. OWASP (Accessed 2023).</p>
+</div>
+<div class="footnote-definition" id="UBNote"><sup class="footnote-definition-label">8</sup>
+<p>Recall the concept of a UB &quot;time bomb&quot; from Chapter 3 - a program can work as expected despite relying on UB. At least until a subtle change in toolchain or a specially crafted input triggers it.</p>
+</div>
+<div class="footnote-definition" id="WeirdMachine"><sup class="footnote-definition-label">9</sup>
+<p><a href="https://www.usenix.org/system/files/login/articles/105516-Bratus.pdf"><em>Exploit Programming: From Buffer Overflows to &quot;Weird Machines&quot; and Theory of Computation</em></a>. Sergey Bratus, Michael Locasto, Meredith Patterson, Len Sassaman, and Aanna Shubina (2011).</p>
+</div>
+<div class="footnote-definition" id="IFSM"><sup class="footnote-definition-label">10</sup>
+<p>What we call the &quot;normal machine&quot; is what Dullien<sup class="footnote-reference"><a href="#FormalWeirdness">12</a></sup> refers to as the <em>Intended Finite State Machine (IFSM).</em> We can think of any software program as an <em>approximation</em> of an abstract IFSM (here, the states of an ideal POSIX web server) emulated atop a CPU's low-level FSM (as specified by the architecture spec). &quot;Approximation&quot; because programs have bugs. The subset of bugs which are vulnerabilities allow breaking out of IFSM states and into emergent, weird FSM states.</p>
+</div>
+<div class="footnote-definition" id="PosixSock"><sup class="footnote-definition-label">11</sup>
+<p><a href="https://en.wikipedia.org/wiki/Berkeley_sockets"><em>Berkeley sockets</em></a>. Wikipedia (Accessed 2022).</p>
+</div>
+<div class="footnote-definition" id="FormalWeirdness"><sup class="footnote-definition-label">12</sup>
+<p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8226852"><em>Weird Machines, Exploitability, and Provable Unexploitability</em></a>. Thomas Dullien (2017).</p>
+</div>
+<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">13</sup>
+<p><a href="https://en.wikipedia.org/wiki/Turing_completeness"><em>Turing Completeness</em></a>. Wikipedia (Accessed 2022).</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chp4/attack_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../chp4/safe_rust_PLACEHOLDER.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chp4/attack_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../chp4/safe_rust_PLACEHOLDER.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

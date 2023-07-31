@@ -319,7 +319,7 @@ That involves mapping it's executable code into RAM and setting up 3 special mem
 
 1. Static memory - stores global variables and constants.
 2. Stack memory - stores function frames, including local variables.
-3. Heap memory - stores data shared between functions and threads.
+3. [Optionally] Heap memory - stores data shared between functions and threads.
 
 Stack memory, our focus here, is ubiquitous and provides the runtime scaffolding for a fundamental programming abstraction: function calls.
 Mechanically it works like the Last In First Out (LIFO) data structure of the same name.
