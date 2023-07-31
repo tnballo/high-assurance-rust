@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
-# Understanding Memory
+# Understanding Memory Safety and Exploitation
 ---
 
 > **Note:** This section is a work-in-progress.
@@ -38,7 +38,9 @@ To separate the wheat from the chaff.
 Systems programming requires a mental model of "what the computer is doing", but it doesn't have to be exhaustive.
 In truth, programming languages which give developers "full control"[^Ctrl] over the hardware - like C and Rust - deal primary with the concepts and mechanisms of one thing: memory.
 
-If you understand the bulk of how and why memory works, you're well on your way to mastery of low-level programming.
+* If you understand the bulk of how and why memory works, you're well on your way to mastery of low-level programming.
+
+* If you understand how attackers craft memory corruption exploits, you're more likely to catch real bugs and exploitable vulnerabilities in cross-language code and/or `unsafe` Rust before it reaches production.
 
 ## Isn't systems programming more than just managing memory?
 
@@ -70,15 +72,20 @@ Grab a coffee now (Yerba Mate if you must) because we're gonna really get into t
 
 We'll start by looking at memory from a software perspective, the model of most systems programmers work with day-to-day.
 Then we'll dig into the attacker's perspective, learning about how memory corruption bugs are turned into devastating exploits.
+We'll learn about dynamic debugging and perform introductory, hands-on heap exploitation.
 Once you can subvert rules and assumptions, you truly understand how something works.
 At least when it comes to security.
 
 Armed with a deeper understanding of memory, we'll examine how Rust provides memory safety guarantees.
 In detail.
 
-Then we'll tackle two more narrow but nonetheless important topics: integer representation issues and Rust's `!#[no_std]` attribute.
+<!--
+TODO: add appendix section on integer representation instead
 
-We'll conclude our memory world tour by stepping into the shoes of an attacker: looking at real-world Rust CVEs, learning reverse dynamic debugging, and writing an exploit or two.
+Then we'll tackle two more narrow but nonetheless important topics: integer representation issues and Rust's `!#[no_std]` attribute.
+--->
+
+We'll conclude our memory world tour by exploring language-agnostic mitigations and looking at real-world Rust CVEs.
 
 > **What about the hardware perspective?**
 >
@@ -87,11 +94,13 @@ We'll conclude our memory world tour by stepping into the shoes of an attacker: 
 
 ## Learning Outcomes
 
-* Develop a mental model of memory and program execution
-* Understand how Rust actually provides memory safety, including current limitations
+* Develop a mental model of system memory and program execution
+* Develop a mental model of memory safety, type safety, and binary exploitation
 * Learn to debug Rust code using Mozilla `rr`[^RR] (an enhanced variant of `gdb`[^GDB])
-* Understand how attackers exploit memory corruption bugs, step-by-step
-* Write your first exploit: bypass modern protections to get an interactive shell!
+* Understand how attackers exploit heap memory corruption bugs, step-by-step
+* Write your first an introductory exploit or two, bypassing modern protections!
+* Understand how Rust actually provides memory safety, including current limitations
+* Understand how modern, language-agnostic exploit mitigations work (and how they can fail)
 
 ---
 

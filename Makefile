@@ -15,6 +15,8 @@ check:
 	cd code_snippets/chp3/proc && cargo fmt && RUSTFLAGS=-Awarnings cargo test
 	cd code_snippets/chp3/proc_2 && cargo fmt && RUSTFLAGS=-Awarnings cargo test
 	cd code_snippets/chp3/prime_test && cargo test
+	cd code_snippets/chp4/greeting && cargo fmt && cargo test
+	cd code_snippets/chp4/stack_example && cargo fmt && cargo test
 
 	# Progress check
 	cd scripts/word_count && cargo fmt && cargo run
