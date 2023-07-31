@@ -4,6 +4,12 @@
 **Note:** This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please [get in touch](./engage.md#submit-feedback-questions-issues-or-prs).
 
+
+* **v0.4.0-alpha:**
+    * New section: *4.1. Software Perspective: CPU to Stack*
+    * New section: *4.3. Attacker's Perspective: Breaking Safety (1/2)*
+    * New section: *4.4. Attacker's Perspective: Unifying Theory (2/2)*
+
 * **v0.3.2:**
     * [Rust Foundation](https://foundation.rust-lang.org/) sponsorship via the [2022 Project Grants Program](https://foundation.rust-lang.org/news/2022-06-14-community-grants-program-awards-announcement/)!
     * New diagrams and discussion in 1.1, 2.10.

@@ -1,5 +1,7 @@
 # Warmup: Environment Setup
 
+> **WARNING:** The book's container is currently not functional, we'll fix and add it to CI at a later time. Please setup your toolchain via another means, like a local install.
+
 In lieu of the usual chapter-end challenge, let's do a warm up: setting up the Rust toolchain.
 What you'll need to write and compile Rust programs.
 Consider this your bootstrap sequence!
