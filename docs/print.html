@@ -2539,7 +2539,7 @@ Right now they just happen to exist in adjacent directories.
 Let's keep <code>cargo</code> in the loop by creating a new <code>Cargo.toml</code> file in the <code>crypto_tool</code> directory:</p>
 <pre><code class="language-ignore">touch Cargo.toml
 </code></pre>
-<p>Open this newly-created file, in your editor or choice, and enter the following to inform <code>cargo</code> that <code>rc4</code> and <code>rcli</code> are part of the same workspace:</p>
+<p>Open this newly-created file, in your editor of choice, and enter the following to inform <code>cargo</code> that <code>rc4</code> and <code>rcli</code> are part of the same workspace:</p>
 <pre><code class="language-ignore">[workspace]
 members = [
     &quot;rc4&quot;,
@@ -3990,7 +3990,7 @@ Returning to our previous example:</p>
 <p><strong>Always enable Multi-Factor Authentication (MFA) and review logs in addition to using random, unique passwords?</strong></p>
 <ul>
 <li>
-<p>That's <strong>good operational assurance</strong>. You've strengthened authentication, regularly perform historical audit, and protect confidentiality.</p>
+<p>That's <strong>good operational assurance</strong>. You strengthen authentication, perform historical audits regularly, and protect confidentiality.</p>
 </li>
 <li>
 <p>If you notice login attempts from an IP in an odd geo-location appear in historical data, it could indicate a breach attempt.</p>
@@ -4093,7 +4093,7 @@ Let's briefly visualize the mechanical distinction.</p>
 <p>With <strong>dynamic linking</strong>, multiple processes use the same copy of a shared dependency (e.g. shared library).
 The shared functions are &quot;resolved&quot; (address to call into is determined) at runtime.
 Typically that means on the first call a process makes to a shared function, but it can also be when the process is first &quot;loaded&quot; (e.g. the program is started)<sup class="footnote-reference"><a href="#BindNow">2</a></sup>.
-It's common, but not required, for shared libraries to make systems calls - requests to the OS kernel to interact with hardware.
+It's common, but not required, for shared libraries to make system calls - requests to the OS kernel to interact with hardware.
 Reading or writing a file requires a system call.</p>
 <br>
 <p align="center">
@@ -4110,7 +4110,7 @@ System calls are made directly as necessary.</p>
 <p align="center">
   <img width="80%" src="chp2/link_static.svg">
   <figure>
-  <figcaption><center>A statically-linked process and dynamically-linked processes.</center></figcaption><br>
+  <figcaption><center>A statically-linked process and a dynamically-linked process.</center></figcaption><br>
   </figure>
 </p>
 <blockquote>
