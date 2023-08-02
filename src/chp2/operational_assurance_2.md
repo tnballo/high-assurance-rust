@@ -27,7 +27,7 @@ Let's briefly visualize the mechanical distinction.
 With **dynamic linking**, multiple processes use the same copy of a shared dependency (e.g. shared library).
 The shared functions are "resolved" (address to call into is determined) at runtime.
 Typically that means on the first call a process makes to a shared function, but it can also be when the process is first "loaded" (e.g. the program is started)[^BindNow].
-It's common, but not required, for shared libraries to make systems calls - requests to the OS kernel to interact with hardware.
+It's common, but not required, for shared libraries to make system calls - requests to the OS kernel to interact with hardware.
 Reading or writing a file requires a system call.
 
 <br>
@@ -47,7 +47,7 @@ System calls are made directly as necessary.
 <p align="center">
   <img width="80%" src="link_static.svg">
   <figure>
-  <figcaption><center>A statically-linked process and dynamically-linked processes.</center></figcaption><br>
+  <figcaption><center>A statically-linked process and a dynamically-linked process.</center></figcaption><br>
   </figure>
 </p>
 

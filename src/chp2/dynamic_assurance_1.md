@@ -133,7 +133,7 @@ Let's keep `cargo` in the loop by creating a new `Cargo.toml` file in the `crypt
 touch Cargo.toml
 ```
 
-Open this newly-created file, in your editor or choice, and enter the following to inform `cargo` that `rc4` and `rcli` are part of the same workspace:
+Open this newly-created file, in your editor of choice, and enter the following to inform `cargo` that `rc4` and `rcli` are part of the same workspace:
 
 ```ignore
 [workspace]
