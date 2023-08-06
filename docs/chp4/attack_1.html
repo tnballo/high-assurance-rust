@@ -483,7 +483,7 @@ If those leaked allocations are triggered by processing external requests, an at
 <p>Now memory leaks are largely prevented in safe Rust.
 But they're still possible if misusing cyclical references or calling <code>unsafe</code> code.</p>
 </blockquote>
-<h2 id="breaking-type-safety"><a class="header" href="#breaking-type-safety">Breaking Type Safety</a></h2>
+<h2 id="breaking-type-safety-low-level-value-semantics"><a class="header" href="#breaking-type-safety-low-level-value-semantics">Breaking Type Safety (Low-level Value Semantics)</a></h2>
 <p>Given our previous troubles with spatial and temporal memory safety, we've decided to give up on appending the <code>!</code> at runtime and simply hardcode a <code>Hello!</code> string.
 Free of string-handling perils, we can focus on an exciting new feature: adding a user record<sup class="footnote-reference"><a href="#CWE843">9</a></sup>.</p>
 <p>Our feature has two functional requirements:</p>

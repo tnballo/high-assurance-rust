@@ -231,7 +231,7 @@ Our visualizations generally assume basic OS abstractions, like virtual memory a
 <p align="center">
   <img width="100%" src="cpu_model.svg">
   <figure>
-  <figcaption><center>A simplified overview of a CPU and RAM. Not specific to any particular architecture. </center></figcaption><br>
+  <figcaption><center>A simplified overview of a CPU, RAM, and persistent storage. Not specific to any particular architecture. </center></figcaption><br>
   </figure>
 </p>
 <p>Main memory, a physical machine's Random Access Memory (RAM), supports all non-trivial runtime computation.
@@ -240,7 +240,7 @@ The bit-patterns it stores and operates on representations two distinct items:</
 <li>
 <p><strong>Data</strong> - Variable-length sequences of bytes representing any information: hardcoded strings, colors codes, numbers, entire image and video files, etc. Each byte can be addressed individually, even if word-aligned accesses are often preferable for performance.</p>
 <ul>
-<li>Data can be written to or read from disk or network (e.g. persistent storage), but any programmatic update means reading the data into RAM (e.g. volatile storage), performing the modification, and writing it back.</li>
+<li>Data can be written to or read from disk or network (e.g. <em>persistent storage</em>), but any programmatic update means reading the data into RAM (e.g. <em>volatile storage</em>), performing the modification, and writing it back.</li>
 </ul>
 </li>
 <li>
@@ -447,10 +447,10 @@ It works like the Last In First Out (LIFO) data structure of the same name: we c
 <p><strong>Stack frames</strong> are chunks of memory &quot;scratch space&quot; needed for a single function to execute. A frame includes all the fixed-size local variables used by a function.</p>
 </li>
 <li>
-<p>The push operation (<strong>allocation</strong>) corresponds to a <strong>function call</strong>. Whenever you call a named function in your program, a new frame gets pushed onto the stack<sup class="footnote-reference"><a href="#Inlining">20</a></sup>. The called function (e.g. <em>callee</em>) gets scratch memory for its local variables, distinct from the <em>caller's</em> frame (which sits below it on the stack).</p>
+<p>The push operation (<strong>allocation</strong>) corresponds to a <strong>function call</strong>. Whenever you call a named function in your program, a new frame gets pushed onto the stack<sup class="footnote-reference"><a href="#Inlining">20</a></sup>. The called function (e.g. <em>callee</em>) gets scratch memory for its local variables, distinct from the <em>caller's</em> frame (which sits below it on the stack). The runtime stack grows downward, toward lower addresses.</p>
 </li>
 <li>
-<p>The pop operation (<strong>deallocation</strong>) corresponds to a <strong>function return</strong>. Once a function exits (due to control reaching the <code>return</code> keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's <code>memset</code><sup class="footnote-reference"><a href="#Memset">21</a></sup> or uses a crate like Rust's <code>zeroize</code><sup class="footnote-reference"><a href="#Zeroize">22</a></sup>. For speed, <code>SP</code> is simply decremented instead. Accessing the old (higher address) data is no longer legal once its containing frame has been popped.</p>
+<p>The pop operation (<strong>deallocation</strong>) corresponds to a <strong>function return</strong>. Once a function exits (due to control reaching the <code>return</code> keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's <code>memset</code><sup class="footnote-reference"><a href="#Memset">21</a></sup> or uses a crate like Rust's <code>zeroize</code><sup class="footnote-reference"><a href="#Zeroize">22</a></sup>. For speed, <code>SP</code> is simply incremented instead. Accessing the old (lower address) data is no longer legal once its containing frame has been popped.</p>
 </li>
 </ul>
 <blockquote>
@@ -500,7 +500,7 @@ fn main() {
 <p><code>recursive_count_down(square(x));</code> will square the input argument, then print a count down sequence - from <code>x^2</code> to <code>0</code>.</p>
 </li>
 <li>
-<p>We're interested in how this program uses stack memory at runtime, so we add the attribute <code>#[inline(never)]</code> to ensure the compiler allocates a stack frame each time either <code>recursive_count_down</code> or <code>square</code> is called. &quot;Inlining&quot; is an opportunistic optimization that avoids function call overhead, including stack frame allocation and caller-register preservation.</p>
+<p>We're interested in how this program uses stack memory at runtime, so we add the attribute <code>#[inline(never)]</code> to ensure the compiler allocates a stack frame each time either <code>recursive_count_down</code> or <code>square</code> is called. &quot;Inlining&quot; is an opportunistic optimization that avoids function call overhead, including stack frame allocation and caller-register preservation <sup class="footnote-reference"><a href="#Inlining">20</a></sup>.</p>
 </li>
 </ul>
 <p>If run with <code>cargo run -- 2</code>, this program outputs:</p>
@@ -515,7 +515,7 @@ Each function called allocates its own stack frame.
 There's one for <code>main</code>, one for <code>square</code>, and one for <em>each</em> recursive call to <code>recursive_count_down</code>.</p>
 <ul>
 <li>
-<p>Before every frame, the return address (that of the next statement to execute, where the CPU should point <code>IP</code> after a call completes) is also stack-pushed.</p>
+<p>Before every frame, the return address (that of the next statement to execute, where the CPU should point <code>IP</code> after a call completes) is also stack-pushed (down).</p>
 </li>
 <li>
 <p>Certain calling conventions might require function arguments to be pushed onto the stack before that function's frame, others use registers for the first several arguments as an optimization (and stack push the remainder).</p>
@@ -527,7 +527,7 @@ There's one for <code>main</code>, one for <code>square</code>, and one for <em>
 <p>With argument passing and register saving omitted, our stack when <code>Boom!</code> is printed looks like:</p>
 </br>
 <p align="center">
-  <img width="70%" src="stack_example.svg">
+  <img width="80%" src="stack_example.svg">
   <figure>
   <figcaption><center>Stack diagram near end of above program's execution.</center></figcaption><br>
   </figure>

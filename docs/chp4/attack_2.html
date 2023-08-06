@@ -176,10 +176,14 @@
 <p>A motivated adversary has the time and resources to discover vulnerabilities.
 And weaponize the corresponding exploits.
 In industry, we see evidence constantly.
-A stream of CVEs, PoCs, and patches gets logged in release notes.
-Companies are plagued by breaches, users by malware.</p>
+A stream of CVEs/PoCs and patches gets logged in release notes.
+Companies are plagued by breaches and incidents, users by malware and fraud.
+From Google's analysis<sup class="footnote-reference"><a href="#ProjZero2021Review">1</a></sup> of exploits used in the wild:</p>
+<blockquote>
+<p>Memory corruption vulnerabilities have been the standard for attacking software for the last few decades and it's still how attackers are having success.</p>
+</blockquote>
 <p>Software assurance is broader in scope than vulnerability elimination.
-To paraphrase the <a href="https://highassurance.rs/chp2/_index.html#software-assurance">full DoD definition</a> from chapter 2 - <strong>assurance</strong> is a level of confidence that a specific software<sup class="footnote-reference"><a href="#DoD">1</a></sup>:</p>
+To paraphrase the <a href="https://highassurance.rs/chp2/_index.html#software-assurance">full DoD definition</a> from chapter 2 - <strong>assurance</strong> is a level of confidence that a specific software<sup class="footnote-reference"><a href="#DoD">2</a></sup>:</p>
 <ol>
 <li><em>&quot;is free of vulnerabilities&quot;</em></li>
 <li><em>&quot;functions as intended&quot;</em></li>
@@ -189,36 +193,35 @@ They <em>degrade confidence significantly</em> for <em>both</em> the above assur
 <blockquote>
 <p><strong>By the way, what's the inspiration for this book's title?</strong></p>
 <p>&quot;High Assurance&quot; is not a standard term, it means different things to different people.
-We could even debate whether or not it is a suitable title for this book!</p>
-<p>Our title draws inspiration from a DARPA research program than concluded in 2014<sup class="footnote-reference"><a href="#HACMSMain">2</a></sup>.
+Could debate whether or not its a suitable title for this book!</p>
+<p>Our title draws inspiration from a 2014 DARPA research program<sup class="footnote-reference"><a href="#HACMSMain">3</a></sup>.
 The &quot;High Assurance Cyber Military Systems (HACMS)&quot; program investigated applications of formal methods to cyber-physical embedded systems.
-With the goal of using formal methods (principled, mathematically rigorous approaches) to gain confidence in the security and functionality of critical software (software assurance).</p>
-<p>The program investigated a wide range of approaches and techniques<sup class="footnote-reference"><a href="#HACMSPaper">3</a></sup>.
-One participating team invented a Domain Specific Language (DSL)<sup class="footnote-reference"><a href="#Galois">4</a></sup>.
-This functional, Haskell-like language had two important properties for the purpose of being &quot;high assurance&quot;:</p>
+With the goal of using principled, mathematically rigorous approaches to gain confidence in the security and functionality of critical software (software assurance).</p>
+<p>The program investigated a wide range of approaches and techniques<sup class="footnote-reference"><a href="#HACMSPaper">4</a></sup>.
+One participating team invented a Domain Specific Language (DSL)<sup class="footnote-reference"><a href="#Galois">5</a></sup>.
+This functional, Haskell-like language had two important properties:</p>
 <ol>
 <li>
 <p><strong>Memory safe</strong> - Strong guarantee that the output executable would not contain spatial or temporal memory safety violations.</p>
 </li>
 <li>
-<p><strong>No heap usage</strong> - Only static and stack memory is used during program execution. This bolsters reliability (worst case execution time not dependent on heap state, operations cannot fail due to heap exhaustion) and portability (programs can be deployed on tiny microcontrollers).</p>
+<p><strong>No heap usage</strong> - Only static and stack memory is used during program execution. Bolstering reliability (worst case execution time not dependent on heap state, operations cannot fail due to heap exhaustion) and portability (programs can be deployed on tiny microcontrollers).</p>
 </li>
 </ol>
 <p>Those DSL properties should sound awfully familiar.
 Rust can largely achieve (1) with the <code>#![forbid(unsafe_code)]</code> attribute and (2) with <code>#![no_std]</code>.</p>
-<p>Thus it's tempting to claim that Rust is a commercially-viable, increasingly-popular programming language which can achieve the same assurance criteria as a novel DSL in a relatively-recent, cutting-edge, government-funded research program.
+<p>It's tempting to claim that Rust is a commercially-viable, increasingly-popular programming language which can achieve the same assurance criteria as a novel DSL in a relatively-recent, cutting-edge, government-funded research program.
 That's an extraordinary claim.</p>
 <p>But is it actually true?
 How exactly, in terms of concrete implementation, can a programmer achieve those high assurance properties?
 What context, limitations, and insights underpin this goal?
 More importantly, can we combine Rust with other open-source tools to push the assurance level <em>even higher</em>?</p>
-<p>This book seeks to answer those questions, in a manner that's both accessible and valuable to as many real-world developers as possible.</p>
 </blockquote>
 <h2 id="building-a-mental-framework-for-exploitation"><a class="header" href="#building-a-mental-framework-for-exploitation">Building a Mental Framework for Exploitation</a></h2>
 <p>We're going to stray into theoretical territory for a bit.
 Don't worry, there'll be a hands-on exercise later in the chapter.
 But first - things are going to be abstract, even <em>weird</em>.</p>
-<p>Consider the potential behaviors of a program, across all possible executions, visualized as overlapping sets <sup class="footnote-reference"><a href="#SetNote">5</a></sup>:</p>
+<p>Consider the potential behaviors of a program, across all possible executions, visualized as overlapping sets <sup class="footnote-reference"><a href="#SetNote">6</a></sup>:</p>
 </br>
 <p align="center">
   <img width="80%" src="behavior_concentric.svg">
@@ -226,36 +229,33 @@ But first - things are going to be abstract, even <em>weird</em>.</p>
   <figcaption><center>Conceptualizing assurance relative to kinds of behavior a program may exhibit across all possible executions.</center></figcaption><br>
   </figure>
 </p>
-<p>In the context of binary exploitation, we can think of exploits as malicious behavior that's a strict subset<sup class="footnote-reference"><a href="#ExpSub">6</a></sup> of Undefined Behavior (UB).</p>
+<p>In the context of binary exploitation, we can think of exploits as malicious behavior that's a strict subset<sup class="footnote-reference"><a href="#ExpSub">7</a></sup> of Undefined Behavior (UB).</p>
+<p>For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).</p>
 <ul>
-<li>
-<p><strong>Note:</strong> For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).</p>
-<ul>
-<li>
-<p>Example exploit: path/directory traversal<sup class="footnote-reference"><a href="#DirTrav">7</a></sup>. In a client-server context, returning a file when a path is requested is arguably defined, intended behavior. But if that file isn't one that should be exposed to a less-trusted client - we may have a critical vulnerability.</p>
-</li>
-<li>
-<p>What is a path traversal attack, exactly? OWASP offers a clear definition<sup class="footnote-reference"><a href="#DirTrav">7</a></sup>, excerpt:</p>
-</li>
+<li>Example exploit: <strong>path/directory traversal</strong><sup class="footnote-reference"><a href="#DirTrav">8</a></sup>. In a client-server context, returning a file by path is defined, intended behavior. But a sensitive file is exposed to a less-trusted client - we may have a critical vulnerability.</li>
 </ul>
-</li>
-</ul>
+<p>What is a path traversal attack, exactly?
+OWASP offers a clear definition<sup class="footnote-reference"><a href="#DirTrav">8</a></sup>, excerpt:</p>
 <blockquote>
 <p>By manipulating variables that reference files with &quot;dot-dot-slash (../)&quot; sequences and its variations or by using absolute file paths, it may be possible to <strong>access arbitrary files</strong> and directories stored on [the] file system including <strong>application source code</strong> or <strong>configuration</strong> and critical <strong>system files</strong>...</p>
 </blockquote>
 <p>Consider the scenario labeled <strong>Actual Behavior (Average Assurance)</strong> in the above diagram.
-Even if the program passes all tests and works most of the time, there are cases in which it may fail in production (e.g. an inexplicable error, the rare race condition, any prior or future vulnerability)<sup class="footnote-reference"><a href="#UBNote">8</a></sup>.</p>
+Even if the program passes all tests and works most of the time, there are cases in which it may fail in production (e.g. an inexplicable error, the rare race condition, any prior or future vulnerability)<sup class="footnote-reference"><a href="#UBNote">9</a></sup>.</p>
 <p>Ideally, a program would maintain correct function for any input and under any circumstance.
 It's set of behaviors would:</p>
 <ul>
-<li>Intersect with every correct action the actual set contains (above diagram not to scale).</li>
-<li>Implement additional correct behavior, covering use cases and edge cases the actual set fails to.</li>
-<li>Be mutually exclusive from the undefined set - including its malicious subset.</li>
+<li>
+<p>Intersect with <em>every correct action</em> the actual set contains (above diagram not to scale).</p>
+</li>
+<li>
+<p>Implement <em>additional correct behavior</em>, covering use cases and edge cases the actual set fails to.</p>
+</li>
+<li>
+<p>Be <em>mutually exclusive</em> from the undefined set - including its malicious subset.</p>
+</li>
 </ul>
 <p>This scenario is labeled <strong>Ideal Behavior (Highest Assurance)</strong> above.
 No such ideal program exists.
-Or can ever exist.
-We can never be solely in that green, HA set.
 Our goal, as defenders and developers of high assurance software, is to <em>approximate this ideal set</em> as closely as possible.</p>
 <p>But for the remainder of this section we'll return to the attackers perspective.
 We're going to dig deeper into that red circle - the malicious set.</p>
@@ -263,8 +263,8 @@ We're going to dig deeper into that red circle - the malicious set.</p>
 <p>What do memory corruption exploits (e.g. control flow hijacking, code injection, code reuse) have in common?
 At a fundamental level, they're means by which an attacker <em>re-writes</em> part of your program.
 Or, as one school of thought frames it, attackers develop for a tiny, constrained machine <em>inside</em> of your program.
-Bratus et. al.<sup class="footnote-reference"><a href="#WeirdMachine">9</a></sup> pose that an abstract &quot;weird machine&quot; executes the attacker's data/code.</p>
-<p>This conceptualization might make more sense if we start from what a &quot;normal machine&quot;<sup class="footnote-reference"><a href="#IFSM">10</a></sup> looks like.
+Bratus et. al.<sup class="footnote-reference"><a href="#WeirdMachine">10</a></sup> pose that an abstract &quot;weird machine&quot; executes the attacker's data/code.</p>
+<p>This conceptualization might make more sense if we start from what a &quot;normal machine&quot;<sup class="footnote-reference"><a href="#IFSM">11</a></sup> looks like.
 We'll use network sockets as an example and diagram two state machines: one normal, one weird.</p>
 <blockquote>
 <p><strong>Network Socket Basics</strong></p>
@@ -275,7 +275,7 @@ Regardless of the underlying network protocol.</p>
 Clients are active, they initiate connection requests on a user's behalf.
 Servers are passive, they wait to receive a connection before serving the requested content.</p>
 </blockquote>
-<p>Imagine a web server which uses the POSIX sockets API<sup class="footnote-reference"><a href="#PosixSock">11</a></sup> to accept incoming network connections.
+<p>Imagine a web server which uses the POSIX sockets API<sup class="footnote-reference"><a href="#PosixSock">12</a></sup> to accept incoming network connections.
 This standard interface describes sockets as having five states:</p>
 <ol>
 <li><strong>Ready</strong> - an initial state for a newly created socket.</li>
@@ -292,16 +292,24 @@ This standard interface describes sockets as having five states:</p>
   <figcaption><center>POSIX Socket API FSM (server focus)</center></figcaption><br>
   </figure>
 </p>
-<p>An average user's requests are processed by this <em>normal machinery</em>.
-The server starts up, binds, and begins listening (&quot;Bind&quot; transition above).
-The user connects to request a given webpage - at which point the server accepts the connection (&quot;Listen&quot;), opens the socket (&quot;Accept&quot;) and transmits the requested content (&quot;Transmit&quot;).
-The socket is closed (&quot;Close&quot;) and the page content is rendered by the user's browser.
-Nothing untoward occurs.</p>
+<p>An average user's requests are processed by this <em>normal machinery</em>:</p>
+<ul>
+<li>
+<p>The server starts up (&quot;Ready&quot;), binds a socket, and begins listening for requests (&quot;Bound&quot; -&gt; &quot;Listening&quot; transition above).</p>
+</li>
+<li>
+<p>A user connects to request a given webpage - at which point the server accepts the connection, opens the socket (&quot;Listening&quot; -&gt; &quot;Open&quot;) and transmits the requested content (staying &quot;Open&quot;).</p>
+</li>
+<li>
+<p>With transmission complete, the socket is closed (&quot;Open&quot; -&gt; &quot;Closed&quot;). Page contents render in the client user's browser.</p>
+</li>
+</ul>
+<p>Nothing untoward occurs.</p>
 <p>Now imagine this server has been misconfigured: it reports its exact software and version number when an error page is hit by any client (information leakage, poor operational assurance).
 Now an attacker can &quot;fingerprint&quot; the server's software.</p>
 <p>Worse yet: say the reported version is out of date - it contains a spatial memory safety vulnerability in the web server's request parsing logic.
-This particular software version uses a fixed-size stack buffer to process a certain HTTP header that, when well formed, should comfortably fit.
-But there's no bounds check on string copy into the buffer.</p>
+This particular software version uses a fixed-size stack buffer to process a certain HTTP header that, when well formed, should comfortably fit.</p>
+<p>But there's no bounds check on string copy into the buffer.</p>
 <p>An attacker creates a specially crafted request that overflows the buffer, leverages code re-use to call <code>libc</code> functions, and ultimately spawns a shell that will take additional and arbitrary commands over the active socket.
 Here, request data has been processed by a <em>weird machine</em>!</p>
 <ul>
@@ -315,40 +323,40 @@ Here, request data has been processed by a <em>weird machine</em>!</p>
 <p>A sequence of such instructions co-opts program execution and forces the CPU under the control of a weird program's state machine (exploit).</p>
 </li>
 </ul>
-<p>In our example, this weird machine has two states:</p>
+<p>In our example, the weird machine has two states:</p>
 <ol>
 <li><strong>Buffering</strong> - receiving characters to build a command string.</li>
 <li><strong>Executing</strong> - running a command as a shell subprocess.</li>
 </ol>
 <p>A 2nd, malicious, shadow-machine is always present just beneath the surface.
-In any non-ideal program.
 Just waiting to be activated, to emerge.
-Visually, we transition to the weird machine from the normal machine's <strong>Open</strong> state if an exploit payload is received by the server:</p>
+In any non-ideal program.</p>
+<p>Visually, we transition to the weird machine from the normal machine's &quot;Open&quot; state if an exploit payload is received by the server:</p>
 </br>
 <p align="center">
   <img width="100%" src="socket_weird_machine.svg">
   <figure>
-  <figcaption><center>Weird machine programmed via remote exploit payload</center></figcaption><br>
+  <figcaption><center>Weird machine programmed via remote exploit payload.</center></figcaption><br>
   </figure>
 </p>
 <p>Finding and executing a weird machine like this one is proof-by-counterexample for the insecurity of a program.
-To quote Bratus et. al., exploits demonstrate<sup class="footnote-reference"><a href="#WeirdMachine">9</a></sup>:</p>
+To quote Bratus et. al., exploits demonstrate<sup class="footnote-reference"><a href="#WeirdMachine">10</a></sup>:</p>
 <blockquote>
 <p>...an <em>execution model and mechanism</em> that is explicitly or implicitly present in the attacked environment - unbeknownst to most of its users or administrators...The attack then comes as a <em>constructive proof</em> that such unforeseen computations are indeed possible, and therefore as <em>evidence</em> that the target actually includes the described [weird] execution model.</p>
-<p><em>Exploit</em> programming has been a productive empirical study of these accidental or unanticipated machines and models and of the ways they emerge from bugs, composition, and cross-layer interactions.</p>
+<p><em>Exploit programming</em> has been a productive empirical study of these accidental or unanticipated machines and models and of the ways they emerge from bugs, composition, and cross-layer interactions.</p>
 </blockquote>
-<p>For readers wanting a formal proof, Dullien further solidifies the weird machine model with mathematical rigor<sup class="footnote-reference"><a href="#FormalWeirdness">12</a></sup>. Notably, Dullien's work differs from our coverage of exploitation in two interesting ways:</p>
+<p>For readers wanting a formal proof, Dullien further solidifies the weird machine model with mathematical rigor<sup class="footnote-reference"><a href="#FormalWeirdness">13</a></sup>. Notably, Dullien's work differs from our coverage of exploitation in two interesting ways:</p>
 <ol>
 <li>
 <p>He offers a formal proof of <em>non-exploitability</em> for a theoretical program's finite state machine. To demonstrate that such a proof is possible to construct under specific constraints, even if impractical.</p>
 <ul>
-<li>We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea and makes Dullien's work significant to our understanding computer security as a science.</li>
+<li>We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea significant to our understanding computer security as a science.</li>
 </ul>
 </li>
 <li>
 <p>He demonstrates the exploitability (proof-by-counterexample) of different implementation of that same theoretical program <em>without</em> altering control flow.</p>
 <ul>
-<li>We won't demonstrate any exploit that can maintain perfect control flow integrity in this book. Just know that &quot;data-oriented attacks&quot; are possible (even if uncommon) examples of weird machine programming.</li>
+<li>We won't demonstrate any exploit maintaining perfect control flow integrity in this book. Just know that &quot;data-oriented attacks&quot; are possible (even if uncommon) examples of weird machine programming.</li>
 </ul>
 </li>
 </ol>
@@ -362,48 +370,51 @@ Those building blocks constitute a &quot;weird machine&quot;.
 When attackers write working exploits, they're, in essence, developing a new application for this inner machine.</p>
 <p>In the abstract game that is computer security, an attacker wins if they can successfully leverage any weird machine they discover.
 In practice, a defender cannot eliminate weird machines entirely.
-From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">13</a></sup> gives the attacker a significant advantage.</p>
+From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">14</a></sup> gives the attacker a significant advantage.</p>
 <p>Defenders strive to reduce and/or detect possible transitions out of the normal states and into the weird ones.
 Strongly-enforced memory and type-safety eliminate <em>a lot</em> of possible transitions to malicious states.</p>
 <p>With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.</p>
 <hr />
-<div class="footnote-definition" id="DoD"><sup class="footnote-definition-label">1</sup>
+<div class="footnote-definition" id="ProjZero2021Review"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html"><em>The More You Know, The More You Know You Don't Know</em></a>. Maddie Stone, Google Project Zero (2022).</p>
+</div>
+<div class="footnote-definition" id="DoD"><sup class="footnote-definition-label">2</sup>
 <p><a href="https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf"><em>DoD Software Assurance Initiative</em></a>. Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)</p>
 </div>
-<div class="footnote-definition" id="HACMSMain"><sup class="footnote-definition-label">2</sup>
+<div class="footnote-definition" id="HACMSMain"><sup class="footnote-definition-label">3</sup>
 <p><a href="https://www.darpa.mil/program/high-assurance-cyber-military-systems"><em>High-Assurance Cyber Military Systems (HACMS) (Archived)</em></a>. DARPA (Accessed 2023).</p>
 </div>
-<div class="footnote-definition" id="HACMSPaper"><sup class="footnote-definition-label">3</sup>
+<div class="footnote-definition" id="HACMSPaper"><sup class="footnote-definition-label">4</sup>
 <p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5597724/pdf/rsta20150401.pdf"><em>The HACMS program: using formal methods to eliminate exploitable bugs</em></a>. Kathleen Fisher, John Launchbury, Raymond Richards (2017).</p>
 </div>
-<div class="footnote-definition" id="Galois"><sup class="footnote-definition-label">4</sup>
+<div class="footnote-definition" id="Galois"><sup class="footnote-definition-label">5</sup>
 <p><a href="https://galois.com/project/hacms-high-assurance-cyber-military-systems/"><em>HACMS (High-Assurance Cyber Military Systems)</em></a>. Galois (Accessed 2023).</p>
 </div>
-<div class="footnote-definition" id="SetNote"><sup class="footnote-definition-label">5</sup>
+<div class="footnote-definition" id="SetNote"><sup class="footnote-definition-label">6</sup>
 <p>Note the behavior of any given program of sufficient complexity, in all likelihood, is a large set that has <em>some</em> overlap with both the malicious and undefined sets. Remember we're talking about all possible executions - for any possible input - and there is no absolute security. Nor absolute assurance.</p>
 </div>
-<div class="footnote-definition" id="ExpSub"><sup class="footnote-definition-label">6</sup>
+<div class="footnote-definition" id="ExpSub"><sup class="footnote-definition-label">7</sup>
 <p>This assumption doesn't always hold. For example, command injection vulnerabilities (e.g. Log4J) make for extremely reliable and powerful exploits yet their effects are defined as far as a language specification is concerned. We still have a well-defined program that faithfully executed the provided command - it just wasn't the author-intended command!</p>
 </div>
-<div class="footnote-definition" id="DirTrav"><sup class="footnote-definition-label">7</sup>
+<div class="footnote-definition" id="DirTrav"><sup class="footnote-definition-label">8</sup>
 <p><a href="https://owasp.org/www-community/attacks/Path_Traversal"><em>Path Traversal</em></a>. OWASP (Accessed 2023).</p>
 </div>
-<div class="footnote-definition" id="UBNote"><sup class="footnote-definition-label">8</sup>
+<div class="footnote-definition" id="UBNote"><sup class="footnote-definition-label">9</sup>
 <p>Recall the concept of a UB &quot;time bomb&quot; from Chapter 3 - a program can work as expected despite relying on UB. At least until a subtle change in toolchain or a specially crafted input triggers it.</p>
 </div>
-<div class="footnote-definition" id="WeirdMachine"><sup class="footnote-definition-label">9</sup>
+<div class="footnote-definition" id="WeirdMachine"><sup class="footnote-definition-label">10</sup>
 <p><a href="https://www.usenix.org/system/files/login/articles/105516-Bratus.pdf"><em>Exploit Programming: From Buffer Overflows to &quot;Weird Machines&quot; and Theory of Computation</em></a>. Sergey Bratus, Michael Locasto, Meredith Patterson, Len Sassaman, and Aanna Shubina (2011).</p>
 </div>
-<div class="footnote-definition" id="IFSM"><sup class="footnote-definition-label">10</sup>
-<p>What we call the &quot;normal machine&quot; is what Dullien<sup class="footnote-reference"><a href="#FormalWeirdness">12</a></sup> refers to as the <em>Intended Finite State Machine (IFSM).</em> We can think of any software program as an <em>approximation</em> of an abstract IFSM (here, the states of an ideal POSIX web server) emulated atop a CPU's low-level FSM (as specified by the architecture spec). &quot;Approximation&quot; because programs have bugs. The subset of bugs which are vulnerabilities allow breaking out of IFSM states and into emergent, weird FSM states.</p>
+<div class="footnote-definition" id="IFSM"><sup class="footnote-definition-label">11</sup>
+<p>What we call the &quot;normal machine&quot; is what Dullien<sup class="footnote-reference"><a href="#FormalWeirdness">13</a></sup> refers to as the <em>Intended Finite State Machine (IFSM).</em> We can think of any software program as an <em>approximation</em> of an abstract IFSM (here, the states of an ideal POSIX web server) emulated atop a CPU's low-level FSM (as specified by the architecture spec). &quot;Approximation&quot; because programs have bugs. The subset of bugs which are vulnerabilities allow breaking out of IFSM states and into emergent, weird FSM states.</p>
 </div>
-<div class="footnote-definition" id="PosixSock"><sup class="footnote-definition-label">11</sup>
+<div class="footnote-definition" id="PosixSock"><sup class="footnote-definition-label">12</sup>
 <p><a href="https://en.wikipedia.org/wiki/Berkeley_sockets"><em>Berkeley sockets</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
-<div class="footnote-definition" id="FormalWeirdness"><sup class="footnote-definition-label">12</sup>
+<div class="footnote-definition" id="FormalWeirdness"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8226852"><em>Weird Machines, Exploitability, and Provable Unexploitability</em></a>. Thomas Dullien (2017).</p>
 </div>
-<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">13</sup>
+<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">14</sup>
 <p><a href="https://en.wikipedia.org/wiki/Turing_completeness"><em>Turing Completeness</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
 
