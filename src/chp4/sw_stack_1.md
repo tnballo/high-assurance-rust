@@ -50,7 +50,7 @@ Both topics are the subjects of entire technical books, so we'll visually diagra
 <p align="center">
   <img width="100%" src="cpu_model.svg">
   <figure>
-  <figcaption><center>A simplified overview of a CPU and RAM. Not specific to any particular architecture. </center></figcaption><br>
+  <figcaption><center>A simplified overview of a CPU, RAM, and persistent storage. Not specific to any particular architecture. </center></figcaption><br>
   </figure>
 </p>
 
@@ -59,7 +59,7 @@ The bit-patterns it stores and operates on representations two distinct items:
 
 * **Data** - Variable-length sequences of bytes representing any information: hardcoded strings, colors codes, numbers, entire image and video files, etc. Each byte can be addressed individually, even if word-aligned accesses are often preferable for performance.
 
-  * Data can be written to or read from disk or network (e.g. persistent storage), but any programmatic update means reading the data into RAM (e.g. volatile storage), performing the modification, and writing it back.
+  * Data can be written to or read from disk or network (e.g. *persistent storage*), but any programmatic update means reading the data into RAM (e.g. *volatile storage*), performing the modification, and writing it back.
 
 * **Code** - Native CPU instructions encoded as short sequences of bytes. In the above diagram, we assume all valid instructions are the same length[^FixedLen]. A *word* is a CPU's "natural" unit of data (what its hardware is designed to operate on efficiently).
 
@@ -238,9 +238,9 @@ The goal of stack memory is to support *fast* runtime allocation and deallocatio
 
 * **Stack frames** are chunks of memory "scratch space" needed for a single function to execute. A frame includes all the fixed-size local variables used by a function.
 
-* The push operation (**allocation**) corresponds to a **function call**. Whenever you call a named function in your program, a new frame gets pushed onto the stack[^Inlining]. The called function (e.g. *callee*) gets scratch memory for its local variables, distinct from the *caller's* frame (which sits below it on the stack).
+* The push operation (**allocation**) corresponds to a **function call**. Whenever you call a named function in your program, a new frame gets pushed onto the stack[^Inlining]. The called function (e.g. *callee*) gets scratch memory for its local variables, distinct from the *caller's* frame (which sits below it on the stack). The runtime stack grows downward, toward lower addresses.
 
-* The pop operation (**deallocation**) corresponds to a **function return**. Once a function exits (due to control reaching the `return` keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's `memset`[^Memset] or uses a crate like Rust's `zeroize`[^Zeroize]. For speed, `SP` is simply decremented instead. Accessing the old (higher address) data is no longer legal once its containing frame has been popped.
+* The pop operation (**deallocation**) corresponds to a **function return**. Once a function exits (due to control reaching the `return` keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's `memset`[^Memset] or uses a crate like Rust's `zeroize`[^Zeroize]. For speed, `SP` is simply incremented instead. Accessing the old (lower address) data is no longer legal once its containing frame has been popped.
 
 > **Why is the stack fast?**
 >
@@ -260,7 +260,7 @@ Lets visualize how a code snippet uses the stack, to make things more tangible.
 
 * `recursive_count_down(square(x));` will square the input argument, then print a count down sequence - from `x^2` to `0`.
 
-* We're interested in how this program uses stack memory at runtime, so we add the attribute `#[inline(never)]` to ensure the compiler allocates a stack frame each time either `recursive_count_down` or `square` is called. "Inlining" is an opportunistic optimization that avoids function call overhead, including stack frame allocation and caller-register preservation.
+* We're interested in how this program uses stack memory at runtime, so we add the attribute `#[inline(never)]` to ensure the compiler allocates a stack frame each time either `recursive_count_down` or `square` is called. "Inlining" is an opportunistic optimization that avoids function call overhead, including stack frame allocation and caller-register preservation [^Inlining].
 
 If run with `cargo run -- 2`, this program outputs:
 
@@ -276,7 +276,7 @@ So what happened in stack memory during that execution?
 Each function called allocates its own stack frame.
 There's one for `main`, one for `square`, and one for *each* recursive call to `recursive_count_down`.
 
-* Before every frame, the return address (that of the next statement to execute, where the CPU should point `IP` after a call completes) is also stack-pushed.
+* Before every frame, the return address (that of the next statement to execute, where the CPU should point `IP` after a call completes) is also stack-pushed (down).
 
 * Certain calling conventions might require function arguments to be pushed onto the stack before that function's frame, others use registers for the first several arguments as an optimization (and stack push the remainder).
 
@@ -286,7 +286,7 @@ With argument passing and register saving omitted, our stack when `Boom!` is pri
 
 </br>
 <p align="center">
-  <img width="70%" src="stack_example.svg">
+  <img width="80%" src="stack_example.svg">
   <figure>
   <figcaption><center>Stack diagram near end of above program's execution.</center></figcaption><br>
   </figure>

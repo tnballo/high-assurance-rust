@@ -311,7 +311,7 @@ Other free resources exist for who wish to dive those depths[^How2Heap].
 > Now memory leaks are largely prevented in safe Rust.
 > But they're still possible if misusing cyclical references or calling `unsafe` code.
 
-## Breaking Type Safety
+## Breaking Type Safety (Low-level Value Semantics)
 
 Given our previous troubles with spatial and temporal memory safety, we've decided to give up on appending the `!` at runtime and simply hardcode a `Hello!` string.
 Free of string-handling perils, we can focus on an exciting new feature: adding a user record[^CWE843].

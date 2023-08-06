@@ -3,8 +3,11 @@
 A motivated adversary has the time and resources to discover vulnerabilities.
 And weaponize the corresponding exploits.
 In industry, we see evidence constantly.
-A stream of CVEs, PoCs, and patches gets logged in release notes.
-Companies are plagued by breaches, users by malware.
+A stream of CVEs/PoCs and patches gets logged in release notes.
+Companies are plagued by breaches and incidents, users by malware and fraud.
+From Google's analysis[^ProjZero2021Review] of exploits used in the wild:
+
+> Memory corruption vulnerabilities have been the standard for attacking software for the last few decades and it's still how attackers are having success.
 
 Software assurance is broader in scope than vulnerability elimination.
 To paraphrase the [full DoD definition](https://highassurance.rs/chp2/_index.html#software-assurance) from chapter 2 - **assurance** is a level of confidence that a specific software[^DoD]:
@@ -18,32 +21,30 @@ They *degrade confidence significantly* for *both* the above assurance criteria.
 > **By the way, what's the inspiration for this book's title?**
 >
 > "High Assurance" is not a standard term, it means different things to different people.
-> We could even debate whether or not it is a suitable title for this book!
+> Could debate whether or not its a suitable title for this book!
 >
-> Our title draws inspiration from a DARPA research program than concluded in 2014[^HACMSMain].
+> Our title draws inspiration from a 2014 DARPA research program[^HACMSMain].
 > The "High Assurance Cyber Military Systems (HACMS)" program investigated applications of formal methods to cyber-physical embedded systems.
-> With the goal of using formal methods (principled, mathematically rigorous approaches) to gain confidence in the security and functionality of critical software (software assurance).
+> With the goal of using principled, mathematically rigorous approaches to gain confidence in the security and functionality of critical software (software assurance).
 >
 > The program investigated a wide range of approaches and techniques[^HACMSPaper].
 > One participating team invented a Domain Specific Language (DSL)[^Galois].
-> This functional, Haskell-like language had two important properties for the purpose of being "high assurance":
+> This functional, Haskell-like language had two important properties:
 >
 > 1. **Memory safe** - Strong guarantee that the output executable would not contain spatial or temporal memory safety violations.
 >
-> 2. **No heap usage** - Only static and stack memory is used during program execution. This bolsters reliability (worst case execution time not dependent on heap state, operations cannot fail due to heap exhaustion) and portability (programs can be deployed on tiny microcontrollers).
+> 2. **No heap usage** - Only static and stack memory is used during program execution. Bolstering reliability (worst case execution time not dependent on heap state, operations cannot fail due to heap exhaustion) and portability (programs can be deployed on tiny microcontrollers).
 >
 > Those DSL properties should sound awfully familiar.
 > Rust can largely achieve (1) with the `#![forbid(unsafe_code)]` attribute and (2) with `#![no_std]`.
 >
-> Thus it's tempting to claim that Rust is a commercially-viable, increasingly-popular programming language which can achieve the same assurance criteria as a novel DSL in a relatively-recent, cutting-edge, government-funded research program.
+> It's tempting to claim that Rust is a commercially-viable, increasingly-popular programming language which can achieve the same assurance criteria as a novel DSL in a relatively-recent, cutting-edge, government-funded research program.
 > That's an extraordinary claim.
 >
 > But is it actually true?
 > How exactly, in terms of concrete implementation, can a programmer achieve those high assurance properties?
 > What context, limitations, and insights underpin this goal?
 > More importantly, can we combine Rust with other open-source tools to push the assurance level *even higher*?
->
-> This book seeks to answer those questions, in a manner that's both accessible and valuable to as many real-world developers as possible.
 
 ## Building a Mental Framework for Exploitation
 
@@ -63,11 +64,12 @@ Consider the potential behaviors of a program, across all possible executions, v
 
 In the context of binary exploitation, we can think of exploits as malicious behavior that's a strict subset[^ExpSub] of Undefined Behavior (UB).
 
-* **Note:** For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).
+For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).
 
-  * Example exploit: path/directory traversal[^DirTrav]. In a client-server context, returning a file when a path is requested is arguably defined, intended behavior. But if that file isn't one that should be exposed to a less-trusted client - we may have a critical vulnerability.
+  * Example exploit: **path/directory traversal**[^DirTrav]. In a client-server context, returning a file by path is defined, intended behavior. But a sensitive file is exposed to a less-trusted client - we may have a critical vulnerability.
 
-  * What is a path traversal attack, exactly? OWASP offers a clear definition[^DirTrav], excerpt:
+What is a path traversal attack, exactly?
+OWASP offers a clear definition[^DirTrav], excerpt:
 
 > By manipulating variables that reference files with "dot-dot-slash (../)" sequences and its variations or by using absolute file paths, it may be possible to **access arbitrary files** and directories stored on [the] file system including **application source code** or **configuration** and critical **system files**...
 
@@ -76,14 +78,15 @@ Even if the program passes all tests and works most of the time, there are cases
 
 Ideally, a program would maintain correct function for any input and under any circumstance.
 It's set of behaviors would:
-* Intersect with every correct action the actual set contains (above diagram not to scale).
-* Implement additional correct behavior, covering use cases and edge cases the actual set fails to.
-* Be mutually exclusive from the undefined set - including its malicious subset.
+
+* Intersect with *every correct action* the actual set contains (above diagram not to scale).
+
+* Implement *additional correct behavior*, covering use cases and edge cases the actual set fails to.
+
+* Be *mutually exclusive* from the undefined set - including its malicious subset.
 
 This scenario is labeled **Ideal Behavior (Highest Assurance)** above.
 No such ideal program exists.
-Or can ever exist.
-We can never be solely in that green, HA set.
 Our goal, as defenders and developers of high assurance software, is to *approximate this ideal set* as closely as possible.
 
 But for the remainder of this section we'll return to the attackers perspective.
@@ -128,10 +131,14 @@ Visually, we can represent a server's socket as the below Finite State Machine (
   </figure>
 </p>
 
-An average user's requests are processed by this *normal machinery*.
-The server starts up, binds, and begins listening ("Bind" transition above).
-The user connects to request a given webpage - at which point the server accepts the connection ("Listen"), opens the socket ("Accept") and transmits the requested content ("Transmit").
-The socket is closed ("Close") and the page content is rendered by the user's browser.
+An average user's requests are processed by this *normal machinery*:
+
+* The server starts up ("Ready"), binds a socket, and begins listening for requests ("Bound" -> "Listening" transition above).
+
+* A user connects to request a given webpage - at which point the server accepts the connection, opens the socket ("Listening" -> "Open") and transmits the requested content (staying "Open").
+
+* With transmission complete, the socket is closed ("Open" -> "Closed"). Page contents render in the client user's browser.
+
 Nothing untoward occurs.
 
 Now imagine this server has been misconfigured: it reports its exact software and version number when an error page is hit by any client (information leakage, poor operational assurance).
@@ -139,6 +146,7 @@ Now an attacker can "fingerprint" the server's software.
 
 Worse yet: say the reported version is out of date - it contains a spatial memory safety vulnerability in the web server's request parsing logic.
 This particular software version uses a fixed-size stack buffer to process a certain HTTP header that, when well formed, should comfortably fit.
+
 But there's no bounds check on string copy into the buffer.
 
 An attacker creates a specially crafted request that overflows the buffer, leverages code re-use to call `libc` functions, and ultimately spawns a shell that will take additional and arbitrary commands over the active socket.
@@ -150,21 +158,22 @@ Here, request data has been processed by a *weird machine*!
 
 * A sequence of such instructions co-opts program execution and forces the CPU under the control of a weird program's state machine (exploit).
 
-In our example, this weird machine has two states:
+In our example, the weird machine has two states:
 
 1. **Buffering** - receiving characters to build a command string.
 2. **Executing** - running a command as a shell subprocess.
 
 A 2nd, malicious, shadow-machine is always present just beneath the surface.
-In any non-ideal program.
 Just waiting to be activated, to emerge.
-Visually, we transition to the weird machine from the normal machine's **Open** state if an exploit payload is received by the server:
+In any non-ideal program.
+
+Visually, we transition to the weird machine from the normal machine's "Open" state if an exploit payload is received by the server:
 
 </br>
 <p align="center">
   <img width="100%" src="socket_weird_machine.svg">
   <figure>
-  <figcaption><center>Weird machine programmed via remote exploit payload</center></figcaption><br>
+  <figcaption><center>Weird machine programmed via remote exploit payload.</center></figcaption><br>
   </figure>
 </p>
 
@@ -173,17 +182,17 @@ To quote Bratus et. al., exploits demonstrate[^WeirdMachine]:
 
 > ...an *execution model and mechanism* that is explicitly or implicitly present in the attacked environment - unbeknownst to most of its users or administrators...The attack then comes as a *constructive proof* that such unforeseen computations are indeed possible, and therefore as *evidence* that the target actually includes the described [weird] execution model.
 >
-> *Exploit* programming has been a productive empirical study of these accidental or unanticipated machines and models and of the ways they emerge from bugs, composition, and cross-layer interactions.
+> *Exploit programming* has been a productive empirical study of these accidental or unanticipated machines and models and of the ways they emerge from bugs, composition, and cross-layer interactions.
 
 For readers wanting a formal proof, Dullien further solidifies the weird machine model with mathematical rigor[^FormalWeirdness]. Notably, Dullien's work differs from our coverage of exploitation in two interesting ways:
 
 1. He offers a formal proof of *non-exploitability* for a theoretical program's finite state machine. To demonstrate that such a proof is possible to construct under specific constraints, even if impractical.
 
-    * We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea and makes Dullien's work significant to our understanding computer security as a science.
+    * We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea significant to our understanding computer security as a science.
 
 2. He demonstrates the exploitability (proof-by-counterexample) of different implementation of that same theoretical program *without* altering control flow.
 
-    * We won't demonstrate any exploit that can maintain perfect control flow integrity in this book. Just know that "data-oriented attacks" are possible (even if uncommon) examples of weird machine programming.
+    * We won't demonstrate any exploit maintaining perfect control flow integrity in this book. Just know that "data-oriented attacks" are possible (even if uncommon) examples of weird machine programming.
 
 ## Takeaway
 
@@ -207,6 +216,8 @@ Strongly-enforced memory and type-safety eliminate *a lot* of possible transitio
 With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.
 
 ---
+
+[^ProjZero2021Review]: [*The More You Know, The More You Know You Don't Know*](https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html). Maddie Stone, Google Project Zero (2022).
 
 [^DoD]: [*DoD Software Assurance Initiative*](https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf). Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)
 
