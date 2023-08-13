@@ -1,4 +1,4 @@
-# Software Perspective: CPU to Stack
+# Software Perspective: CPU to Process
 
 We want to build a mental model of "what the machine is doing".
 Of how, at a mechanical level, a computer executes a program in memory.
@@ -18,13 +18,13 @@ We'll start with the stack for two reasons:
 2. **Simplicity** - Stack memory is implemented with hardware support, its operations are relatively simple. We can push (add) frames onto the stack and pop (remove) frames from the top. By contrast, heap memory's logic is complex and controlled by software. Stack memory can be discussed generally, but understanding heap fundamentals requires studying a specific allocator's implementation (which we'll do!).
 
 Before we push on to stack memory proper (pun intended), we need to briefly cover two prerequisites: CPUs and program loading.
-Both topics are the subjects of entire technical books, so we'll visually diagram just enough detail to scaffold for our mental model of the runtime stack.
+Both topics are the subjects of entire technical books, so we'll visually diagram just enough detail to scaffold our mental model of the runtime stack.
 
 > **What kinds of "embedded systems" don't use heap memory?**
 >
 > "Embedded system" is a term so broad it borders on meaningless.
 > At least without more specific context.
-> To aid general discussion, Muench et al. [^CorruptCrash] propose a taxonomy that can be useful for practical differentiation:
+> To aid general discussion, Muench et al.[^CorruptCrash] propose a taxonomy that can be useful for practical differentiation:
 >
 > * **Type-I:** General purpose OS-based devices - a "slimmed" down version of commodity desktop/server software.
 >   * *Example:* car infotainment system retrofitting the Linux kernel.
@@ -42,9 +42,9 @@ Both topics are the subjects of entire technical books, so we'll visually diagra
 > Think of it as a universal abstraction for program runtimes.
 >
 > The remainder of this section represents Type-I and Type-II systems[^T3].
-> Our visualizations generally assume basic OS abstractions, like virtual memory and processes, are present.
+> Our visualizations generally assume fundamental OS abstractions, like virtual memory and processes, are present.
 
-## The CPU and Main Memory
+## The CPU and RAM
 
 </br>
 <p align="center">
@@ -63,13 +63,14 @@ The bit-patterns it stores and operates on representations two distinct items:
 
 * **Code** - Native CPU instructions encoded as short sequences of bytes. In the above diagram, we assume all valid instructions are the same length[^FixedLen]. A *word* is a CPU's "natural" unit of data (what its hardware is designed to operate on efficiently).
 
-  * Instructions focus on low-level operations: math, boolean logic, condition testing, moving data in memory, etc. Arbitrarily complex logic can be broken down into long sequences of these basic operations[^MovObfu]. Assembly language is a human-readable representation of raw instruction encodings (aka "machine code").
+  * Instructions focus on low-level operations: arithmetic, boolean logic, condition testing, moving data in memory, etc. Arbitrarily complex programs can be broken down into long sequences of these basic operations[^MovObfu]. Assembly language is a human-readable representation of raw instruction encodings (aka "machine code").
 
-A Central Processing Unit (CPU) is essentially a very fast instruction processing machine with small pieces of "scratch space" for storing intermediate results called *registers*.
+The Central Processing Unit (CPU) is a very fast instruction processing state machine with small pieces of "scratch space" for storing intermediate results called *registers*.
 Final results are written back to RAM.
 Registers come in two flavors:
 
-1. General Purpose (`GP*`) registers are flexible and can store any kind of result at any time.
+1. General Purpose (`GP*`) registers can store any kind of result at any time.
+
 2. Special purpose registers (e.g. `IP`, `SP`, `CCR`) are used to track internal state during result processing.
 
 So how does *processing* actually work?
@@ -94,7 +95,7 @@ Every CPU continually repeats a three step *instruction cycle* (try tracing each
         * If the instruction reads, the CPU sends an address to read over the address bus and receives the corresponding data over the data bus.
 
 Modern CPUs rely on complex optimizations, like instruction pipelining[^Pipeline] and speculative execution[^SpecExec], to speed up the instruction cycle.
-Fortunately, we don't have to consider or understand that minutia when programming day-to-day.
+Fortunately, we don't have to consider or understand such minutia when programming day-to-day.
 
 The jobs of various registers are, by contrast, important for a working mental model.
 In addition to the IP, the two special purpose registers worth noting are:
@@ -187,130 +188,9 @@ It's important you commit it to memory, pun intended.
 > The child is given an executable path and arguments as input, it calls `execve` to replace itself with the requested application.
 > The shell, a parent process still running, captures the output via pipes - typically `stdout` for normal output and `stderr` for error prints.
 
-## Static Memory
-
-Static memory contains *global* data.
-Not just global variables in the source code (though those do live in static memory), hardcoded strings and constant data (e.g. file bytes baked in at compile-time via the `include!` macro[^IncludeMacro]) end up there too.
-For Rust specifically:
-
-* Static memory additionally holds any variable declared with the `static` keyword.
-
-* Counter-intuitively, items with a `'static` lifetime may or may not be stored in static memory.
-
-* The `const` keyword allows values to be computed at compile time. The resulting value might be inlined directly wherever the variable name is used, ending up encoded within the executable instruction stream - not in a static memory location.
-
-Your program's executable code technically also resides in static memory, though the above diagram uses a separate box to distinguish it.
-
-Some static memory sections are read-only, others are writeable - this is relevant to exploitation, but let's ignore this detail for now and focus on what "global" actually entails:
-
-1. Data in static memory is available for the *entire* lifetime of the program. From the time it starts to the time it terminates.
-
-2. Static memory is shared between threads. This has synchronization dangers (e.g. data races) and performance-degrading workarounds (e.g. global locks/mutexes). But it's also useful and convenient.
-
-> **What are threads?**
->
-> Processes have a lightweight alternative: threads.
-> Multiple threads co-exist within the address space of one process.
-> Each thread has its own stack (not pictured in the right-hand side of the above diagram - but imagine the single existing stack space being segmented into multiple).
->
-> Multithreading has two important advantages over multiprocessing:
->
-> 1. **Scheduling efficiency** - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's "hyper-threading"[^HyperThread] technology).
->
-> 2. **Data passing between concurrent components** - threads can share data amongst themselves more easily and efficiently than processes, they often don't need to wait for or rely on the kernel as an intermediary for data passing. Static memory is one direct means, since it's shared among the multiple threads within a single process.
-
-## The Stack
-
-Stack memory supports one of programming's most fundamental abstractions: the *function* (aka procedure, method, or subroutine).
-Functions are called with parameters, perform some computation, and optionally return a result.
-Thus a hardware machine requires mechanisms to[^CSAPP]:
-
-1. **Pass control** - Set the Instruction Pointer (IP) to the address to the function called and, when it's done, set it back to the statement following the call.
-
-2. **Pass data** - Provide parameters as input, and return a result. Either as a new value or a mutation of input(s).
-
-3. **Allocate and deallocate working memory** - The function called needs to acquire space for its local variables on entry, and release said space on return.
-
-Mechanically, stack memory supports all three requirements by just two simple operations: push and pop.
-It works like the Last In First Out (LIFO) data structure of the same name: we can push items (addresses, variables, etc) and entire function's working memory blocks (called "frames") onto the stack and pop only from the top (most recently pushed item/frame).
-
-The goal of stack memory is to support *fast* runtime allocation and deallocation for data whose size is fixed (known at compile time). So:
-
-* **Stack frames** are chunks of memory "scratch space" needed for a single function to execute. A frame includes all the fixed-size local variables used by a function.
-
-* The push operation (**allocation**) corresponds to a **function call**. Whenever you call a named function in your program, a new frame gets pushed onto the stack[^Inlining]. The called function (e.g. *callee*) gets scratch memory for its local variables, distinct from the *caller's* frame (which sits below it on the stack). The runtime stack grows downward, toward lower addresses.
-
-* The pop operation (**deallocation**) corresponds to a **function return**. Once a function exits (due to control reaching the `return` keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's `memset`[^Memset] or uses a crate like Rust's `zeroize`[^Zeroize]. For speed, `SP` is simply incremented instead. Accessing the old (lower address) data is no longer legal once its containing frame has been popped.
-
-> **Why is the stack fast?**
->
-> Unlike heap memory, the mechanics of stack memory are both directly supported in hardware and compile-time decidable.
->
-> Remember: the "stack pointer" is a CPU register (`SP`).
-> Optimized hardware tracks where the current stack top is.
-> Compilers emit dedicated CPU instructions to push [to] and pop [from] the stack efficiently.
-
-Lets visualize how a code snippet uses the stack, to make things more tangible.
-
-```rust,ignore
-{{#include ../../code_snippets/chp4/stack_example/src/main.rs:stack_example}}
-```
-
-* The `main` function parses a single commandline argument into a `usize` variable `x`. It'll terminate with an error message if no arguments are provided or the 1st argument isn't a positive number. But it won't error when more than 1 argument is provided, so long as the 1st is a number.
-
-* `recursive_count_down(square(x));` will square the input argument, then print a count down sequence - from `x^2` to `0`.
-
-* We're interested in how this program uses stack memory at runtime, so we add the attribute `#[inline(never)]` to ensure the compiler allocates a stack frame each time either `recursive_count_down` or `square` is called. "Inlining" is an opportunistic optimization that avoids function call overhead, including stack frame allocation and caller-register preservation [^Inlining].
-
-If run with `cargo run -- 2`, this program outputs:
-
-```ignore
-4...
-3...
-2...
-1...
-Boom!
-```
-
-So what happened in stack memory during that execution?
-Each function called allocates its own stack frame.
-There's one for `main`, one for `square`, and one for *each* recursive call to `recursive_count_down`.
-
-* Before every frame, the return address (that of the next statement to execute, where the CPU should point `IP` after a call completes) is also stack-pushed (down).
-
-* Certain calling conventions might require function arguments to be pushed onto the stack before that function's frame, others use registers for the first several arguments as an optimization (and stack push the remainder).
-
-  * For simplicity, We'll omit this detail, and a similar push/pop mechanisms for saving/restoring *callee-saved* registers.
-
-With argument passing and register saving omitted, our stack when `Boom!` is printed looks like:
-
-</br>
-<p align="center">
-  <img width="80%" src="stack_example.svg">
-  <figure>
-  <figcaption><center>Stack diagram near end of above program's execution.</center></figcaption><br>
-  </figure>
-</p>
-
-> **Exhausting a Process's Maximum Stack Space**
->
-> This crate for the above program is located at `code_snippets/chp4/stack_example`.
-> Can you find an input that crashes the binary with the following error?
-> Where does this error come from?
->
-> ```ignore
-> thread 'main' has overflowed its stack
-> fatal runtime error: stack overflow
-> ```
->
-> Once you've found a `cargo run` command that triggers the crash, can you harden the program by rewriting the `recursive_count_down` function to use an iterative algorithm?
->
-> Verify that the same input does not crash the iterative version.
-> You've just complied with MISRA Rule 17.2 ("no recursion") from Chapter 3!
-
 ## Takeaway
 
-The CPU is a tiny state machine continually operating on main memory (RAM).
+The Central Processing Unit (CPU) is a tiny state machine continually operating on main memory or Random Access Memory (RAM).
 RAM stores both code and data.
 A CPU fetches, decodes, and executes instructions from RAM (code), then writes back results (data) if applicable.
 
@@ -321,10 +201,9 @@ That involves mapping it's executable code into RAM and setting up 3 special mem
 2. Stack memory - stores function frames, including local variables.
 3. [Optionally] Heap memory - stores data shared between functions and threads.
 
-Stack memory, our focus here, is ubiquitous and provides the runtime scaffolding for a fundamental programming abstraction: function calls.
-Mechanically it works like the Last In First Out (LIFO) data structure of the same name.
-
-In the next section, we'll put these concepts into play hands-on to reduce secret exposure on an untrusted host.
+We'll cover stack and static memory next.
+In the context of a language, agnostic reliability pattern.
+Heap memory will come a bit later!
 
 ---
 
@@ -338,7 +217,7 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 
 [^T3]: For those curious: Type-III systems can have only one program, baked directly into Read-Only Memory (ROM), whose entry point is jumped to on device reset. Unlike general purpose systems, they don't require the flexibility of being able to run arbitrary executables. Hence they don't need the process abstractions we've diagramed above.
 
-[^FixedLen]: This is true Instruction Set Architectures (ISAs), like 32 and 64-bit ARM, that use fixed length encoding. Other ISAs, like x86, use variable length encoding. For 64-bit x86, instructions vary from 1 byte to 15 bytes in length.
+[^FixedLen]: This is true certain Instruction Set Architectures (ISAs), like 32 and 64-bit ARM, that use fixed length encoding. Other ISAs, like x86, use variable length encoding. For 64-bit x86, instructions vary from 1 byte to 15 bytes in length. As you might imagine, that variability creates challenges for software disassemblers.
 
 [^MovObfu]: [`xoreaxeaxeax/movfuscator`](https://github.com/xoreaxeaxeax/movfuscator). Chris Domas(Accessed 2023). In fact, arbitrary programs can be broken down into a sequence of just one instruction type: `mov`! Not efficient, but an effective obfuscation technique.
 
@@ -366,10 +245,7 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 
 [^CSAPP]: [***[PERSONAL FAVORITE]** Computer Systems: A Programmer's Perspective*](https://amzn.to/3IBnFA7). Randal Bryant, David O'Hallaron (2015).
 
-[^Inlining]: This isn't always true. One possible optimization a modern compiler may make is called "function inlining" - pulling the function body of the callee into the function body of the caller, as if the programmer had written a single, long function. For functions called in a "hot loop" (many loop iterations executed), this can increase performance by avoiding the small overhead associated with pushing a stack frame each loop iteration to make a call. The tradeoff is binary size: each source-level call site to the inlined function must be a full copy of the code (since no central location is called into). Though seldom necessary, Rust's `inline` attribute macro[^RustInlineMacro] allows you to control this specific behavior.
 
 [^Memset]: [*`memset`*](https://man7.org/linux/man-pages/man3/memset.3.html). Linux manual (Accessed 2022).
 
 [^Zeroize]: [*`zeroize`*](https://crates.io/crates/zeroize). Tony Arcieri (Accessed 2022).
-
-[^RustInlineMacro]: [*The Rust Reference: The `inline` attribute*](https://doc.rust-lang.org/reference/attributes/codegen.html#the-inline-attribute). The Rust Team (Accessed 2022).

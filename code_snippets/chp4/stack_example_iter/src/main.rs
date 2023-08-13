@@ -1,18 +1,14 @@
-// ANCHOR: stack_example
-// ANCHOR: recursive_count_down
+// ANCHOR: iterative_count_down
 #[inline(never)]
-fn recursive_count_down(x: usize) -> usize {
-    // Base case
-    if x == 0 {
-        println!("Boom!");
-        return x;
-    // Recursive case
-    } else {
-        println!("{x}...");
-        return recursive_count_down(x - 1);
+fn iterative_count_down(x: usize) {
+    for i in (0..=x).rev() {
+        match i {
+            i if i == 0 => println!("Boom!"),
+            _ => println!("{i}..."),
+        }
     }
 }
-// ANCHOR_END: recursive_count_down
+// ANCHOR_END: iterative_count_down
 
 #[inline(never)]
 fn square(x: usize) -> usize {
@@ -32,6 +28,5 @@ fn main() {
         .parse()
         .expect("Please provide a number");
 
-    let _ = recursive_count_down(square(x));
+    iterative_count_down(square(x));
 }
-// ANCHOR_END: stack_example

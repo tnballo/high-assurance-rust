@@ -4,6 +4,11 @@
 **Note:** This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please [get in touch](./engage.md#submit-feedback-questions-issues-or-prs).
 
+* **v0.4.1-alpha:**
+    * New section: *4.2 Assurance Perspective: Stack Safety*
+    * New section: *16.10 Theory: Inter-procedural CFGs*
+    * Revisions to 4.0, 4.1, and 4.4.
+    * Many new and revised 4.X diagrams.
 
 * **v0.4.0-alpha:**
     * New section: *4.1. Software Perspective: CPU to Stack*
