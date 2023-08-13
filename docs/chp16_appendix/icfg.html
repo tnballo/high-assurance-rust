@@ -178,7 +178,8 @@ We saw this when exploring stack safety and MISRA C 17.2<sup class="footnote-ref
 <p>What impact does recursion have on the more general case, arbitrary static analysis and/or verification tooling?</p>
 <p>Technically, it depends.
 Realistically, many useful tools need to build a static <strong>Inter-procedural Control Flow Graph (ICFG)</strong>.
-Because it's a &quot;backbone&quot; common analysis algorithms run on.</p>
+Because it's a &quot;backbone&quot; common analysis algorithms run on.
+And because understanding all possible call sequences often enables judgments about all possible executions.</p>
 <p>We're going to consider 3 ICFGs of increasing complexity.
 First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 </br>
@@ -192,7 +193,7 @@ First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 <li>
 <p>This is a <strong>Directed Acyclic Graph (DAG)</strong>. For analysis authors, this graph enables certain algorithms or possibilities.</p>
 <ul>
-<li>Example: topological sort, which can be used to represent a valid sequence of tasks, requires a DAG.</li>
+<li>Example: topological sort<sup class="footnote-reference"><a href="#TopSort">2</a></sup>, which can be used to represent a valid sequence of tasks, requires a DAG.</li>
 </ul>
 </li>
 </ul>
@@ -213,7 +214,7 @@ First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 </li>
 </ul>
 <p>There's also mutual recursion, where two or more functions call each other.
-Let's just think of this as even less desirable variation of the prior recursive version:</p>
+Let's just consider it an even less desirable variation of the prior recursive version:</p>
 </br>
 <p align="center">
   <img width="50%" src="icfg_mut_rec.svg">
@@ -221,7 +222,7 @@ Let's just think of this as even less desirable variation of the prior recursive
   <figcaption><center>Mutually recursive program ICFG - a Directed Graph (DG) variation.</center></figcaption><br>
   </figure>
 </p>
-<p>A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there's probably exist thousands of static analyzers serving hundreds of use cases.
+<p>A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there probably exist thousands of static analyzers serving hundreds of use cases.
 But it helps build an intuition.
 Imagine writing logic to traverse these graphs - a DAG avoids edge cases.</p>
 <h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
@@ -230,6 +231,9 @@ It impacts a program's Inter-procedural Control Flow Graph (ICFG), generally hin
 <hr />
 <div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">1</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
+</div>
+<div class="footnote-definition" id="TopSort"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://en.wikipedia.org/wiki/Topological_sorting"><em>Topological sorting</em></a>. Wikipedia (Accessed 2023).</p>
 </div>
 
                     </main>

