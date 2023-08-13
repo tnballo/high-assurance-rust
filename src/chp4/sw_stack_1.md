@@ -132,6 +132,7 @@ Meaning the OS has scheduled the process to receive CPU time, the executable byt
 
 An OS's loader takes the contents of an on-disk executable, places them into memory, and prepares that memory for program execution.
 A linker may also be involved to combine various pieces of code and data, potentially from several executables, either at compilation or load time.
+Recall our [discussion of static vs dynamic linking](https://highassurance.rs/chp2/operational_assurance_2.html#building-a-free-standing-binary) from Chapter 2.
 Either way, the end result of the loading looks roughly like so:
 
 </br>

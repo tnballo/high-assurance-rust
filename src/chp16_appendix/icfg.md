@@ -8,6 +8,7 @@ What impact does recursion have on the more general case, arbitrary static analy
 Technically, it depends.
 Realistically, many useful tools need to build a static **Inter-procedural Control Flow Graph (ICFG)**.
 Because it's a "backbone" common analysis algorithms run on.
+And because understanding all possible call sequences often enables judgments about all possible executions.
 
 We're going to consider 3 ICFGs of increasing complexity.
 First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:
@@ -22,7 +23,7 @@ First, our MISRA C 17.2-compatible, iterative program from Chapter 4.2:
 
 * This is a **Directed Acyclic Graph (DAG)**. For analysis authors, this graph enables certain algorithms or possibilities.
 
-    * Example: topological sort, which can be used to represent a valid sequence of tasks, requires a DAG.
+    * Example: topological sort[^TopSort], which can be used to represent a valid sequence of tasks, requires a DAG.
 
 Next, our initial, recursive version (also from 4.2):
 
@@ -40,7 +41,7 @@ Next, our initial, recursive version (also from 4.2):
     * Example: static calculation of a program's worst case stack utilization.
 
 There's also mutual recursion, where two or more functions call each other.
-Let's just think of this as even less desirable variation of the prior recursive version:
+Let's just consider it an even less desirable variation of the prior recursive version:
 
 </br>
 <p align="center">
@@ -50,7 +51,7 @@ Let's just think of this as even less desirable variation of the prior recursive
   </figure>
 </p>
 
-A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there's probably exist thousands of static analyzers serving hundreds of use cases.
+A DAG vs DG comparison is intentionally vague, we can't really make any claims about static analyzers as a whole - there probably exist thousands of static analyzers serving hundreds of use cases.
 But it helps build an intuition.
 Imagine writing logic to traverse these graphs - a DAG avoids edge cases.
 
@@ -62,3 +63,5 @@ It impacts a program's Inter-procedural Control Flow Graph (ICFG), generally hin
 ---
 
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).
+
+[^TopSort]: [*Topological sorting*](https://en.wikipedia.org/wiki/Topological_sorting). Wikipedia (Accessed 2023).

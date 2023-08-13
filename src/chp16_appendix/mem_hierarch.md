@@ -31,7 +31,7 @@ So we need to ground our discussion of memory in its physical reality: the perfo
 
 > **Credit where credit is due**
 >
-> The contents of this chapter are heavily influenced by "Computer Systems: A Programmer's Perspective"[^CSAPP].
+> The contents of this chapter are heavily influenced by [*Computer Systems: A Programmer's Perspective*](https://amzn.to/3IBnFA7)[^CSAPP].
 >
 > The book's authors, professors at Carnegie Mellon University, use it to teach an undergraduate CS course. The course number is 15-213, affectionately called "the course that gives CMU its zip" because 15213 is the ZIP code in which the university is located and because the course is so foundational in the university's core CS curriculum.
 >

