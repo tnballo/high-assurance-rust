@@ -9,7 +9,9 @@ Many abstractions attempt to enforce a logical separation as follows:
 But the separating abstraction might one or more of:
 
 1. Vulnerable by design (high-level error).
+
 2. Vulnerable in implementation (low-level error).
+
 3. Vulnerable via environmental interaction (fault injection, side-channels, etc).
 
 If a motivated adversary builds an **exploit** for one of the 3 classes of vulnerability, or chains together several classes, they've likely found a way to treat *data they control* as some form of *executable, logical code*.
@@ -19,6 +21,7 @@ More generally, Sergey Bratus defines exploitation as[^BratusTalk]:
 > Causing a (complex) computer or human-computer system to behave contrary to the trust assumptions and/or expectations of its designers or operators.
 
 "Trust assumptions", in an exploitation context, are beliefs we have about a system meeting specific security or functionality requirements.
+In the prior section we saw how breaking stack safety undermines availability.
 
 Say we believe that a system protects confidentiality.
 Under this trust assumption, any unauthenticated or unprivileged entity being able to *read* sensitive data (secrets, intellect property, user PII, etc) is a viable attack.
@@ -292,12 +295,12 @@ Other free resources exist for who wish to dive those depths[^How2Heap].
 > And we don't have to worry about null-termination, since that's not true of Rust strings (unless we using `std::ffi::CString`[^CString]  specifically for interoperability with C external code).
 >
 > But not all ergonomics are free.
-> `libc`'s `malloc` still gets called when we heap allocate the `String`.
+> `libc`'s `malloc` still gets called when heap allocating the `String`.
 > A raw buffer pointer is still returned.
 > Yet we didn't get a chance to `NULL`-check it ourselves.
 > The Rust port is arguably less robust than the C version:
 >
-> * Rust's `fn get_greeting` will `panic!` if system memory is exhausted. It's an infallible interface to a fallible operation!
+> * Rust's `fn get_greeting()` will `panic!` if system memory is exhausted. It's an infallible interface to a fallible operation!
 >
 > * C's `char* get_greeting()` won't terminate on exhaustion - it propagates that error [implicitly] via a `NULL` return value. That gives the caller a chance to handle the fallible operation with business-appropriate logic.
 >
@@ -412,11 +415,13 @@ In this type safety example, it happens to be hardcoded and thus stored in stati
 >   * See CVE-2023-25194[^KafkaCVE], an RCE in Apache Kafka.
 >
 > * **Command injection attacks** - passing arbitrary, attacker-specified commands directly to a host system's shell for execution.
->   * See CVE-2021-44228[^Log4J], aka "Log4Shell", an extremely widespread RCE in Apache Log4j.
+>   * See CVE-2021-44228[^Log4J], aka "Log4J" or "Log4Shell", an extremely widespread RCE in Apache Log4j.
 >
 > Binary exploitation is a fantastic lens through which to understand how system memory works.
 > But many software developers and security engineers aren't writing native applications.
+>
 > We recommend self-guided exploration of non-binary attacks.
+> For good measure, we'll briefly cover more Log4J details in the next section.
 
 ## Why do attackers break code-data isolation?
 

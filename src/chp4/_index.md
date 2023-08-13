@@ -92,6 +92,51 @@ We'll conclude our memory world tour by exploring language-agnostic mitigations 
 > The [*Fundamentals: Memory Hierarchy*](../chp16_appendix/mem_hierarch.md) section of the Appendix takes a hardware-centric view, looking at performance tradeoffs within the modern memory hierarchy.
 > Highly recommend it as a supplement to this section.
 
+### Breaking Down Practical Abstractions
+
+To motivate concepts and visualizations in this chapter, lets assume two things:
+
+1. **Forward engineering** requires understanding fundamental abstractions well enough to *create ideal solutions*.
+
+2. **Reverse engineering** and **exploit development** requires understanding fundamental abstractions well enough to subvert seemingly-ideal solutions, to *break trust assumptions*.
+
+That desugars to, in a hopefully practical but definitely opinionated fashion, *just three* fundamental abstractions.
+To preview:
+
+1. **Application Logic Finite State Machine (FSM)** - The business and/or mission requirements, implemented as an executable, imperfect application. Consider the lifecycle of a server's web socket:
+
+</br>
+<p align="center">
+  <img width="70%" src="socket_state_machine.svg">
+  <figure>
+  <figcaption><center>POSIX Socket API FSM (server focus)</center></figcaption><br>
+  </figure>
+</p>
+
+2. **Execution Environment** - A compiled application binary loaded into a dynamic execution/runtime environment. With OS-provided process and thread abstractions. Backed by static memory, stack memory, and heap memory. The bulk of Chapter 4 lives here.
+
+</br>
+<p align="center">
+  <img width="80%" src="program_process.svg">
+  <figure>
+  <figcaption><center>Mapping of on-disk, executable contents to in-memory process space.</center></figcaption><br>
+  </figure>
+</p>
+
+3. **Hardware FSM** - The Central Processing Unit (CPU). A hardware FSM on which all user applications are ultimately emulated. Key to keep in mind.
+
+</br>
+<p align="center">
+  <img width="80%" src="cpu_model.svg">
+  <figure>
+  <figcaption><center>A simplified overview of a CPU, RAM, and persistent storage. Not specific to any particular architecture. </center></figcaption><br>
+  </figure>
+</p>
+
+We'll cover these three bottom-up, intervening assurance concepts.
+There'll also be plenty of other abstraction diagrams.
+But after finishing the chapter, maybe you'll start viewing memory primarily through these three lens.
+
 ## Learning Outcomes
 
 * Develop a mental model of system memory and program execution
