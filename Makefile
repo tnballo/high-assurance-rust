@@ -20,12 +20,12 @@ check:
 	cd code_snippets/chp4/stack_example_iter && cargo fmt
 
 	# Progress check
-	cd scripts/word_count && cargo fmt && cargo run
+	cd tools/md_analyze && cargo fmt && cargo run
 
 # TODO: clean code_snippet binaries
 clean:
 	mdbook clean
-	cd scripts/word_count && cargo clean
+	cd tools/md_analyze && cargo clean
 
 site:
 	rm -rf docs/
