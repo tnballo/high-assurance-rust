@@ -1,6 +1,8 @@
 use crate::{
     chapter::Chapter,
     content::Content,
+    lint::{Level, Linter, LinterBuilder},
+    rules::*,
     traits::{GetChapter, GetMetrics},
     BOOK_SRC_DIR, WORDS_PER_PAGE,
 };
@@ -72,6 +74,20 @@ impl Book {
         }
 
         Ok(Book { chapters })
+    }
+
+    // TODO: add more rules/linters here
+    /// Get a linter for all sections
+    pub fn get_all_section_linter(&self) -> Linter<'_> {
+        let mut linter = LinterBuilder::new().add_rule(Level::Fatal, Rule(&rule_nonempty));
+
+        for chp in self.chapters.values() {
+            for content in chp.contents.iter() {
+                linter = linter.add_content(content);
+            }
+        }
+
+        linter.build()
     }
 
     // Collection book contents

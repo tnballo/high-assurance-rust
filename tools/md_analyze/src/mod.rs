@@ -11,6 +11,12 @@ pub use chapter::*;
 mod content;
 pub use content::*;
 
+#[allow(missing_docs)]
+mod lint;
+pub use lint::*;
+
+pub mod rules;
+
 mod traits;
 
 pub(crate) const BOOK_SRC_DIR: &str = "../../src";

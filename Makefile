@@ -19,8 +19,8 @@ check:
 	cd code_snippets/chp4/stack_example && cargo fmt
 	cd code_snippets/chp4/stack_example_iter && cargo fmt
 
-	# Progress check
-	cd tools/md_analyze && cargo fmt && cargo run
+	# Metrics and linting
+	cd tools/md_analyze && cargo fmt && cargo test && cargo run
 
 # TODO: clean code_snippet binaries
 clean:

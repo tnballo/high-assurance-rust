@@ -1,9 +1,7 @@
 use crate::{content::Content, traits::GetMetrics, WORDS_PER_PAGE};
-
-use std::{ffi::OsStr, fmt};
-
 use colored::*;
 use separator::Separatable;
+use std::{ffi::OsStr, fmt};
 
 /// Displayable chapter data model
 pub struct Chapter {

@@ -3,6 +3,8 @@ use crate::traits::GetChapter;
 use std::path::PathBuf;
 
 /// Displayable content data model
+#[derive(Debug)]
+#[cfg_attr(test, derive(PartialEq))]
 pub enum Content {
     /// An individual X.Y book section or chapter intro
     Section {
@@ -10,7 +12,6 @@ pub enum Content {
         path: PathBuf,
         /// Section word count
         word_count: usize,
-        #[allow(dead_code)] // TODO: add lint builder
         /// Section data (optionally collected)
         lines: Option<Vec<String>>,
     },
