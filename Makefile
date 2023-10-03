@@ -20,12 +20,12 @@ check:
 	cd code_snippets/chp4/stack_example_iter && cargo fmt
 
 	# Metrics and linting
-	cd tools/md_analyze && cargo fmt && cargo test && cargo run
+	cd tools/har_analyze && cargo fmt && cargo test && cargo clippy && cargo run -- --metrics --lint --log-warn
 
 # TODO: clean code_snippet binaries
 clean:
 	mdbook clean
-	cd tools/md_analyze && cargo clean
+	cd tools/har_analyze && cargo clean
 
 site:
 	rm -rf docs/

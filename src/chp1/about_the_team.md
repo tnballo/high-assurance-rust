@@ -22,7 +22,7 @@ He received his Masters degree in Information Security from Carnegie Mellon Univ
 
 ## Community Contributors
 
-Huge thank you to everyone making this book better!
+Huge thank you to everyone making this book better[^Contrib]!
 Listed alphabetically:
 
 * [aelnona](https://github.com/aelnona)
@@ -47,3 +47,5 @@ Listed alphabetically:
 <br>
 
 ---
+
+[^Contrib]: Contributions are welcome and appreciated. Please see [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md).

@@ -282,4 +282,3 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 [^Cpp20]: [*[Final] Working Draft, Standard for Programming Language C++*](http://open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4861.pdf). Document Number:N4861 (2020).
 
 [^LifetimeCpp]: [*Lifetime*](https://en.cppreference.com/w/cpp/language/lifetime). cppreference.com (Accessed 2022).
-
