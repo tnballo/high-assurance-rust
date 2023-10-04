@@ -9,6 +9,7 @@ description = "Internal tooling for https://highassurance.rs/"
 clap = { version = "4", features = ["derive"] }
 colored = "2"
 color-eyre = "0.6"
+lazy_static = "1"
 rayon = "1"
 regex = "1"
 separator = "0.4"

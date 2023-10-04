@@ -1,9 +1,29 @@
-use clap::Parser;
+use clap::{
+    builder::{styling::AnsiColor, Styles},
+    Parser,
+};
 use color_eyre::eyre::Result;
 use colored::*;
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref CMD_COLOR: Styles = Styles::styled()
+        .header(AnsiColor::Yellow.on_default())
+        .usage(AnsiColor::Green.on_default())
+        .valid(AnsiColor::Green.on_default())
+        .error(AnsiColor::Red.on_default())
+        .invalid(AnsiColor::Red.on_default())
+        .literal(AnsiColor::Cyan.on_default())
+        .placeholder(AnsiColor::BrightBlue.on_default());
+}
 
 #[derive(Parser, Debug)]
-#[command(author, version, about, long_about = None)]
+#[command(
+    version,
+    about,
+    term_width = 150,
+    styles = CMD_COLOR.clone(),
+)]
 #[group(required = true, multiple = true)]
 struct Args {
     /// Print page/diagram count metrics.
@@ -17,6 +37,10 @@ struct Args {
     /// Log linter warnings. If false (default), warnings become hard errors.
     #[arg(long, requires = "lint")]
     log_warn: bool,
+
+    /// Update page/diagram count badges
+    #[arg(short, long)]
+    update_badges: bool,
 }
 
 fn main() -> Result<()> {
@@ -35,6 +59,11 @@ fn main() -> Result<()> {
         book.get_chp_sections_linter().run(args.log_warn).unwrap();
         book.get_svg_linter().run(args.log_warn).unwrap();
         println!("Lint {}", "OK".green());
+    }
+
+    if args.update_badges {
+        har_analyze::update_badges(&book).unwrap();
+        println!("Badges {}", "OK".green());
     }
 
     Ok(())

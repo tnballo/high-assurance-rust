@@ -39,6 +39,20 @@ h3 {
 
 ---
 
+<div class='token'>
+<center>
+
+[![Pages](https://img.shields.io/badge/Pages-182-purple.svg)](https://github.com/tnballo/high-assurance-rust)
+[![Diagrams](https://img.shields.io/badge/Diagrams-49-blue.svg)](https://github.com/tnballo/high-assurance-rust)
+[![Price](https://img.shields.io/badge/Price-$0.00-orange.svg)](https://highassurance.rs/cfp.html)
+[![Text License: CC BY-NC-ND 4.0](https://img.shields.io/badge/Text%20License-CC%20BY--NC--ND%204.0-yellow.svg)](https://highassurance.rs/license.html)
+[![Code License: MIT](https://img.shields.io/badge/Code%20License-MIT-yellowgreen.svg)](https://highassurance.rs/license.html)
+[![Assurance](https://img.shields.io/badge/Assurance-High-brightgreen.svg)](https://highassurance.rs)
+
+</center>
+</div>
+</br>
+
 This book is an introduction to building performant software we can **justifiably trust**.
 That means having sufficient data to support confidence in our code's functionality and security.
 Trustworthiness is a hallmark of **high assurance** software.

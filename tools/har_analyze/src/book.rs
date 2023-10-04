@@ -4,7 +4,7 @@ use crate::{
     lint::{Level, Linter, LinterBuilder},
     rules::*,
     traits::{GetChapter, GetMetrics},
-    BOOK_SRC_DIR, WORDS_PER_PAGE,
+    BOOK_SRC_DIR_RELATIVE, WORDS_PER_PAGE,
 };
 
 use std::{
@@ -175,7 +175,7 @@ impl Book {
     // Collection book contents
     // Adapted from: https://da-data.blogspot.com/2020/10/no-c-still-isnt-cutting-it.html
     fn collect_contents(collect_section_data: bool, word_regex: &Regex) -> Vec<Content> {
-        WalkDir::new(BOOK_SRC_DIR)
+        WalkDir::new(BOOK_SRC_DIR_RELATIVE)
             .into_iter()
             .filter_map(Result::ok)
             // Markdown and SVG extension names

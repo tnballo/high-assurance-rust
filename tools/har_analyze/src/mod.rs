@@ -15,9 +15,12 @@ pub use content::*;
 mod lint;
 pub use lint::*;
 
-pub mod rules;
+mod badge;
+pub use badge::*;
+
+mod rules;
 
 mod traits;
 
-pub(crate) const BOOK_SRC_DIR: &str = "../../src";
+pub(crate) const BOOK_SRC_DIR_RELATIVE: &str = "../../src";
 pub(crate) const WORDS_PER_PAGE: usize = 500;
