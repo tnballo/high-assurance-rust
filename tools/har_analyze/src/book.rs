@@ -45,7 +45,7 @@ impl GetMetrics for Book {
 impl Book {
     /// Construct a book data model
     pub fn try_new(collect_section_data: bool) -> Result<Self, Box<dyn Error>> {
-        let word_regex = Regex::new(r"([a-zA-Z]{1,})")?;
+        let word_regex = Regex::new(r"([a-zA-Z']+)")?;
         let contents = Self::collect_contents(collect_section_data, &word_regex);
         let mut chapters = BTreeMap::<usize, Chapter>::new();
 

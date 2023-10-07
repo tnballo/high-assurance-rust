@@ -273,7 +273,7 @@ Realistically, invariant checks may be any combination of:
 We'll cover heap mechanics in greater depth later in this chapter.
 And exploit a double-free vulnerability backed by a simpler allocator.
 Modern heap exploitation, attacking up-to-date `glibc` and its contemporaries, is an art and science beyond our scope.
-Other free resources exist for who wish to dive those depths[^How2Heap].
+Other free resources exist for those who wish to dive those depths[^How2Heap].
 
 > **Availability Robustness: The Rust Port Isn't Strictly Better**
 >

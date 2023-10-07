@@ -290,7 +290,7 @@ Thus we can't import `std::error::Error` in a `#![no_std]` library.
 
 > **Can't we support that use case?**
 >
-> If omitting the `Error` trait strikes you as an unsatisfying compromise, you try *feature-gating* support for this trait as an exercise.
+> If omitting the `Error` trait strikes you as an unsatisfying compromise, try *feature-gating* support for this trait as an exercise.
 > That'll entail modifying the `Cargo.toml`[^Features] build file and implementing the trait behind a `cfg` macro[^CondComp].
 > By convention, this feature would be called `std` and selected with:
 >
