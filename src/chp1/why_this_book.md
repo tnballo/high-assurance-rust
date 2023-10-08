@@ -101,7 +101,7 @@ And that *safety-critical* systems drive physical phenomena, so a security or re
 
 * **Zig** (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users[^UberZig], any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety[^ZigSafety]. And its own unique merits[^WhyZig].
 
-* **Rust** (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses[^ProdUsers]. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore[^Ferrda], an AUTOSAR Working Group[^AUTOSAR], an SAE International Task Force[^SAE], and ongoing R&D in formal verification tooling[^RFMIG]. At the time of this writing, no Rust toolchain is yet qualified for use in safety-critical environments.
+* **Rust** (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses[^ProdUsers]. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore[^Ferrda], an AUTOSAR Working Group[^AUTOSAR], an SAE International Task Force[^SAE], and ongoing R&D in formal verification tooling[^RFMIG]. At the time of this writing, the Ferrocene[^Ferrocene] Rust toolchain is completing qualification for automotive (ISO 26262 ASIL-D) and industrial (IEC 61508 SiL4) usecases.
 
 * **Ada** (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A[^AdaHistory], was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)[^AdaCert]. The SPARK subset of Ada offers mature deductive verification capabilities[^SPARK]. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system[^SPARKHeap].
 
@@ -232,6 +232,8 @@ It may not *be easy* - but it can *be*.
 [^SAE]: [*SAfEr Rust Task Force*](https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6). SAE International (Accessed 2022).
 
 [^RFMIG]: [*Rust verification tools*](https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021). Rust Formal Methods Interest Group (2021).
+
+[^Ferrocene]: [`ferrocene`](https://github.com/ferrocene/ferrocene). Ferrous Systems (2023).
 
 [^AdaHistory]: In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA "Grand Challenges"). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named "Ada", after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate.
 

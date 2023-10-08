@@ -65,7 +65,7 @@ Google's 2022 analysis[^ProjZero2021Review] of previously-unknown (e.g. "zero-da
 
 Some of the exploits surveyed were actively used to target journalists, politicians, activists, and minority populations[^ProjZero2021Review].
 Memory corruption is not a theoretical problem.
-It's a pressing and severe issue that, in the worst case, causes tangible human harm.
+It's a pressing and severe issue that, in the worst case, has tangible human costs.
 
 > **What if I'm just *really* careful, *all* the time?**
 >
@@ -109,6 +109,27 @@ Microsoft:[^QuoteMicrosoft]
 
 > [Rust is] the industry's best chance for addressing this [memory safety] issue head-on.
 
+Moreover, Rust has begun to appear at the forefront of US government security guidance.
+In the time since this section was originally published (March 2022), we've seen various government entities explicitly name Rust as a solution to the dire societal problem of memory safety:
+
+National Security Agency (NSA):[^QuoteNSA]
+
+>  Software analysis tools can detect many instances of memory management issues and operating environment options can also provide some protection, but inherent protections offered by memory safe software languages can prevent or mitigate most memory management issues. NSA recommends using a memory safe language when possible.
+>
+> ...Examples of memory safe language include C#, Go, Java, Ruby, Rust, and Swift.
+
+Cybersecurity and Infrastructure Security Agency (CISA):[^QuoteCISA]
+
+> In what other industry would the market tolerate such well-understood and severe dangers for users of products for decades?
+>
+> ...What has been lacking until a few years ago is a language with the speed of C/C++ with built-in memory safety assurances. In 2006, a software engineer at Mozilla began working on a new programming language called Rust. Rust version 1.0 was officially announced in 2015.
+
+National Institute of Standards and Technology (NIST):[^QuoteNIST]
+
+> Safety or quality cannot be "tested into" programs. It must be designed in from the start. Choosing to implement with a safer or more secure language or language subset can entirely avoid whole classes of weaknesses.
+>
+> ...Rust has an ownership model that guarantees both memory safety and thread safety, at compile-time, without requiring a garbage collector. This allows users to write high-performance code while eliminating many bug classes. Though Rust does have an unsafe mode, its use is explicit, and only a narrow scope of actions is allowed.
+
 ## Does that mean Rust programs can't be compromised?
 
 Definitely not.
@@ -141,6 +162,7 @@ But, for your situational awareness and future endeavors, we'll:
 * Cover `unsafe`'s usage and implications in detail.
 * Learn tools for auditing the safety of Rust applications.
 * Review a handful of real-world vulnerabilities in Rust software, as case studies.
+* Build Foreign Function Interface (FFI) bindings to call our Rust code from unsafe languages.
 
 Rust is a monumental leap forward in systems security, not a panacea.
 
@@ -257,6 +279,12 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 
 [^QuoteMicrosoft]: [*Microsoft: Rust Is the Industry’s ‘Best Chance’ at Safe Systems Programming*](https://thenewstack.io/microsoft-rust-is-the-industrys-best-chance-at-safe-systems-programming/). Joab Jackson (2020).
 
+[^QuoteNSA]: [*Software Memory Safety*](https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF). NSA (2022).
+
+[^QuoteCISA]: [*The Urgent Need for Memory Safety in Software Products*](https://www.cisa.gov/news-events/news/urgent-need-memory-safety-software-products). Bob Lord, CISA (2023).
+
+[^QuoteNIST]: [*Safer Languages*](https://www.nist.gov/itl/ssd/software-quality-group/safer-languages). NIST (2023).
+
 [^ZP2O]: [*Zoom RCE from Pwn2Own 2021*](https://sector7.computest.nl/post/2021-08-zoom/). Thijs Alkemade, Daan Keupe (2021).
 
 [^MisConfig]: [*A05:2021 – Security Misconfiguration*](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/). OWASP (2021).
@@ -282,4 +310,3 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 [^Cpp20]: [*[Final] Working Draft, Standard for Programming Language C++*](http://open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4861.pdf). Document Number:N4861 (2020).
 
 [^LifetimeCpp]: [*Lifetime*](https://en.cppreference.com/w/cpp/language/lifetime). cppreference.com (Accessed 2022).
-

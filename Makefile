@@ -19,15 +19,16 @@ check:
 	cd code_snippets/chp4/stack_example && cargo fmt
 	cd code_snippets/chp4/stack_example_iter && cargo fmt
 
-	# Progress check
-	cd scripts/word_count && cargo fmt && cargo run
+	# Metrics and linting
+	cd internal_tools/har_analyze && cargo fmt && cargo test && cargo clippy && cargo run -- --metrics --lint --log-warn
 
 # TODO: clean code_snippet binaries
 clean:
 	mdbook clean
-	cd scripts/word_count && cargo clean
+	cd internal_tools/har_analyze && cargo clean
 
 site:
+	cd internal_tools/har_analyze && cargo run -- --lint --update-badges
 	rm -rf docs/
 	mdbook build
 	mv book/ docs/

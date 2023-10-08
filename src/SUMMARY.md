@@ -49,7 +49,7 @@
     * [Assurance Perspective: Stack Safety](./chp4/assure_stack_1.md)
     * [Attacker's Perspective: Breaking Safety (1/2)](./chp4/attack_1.md)
     * [Attacker's Perspective: Unifying Theory (2/2)](./chp4/attack_2.md)
-    * [Debugging DYI Secret Obfuscation]()
+    * [Debugging DIY Secret Obfuscation]()
     * [Stack Exploitation]()
     * [Software Perspective: Heap (1/2)]()
     * [Software Perspective: Heap (2/2)]()

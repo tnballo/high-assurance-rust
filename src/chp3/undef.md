@@ -112,21 +112,24 @@ Rust removes UB, nearly entirely, by default.
 
 > **Why the "almost eliminated" and "nearly entirely" caveats?**
 >
-> At the time of this writing, Rust does not yet have an official language standard or specification.
+> At the time of this writing, Rust does not yet have an *official* language standard or specification.
 > There's no Rust equivalent to C or C++'s ISO documents.
 > So it's difficult to make a definitive claim.
 >
 > The Rust Reference contains a non-exhaustive list of behaviors considered undefined in Rust[^UndefRust], all of which would require the `unsafe` keyword to introduce.
-> So there are likely only two potential sources of UB in Rust:
+> So there are likely only three potential sources of UB in Rust:
 >
-> * `unsafe` functions or blocks whose invariants aren't actually upheld (our fault).
+> * `unsafe` functions or blocks whose invariants aren't actually upheld (our fault). This includes FFI edge cases, like a foreign exception crossing the FFI boundary with an unsupported ABI.
 >
 > * Rare compiler bugs[^RustcBug] that threaten soundness (patched once discovered).
 >
-> We'll use `miri`[^Miri], an experimental dynamic tool for detecting UB in Rust programs, in Chapter 12.
+> * Platform-specific invariant violations, like executing a program compiled with support for specific CPU extensions on CPU variant that doesn't support them (deployment problem).
 >
-> An unofficial Rust language specification effort is currently underway[^FLS] to support Ferrocene, a vendored Rust toolchain to be qualified for safety-critical use.
-> While this specification does not aim to document the entire Rust language and standard library, it will enumerate UB where relevant and be publicly available[^FLS].
+> In July of 2022, the Ferrocene Language Specification (FLS)[^FLS] was made public.
+> The specification supports Ferrocene, a commercial downstream of the Rust compiler qualified for certain safety-critical uses.
+> While this specification does not aim to document the entire Rust language and standard library, it currently enumerates 21 possible sources of UB in Rust programs[^FLSUndef].
+>
+> We'll use `miri`[^Miri], an experimental dynamic tool for detecting UB in Rust programs, in Chapter 12.
 
 To make Rust's benefits more visceral, let's port our buggy C program to Rust:
 
@@ -374,7 +377,11 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 
 [^Miri]: [*`miri`*](https://github.com/rust-lang/miri). Ralf Jung (Accessed 2022).
 
-[^FLS]: [*Introducing the Ferrocene Language Specification*](https://ferrous-systems.com/blog/ferrocene-language-specification/). Ferrous Systems (2022).
+[^FLS]: [*Ferrocene Language Specification*](https://spec.ferrocene.dev/index.html). Ferrous Systems (2022).
+
+[^FLSUndef]: [*List of undefined behavior*](https://spec.ferrocene.dev/undefined-behavior.html). Ferrous Systems (2023).
+
+[^Ferrocene]: [`ferrocene`](https://github.com/ferrocene/ferrocene). Ferrous Systems (2023).
 
 [^CppUndef]: [*CppCon 2017: "Undefined Behavior in 2017"*](https://www.youtube.com/watch?v=v1COuU2vU_w). John Regehr (2017).
 

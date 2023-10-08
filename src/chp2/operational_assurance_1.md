@@ -14,7 +14,7 @@ The argument has at least two flaws:
 
 * **It ignores the malicious actor.** Software is under relentless attack, potentially by skilled adversaries. Be it a power user seeking to jailbreak a device or a cyber criminal attempting to monetize a malware campaign. Withstanding these adversaries is a fundamental design requirement for any networked system. Bridges, on the other hand, don't need to be resistant to demolition crews or arsonists by design.
 
-* **It relies on a false equivalence.** Software libraries and frameworks change at a much faster pace than construction materials and architectural techniques. A bridge requires maintenance over a time span measured in years, but a software system can add new functionality in two week sprints. This dynamism only heightens security and reliability risk.
+* **It relies on a false equivalence.** Recall our mention of "state explosion" in static analysis: software has unique combinatorial complexity. Moreover, software libraries and frameworks change at a much faster pace than construction materials and architectural techniques. A bridge requires maintenance over a time span measured in years, but a software system can add new functionality in two week sprints. This dynamic complexity only heightens security and reliability risk.
 
 Thus far, this chapter has treated software assurance like building a really sturdy bridge.
 Outside of discussing memory safety and general correctness, we haven't addressed what it actually takes to combat malicious actors in the real world (akin to the first flaw above).

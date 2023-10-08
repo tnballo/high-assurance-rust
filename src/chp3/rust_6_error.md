@@ -204,7 +204,7 @@ We'll refactor our RC4 constructor to demonstrate error propagation strategies.
 ## Merge and Propagate
 
 Recall that if a provided key wasn't the right size, our Chapter 2 RC4 CLI gave the user a descriptive error - essentially re-prompting for a valid-length key.
-We accomplished that with `clap`'s `min_values = 5` and `max_values = 256` annotations.
+We accomplished that with `clap`'s `num_args = 5..=256` annotation.
 
 Our library itself (not the CLI front-end) asserted the invariant.
 The front-end's check just ensured this assertion would never trigger.
@@ -290,7 +290,7 @@ Thus we can't import `std::error::Error` in a `#![no_std]` library.
 
 > **Can't we support that use case?**
 >
-> If omitting the `Error` trait strikes you as an unsatisfying compromise, you try *feature-gating* support for this trait as an exercise.
+> If omitting the `Error` trait strikes you as an unsatisfying compromise, try *feature-gating* support for this trait as an exercise.
 > That'll entail modifying the `Cargo.toml`[^Features] build file and implementing the trait behind a `cfg` macro[^CondComp].
 > By convention, this feature would be called `std` and selected with:
 >

@@ -45,18 +45,18 @@ All we need to do is add one line to `crypto_tool/rcli/Cargo.toml`:
 [package]
 name = "rcli"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 rc4 = { path = "../rc4" }
-clap = { version = "^3", features = ["derive"] }
+clap = { version = "^4", features = ["derive"] }
 ```
 
 * `features = ["derive"]` enables an optional feature of the `clap` library: support for derive macros. It'll save us some boilerplate.
 
-* `version = "^3"` tells `cargo` that our tool uses the latest `clap` version `>= 3.0.0` but `< 4.0.0`. We can assume API stability for `3.x.x` versions because Rust crates follow *semantic versioning* (semver, e.g. `MAJOR.MINOR.PATCH`)[^SemVer].
+* `version = "^4"` tells `cargo` that our tool uses the latest `clap` version `>= 4.0.0` but `< 5.0.0`. We can assume API stability for `4.x.x` versions because Rust crates follow *semantic versioning* (semver, e.g. `MAJOR.MINOR.PATCH`)[^SemVer].
 
 Notice that, unlike the `rc4` dependency, we don't provide a local `path` for `clap`.
 `cargo` will download the source code from [crates.io](https://crates.io/) the first time we build or run our `rcli` project.
@@ -112,9 +112,7 @@ fn main() {
 
     * `required = true` - argument *must* be provided to run the tool.
 
-    * `min_values = 5` - enforces RC4's minimum 5 byte (40 bit) key length.
-
-    * `max_values = 256` - enforces RC4's maximum 256 byte (2048 bit) key length.
+    * `num_args = 5..=256` - enforces RC4's minimum 5 byte (40 bit) and maximum 256 byte (2048 bit) key length.
 
 Our two-line `main` function currently just prints out the `Args` structure collected from user input.
 The format specifier `{:?}` allows us to use a default formatter, which `Args` supports because it derives the `Debug` trait.
@@ -129,16 +127,17 @@ We'll talk about traits in the next chapter.
 To run our work-in-progress CLI tool, as is, we can use the command `cargo run -- --help`:
 
 ```ignore
-rcli
 RC4 file en/decryption
 
-USAGE:
-    rcli --file <FILE_NAME> --key <HEX_BYTE(S)>...
+Usage: rcli --file <FILE_NAME> --key <HEX_BYTE> <HEX_BYTE> <HEX_BYTE> <HEX_BYTE> <HEX_BYTE>...
 
-OPTIONS:
-    -f, --file <FILE_NAME>        Name of file to en/decrypt
-    -h, --help                    Print help information
-    -k, --key <HEX_BYTE(S)>...    En/Decryption key (hexadecimal bytes)
+Options:
+  -f, --file <FILE_NAME>
+          Name of file to en/decrypt
+  -k, --key <HEX_BYTE> <HEX_BYTE> <HEX_BYTE> <HEX_BYTE> <HEX_BYTE>...
+          En/Decryption key (hexadecimal bytes)
+  -h, --help
+          Print help
 ```
 
 The `--` delimiter tells `cargo` to pass the remainder of the input to our CLI tool.
@@ -199,7 +198,7 @@ Our new `main` function has a few more pieces worth explaining:
 
 * **Input validation:** Whenever you write code that parses input you don't control, that input is *untrusted*. It may be *attacker-controlled*. Validate it ASAP - before passing it along to any other component of your program or system. Our `main` uses a three step-validation:
 
-    1. **Valid key length:** Instead of assuming our encryption library checks key length (which our RC4 implementation does!), we used annotations for the `key` field in `Arg` (e.g. `min_values = 5` and `max_values = 256`). Try `cargo run -- -f anything.txt -k 01` to see the error.
+    1. **Valid key length:** Instead of assuming our encryption library checks key length (which our RC4 implementation does!), we used an annotation on the `key` field in `Arg` (e.g. `num_args = 5..=256`). Try `cargo run -- -f anything.txt -k 01` to see the error.
 
     2. **Valid hex key bytes:** `.expect("Invalid key hex byte!")` determines the error message thrown if the program receives an invalid string representation of a base-16 byte in the key input (e.g. `"0xfg"`).
 
@@ -300,7 +299,7 @@ It can be used anywhere, even bare metal embedded systems.
 Leveraging the `clap` crate and Rust's standard library, we then built a simple RC4 CLI tool.
 Our tool can be compiled for any major OS.
 
-All in only 172 lines of code.
+All in only 171 lines of code.
 Including all tests and implementing the cryptography *from scratch*.
 And that code is natively compiled - `rcli` is blazing fast.
 Not bad for your first Rust program.
@@ -332,5 +331,3 @@ When you're ready, we can close out this chapter with one last topic: operationa
 [^Unit]: [*Primitive Type unit*](https://doc.rust-lang.org/std/primitive.unit.html). The Rust Team (Accessed 2022).
 
 [^ASCII]: [*ASCII*](https://en.wikipedia.org/wiki/ASCII). Wikipedia (Accessed 2022).
-
-
