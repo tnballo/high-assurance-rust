@@ -276,15 +276,32 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
     }
 
     // Chapter intros end with `## Learning Outcomes`
-    if path.file_name() == Some(std::ffi::OsStr::new("_index.md"))
-        && !lines.iter().rev().any(|l| l.eq("## Learning Outcomes"))
-    {
-        return Err(LintError::Failed {
-            path,
-            line_number: 0,
-            line: "N/A".to_string(),
-            reason: "Chapter intro missing \"## Learning Outcomes\"".to_string(),
-        });
+    if path.file_name() == Some(std::ffi::OsStr::new("_index.md")) {
+        match lines.iter().rposition(|l| l.eq("## Learning Outcomes")) {
+            Some(outcomes_start) => {
+                if lines[outcomes_start..]
+                    .iter()
+                    .filter(|l| l.starts_with("* "))
+                    .count()
+                    < 3
+                {
+                    return Err(LintError::Failed {
+                        path,
+                        line_number: outcomes_start + 1,
+                        line: lines[outcomes_start].clone(),
+                        reason: "Chapter intro \"## Learning Outcomes\" must contain at least 3 outcomes".to_string(),
+                    });
+                }
+            }
+            None => {
+                return Err(LintError::Failed {
+                    path,
+                    line_number: 0,
+                    line: "N/A".to_string(),
+                    reason: "Chapter intro missing \"## Learning Outcomes\"".to_string(),
+                });
+            }
+        }
     }
 
     // Obeys state machine heading rules
@@ -347,7 +364,7 @@ pub fn rule_md_extension<'a>(path: &'a PathBuf, _: &[String]) -> Result<(), Lint
 /// Valid SVG file
 pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintError<'a>> {
     if let Some(file_name) = path.as_path().file_name() {
-        let file_name = file_name.to_str().unwrap();
+        let file_name = file_name.to_str().unwrap().to_lowercase();
         if !file_name.ends_with(".svg") {
             return Err(LintError::Failed {
                 path,
