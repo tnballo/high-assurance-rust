@@ -4,6 +4,12 @@
 **Note:** This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please [get in touch](./engage.md#submit-feedback-questions-issues-or-prs).
 
+* **v0.4.2-alpha:**
+    * Internal tools update (metrics, linter)
+    * Landing/`README.md` badges with computed page and diagram counts
+    * Updated EPUB download
+    * Updated mentions of [Ferrocene](https://github.com/ferrocene/ferrocene) and [FLS](https://spec.ferrocene.dev/) in light of respective open-source releases (yay!)
+
 * **v0.4.1-alpha:**
     * New section: *4.2 Assurance Perspective: Stack Safety*
     * New section: *16.10 Theory: Inter-procedural CFGs*

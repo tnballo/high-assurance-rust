@@ -94,10 +94,7 @@ impl Rc4 {
         self.s.swap(self.i as usize, self.j as usize);
 
         // k = s[(s[i] + s[j]) mod 256]
-        let k = self.s[(self.s[self.i as usize].wrapping_add(self.s[self.j as usize])) as usize];
-
-        // output K
-        k
+        self.s[(self.s[self.i as usize].wrapping_add(self.s[self.j as usize])) as usize]
     }
     // ANCHOR_END: prga_next
 }

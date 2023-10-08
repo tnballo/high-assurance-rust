@@ -141,7 +141,7 @@ There is, however, one detail worth pointing out:
 
 * `prga_next`'s sole parameter is `&mut self`, a *mutable reference* to the `Rc4` structure on which it will be called. We need the `mut` keyword here again because this function makes changes to an `Rc4` struct - it writes indexes `i` and `j`, and swaps bytes inside the cipher state buffer `s`.
 
-As an aside - we can visualize that second-to-last line, `let k = ...`, like so:[^RC4Wiki]
+As an aside - we can visualize that line, outputing `k`, like so:[^RC4Wiki]
 
 <br>
 <p align="center">

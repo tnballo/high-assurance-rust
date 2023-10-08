@@ -1,8 +1,6 @@
 [workspace]
-members = [
-    "rc4",
-    "rcli"
-]
+resolver = "2"
+members = ["rc4", "rcli"]
 
 [profile.release]
 strip = true

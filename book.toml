@@ -12,9 +12,13 @@ cname = "highassurance.rs"
 git-repository-url = "https://github.com/tnballo/high-assurance-rust"
 git-repository-icon = "fa-github"
 edit-url-template = "https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs"
+mathjax-support = true
 
 [output.html.playground]
-editable = false        # allows editing the source code
-copyable = true         # include the copy button for copying code snippets
-copy-js = false         # includes the JavaScript for the code editor
-line-numbers = false    # displays line numbers for editable code
+editable = false     # allows editing the source code
+copyable = true      # include the copy button for copying code snippets
+copy-js = false      # includes the JavaScript for the code editor
+line-numbers = false # displays line numbers for editable code
+
+# https://crates.io/crates/mdbook-epub/
+#[output.epub]
