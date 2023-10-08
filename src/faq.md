@@ -105,9 +105,16 @@ Those might be valuable in a range of contexts.
 
 ## 7. Can I use Rust in safety-critical domains?
 
-Not yet.
-Unlike [SPARK/Ada](https://www.adacore.com/about-spark), Rust isn't certified for use in a *safety-critical* setting.
-Industry [standardization](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf) and [qualification](https://ferrous-systems.com/ferrocene/) efforts are currently [underway](https://blog.adacore.com/adacore-and-ferrous-systems-joining-forces-to-support-rust), so that may change in the future.
+Potentially yes - depending on the domain!
+Rust toolchains aren't yet as widely certified as, say, [SPARK/Ada](https://www.adacore.com/about-spark).
+But Rust adoption in safety-critical products is making [active progress](https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf).
+Recent examples (not comprehensive):
+
+* The [Ferrocene project](https://github.com/ferrocene/ferrocene) is a downstream of the official Rust compiler that's ["quality managed and qualified for use"](https://ferrous-systems.com/blog/ferrocene-open-source/) in automotive (currently by ISO 26262) and industrial  (currently IEC 61508) environments.
+
+* Hardware vendors, like [Infineon Technologies](https://www.infineon.com/cms/en/product/promopages/rust/), are similarly beginning to offer Rust toolchains targeting their platforms.
+
+* Software vendors, like [AdaCore](https://www.adacore.com/gnatpro-rust), now offer safety-critical specific Rust tooling.
 
 This book is about building secure and robust software in general, regardless of industry.
 As the regulatory landscape for Rust evolves, you'll be able to apply our topics in more verticals.

@@ -94,8 +94,8 @@ Because we won't use the `unsafe` keyword, you could say that this book introduc
 >
 > Because the core project is based on an open-source library[^Scapegoat], we know that working within these constraints is viable for non-trivial codebases.
 
-Now, being a new language, Rust is not yet certified for use in a safety-critical setting - although this is an area of industry effort[^Ferrocene] and research[^RustCrit].
-There is no Rust counterpart to the MISRA C guidelines.
+Now, being a new language, Rust is not yet widely certified for use in safety-critical settings - although this is an area of industry effort[^Ferrocene] and research[^RustCrit].
+There is a qualified Rust compiler for automotive (ISO 26262) and industrial (IEC 61508) usecases, but there is no Rust counterpart to the MISRA C guidelines.
 Yet.
 
 Many MISRA C rules are specific to the C language.
