@@ -137,7 +137,7 @@ Rust removes UB, nearly entirely, by default.
 >
 > * Rare compiler bugs[^RustcBug] that threaten soundness (patched once discovered).
 >
-> * Platform-specific invariant violations, like executing a program compiled with support for specific CPU extensions on CPU variant that doesn't support them (deployment problem).
+> * Platform-specific invariant violations, like executing a program compiled with support for specific CPU extensions on a CPU variant that doesn't support them (deployment problem).
 >
 > In July of 2022, the Ferrocene Language Specification (FLS)[^FLS] was made public.
 > The specification supports Ferrocene, a commercial downstream of the Rust compiler qualified for certain safety-critical uses.

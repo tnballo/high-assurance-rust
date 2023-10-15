@@ -202,8 +202,8 @@ To verify that your workspace is ready to roll, run `cargo build` from the `cryp
 You should see output similar to the below, showing both `rc4` and `rcli` being successfully compiled:
 
 ```ignore
-   Compiling rcli v0.1.0 (/home/tb/proj/book-draft/code_snippets/chp2/crypto_tool/rcli)
-   Compiling rc4 v0.1.0 (/home/tb/proj/book-draft/code_snippets/chp2/crypto_tool/rc4)
+   Compiling rcli v0.1.0 (/home/tb/proj/high-assurance-rust/code_snippets/chp2/crypto_tool/rcli)
+   Compiling rc4 v0.1.0 (/home/tb/proj/high-assurance-rust/code_snippets/chp2/crypto_tool/rc4)
     Finished dev [unoptimized + debuginfo] target(s) in 0.43s
 ```
 
@@ -227,4 +227,3 @@ Now that the boilerplate is out of the way, we're ready to start writing our emb
 [^Workspaces]: [*Workspaces*](https://doc.rust-lang.org/cargo/reference/workspaces.html). The Cargo Book (Accessed 2022).
 
 [^Manifest]: [*The Manifest Format*](https://doc.rust-lang.org/cargo/reference/manifest.html). The Cargo Book (Accessed 2022).
-

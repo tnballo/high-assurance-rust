@@ -26,6 +26,22 @@ pub fn rule_nonempty<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lint
     }
 }
 
+/// Section doesn't contain a draft filesystem path
+pub fn rule_no_draft_path<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintError<'a>> {
+    for (idx, line) in lines.iter().enumerate() {
+        if line.contains("/book-draft/") {
+            return Err(LintError::Failed {
+                path,
+                line_number: idx.into(),
+                line: line.clone(),
+                reason: "Contains book draft path".to_string(),
+            });
+        }
+    }
+
+    Ok(())
+}
+
 /// Section contains 1+ SVGs
 pub fn rule_has_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintError<'a>> {
     let p_start_idxs: Vec<usize> = lines

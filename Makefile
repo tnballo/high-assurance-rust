@@ -28,7 +28,7 @@ clean:
 	cd internal_tools/har_analyze && cargo clean
 
 site:
-	cd internal_tools/har_analyze && cargo run -- --lint --update-badges
+	cd internal_tools/har_analyze && cargo run -- --lint --update
 	rm -rf docs/
 	mdbook build
 	mv book/ docs/

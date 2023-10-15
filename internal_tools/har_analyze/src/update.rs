@@ -81,10 +81,10 @@ pub fn update_badges(book: &Book) -> io::Result<()> {
 // TODO: double-check and add to `--update` flag
 /// Add meta tags to the start of every single page of the book
 pub fn update_meta_tags(book: &Book) -> io::Result<()> {
-    for (_, chp) in &book.chapters {
+    for chp in book.chapters.values() {
         for content in &chp.contents {
             if let Content::Section { path, lines, .. } = content {
-                let file = File::open(&path)?;
+                let file = File::open(path)?;
                 let reader = BufReader::new(file);
                 let current_contents = reader
                     .lines()

@@ -84,6 +84,7 @@ impl Book {
     pub fn get_non_chp_linter(&self) -> Linter<'_> {
         let mut linter = LinterBuilder::new()
             .add_rule(Level::Fatal, Rule(&rule_md_extension))
+            .add_rule(Level::Fatal, Rule(&rule_no_draft_path))
             .add_rule(Level::Fatal, Rule(&rule_nonempty));
 
         for (num, chp) in self.chapters.iter() {
@@ -103,6 +104,7 @@ impl Book {
     pub fn get_chp_intro_linter(&self) -> Linter<'_> {
         let mut linter = LinterBuilder::new()
             .add_rule(Level::Fatal, Rule(&rule_md_extension))
+            .add_rule(Level::Fatal, Rule(&rule_no_draft_path))
             .add_rule(Level::Fatal, Rule(&rule_nonempty))
             .add_rule(Level::Fatal, Rule(&rule_header_and_footer))
             .add_rule(Level::Fatal, Rule(&rule_heading_sizes))
@@ -130,6 +132,7 @@ impl Book {
     pub fn get_chp_sections_linter(&self) -> Linter<'_> {
         let mut linter = LinterBuilder::new()
             .add_rule(Level::Fatal, Rule(&rule_md_extension))
+            .add_rule(Level::Fatal, Rule(&rule_no_draft_path))
             .add_rule(Level::Fatal, Rule(&rule_nonempty))
             .add_rule(Level::Fatal, Rule(&rule_footer))
             .add_rule(Level::Fatal, Rule(&rule_heading_sizes));

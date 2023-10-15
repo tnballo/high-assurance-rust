@@ -9,7 +9,6 @@ pub enum Level {
     Warning,
 }
 
-#[derive(Debug)]
 #[cfg_attr(test, derive(PartialEq))]
 pub struct LineNumber {
     num: NonZeroUsize,
@@ -29,6 +28,13 @@ impl From<usize> for LineNumber {
 impl fmt::Display for LineNumber {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.num)
+    }
+}
+
+// Defer `Debug` impl to `Display` impl
+impl fmt::Debug for LineNumber {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self)
     }
 }
 
