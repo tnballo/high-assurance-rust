@@ -4,6 +4,7 @@ use crate::{
     lint::{Level, Linter, LinterBuilder},
     rules::*,
     traits::{GetChapter, GetMetrics},
+    update::META_TAGS,
     BOOK_SRC_DIR_RELATIVE, WORDS_PER_PAGE,
 };
 
@@ -235,6 +236,8 @@ impl Book {
     fn count_words(lines: &[String], word_regex: &Regex) -> usize {
         lines
             .iter()
+            // Exclude social meta-tag HTML lines
+            .filter(|line| !META_TAGS.iter().any(|tag| tag == line))
             .map(|line| word_regex.captures_iter(line).count())
             .sum()
     }

@@ -15,8 +15,8 @@ pub use content::*;
 mod lint;
 pub use lint::*;
 
-mod badge;
-pub use badge::*;
+mod update;
+pub use update::*;
 
 mod rules;
 

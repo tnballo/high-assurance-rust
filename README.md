@@ -2,7 +2,7 @@
 
 # High Assurance Rust
 
-[![Pages](https://img.shields.io/badge/Pages-179-purple.svg)](https://github.com/tnballo/high-assurance-rust)
+[![Pages](https://img.shields.io/badge/Pages-178-purple.svg)](https://github.com/tnballo/high-assurance-rust)
 [![Diagrams](https://img.shields.io/badge/Diagrams-49-blue.svg)](https://github.com/tnballo/high-assurance-rust)
 [![Price](https://img.shields.io/badge/Price-$0.00-orange.svg)](https://highassurance.rs/cfp.html)
 [![Text License: CC BY-NC-ND 4.0](https://img.shields.io/badge/Text%20License-CC%20BY--NC--ND%204.0-yellow.svg)](https://highassurance.rs/license.html)

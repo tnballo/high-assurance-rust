@@ -1,6 +1,6 @@
 use crate::{rules::Rule, Content};
 use colored::*;
-use std::path::PathBuf;
+use std::{fmt, num::NonZeroUsize, path::PathBuf};
 
 #[derive(Debug)]
 #[cfg_attr(test, derive(PartialEq))]
@@ -11,10 +11,33 @@ pub enum Level {
 
 #[derive(Debug)]
 #[cfg_attr(test, derive(PartialEq))]
+pub struct LineNumber {
+    num: NonZeroUsize,
+}
+
+// Line index (internal) -> line number (human-readable)
+impl From<usize> for LineNumber {
+    fn from(zero_idx_num: usize) -> Self {
+        Self {
+            // SAFETY: cannot panic, input always >= 1
+            num: NonZeroUsize::new(zero_idx_num + 1).unwrap(),
+        }
+    }
+}
+
+// Defer `Display` impl to inner type
+impl fmt::Display for LineNumber {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.num)
+    }
+}
+
+#[derive(Debug)]
+#[cfg_attr(test, derive(PartialEq))]
 pub enum LintError<'a> {
     Failed {
         path: &'a PathBuf,
-        line_number: usize,
+        line_number: LineNumber,
         line: String,
         reason: String,
     },
@@ -78,7 +101,7 @@ impl<'a> Linter<'a> {
                 None => {
                     return Err(LeveledLintError::Fatal(LintError::Failed {
                         path,
-                        line_number: 0,
+                        line_number: 0.into(),
                         line: "N/A".to_string(),
                         reason: "Empty content".to_string(),
                     }))

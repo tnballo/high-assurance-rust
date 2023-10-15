@@ -1,3 +1,17 @@
+<meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+
+
 # Dynamic Assurance (1 of 3)
 
 Static analysis can be a tough topic to tackle, it's the tip of the iceberg for a world of theory and proofs that may seem divorced from the realities of day-to-day development.

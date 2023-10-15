@@ -18,7 +18,7 @@ pub fn rule_nonempty<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lint
     match lines.is_empty() {
         true => Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Missing data/contents".to_string(),
         }),
@@ -45,7 +45,7 @@ pub fn rule_has_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintE
     if p_start_idxs.len() != p_end_idxs.len() {
         return Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Unbalanced paragraph start/end tags".to_string(),
         });
@@ -55,7 +55,7 @@ pub fn rule_has_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintE
         if p_end < p_start {
             return Err(LintError::Failed {
                 path,
-                line_number: p_end + 1,
+                line_number: p_end.into(),
                 line: lines[p_end].to_string(),
                 reason: "Paragraph end tag before start tag".to_string(),
             });
@@ -76,7 +76,7 @@ pub fn rule_has_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintE
 
     Err(LintError::Failed {
         path,
-        line_number: 0,
+        line_number: 0.into(),
         line: "N/A".to_string(),
         reason: "No centered paragraph SVGs found".to_string(),
     })
@@ -94,7 +94,7 @@ pub fn rule_footer<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintEr
     match sep_idxs.len() {
         0 => Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Missing header/footer separator".to_string(),
         }),
@@ -105,7 +105,7 @@ pub fn rule_footer<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintEr
             {
                 Err(LintError::Failed {
                     path,
-                    line_number: sep_idxs[0] + 1,
+                    line_number: sep_idxs[0].into(),
                     line: lines[sep_idxs[0]].clone(),
                     reason: "Footer must contain at least one footnote".to_string(),
                 })
@@ -115,7 +115,7 @@ pub fn rule_footer<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintEr
         }
         _ => Err(LintError::Failed {
             path,
-            line_number: sep_idxs[1] + 1,
+            line_number: sep_idxs[1].into(),
             line: lines[sep_idxs[1]].clone(),
             reason: "Cannot have 2+ header/footer separators in a section".to_string(),
         }),
@@ -137,13 +137,13 @@ pub fn rule_header_and_footer<'a>(
     match sep_idxs.len() {
         0 => Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Missing header/footer separator".to_string(),
         }),
         1 => Err(LintError::Failed {
             path,
-            line_number: sep_idxs[0] + 1,
+            line_number: sep_idxs[0].into(),
             line: lines[sep_idxs[0]].clone(),
             reason: "Sole separator - missing header or footer".to_string(),
         }),
@@ -154,7 +154,7 @@ pub fn rule_header_and_footer<'a>(
             {
                 Err(LintError::Failed {
                     path,
-                    line_number: sep_idxs[1] + 1,
+                    line_number: sep_idxs[1].into(),
                     line: lines[sep_idxs[1]].clone(),
                     reason: "Footer must contain at least one footnote".to_string(),
                 })
@@ -164,7 +164,7 @@ pub fn rule_header_and_footer<'a>(
         }
         _ => Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Cannot have 3+ headers in a section".to_string(),
         }),
@@ -205,7 +205,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
                     } else {
                         Err(LintError::Failed {
                             path,
-                            line_number,
+                            line_number: line_number.into(),
                             line: line.to_string(),
                             reason: "H2 not preceded by H1, H2, or smaller".to_string(),
                         })
@@ -217,7 +217,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
                     } else {
                         Err(LintError::Failed {
                             path,
-                            line_number,
+                            line_number: line_number.into(),
                             line: line.to_string(),
                             reason: "H3 not preceded by H2, H3, or smaller".to_string(),
                         })
@@ -229,7 +229,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
                     } else {
                         Err(LintError::Failed {
                             path,
-                            line_number,
+                            line_number: line_number.into(),
                             line: line.to_string(),
                             reason: "H4 not preceded by H3, H4, or smaller".to_string(),
                         })
@@ -237,13 +237,13 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
                 }
                 line if line.starts_with("##### ") => Err(LintError::Failed {
                     path,
-                    line_number,
+                    line_number: line_number.into(),
                     line: line.to_string(),
                     reason: "H5 should not be used".to_string(),
                 }),
                 line if line.starts_with("###### ") => Err(LintError::Failed {
                     path,
-                    line_number,
+                    line_number: line_number.into(),
                     line: line.to_string(),
                     reason: "H6 should not be used".to_string(),
                 }),
@@ -259,7 +259,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
     else {
         return Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Section must be non-empty".to_string(),
         });
@@ -269,7 +269,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
     if !lines[first_effective].starts_with("# ") {
         return Err(LintError::Failed {
             path,
-            line_number: first_effective + 1,
+            line_number: first_effective.into(),
             line: lines[first_effective].to_string(),
             reason: "Section must start with an H1 heading".to_string(),
         });
@@ -287,7 +287,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
                 {
                     return Err(LintError::Failed {
                         path,
-                        line_number: outcomes_start + 1,
+                        line_number: outcomes_start.into(),
                         line: lines[outcomes_start].clone(),
                         reason: "Chapter intro \"## Learning Outcomes\" must contain at least 3 outcomes".to_string(),
                     });
@@ -296,7 +296,7 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
             None => {
                 return Err(LintError::Failed {
                     path,
-                    line_number: 0,
+                    line_number: 0.into(),
                     line: "N/A".to_string(),
                     reason: "Chapter intro missing \"## Learning Outcomes\"".to_string(),
                 });
@@ -315,26 +315,11 @@ pub fn rule_heading_sizes<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(),
 
 /// Section contains meta tags
 pub fn rule_meta_tags<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintError<'a>> {
-    const META_TAGS: [&str; 12] = [
-        "<meta name=\"title\" content=\"High Assurance Rust\">",
-        "<meta name=\"description\" content=\"Developing Secure and Robust Software\">",
-        "<meta property=\"og:title\" content=\"High Assurance Rust\">",
-        "<meta property=\"og:description\" content=\"Developing Secure and Robust Software\">",
-        "<meta property=\"og:type\" content=\"article\">",
-        "<meta property=\"og:url\" content=\"https://highassurance.rs/\">",
-        "<meta property=\"og:image\" content=\"https://highassurance.rs/img/har_logo_social.png\">",
-        "<meta name=\"twitter:title\" content=\"High Assurance Rust\">",
-        "<meta name=\"twitter:description\" content=\"Developing Secure and Robust Software\">",
-        "<meta name=\"twitter:url\" content=\"https://highassurance.rs/\">",
-        "<meta name=\"twitter:card\" content=\"summary_large_image\">",
-        "<meta name=\"twitter:image\" content=\"https://highassurance.rs/img/har_logo_social.png\">",
-    ];
-
-    for tag in META_TAGS {
+    for tag in crate::update::META_TAGS {
         if !lines.iter().any(|l| l.starts_with(tag)) {
             return Err(LintError::Failed {
                 path,
-                line_number: 0,
+                line_number: 0.into(),
                 line: "N/A".to_string(),
                 reason: format!("Section missing meta tag {}", tag),
             });
@@ -351,7 +336,7 @@ pub fn rule_md_extension<'a>(path: &'a PathBuf, _: &[String]) -> Result<(), Lint
         if !file_name.ends_with(".md") {
             return Err(LintError::Failed {
                 path,
-                line_number: 0,
+                line_number: 0.into(),
                 line: "N/A".to_string(),
                 reason: format!("Unexpected file extension \"{}\"", file_name),
             });
@@ -368,7 +353,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
         if !file_name.ends_with(".svg") {
             return Err(LintError::Failed {
                 path,
-                line_number: 0,
+                line_number: 0.into(),
                 line: "N/A".to_string(),
                 reason: format!("Unexpected file extension \"{}\"", file_name),
             });
@@ -379,7 +364,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
     let Ok(svg) = svg::read(&data) else {
         return Err(LintError::Failed {
             path,
-            line_number: 0,
+            line_number: 0.into(),
             line: "N/A".to_string(),
             reason: "Unexpected error - svg crate failed to read &str".to_string(),
         });
@@ -391,7 +376,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
             svg::parser::Event::Error(e) => {
                 return Err(LintError::Failed {
                     path,
-                    line_number: 0,
+                    line_number: 0.into(),
                     line: "N/A".to_string(),
                     reason: format!("svg parse error: {}", e),
                 })
@@ -401,7 +386,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
                 if tag.to_lowercase() == "script" {
                     return Err(LintError::Failed {
                         path,
-                        line_number: 0,
+                        line_number: 0.into(),
                         line: "N/A".to_string(),
                         reason: format!("svg contains JavaScript: {:?}", event),
                     });

@@ -38,9 +38,9 @@ struct Args {
     #[arg(long, requires = "lint")]
     log_warn: bool,
 
-    /// Update page/diagram count badges
+    /// Update page/diagram count badges and missing meta tags.
     #[arg(short, long)]
-    update_badges: bool,
+    update: bool,
 }
 
 fn main() -> Result<()> {
@@ -49,21 +49,25 @@ fn main() -> Result<()> {
     let args = Args::parse();
     let book = har_analyze::Book::try_new(args.lint).unwrap();
 
+    // Status Report
     if args.metrics {
         println!("\n{}", book);
     }
 
+    // Update/fix
+    if args.update {
+        har_analyze::update_badges(&book).unwrap();
+        har_analyze::update_meta_tags(&book).unwrap();
+        println!("Updates {}", "OK".green());
+    }
+
+    // Verify
     if args.lint {
         book.get_non_chp_linter().run(args.log_warn).unwrap();
         book.get_chp_intro_linter().run(args.log_warn).unwrap();
         book.get_chp_sections_linter().run(args.log_warn).unwrap();
         book.get_svg_linter().run(args.log_warn).unwrap();
         println!("Lint {}", "OK".green());
-    }
-
-    if args.update_badges {
-        har_analyze::update_badges(&book).unwrap();
-        println!("Badges {}", "OK".green());
     }
 
     Ok(())
