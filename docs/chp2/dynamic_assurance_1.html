@@ -179,7 +179,19 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="dynamic-assurance-1-of-3"><a class="header" href="#dynamic-assurance-1-of-3">Dynamic Assurance (1 of 3)</a></h1>
+                        <meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+<h1 id="dynamic-assurance-1-of-3"><a class="header" href="#dynamic-assurance-1-of-3">Dynamic Assurance (1 of 3)</a></h1>
 <p>Static analysis can be a tough topic to tackle, it's the tip of the iceberg for a world of theory and proofs that may seem divorced from the realities of day-to-day development.
 But, as users of compilers, we benefit from type systems without having to grok all the implementation details.</p>
 <p>By comparison, dynamic analysis is the fun and relatable counterpart.
@@ -345,8 +357,8 @@ rc4 = { path = &quot;../rc4&quot; }
 </code></pre>
 <p>To verify that your workspace is ready to roll, run <code>cargo build</code> from the <code>crypto_tool</code> directory.
 You should see output similar to the below, showing both <code>rc4</code> and <code>rcli</code> being successfully compiled:</p>
-<pre><code class="language-ignore">   Compiling rcli v0.1.0 (/home/tb/proj/book-draft/code_snippets/chp2/crypto_tool/rcli)
-   Compiling rc4 v0.1.0 (/home/tb/proj/book-draft/code_snippets/chp2/crypto_tool/rc4)
+<pre><code class="language-ignore">   Compiling rcli v0.1.0 (/home/tb/proj/high-assurance-rust/code_snippets/chp2/crypto_tool/rcli)
+   Compiling rc4 v0.1.0 (/home/tb/proj/high-assurance-rust/code_snippets/chp2/crypto_tool/rc4)
     Finished dev [unoptimized + debuginfo] target(s) in 0.43s
 </code></pre>
 <p>Now that the boilerplate is out of the way, we're ready to start writing our embedded-friendly RC4 library!</p>

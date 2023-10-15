@@ -179,7 +179,19 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="on-undefined-behavior"><a class="header" href="#on-undefined-behavior">On Undefined Behavior</a></h1>
+                        <meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+<h1 id="on-undefined-behavior"><a class="header" href="#on-undefined-behavior">On Undefined Behavior</a></h1>
 <p>One of MISRA C's driving goals is reducing the amount of &quot;Undefined Behavior&quot; (UB) <sup class="footnote-reference"><a href="#MISRA_TALK">1</a></sup> present in a codebase.
 We made passing mention of UB in Chapter 1, but it's an essential concept.
 Eliminating UB is necessary, but not sufficient, for high assurance software.
@@ -288,7 +300,7 @@ So there are likely only three potential sources of UB in Rust:</p>
 <p>Rare compiler bugs<sup class="footnote-reference"><a href="#RustcBug">8</a></sup> that threaten soundness (patched once discovered).</p>
 </li>
 <li>
-<p>Platform-specific invariant violations, like executing a program compiled with support for specific CPU extensions on CPU variant that doesn't support them (deployment problem).</p>
+<p>Platform-specific invariant violations, like executing a program compiled with support for specific CPU extensions on a CPU variant that doesn't support them (deployment problem).</p>
 </li>
 </ul>
 <p>In July of 2022, the Ferrocene Language Specification (FLS)<sup class="footnote-reference"><a href="#FLS">9</a></sup> was made public.
