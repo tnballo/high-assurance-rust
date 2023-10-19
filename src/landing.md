@@ -143,4 +143,4 @@ A full list of awarded projects is <a href="https://foundation.rust-lang.org/new
 
 ---
 
-> \* == may be subject to change! This book is a [work in progress](./faq.md#8-is-this-book-free). If you're like to be notified when it's finished and a physical print is available, please [sign up here](https://forms.gle/ESYgXgswCjEoCSHT9).
+> \* == may be subject to change! This book is a [work in progress](./faq.md#8-is-this-book-free). If you'd like to be notified when it's finished and a physical print is available, please [sign up here](https://forms.gle/ESYgXgswCjEoCSHT9).
