@@ -194,7 +194,7 @@ But we'll use it to wrap up this aside on types and reliability.
 > Go is a popular, modern, statically-typed, natively-compiled programming language.
 > It has fantastic concurrency support.
 > But garbage collection makes it unsuitable for a wide range of systems programming tasks.
-> Go has to "pause" your entire program at unpredictable internals and execute an algorithm to clean up memory.
+> Go has to "pause" your entire program at unpredictable intervals and execute an algorithm to clean up memory.
 > This is often unacceptable for real-time and low-latency systems.
 >
 > Rust helps you wrangle memory at compile time, inserting allocation/deallocation logic based on variable scope.
