@@ -40,6 +40,7 @@ Huge thank you to everyone making this book better[^Contrib]!
 Listed alphabetically:
 
 * [aelnona](https://github.com/aelnona)
+* [asher-gh](https://github.com/asher-gh)
 * [drlef](https://github.com/drlef)
 * [duzumaki](https://github.com/duzumaki)
 * [humb1t](https://github.com/humb1t)
