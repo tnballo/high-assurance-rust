@@ -172,7 +172,7 @@ Note that named fields (`pid`, `state`, and `children`) are private by default.
 They can only be accessed by code in the *module* in which the struct is defined.
 Modules are a way to group related code, think of them as Rust's version of namespaces.
 
-If this code where in another module that imported `Proc`, it would not compile because the private field `state` cannot be assigned to:
+If this code were in another module that imported `Proc`, it would not compile because the private field `state` cannot be assigned to:
 
 ```rust,ignore
 use my_os_module::Proc;
