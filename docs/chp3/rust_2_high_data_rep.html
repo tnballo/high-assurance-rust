@@ -331,7 +331,7 @@ For example:</p>
 <p>Note that named fields (<code>pid</code>, <code>state</code>, and <code>children</code>) are private by default.
 They can only be accessed by code in the <em>module</em> in which the struct is defined.
 Modules are a way to group related code, think of them as Rust's version of namespaces.</p>
-<p>If this code where in another module that imported <code>Proc</code>, it would not compile because the private field <code>state</code> cannot be assigned to:</p>
+<p>If this code were in another module that imported <code>Proc</code>, it would not compile because the private field <code>state</code> cannot be assigned to:</p>
 <pre><code class="language-rust ignore">use my_os_module::Proc;
 
 let mut my_proc = Proc::new(0);

@@ -215,7 +215,7 @@ h3 {
 <center>
 <p><a href="https://github.com/tnballo/high-assurance-rust"><img src="https://img.shields.io/github/stars/tnballo/high-assurance-rust?style=social" alt="Repo" /></a>
 <a href="https://github.com/tnballo/high-assurance-rust"><img src="https://img.shields.io/badge/Pages-178-purple.svg" alt="Pages" /></a>
-<a href="https://github.com/tnballo/high-assurance-rust"><img src="https://img.shields.io/badge/Diagrams-49-blue.svg" alt="Diagrams" /></a>
+<a href="https://github.com/tnballo/high-assurance-rust"><img src="https://img.shields.io/badge/Diagrams-51-blue.svg" alt="Diagrams" /></a>
 <a href="https://highassurance.rs/cfp.html"><img src="https://img.shields.io/badge/Price-$0.00-orange.svg" alt="Price" /></a>
 <a href="https://highassurance.rs/license.html"><img src="https://img.shields.io/badge/Text%20License-CC%20BY--NC--ND%204.0-yellow.svg" alt="Text License: CC BY-NC-ND 4.0" /></a>
 <a href="https://highassurance.rs/license.html"><img src="https://img.shields.io/badge/Code%20License-MIT-yellowgreen.svg" alt="Code License: MIT" /></a>
@@ -1541,6 +1541,7 @@ Listed alphabetically:</p>
 <li><a href="https://github.com/aelnona">aelnona</a></li>
 <li><a href="https://github.com/asher-gh">asher-gh</a></li>
 <li><a href="https://github.com/drlef">drlef</a></li>
+<li><a href="https://github.com/Druthyn">Druthyn</a></li>
 <li><a href="https://github.com/duzumaki">duzumaki</a></li>
 <li><a href="https://github.com/humb1t">humb1t</a></li>
 <li><a href="https://github.com/jam1garner">jam1garner</a></li>
@@ -5839,7 +5840,7 @@ For example:</p>
 <p>Note that named fields (<code>pid</code>, <code>state</code>, and <code>children</code>) are private by default.
 They can only be accessed by code in the <em>module</em> in which the struct is defined.
 Modules are a way to group related code, think of them as Rust's version of namespaces.</p>
-<p>If this code where in another module that imported <code>Proc</code>, it would not compile because the private field <code>state</code> cannot be assigned to:</p>
+<p>If this code were in another module that imported <code>Proc</code>, it would not compile because the private field <code>state</code> cannot be assigned to:</p>
 <pre><code class="language-rust ignore">use my_os_module::Proc;
 
 let mut my_proc = Proc::new(0);

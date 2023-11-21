@@ -83,22 +83,13 @@ pub fn update_badges(book: &Book) -> io::Result<()> {
 pub fn update_meta_tags(book: &Book) -> io::Result<()> {
     for chp in book.chapters.values() {
         for content in &chp.contents {
-            if let Content::Section { path, lines, .. } = content {
+            if let Content::Section { path, .. } = content {
                 let file = File::open(path)?;
                 let reader = BufReader::new(file);
                 let current_contents = reader
                     .lines()
                     .map_while(Result::ok)
                     .collect::<Vec<String>>();
-
-                // Check that in-memory representation still matches file
-                if let Some(mem_lines) = lines {
-                    mem_lines.iter().zip(current_contents.iter()).for_each(
-                        |(mem_line, file_line)| {
-                            debug_assert!(mem_line == file_line);
-                        },
-                    );
-                }
 
                 let new_contents = if starts_with_meta_tags(current_contents.iter()) {
                     current_contents
