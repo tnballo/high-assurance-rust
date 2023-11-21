@@ -42,6 +42,7 @@ Listed alphabetically:
 * [aelnona](https://github.com/aelnona)
 * [asher-gh](https://github.com/asher-gh)
 * [drlef](https://github.com/drlef)
+* [Druthyn](https://github.com/Druthyn)
 * [duzumaki](https://github.com/duzumaki)
 * [humb1t](https://github.com/humb1t)
 * [jam1garner](https://github.com/jam1garner)
