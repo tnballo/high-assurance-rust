@@ -102,7 +102,7 @@ char* get_greeting() {
         return NULL;
     } else {
         strncpy(greeting, "Hello", 6);
-        assert(greeting[6] == '\0');
+        assert(greeting[5] == '\0');
         return greeting;
     }
 }

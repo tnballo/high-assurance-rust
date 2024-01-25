@@ -47,6 +47,7 @@ Listed alphabetically:
 * [humb1t](https://github.com/humb1t)
 * [jam1garner](https://github.com/jam1garner)
 * [jamesreprise](https://github.com/jamesreprise)
+* [jkoeppeler](https://github.com/jkoeppeler)
 * [kaylynn234](https://github.com/kaylynn234)
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
