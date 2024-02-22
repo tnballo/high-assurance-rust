@@ -63,26 +63,33 @@ assert_eq!(map.get(&2), None);
 Based on the above, you might expect the `get` method's signature to look like this for `BTreeMap<K, V>`:
 
 ```rust,ignore
-/// Returns a reference to the value corresponding to the key.
-pub fn get(&self, key: &K) -> Option<&V>
-where
-    K: Ord
-{
-    // ...function body here...
+impl<K, V> BTreeMap<K, V> {
+    /// Returns a reference to the value corresponding to the key.
+    pub fn get(&self, key: &K) -> Option<&V>
+    where
+        K: Ord
+    {
+        // ...function body here...
+    }
+    // ... rest of the methods
 }
+
 ```
 
 But it doesn't.
 The real `get` method has this signature[^BTreeMapGet2]:
 
 ```rust,ignore
-/// Returns a reference to the value corresponding to the key.
-pub fn get<Q>(&self, key: &Q) -> Option<&V>
-where
-    K: Borrow<Q> + Ord,
-    Q: Ord + ?Sized,
-{
-    // ...function body here...
+impl<K, V> BTreeMap<K, V> {
+    /// Returns a reference to the value corresponding to the key.
+    pub fn get<Q>(&self, key: &Q) -> Option<&V>
+    where
+        K: Borrow<Q> + Ord,
+        Q: Ord + ?Sized,
+    {
+        // ...function body here...
+    }
+    // ... rest of the methods
 }
 ```
 
