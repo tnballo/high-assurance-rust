@@ -37,7 +37,7 @@ To cite this book directly in your own work, please use this BibTeX or similar:
 #### Interested in a physical print?
 
 Please [sign up here](https://forms.gle/ESYgXgswCjEoCSHT9) if you'd like to be notified when the book is finished and hard copies are available.
-The email you provide not be shared or used for any other purpose.
+The email you provide will not be shared or used for any other purpose.
 
 #### Have feedback or questions?
 

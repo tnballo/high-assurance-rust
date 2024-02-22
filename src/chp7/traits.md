@@ -46,7 +46,7 @@ Colloquially, that means keys can be compared with logical operators (`>`, `<=`,
 Because they implement the `Ord` trait.
 If keys can't be ordered but are hashable, you'd want to use a `HashMap`[^HashMap] instead.
 
-Say we want to perform to a lookup in an ordered map - to get the value associated with a given key, if any.
+Say we want to perform a lookup in an ordered map - to get the value associated with a given key, if any.
 A `get` method should take a reference to a key as input, and return an `Option` (containing a value reference for the `Some` case, when the key is found).
 
 That's how the standard library works, here's the official example[^BTreeMapGet1]:
