@@ -209,9 +209,9 @@ But the refactor introduced a new temporal bug!
 ```c
 int main() {
     char* greeting = get_greeting();
-    size_t greeting_len = strlen(greeting); // Excludes null byte
     if (greeting != NULL) {
         // Append "!" correctly
+        size_t greeting_len = strlen(greeting); // Excludes null byte
         greeting = (char*)realloc(greeting, greeting_len + 2);
         if (greeting != NULL) {
             // strcat could be used here instead of the two lines below
@@ -229,6 +229,8 @@ int main() {
 ```
 
 * This time, we remembered that appending to a string in C requires manually re-allocating  the backing memory (via `realloc()`). We no longer assume an 11-character `Hello World` return, instead we compute the string's length dynamically via `strlen`.
+
+    * We make sure to call `strlen` after checking that `greeting` is non-null, otherwise it would dereference a null pointer, resulting in UB.
 
     * As a quirk, the reported length doesn't include the null-terminator (although it must be present for `strlen` to report a correct result). That's why we call `realloc` with `greeting_len + 2` - accounting for both the space to add `!` and to append a new null byte.
 
