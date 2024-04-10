@@ -15,7 +15,7 @@ impl Rc4 {
     /// Init a new Rc4 stream cipher instance
     pub fn new(key: &[u8]) -> Self {
         // Verify valid key length (40 to 2048 bits)
-        assert!(5 <= key.len() && key.len() <= 256);
+        assert!(5 >= key.len() && key.len() <= 256);
 
         // Zero-init our struct
         let mut rc4 = Rc4 {
