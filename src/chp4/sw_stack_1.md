@@ -220,8 +220,6 @@ We'll cover stack and static memory next.
 In the context of a language, agnostic reliability pattern.
 Heap memory will come a bit later!
 
----
-
 [^Chp1Levels]: "Low-level" can be an ambiguous and overloaded term to apply to a programming language. We briefly explained our usage of the term in the ["Languages by Level"](https://highassurance.rs/chp1/why_this_book.html#languages-by-level) section of Chapter 1.
 
 [^CorruptCrash]: [*What You Corrupt Is Not What You Crash: Challenges in Fuzzing Embedded Devices*](https://www.s3.eurecom.fr/docs/ndss18_muench.pdf). Marius Muench, Jan Stijohann, Frank Kargl, Aurelien Francillon, Davide Balzarotti (2018).

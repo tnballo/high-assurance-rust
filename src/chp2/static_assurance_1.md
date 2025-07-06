@@ -267,8 +267,6 @@ Let's get a taste for how Rust handles the pointer problem.
 >
 > Approximate static analyses can, in many contexts, be demonstrably useful.
 
----
-
 [^AbsInt]: [*Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints*](https://dl.acm.org/doi/10.1145/512950.512973). Patrick Cousot, Radhia Cousot (1977).
 
 [^SymEx]: Breaking down outcomes according to *constraints* on program variables (like `x != 7`) is a hallmark of "symbolic execution", a particularly powerful program analysis. In theory, symbolic execution is a purely static analysis. But in practice it's often implemented using feedback from concrete, dynamic runs (aka "concolic execution").

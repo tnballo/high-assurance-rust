@@ -333,8 +333,6 @@ We can choose the best approach for each situation: asserting invariants, propag
 That concludes our six-part tour of Rust's core concepts!
 The rest of this chapter looks at features and tools that help us to build large, ambitious systems in the language.
 
----
-
 [^Option]: [*Enum `std::option::Option`*](https://doc.rust-lang.org/std/option/enum.Option.html). The Rust Team (Accessed 2022).
 
 [^Result]: [*Enum `std::error::Error`*](https://doc.rust-lang.org/std/error/trait.Error.html). The Rust Team (Accessed 2022).

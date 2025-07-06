@@ -103,8 +103,6 @@ Many cryptography books assume a PhD-level math background, making them almost u
 Others dumb it down too much, replacing all math with cartoonish diagrams (a sin this section is guilty of).
 *Understanding Cryptography* is a happy medium: accessible with undergraduate-level math experience but still the real deal.
 
----
-
 [^Kerchoff]: [*Kerchoff's Principle*](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle). Wikipedia (Accessed 2022).
 
 [^AES]: [*Advanced Encryption Standard*](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). Wikipedia (Accessed 2022).
@@ -116,5 +114,3 @@ Others dumb it down too much, replacing all math with cartoonish diagrams (a sin
 [^UnderstandingCryptoVideo]: [*Online Cryptography Course*](https://www.crypto-textbook.com/movies.php). Christof Paar, Jan Pelzl (2009).
 
 [^AESNI]: [*Advanced Encryption Standard New Instructions (AES-NI) Analysis: Security, Performance, and Power Consumption*](http://www.sce.carleton.ca/faculty/huang/iccae-2020.pdf). Eslam AbdAllah, Yu Rang Kuang, and Changcheng Huang (2020).
-
-

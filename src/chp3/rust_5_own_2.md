@@ -469,8 +469,6 @@ But Rust is also known for general correctness - for robustness beyond memory sa
 Its error handling story is a major reason for that reputation.
 And our next topic.
 
----
-
 [^BorrowChecker]: [*MIR borrow check*](https://rustc-dev-guide.rust-lang.org/borrow_check.html). Guide to Rustc Development (Accessed 2022).
 
 [^GeneralTrend]: At some level, that's also true of most Programming Language (PL) innovations (e.g. type systems and annotation-based frameworks).

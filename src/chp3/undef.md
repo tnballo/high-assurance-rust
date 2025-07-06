@@ -371,8 +371,6 @@ Rust isn't perfect, but eliminating UB is certainly its strong suit.
 > We did not test `gcc` 12's ability to detect the aforementioned "Dirty Pipe"[^DirtyPipe] kernel vulnerability.
 > But that could be a worthwhile exercise for interested readers.
 
----
-
 [^MISRA_TALK]: [*The Misra C Coding Standard and its Role in the Development (SAS Talk)*](https://www.youtube.com/watch?v=LCZotsYizRI). Roberto Bagnara (2018).
 
 [^ISOC]: [*ISO/IEC 9899:TC3*](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf). International Organization for Standardization (2007). Note newer standards for the C language must be paid for, they are not freely available online. The points we make in this book are still applicable to newer C standards.

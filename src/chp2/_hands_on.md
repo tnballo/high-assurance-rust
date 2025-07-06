@@ -51,8 +51,6 @@ Feel free to implement your own ideas as well!
 
 <br>
 
----
-
 [^AEADList]: [*RustCrypto: Authenticated Encryption with Associated Data (AEAD) Algorithms*](https://github.com/RustCrypto/AEADs). RustCrypto organization (Accessed 2022).
 
 [^SideChannel]: Side-channel attacks leverage information *leaked* by a physical system (timing, power consumption, electromagnetic emissions, acoustic emissions, etc) to compromise security. In the context of cryptography, this often means extracting secret key material via an indirect means (no software bugs exploited!). Some cryptographic algorithms are designed with this threat model in mind. Their operations are carefully constructed to reduce any externally observable variance, making side-channel attacks significantly more difficult or outright impractical.

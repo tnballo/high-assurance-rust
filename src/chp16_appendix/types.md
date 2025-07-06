@@ -214,8 +214,6 @@ Weak static typing, where type casting with little restriction is tolerated, is 
 It can introduce UB.
 Whose consequences include crashes, incorrect results, and security vulnerabilities.
 
----
-
 [^TPL]: [*Types and Programming Languages*](https://www.cis.upenn.edu/~bcpierce/tapl/). Benjamin C. Pierce (2002).
 
 [^UndefResearch]: [*Undefined Behavior: What Happened to My Code?*](https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf). Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012).

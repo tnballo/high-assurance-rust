@@ -421,8 +421,6 @@ Don't worry - changes are always backwards compatible, new versions won't break 
 But understanding how Rust's versioning works is useful.
 Whether you want to keep up with the latest-and-greatest or just keep the production ship sailing smoothly.
 
----
-
 [^RustDoc]: [*What is rustdoc?*](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html). The Rustdoc Book (Accessed 2022).
 
 [^Markdown]: [*Basic Syntax, The Markdown elements outlined in the original design document.*](https://www.markdownguide.org/basic-syntax/). Matt Cone (Accessed 2022).

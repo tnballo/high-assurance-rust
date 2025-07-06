@@ -255,8 +255,6 @@ Let's move on to dynamic analysis, and start writing our first Rust program.
 > We'll try out early prototypes for deductive verification in Chapter 11.
 > Rust verification is an area of active academic research.
 
----
-
 [^CorecurPodcast]: [*Software in Context, With Zach Tellman*](https://corecursive.com/042-zach-tellman-software-in-context/). Zach Tellman, Adam Gordon Bell (2019).
 
 [^MMIO]: Memory Mapped Input/Output (MMIO) is a context in which you need to spray some distant, seemingly random region of memory with a bunch of magic bytes. Perhaps surprisingly, that's one major way to control hardware peripherals. The "data sheet" (an official hardware manual written by the manufacturer) tells you which specific memory address to write what magic bytes to. It's the sort of thing where you just need raw pointers, danger be damned! [^SafeMMIO].

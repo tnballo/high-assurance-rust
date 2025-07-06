@@ -19,6 +19,8 @@ check:
 	cd code_snippets/chp4/stack_example && cargo fmt
 	cd code_snippets/chp4/stack_example_iter && cargo fmt
 	cd code_snippets/chp14/tactical_trust && cargo fmt && cargo test
+	cd code_snippets/chp14/tt_test_crates/test_crypto_duplicates && cargo fmt && cargo test
+	cd code_snippets/chp14/tt_test_crates/test_disallowed_crypto_publishers && cargo fmt && cargo test
 
 	# Metrics and linting
 	cd internal_tools/har_analyze && cargo fmt && cargo test && cargo clippy && cargo run -- --metrics --lint --log-warn

@@ -261,8 +261,6 @@ Let's put this code through its paces!
 > It's an excellent introduction to the field of cryptography.
 > And the book is supplemented by free video lectures[^UnderstandingCryptoVideo].
 
----
-
 [^BeginMacro]: Unlike C macros, Rust macros are *hygienic*: they won't cause subtle problems by capturing identifiers. This is part of what makes them so easy to use. In fact, `println!` is a macro. So you already used a macro when running the "Hello world!" program at the end of Chapter 1.
 
 [^TraitDebug]: [*Trait `std::fmt::Debug`*](https://doc.rust-lang.org/std/fmt/trait.Debug.html). The Rust Team (Accessed 2022).

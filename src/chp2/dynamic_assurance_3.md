@@ -173,8 +173,6 @@ Before we get to the fun and tangible part - writing a command line tool that us
 > `rustls`[^RusTLS], a pure-Rust TLS library, is one notable project.
 > In 2019, it outperformed OpenSSL by significant margins[^FastRust].
 
----
-
 [^ASCII]: [*ASCII*](https://en.wikipedia.org/wiki/ASCII). Wikipedia (Accessed 2022).
 
 [^TestVec]: [*Test Vectors for the Stream Cipher RC4*](https://datatracker.ietf.org/doc/html/rfc6229). Internet Engineering Task Force (2011).

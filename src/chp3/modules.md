@@ -404,8 +404,6 @@ Let's move onto tools for keeping those same projects healthy over time.
 >
 > Whereas this section focused on Rust's module system, the supplementary appendix section explores universal principles.
 
----
-
 [^CppD]: [*The Design of C++*](https://www.youtube.com/watch?v=69edOm889V4). Bjarne Stroustrup (1994).
 
 [^Simula]: A 1962 object-oriented language designed for writing simulations. Introduced the idea of classes.

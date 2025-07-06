@@ -261,8 +261,6 @@ With that high-level conceptualization in mind, let's learn our way around a deb
 In the next section, we'll put these concepts into play hands-on to reduce secret exposure on an untrusted host.
 -->
 
----
-
 [^ProjZero2021Review]: [*The More You Know, The More You Know You Don't Know*](https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html). Maddie Stone, Google Project Zero (2022).
 
 [^DoD]: [*DoD Software Assurance Initiative*](https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf). Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)

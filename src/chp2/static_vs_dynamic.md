@@ -149,8 +149,6 @@ Both approaches can find known (e.g. existing CVEs) and unknown bugs (e.g. zero-
 Let's tackle static analysis first, while we're fresh.
 It's the more theoretically complex of the pair.
 
----
-
 [^OpenSSL]: [*OpenSSL*](https://www.openssl.org/). The OpenSSL Project (2021).
 
 [^Most]: "Most" excludes domains outside those the analysis is capable of reasoning about. That could be because they're tough to model, like a power or timing hardware side-channel (where something about the hardware's interaction with the physical world produces a vulnerability). Or because a bug in the code performing the analysis, or a shortcoming of it's design, lead to limitations in the domain it *can* reason about.

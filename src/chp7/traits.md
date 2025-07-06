@@ -322,8 +322,6 @@ So the complexity we've covered has a major payoff: the same code seamlessly sup
 With all that trait binding background behind us, we know how and why specific interfaces are designed a certain way.
 Now let's tackle the logic backing them: the core operations of our self-balancing scapegoat tree.
 
----
-
 [^BTreeSet]: [*Struct `std::collections::BTreeSet`*](https://doc.rust-lang.org/stable/std/collections/struct.BTreeSet.html). The Rust Team (Accessed 2022).
 
 [^BTreeMap]: [*Struct `std::collections::BTreeMap`*](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html). The Rust Team (Accessed 2022).

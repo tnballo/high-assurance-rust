@@ -464,8 +464,6 @@ Instead of spending dozens more pages on the intricacies, we'll move on to more 
 You'll master all of these topics through hands-on experience as we progress through the book.
 Our present goal is to rapidly survey Rust's fundamentals.
 
----
-
 [^IntWrap]: [*Myths and Legends about Integer Overflow in Rust*](https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/). Huon Wilson (2016).
 
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).

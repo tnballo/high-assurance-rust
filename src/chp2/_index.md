@@ -175,7 +175,6 @@ Let's secure the frontier!
 * Write your first interesting Rust program: a tiny encryption tool
 * Learn how to build a statically-linked executable (works on nearly any Linux client)
 
----
 [^DoD]: [*DoD Software Assurance Initiative*](https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf). Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)
 
 [^SWEBook]: [*Guide to the Software Engineering Body of Knowledge*](https://cs.fit.edu/~kgallagher/Schtick/Serious/SWEBOKv3.pdf). Pierre Bourque, Richard E. Fairley (2014)

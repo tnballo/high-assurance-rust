@@ -108,22 +108,33 @@ pub fn rule_footer<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), LintEr
         .collect();
 
     match sep_idxs.len() {
-        0 => Err(LintError::Failed {
-            path,
-            line_number: 0.into(),
-            line: "N/A".to_string(),
-            reason: "Missing header/footer separator".to_string(),
-        }),
-        1 => {
-            if !lines[sep_idxs[0]..]
+        0 => {
+            if !lines
                 .iter()
+                .rev()
+                .any(|l| l.starts_with("[^") && l.contains("]:"))
+            {
+                Err(LintError::Failed {
+                    path,
+                    line_number: 0.into(),
+                    line: "N/A".to_string(),
+                    reason: "Missing footer separator (no footnotes)".to_string(),
+                })
+            } else {
+                Ok(())
+            }
+        }
+        1 => {
+            if lines[sep_idxs[0]..]
+                .iter()
+                .rev()
                 .any(|l| l.starts_with("[^") && l.contains("]:"))
             {
                 Err(LintError::Failed {
                     path,
                     line_number: sep_idxs[0].into(),
                     line: lines[sep_idxs[0]].clone(),
-                    reason: "Footer must contain at least one footnote".to_string(),
+                    reason: "mdbook already adds horizontal rule for above footnotes".to_string(),
                 })
             } else {
                 Ok(())
@@ -155,24 +166,36 @@ pub fn rule_header_and_footer<'a>(
             path,
             line_number: 0.into(),
             line: "N/A".to_string(),
-            reason: "Missing header/footer separator".to_string(),
+            reason: "Missing header separator".to_string(),
         }),
-        1 => Err(LintError::Failed {
-            path,
-            line_number: sep_idxs[0].into(),
-            line: lines[sep_idxs[0]].clone(),
-            reason: "Sole separator - missing header or footer".to_string(),
-        }),
-        2 => {
-            if !lines[sep_idxs[1]..]
+        1 => {
+            if !lines[sep_idxs[0]..]
                 .iter()
+                .rev()
+                .any(|l| l.starts_with("[^") && l.contains("]:"))
+            {
+                Err(LintError::Failed {
+                    path,
+                    line_number: sep_idxs[0].into(),
+                    line: lines[sep_idxs[0]].clone(),
+                    reason: "Manual footer horizontal rule must be added if no footnotes"
+                        .to_string(),
+                })
+            } else {
+                Ok(())
+            }
+        }
+        2 => {
+            if lines[sep_idxs[1]..]
+                .iter()
+                .rev()
                 .any(|l| l.starts_with("[^") && l.contains("]:"))
             {
                 Err(LintError::Failed {
                     path,
                     line_number: sep_idxs[1].into(),
                     line: lines[sep_idxs[1]].clone(),
-                    reason: "Footer must contain at least one footnote".to_string(),
+                    reason: "mdbook already adds horizontal rule for above footnotes".to_string(),
                 })
             } else {
                 Ok(())
@@ -182,7 +205,7 @@ pub fn rule_header_and_footer<'a>(
             path,
             line_number: 0.into(),
             line: "N/A".to_string(),
-            reason: "Cannot have 3+ headers in a section".to_string(),
+            reason: "Cannot have 3+ horizontal rules a section".to_string(),
         }),
     }
 }

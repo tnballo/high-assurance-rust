@@ -321,8 +321,6 @@ You're going to want a coffee for this one.
 But it'll still be good fun.
 Trust me.
 
----
-
 [^MatterHeartbleed]: [*The Matter of Heartbleed*](https://dl.acm.org/doi/pdf/10.1145/2663716.2663755). Zakir Durumeric, Frank Li, James Kasten, Nicolas Weaver, Johanna Amann, Jethro Beekman, Mathias Payer, David Adrian, Michael Bailey, Vern Paxson, J. Alex Halderman (2014).
 
 [^Ivory]: [*Ivory Tower*](https://en.wikipedia.org/wiki/Ivory_tower). Wikipedia (Accessed 2025).

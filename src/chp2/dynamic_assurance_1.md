@@ -220,8 +220,6 @@ Now that the boilerplate is out of the way, we're ready to start writing our emb
 > * Cryptography is not the focus of this book, you only need to grasp the broad strokes as context for the example program we're developing in this chapter.
 >   * Remember to review [the corresponding appendix section](../chp16_appendix/crypto.md) if needed.
 
----
-
 [^FalsePos]: Generally speaking, there are no false positives in dynamic analysis. But there exist test-specific exceptions. For example, say you're fuzzing (stress testing) a single function to find crashing inputs. You may find a crash, but in reality the full program may sanitize (normalize or reject) your crashing input before passing it along to the function under test. In this case, the crash may not actually be reproducible in the context of the larger program.
 
 [^Workspaces]: [*Workspaces*](https://doc.rust-lang.org/cargo/reference/workspaces.html). The Cargo Book (Accessed 2022).

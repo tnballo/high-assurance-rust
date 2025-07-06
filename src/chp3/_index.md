@@ -210,8 +210,6 @@ With that out of the way, let's start the zero-crash course.
 * Learn core Rust language features, get comfortable reading/writing Rust snippets.
 * Learn must-have Rust tooling to ease day-to-day software engineering tasks.
 
----
-
 [^ProgRust]: [***[PERSONAL FAVORITE]** Programming Rust: Fast, Safe Systems Development*](https://amzn.to/35cu1Za). Jim Blandy, Jason Orendorff, Leonora Tindall (2021).
 
 [^RustInfluences]: [*The Rust Reference: Influences*](https://doc.rust-lang.org/reference/influences.html). The Rust Team (2021).

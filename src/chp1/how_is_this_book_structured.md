@@ -127,8 +127,6 @@ The road through proficiency and onto expert status is unpaved.
 It's up to you to chart a course.
 We hope this book will be your start.
 
----
-
 [^Dreyfus]: [*A Five-Stage Model of the Mental Activities Involved in Directed Skill Acquisition*](https://apps.dtic.mil/sti/pdfs/ADA084551.pdf). Stuart E.Dreyfus, Hubert L. Dreyfus (1980).
 
 [^NewDreyfus]: [*The Five-Stage Model of Adult Skill Acquisition*](https://www.bumc.bu.edu/facdev-medicine/files/2012/03/Dreyfus-skill-level.pdf). Stuart E.Dreyfus (2004). Note that both original paper and this update have been criticized not using empirical, experimental data to justify the proposed taxonomization.

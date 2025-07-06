@@ -562,8 +562,6 @@ As obtuse as this firehose of concepts may feel now, ownership will eventually s
 It's a different way of doing things, but one you can grow accustomed to.
 Let's explore it further.
 
----
-
 [^Own]: "Ownership" is not something Rust invented, it's based on prior work in linear and affine types. Additionally, ownership-based "region analysis" to do compile-time memory management appeared in an esoteric language called Cyclone. But Rust is the first mainstream, commercially-viable language that uses ownership enforcement to manage memory.
 
 [^DiscGo]: [*Why Discord is switching from Go to Rust*](https://blog.discord.com/why-discord-is-switching-from-go-to-rust-a190bbca2b1f). Jesse Howarth (2020).
