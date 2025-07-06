@@ -259,6 +259,6 @@ It may not *be easy* - but it can *be*.
 
 [^PyList]: [*dictobject.c*](https://github.com/python/cpython/blob/master/Objects/dictobject.c). CPython Interpreter (2021).
 
-[^TooManyLink]: [*Learn Rust With Entirely Too Many Linked Lists*](https://rust-unofficial.github.io/too-many-lists/). Alexis Beingessner (2021).
+[^TooManyLink]: [*Learn Rust With Entirely Too Many Linked Lists*](https://rust-unofficial.github.io/too-many-lists/). Aria Desires (2021).
 
 [^Moore]: [*Moore's law*](https://en.wikipedia.org/wiki/Moore%27s_law). Wikipedia (Accessed 2022).
