@@ -399,7 +399,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
             }
             // No JS
             svg::parser::Event::Tag(tag, ..) => {
-                if tag.to_lowercase() == "script" {
+                if tag.eq_ignore_ascii_case("script") {
                     return Err(LintError::Failed {
                         path,
                         line_number: 0.into(),
