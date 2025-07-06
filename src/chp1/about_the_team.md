@@ -52,6 +52,7 @@ Listed alphabetically:
 * [kaylynn234](https://github.com/kaylynn234)
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
+* [pixelshot91](https://github.com/pixelshot91)
 * [qrilka](https://github.com/qrilka)
 * [rrevi](https://github.com/rrevi)
 * [samestep](https://github.com/samestep)
