@@ -227,7 +227,7 @@ First, recall the source code:
 {{#include ../../code_snippets/chp4/stack_example/src/main.rs:recursive_count_down}}
 ```
 
-Using [https://godbolt.org](https://godbolt.org/z/4rzsrGscx) to generate assembly (your results may var depending on compiler version[^GenCompVer]) with the `-C "opt-level=z"` flag (optimizing for small code size - and also human readability):
+Using [https://godbolt.org](https://godbolt.org/z/4rzsrGscx) to generate assembly (your results may vary depending on compiler version[^GenCompVer]) with the `-C "opt-level=z"` flag (optimizing for small code size - and also human readability):
 
 ```assembly,ignore
 example::recursive_count_down:
