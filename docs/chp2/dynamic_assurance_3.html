@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html" class="active"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -203,7 +198,7 @@ mod tests {
 }</code></pre>
 <p>This is unit test boilerplate, it was filled in when we ran <code>cargo new crypto_tool/rc4 --lib</code> earlier.
 We're going to replace it with our own unit test now.</p>
-<p>The first test we'll write is essentially a &quot;sanity check&quot;.
+<p>The first test we'll write is essentially a "sanity check".
 At a bare minimum, our library should be able to transform plaintext into something different (presumably an encrypted form) and back into the original.
 That's what this test checks for:</p>
 <pre><code class="language-rust ignore">#[cfg(test)]
@@ -222,12 +217,12 @@ mod tests {
         let plaintext = [
             0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f,
             0x72, 0x6c, 0x64, 0x21,
-        ]; // &quot;Hello World!&quot;
+        ]; // "Hello World!"
 
         let mut msg: [u8; 12] = plaintext.clone();
 
         println!(
-            &quot;Plaintext (initial): {}&quot;,
+            "Plaintext (initial): {}",
             String::from_utf8(msg.to_vec()).unwrap()
         );
 
@@ -235,14 +230,14 @@ mod tests {
         Rc4::apply_keystream_static(&amp;key, &amp;mut msg);
         assert_ne!(msg, plaintext);
 
-        println!(&quot;Ciphertext: {:x?}&quot;, msg);
+        println!("Ciphertext: {:x?}", msg);
 
         // Decrypt in-place
         Rc4::apply_keystream_static(&amp;key, &amp;mut msg);
         assert_eq!(msg, plaintext);
 
         println!(
-            &quot;Plaintext (decrypted): {}&quot;,
+            "Plaintext (decrypted): {}",
             String::from_utf8(msg.to_vec()).unwrap()
         );
     }
@@ -253,12 +248,12 @@ mod tests {
 <p><code>key</code> is a random, 16-byte key we've chosen arbitrarily for testing purposes.</p>
 </li>
 <li>
-<p><code>msg</code> is the raw bytes for the ASCII<sup class="footnote-reference"><a href="#ASCII">1</a></sup> string &quot;Hello World!&quot;.</p>
+<p><code>msg</code> is the raw bytes for the ASCII<sup class="footnote-reference" id="fr-ASCII-1"><a href="#footnote-ASCII">1</a></sup> string "Hello World!".</p>
 </li>
 <li>
 <p><code>String::from_utf8(msg.to_vec()).unwrap()</code> converts the raw bytes into a printable string.</p>
 <ul>
-<li>This is a fallible operation (we could have provided non-printable bytes as input!) so an &quot;operation result&quot; has to be &quot;unwrapped&quot; (<code>.unwrap()</code> is like an <code>assert!</code> here). We'll discuss <code>Result</code> and error handling in Chapter 3.</li>
+<li>This is a fallible operation (we could have provided non-printable bytes as input!) so an "operation result" has to be "unwrapped" (<code>.unwrap()</code> is like an <code>assert!</code> here). We'll discuss <code>Result</code> and error handling in Chapter 3.</li>
 </ul>
 </li>
 <li>
@@ -281,18 +276,18 @@ You can take a second to write a similar test for the chunk API, <code>apply_key
 <p>1st-party unit test support, via <code>cargo test</code>, is a major strength of Rust relative to C and C++.
 We didn't need to learn/configure/build/import any 3rd party test frameworks to get a modern development experience.</p>
 <p>While our methodology is powerful, our actual test was not.
-This &quot;sanity check&quot; doesn't actually prove that we implemented RC4 correctly - just that our code can transform the data and reverse the change.
-There's a risk that the generated cipher text is incorrect for the given key, potentially in some way that makes it &quot;crackable&quot; - maybe an attacker can leverage some flaw and extract plaintext without knowledge of the key.</p>
+This "sanity check" doesn't actually prove that we implemented RC4 correctly - just that our code can transform the data and reverse the change.
+There's a risk that the generated cipher text is incorrect for the given key, potentially in some way that makes it "crackable" - maybe an attacker can leverage some flaw and extract plaintext without knowledge of the key.</p>
 <p>To ensure that's not the case, we need to validate our implementation dynamically.
 Create a runnable test against ground truth.
-For cryptographic ciphers, this often means comparing against official &quot;test vectors&quot; (known-good input-output pairs).</p>
+For cryptographic ciphers, this often means comparing against official "test vectors" (known-good input-output pairs).</p>
 <h2 id="dynamic-validation"><a class="header" href="#dynamic-validation">Dynamic Validation</a></h2>
 <p>RC4 was, in the not-so-distant-past, a critical part of internet security.
 Almost every TLS connection on the internet once used, or could choose to use, the algorithm.
-Thus, a leading internet standards body - the Internet Engineering Task Force (IETF) - released official test vectors<sup class="footnote-reference"><a href="#TestVec">2</a></sup> to help protocol implementers validate their RC4 libraries.</p>
+Thus, a leading internet standards body - the Internet Engineering Task Force (IETF) - released official test vectors<sup class="footnote-reference" id="fr-TestVec-1"><a href="#footnote-TestVec">2</a></sup> to help protocol implementers validate their RC4 libraries.</p>
 <p>We're going to leverage those official vectors now!
 <em>Justifiable confidence</em> is the hallmark of <em>high assurance</em> programming.</p>
-<p>The IETF document<sup class="footnote-reference"><a href="#TestVec">2</a></sup> contains over a dozen tables of test vector data.
+<p>The IETF document<sup class="footnote-reference" id="fr-TestVec-2"><a href="#footnote-TestVec">2</a></sup> contains over a dozen tables of test vector data.
 Here's the first one:</p>
 <pre><code class="language-ignore">Key length: 40 bits.
 key: 0x0102030405
@@ -401,29 +396,29 @@ Your RC4 library is:</p>
 <p>Before we get to the fun and tangible part - writing a command line tool that uses this library to encrypt local files - we need to take a step back and understand the limitations of all the static and dynamic assurance topics discussed so far.</p>
 <blockquote>
 <p><strong>Is Rust a good choice for cryptographic libraries?</strong></p>
-<p>A study of C and C++ cryptographic libraries found that only 27.2% of reported vulnerabilities were caused by flaws related to the cryptography itself, but 37.2% were memory safety issues<sup class="footnote-reference"><a href="#CryptoStudy">3</a></sup>.</p>
+<p>A study of C and C++ cryptographic libraries found that only 27.2% of reported vulnerabilities were caused by flaws related to the cryptography itself, but 37.2% were memory safety issues<sup class="footnote-reference" id="fr-CryptoStudy-1"><a href="#footnote-CryptoStudy">3</a></sup>.</p>
 <p>Because both performance and security are core requirements, cryptography is a prime use case for Rust (pun intended).
 The language has a thriving cryptographic ecosystem.
-<code>rustls</code><sup class="footnote-reference"><a href="#RusTLS">4</a></sup>, a pure-Rust TLS library, is one notable project.
-In 2019, it outperformed OpenSSL by significant margins<sup class="footnote-reference"><a href="#FastRust">5</a></sup>.</p>
+<code>rustls</code><sup class="footnote-reference" id="fr-RusTLS-1"><a href="#footnote-RusTLS">4</a></sup>, a pure-Rust TLS library, is one notable project.
+In 2019, it outperformed OpenSSL by significant margins<sup class="footnote-reference" id="fr-FastRust-1"><a href="#footnote-FastRust">5</a></sup>.</p>
 </blockquote>
-<hr />
-<div class="footnote-definition" id="ASCII"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://en.wikipedia.org/wiki/ASCII"><em>ASCII</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TestVec"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011).</p>
-</div>
-<div class="footnote-definition" id="CryptoStudy"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://arxiv.org/pdf/2107.04940.pdf"><em>You Really Shouldn’t Roll Your Own Crypto: An Empirical Study of Vulnerabilities in Cryptographic Libraries</em></a>. Jenny Blessing, Michael A. Specter, Daniel J. Weitzner (2021). Please note that, at the time of this writing, this paper has not yet been accepted to a peer-reviewed conference.</p>
-</div>
-<div class="footnote-definition" id="RusTLS"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://github.com/rustls/rustls"><em><code>rustls</code></em></a>. rustls Contributors (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="FastRust"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://www.zdnet.com/article/a-rust-based-tls-library-outperformed-openssl-in-almost-every-category/"><em>A Rust-based TLS library outperformed OpenSSL in almost every category</em></a>. Catalin Cimpanu (2019).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-ASCII">
+<p><a href="https://en.wikipedia.org/wiki/ASCII"><em>ASCII</em></a>. Wikipedia (Accessed 2022). <a href="#fr-ASCII-1">↩</a></p>
+</li>
+<li id="footnote-TestVec">
+<p><a href="https://datatracker.ietf.org/doc/html/rfc6229"><em>Test Vectors for the Stream Cipher RC4</em></a>. Internet Engineering Task Force (2011). <a href="#fr-TestVec-1">↩</a> <a href="#fr-TestVec-2">↩2</a></p>
+</li>
+<li id="footnote-CryptoStudy">
+<p><a href="https://arxiv.org/pdf/2107.04940.pdf"><em>You Really Shouldn’t Roll Your Own Crypto: An Empirical Study of Vulnerabilities in Cryptographic Libraries</em></a>. Jenny Blessing, Michael A. Specter, Daniel J. Weitzner (2021). Please note that, at the time of this writing, this paper has not yet been accepted to a peer-reviewed conference. <a href="#fr-CryptoStudy-1">↩</a></p>
+</li>
+<li id="footnote-RusTLS">
+<p><a href="https://github.com/rustls/rustls"><em><code>rustls</code></em></a>. rustls Contributors (Accessed 2022). <a href="#fr-RusTLS-1">↩</a></p>
+</li>
+<li id="footnote-FastRust">
+<p><a href="https://www.zdnet.com/article/a-rust-based-tls-library-outperformed-openssl-in-almost-every-category/"><em>A Rust-based TLS library outperformed OpenSSL in almost every category</em></a>. Catalin Cimpanu (2019). <a href="#fr-FastRust-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

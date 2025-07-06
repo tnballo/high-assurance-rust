@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html" class="active"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -193,7 +188,7 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 <h1 id="software-assurance"><a class="header" href="#software-assurance">Software Assurance</a></h1>
 <hr />
-<p>The U.S. Department of Defense (DoD) defines <strong>software assurance</strong> as<sup class="footnote-reference"><a href="#DoD">1</a></sup>:</p>
+<p>The U.S. Department of Defense (DoD) defines <strong>software assurance</strong> as<sup class="footnote-reference" id="fr-DoD-1"><a href="#footnote-DoD">1</a></sup>:</p>
 <blockquote>
 <p>... the level of confidence that software functions as intended and is free of vulnerabilities, either intentionally or unintentionally designed or inserted as part of the software.</p>
 </blockquote>
@@ -221,7 +216,7 @@ Let's contrast two scenarios to clarify the distinction:</p>
 </ul>
 </li>
 </ol>
-<p>While the DoD definition encapsulates a lack of bugs with <em>&quot;software functions as intended&quot;</em>, the security-relevant goal is moving toward software that is <em>&quot;free of vulnerabilities&quot;</em>.
+<p>While the DoD definition encapsulates a lack of bugs with <em>"software functions as intended"</em>, the security-relevant goal is moving toward software that is <em>"free of vulnerabilities"</em>.
 This book is about both.
 We want to build robust and secure systems.</p>
 <p>To be frank: no software is <em>completely</em> free of vulnerabilities or <em>absolutely</em> secure.
@@ -233,7 +228,7 @@ Fewer vulnerabilities, fewer practical attacks.
 But even formal verification, a topic we'll explore in later chapters, has limitations.
 There are just too many complex interactions, both with hardware and between software components, for anyone to be totally certain that any given system can withstand every possible threat model.</p>
 <h2 id="hence-assurance"><a class="header" href="#hence-assurance">Hence Assurance</a></h2>
-<p>This is where <em>&quot;level of confidence&quot;</em> comes in.
+<p>This is where <em>"level of confidence"</em> comes in.
 By applying a series of tools and processes, some of which we'll sample in this chapter, we can build confidence in the security of our software.
 Broadly speaking, these fall into one of three categories:</p>
 <ul>
@@ -248,30 +243,30 @@ Broadly speaking, these fall into one of three categories:</p>
 </li>
 </ul>
 <blockquote>
-<p><strong>What does &quot;production&quot; mean in this context?</strong></p>
+<p><strong>What does "production" mean in this context?</strong></p>
 <p>The environment in which information systems serve their customers.
 Every security decision you make should be driven by the realities of this environment.</p>
-<p>For a web application, that might mean &quot;the cloud&quot; (virtual machines provisioned at various geographic locations) for backend components. And &quot;the client&quot; (hardware owned by the end user, like a smartphone running an app or browser) for front-end components.</p>
+<p>For a web application, that might mean "the cloud" (virtual machines provisioned at various geographic locations) for backend components. And "the client" (hardware owned by the end user, like a smartphone running an app or browser) for front-end components.</p>
 <p>For an embedded system, production could be a wide variety of adventurous places.
 In the automotive case, it's on a little computer inside the dashboard of your car, connected to both sensors and steering.</p>
 </blockquote>
 <p>We'll build a conceptual foundation for understanding the why and how of each category, and spend the bulk of this book applying that knowledge hands-on.
-Since  we're focused on writing code and using tools, we will <em>not</em> cover high-level software engineering<sup class="footnote-reference"><a href="#SWEBook">2</a></sup> methodologies.
+Since  we're focused on writing code and using tools, we will <em>not</em> cover high-level software engineering<sup class="footnote-reference" id="fr-SWEBook-1"><a href="#footnote-SWEBook">2</a></sup> methodologies.
 This includes:</p>
 <ul>
 <li>
-<p><strong>Systems Development Life Cycle (SDLC<sup class="footnote-reference"><a href="#SDLC">3</a></sup>):</strong> a general process for planning, creating, testing, and deploying any information system.</p>
+<p><strong>Systems Development Life Cycle (SDLC<sup class="footnote-reference" id="fr-SDLC-1"><a href="#footnote-SDLC">3</a></sup>):</strong> a general process for planning, creating, testing, and deploying any information system.</p>
 </li>
 <li>
-<p><strong>Microsoft Security Development Lifecycle (SDL<sup class="footnote-reference"><a href="#SDL">4</a></sup>):</strong> a framework for reducing the likelihood and maintenance cost of software security vulnerabilities.</p>
+<p><strong>Microsoft Security Development Lifecycle (SDL<sup class="footnote-reference" id="fr-SDL-1"><a href="#footnote-SDL">4</a></sup>):</strong> a framework for reducing the likelihood and maintenance cost of software security vulnerabilities.</p>
 </li>
 </ul>
 <p>While methodologies like these are valuable blueprints, and you can map concepts from this chapter to them, we won't discuss them. Just know that project-level best practices exist and can provide a shared language for communicating with organizational leadership.</p>
-<p>The DoD definition also mentions the idea of <em>&quot;intentionally...designed or inserted&quot;</em> vulnerabilities, commonly called <em>back doors</em>.
-Because code we write will only have a few well-trusted dependencies outside of Rust's standard library<sup class="footnote-reference"><a href="#StdVuln">5</a></sup>, we won't be concerned with detecting back doors.
+<p>The DoD definition also mentions the idea of <em>"intentionally...designed or inserted"</em> vulnerabilities, commonly called <em>back doors</em>.
+Because code we write will only have a few well-trusted dependencies outside of Rust's standard library<sup class="footnote-reference" id="fr-StdVuln-1"><a href="#footnote-StdVuln">5</a></sup>, we won't be concerned with detecting back doors.
 But you will see a simple backdoor in this chapter, to get a more visceral feel for the topic.</p>
 <p>Rust is a promising security technology because it provides an unprecedented level of <strong>assurance</strong> under systems programming constraints.
-The Rust compiler can prove the absence of a vicious class of vulnerabilities, colloquially referred to as &quot;memory corruption bugs&quot;, while simultaneously matching the bare metal performance of languages that can't provide the same guarantee.
+The Rust compiler can prove the absence of a vicious class of vulnerabilities, colloquially referred to as "memory corruption bugs", while simultaneously matching the bare metal performance of languages that can't provide the same guarantee.
 We'll deep-dive memory mechanics and safety in the next chapter, but it's worth reiterating as we head into this one.</p>
 <h2 id="your-first-high-assurance-rust-program"><a class="header" href="#your-first-high-assurance-rust-program">Your First High Assurance Rust Program</a></h2>
 <p>Theory is the foundation, but growth requires hands-on experience.
@@ -337,13 +332,13 @@ Two reasons:</p>
 </li>
 </ul>
 <p>RC4 was once part of protocols our society relies on, like SSL/TLS and WEP.
-But since its debut in 1987<sup class="footnote-reference"><a href="#Rivest">6</a></sup>, multiple weaknesses have been found and several practical attacks have been demonstrated.</p>
+But since its debut in 1987<sup class="footnote-reference" id="fr-Rivest-1"><a href="#footnote-Rivest">6</a></sup>, multiple weaknesses have been found and several practical attacks have been demonstrated.</p>
 <p>This is a microcosm of an important axiom: assurance is a moving target.
 As the security landscape changes, so must requirements and measures taken.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>Before pressing forward, let's take a quick step back: why prioritize software assurance in the first place?</p>
 <p>We'd wager another DoD statement sums it up nicely.
-Feel free to replace <em>&quot;mission critical&quot;</em> with &quot;business critical&quot; in the below description of the price of insecure software<sup class="footnote-reference"><a href="#DoD">1</a></sup>:</p>
+Feel free to replace <em>"mission critical"</em> with "business critical" in the below description of the price of insecure software<sup class="footnote-reference" id="fr-DoD-2"><a href="#footnote-DoD">1</a></sup>:</p>
 <blockquote>
 <p>Consequences: The enemy may steal or alter mission critical data; corrupt or deny the function of mission critical platforms</p>
 </blockquote>
@@ -356,35 +351,32 @@ Let's secure the frontier!</p>
 <li>Write your first interesting Rust program: a tiny encryption tool</li>
 <li>Learn how to build a statically-linked executable (works on nearly any Linux client)</li>
 </ul>
-<hr />
-<div class="footnote-definition" id="DoD"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf"><em>DoD Software Assurance Initiative</em></a>. Mitchell Komaroff, Kristin Baldwin (2005, Public Domain)</p>
-</div>
-<div class="footnote-definition" id="SWEBook"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://cs.fit.edu/~kgallagher/Schtick/Serious/SWEBOKv3.pdf"><em>Guide to the Software Engineering Body of Knowledge</em></a>. Pierre Bourque, Richard E. Fairley (2014)</p>
-</div>
-<div class="footnote-definition" id="SDLC"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://en.wikipedia.org/wiki/Systems_development_life_cycle"><em>Systems development life cycle</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SDL"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://www.microsoft.com/en-us/securityengineering/sdl"><em>Microsoft Security Development Lifecycle (SDL)</em></a>. Microsoft (2021)</p>
-</div>
-<div class="footnote-definition" id="StdVuln"><sup class="footnote-definition-label">5</sup>
-<p>Rust's standard library, like any large piece of software, it not guaranteed to be free of vulnerabilities. Two previously discovered vulnerabilities include a memory safety error in <code>unsafe</code> code<sup class="footnote-reference"><a href="#CVE1">7</a></sup> and a Time-of-check-to-time-of-use (TOCTTOU) race condition<sup class="footnote-reference"><a href="#CVE2">8</a></sup>. But <code>std</code> is a widely used component maintained by an official Rust team, so we can generally trust it more than 3rd party packages. Especially when it comes to back doors.</p>
-</div>
-<div class="footnote-definition" id="Rivest"><sup class="footnote-definition-label">6</sup>
-<p>Coincidentally, Ron Rivest, inventor of RC4, also co-invented scapegoat trees - the data structure we'll implement in Chapter 7. Scapegoat trees never enjoyed the popularity of RC4, but they've certainly stood the test of time.</p>
-</div>
-<div class="footnote-definition" id="CVE1"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://gts3.org/2019/cve-2018-1000657.html"><em>Analysis of CVE-2018-1000657: OOB write in Rust's VecDeque::reserve()</em></a>. GeorgiaTech SSLab (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CVE2"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://blog.rust-lang.org/2022/01/20/cve-2022-21658.html"><em>Security advisory for the standard library (CVE-2022-21658)</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="AEAD"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://en.wikipedia.org/wiki/Authenticated_encryption"><em>Authenticated encryption</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-DoD">
+<p><a href="https://www.acqnotes.com/Attachments/DoD%20Software%20Assurance%20Initiative.pdf"><em>DoD Software Assurance Initiative</em></a>. Mitchell Komaroff, Kristin Baldwin (2005, Public Domain) <a href="#fr-DoD-1">↩</a> <a href="#fr-DoD-2">↩2</a></p>
+</li>
+<li id="footnote-SWEBook">
+<p><a href="https://cs.fit.edu/~kgallagher/Schtick/Serious/SWEBOKv3.pdf"><em>Guide to the Software Engineering Body of Knowledge</em></a>. Pierre Bourque, Richard E. Fairley (2014) <a href="#fr-SWEBook-1">↩</a></p>
+</li>
+<li id="footnote-SDLC">
+<p><a href="https://en.wikipedia.org/wiki/Systems_development_life_cycle"><em>Systems development life cycle</em></a>. Wikipedia (Accessed 2022). <a href="#fr-SDLC-1">↩</a></p>
+</li>
+<li id="footnote-SDL">
+<p><a href="https://www.microsoft.com/en-us/securityengineering/sdl"><em>Microsoft Security Development Lifecycle (SDL)</em></a>. Microsoft (2021) <a href="#fr-SDL-1">↩</a></p>
+</li>
+<li id="footnote-StdVuln">
+<p>Rust's standard library, like any large piece of software, it not guaranteed to be free of vulnerabilities. Two previously discovered vulnerabilities include a memory safety error in <code>unsafe</code> code<sup class="footnote-reference" id="fr-CVE1-1"><a href="#footnote-CVE1">7</a></sup> and a Time-of-check-to-time-of-use (TOCTTOU) race condition<sup class="footnote-reference" id="fr-CVE2-1"><a href="#footnote-CVE2">8</a></sup>. But <code>std</code> is a widely used component maintained by an official Rust team, so we can generally trust it more than 3rd party packages. Especially when it comes to back doors. <a href="#fr-StdVuln-1">↩</a></p>
+</li>
+<li id="footnote-Rivest">
+<p>Coincidentally, Ron Rivest, inventor of RC4, also co-invented scapegoat trees - the data structure we'll implement in Chapter 7. Scapegoat trees never enjoyed the popularity of RC4, but they've certainly stood the test of time. <a href="#fr-Rivest-1">↩</a></p>
+</li>
+<li id="footnote-CVE1">
+<p><a href="https://gts3.org/2019/cve-2018-1000657.html"><em>Analysis of CVE-2018-1000657: OOB write in Rust's VecDeque::reserve()</em></a>. GeorgiaTech SSLab (Accessed 2022). <a href="#fr-CVE1-1">↩</a></p>
+</li>
+<li id="footnote-CVE2">
+<p><a href="https://blog.rust-lang.org/2022/01/20/cve-2022-21658.html"><em>Security advisory for the standard library (CVE-2022-21658)</em></a>. The Rust Team (Accessed 2022). <a href="#fr-CVE2-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

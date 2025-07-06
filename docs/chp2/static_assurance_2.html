@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html" class="active"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -200,20 +195,20 @@ We <em>must</em> have pass-by-reference semantics to write performant software.<
 First, we have to forsake raw pointers and instead rely on references (more on this below).
 Second, there are rules we must obey whenever using references.</p>
 <h2 id="but-what-if-i-truly-need-good-ol-fashioned-pointers"><a class="header" href="#but-what-if-i-truly-need-good-ol-fashioned-pointers">But what if I <em>truly</em> need good ol'-fashioned pointers?</a></h2>
-<p>An abstraction is useful if &quot;its assumptions match the context in which it exists&quot;<sup class="footnote-reference"><a href="#CorecurPodcast">1</a></sup>.
+<p>An abstraction is useful if "its assumptions match the context in which it exists"<sup class="footnote-reference" id="fr-CorecurPodcast-1"><a href="#footnote-CorecurPodcast">1</a></sup>.
 Pointers are an abstraction facilitating interaction with memory.</p>
-<p>When your program cannot be expressed within the constraints of safe Rust<sup class="footnote-reference"><a href="#MMIO">2</a></sup>, you can still write that program using the <code>unsafe</code> keyword.
+<p>When your program cannot be expressed within the constraints of safe Rust<sup class="footnote-reference" id="fr-MMIO-1"><a href="#footnote-MMIO">2</a></sup>, you can still write that program using the <code>unsafe</code> keyword.
 As the keyword implies, you're forgoing certain compiler-enforced safety guarantees for a limited scope.
 Inside an <code>unsafe</code> block, you may use raw pointers at your own peril.
 The burden of proof of correctness is entirely on your shoulders, as the programmer.</p>
-<p>Having that &quot;opt-out&quot; mechanism is better than aborting an analysis completely.
+<p>Having that "opt-out" mechanism is better than aborting an analysis completely.
 In fact, <code>unsafe</code> enables seamless integration with existing C code.
 That interoperability enables a lot of Rust's real-world use.</p>
 <blockquote>
 <p><strong>Isn't <code>unsafe</code> a weak link? Don't we lose all assurance?</strong></p>
 <p>Not exactly.
-Work in formal verification of Rust's type system demonstrates that security claims can be upheld despite the presence of <code>unsafe</code><sup class="footnote-reference"><a href="#JungThesis">3</a></sup>.</p>
-<p>Even without formal methods, <em>safe abstractions</em> can be built atop <em>unsafe operations</em><sup class="footnote-reference"><a href="#UnsafeAbstraction">4</a></sup>.
+Work in formal verification of Rust's type system demonstrates that security claims can be upheld despite the presence of <code>unsafe</code><sup class="footnote-reference" id="fr-JungThesis-1"><a href="#footnote-JungThesis">3</a></sup>.</p>
+<p>Even without formal methods, <em>safe abstractions</em> can be built atop <em>unsafe operations</em><sup class="footnote-reference" id="fr-UnsafeAbstraction-1"><a href="#footnote-UnsafeAbstraction">4</a></sup>.
 We can carefully design interfaces which uphold safety invariants no matter how they are called.
 Despite using <code>unsafe</code> internally.
 Granted the compiler can't automatically verify the correctness of such designs.
@@ -246,7 +241,7 @@ Looking at function signature:</p>
 </ul>
 </li>
 <li>
-<p><code>&amp;mut</code> means &quot;mutable reference&quot;. Our function gets the ability to <em>write</em> to the variable pointed to by <code>a</code>. This is not true of <code>b</code>, because it's a lowly &quot;immutable reference&quot; (just <code>&amp;</code>). Now Rust <em>guarantees</em> that, at any given time, <strong>only one mutable reference exists</strong> for any piece of data.</p>
+<p><code>&amp;mut</code> means "mutable reference". Our function gets the ability to <em>write</em> to the variable pointed to by <code>a</code>. This is not true of <code>b</code>, because it's a lowly "immutable reference" (just <code>&amp;</code>). Now Rust <em>guarantees</em> that, at any given time, <strong>only one mutable reference exists</strong> for any piece of data.</p>
 <ul>
 <li>If only one mutable reference can exist at any point, then <code>b</code> cannot reference the same piece of data as <code>a</code>. The two parameters are <em>guaranteed</em> to <strong>never alias</strong>.</li>
 </ul>
@@ -255,7 +250,7 @@ Looking at function signature:</p>
 <p>It's worth reflecting on the gravity of the statements we just made about Rust.
 An entire world of powerful static guarantees has opened up.</p>
 <p>Last section, we wallowed in the sorrows when discussing the <code>incr</code> function: undecidable aliasing forcing over-approximation, potential crashes, reads of arbitrary memory, etc.</p>
-<p>When we ported the function to Rust, the mere act of compiling it (creating an executable program) actually <em>proves</em> that this program will add two different integers as expected. As in, computer scientists have done early work in formal verification<sup class="footnote-reference"><a href="#TypeProof">5</a></sup> of the Rust type system (where those guarantees come from<sup class="footnote-reference"><a href="#RustcBug">6</a></sup><sup class="footnote-reference"><a href="#TotSafeTrans">7</a></sup>).</p>
+<p>When we ported the function to Rust, the mere act of compiling it (creating an executable program) actually <em>proves</em> that this program will add two different integers as expected. As in, computer scientists have done early work in formal verification<sup class="footnote-reference" id="fr-TypeProof-1"><a href="#footnote-TypeProof">5</a></sup> of the Rust type system (where those guarantees come from[^RustcBug]<sup class="footnote-reference" id="fr-TotSafeTrans-1"><a href="#footnote-TotSafeTrans">6</a></sup>).</p>
 <p>By leveraging Rust where it makes sense, we gain a high level of assurance.
 At least with respect to memory safety.
 We're still not guaranteeing anything about <code>incr</code>'s business logic (the big picture meaning of the values <code>incr</code> is incrementing and whether or not incrementing them makes sense).
@@ -268,10 +263,10 @@ But its references are not memory-safe.</p>
 But they still allow mutable aliases.
 That's problematic for both verification and concurrent code.</p>
 <p>They also don't enforce validity.
-In C++, you can mistakenly use a reference to an object that's already &quot;gone&quot;, meaning it has been deallocated. That's a bug, potentially a vulnerability, Rust prevents.</p>
+In C++, you can mistakenly use a reference to an object that's already "gone", meaning it has been deallocated. That's a bug, potentially a vulnerability, Rust prevents.</p>
 </blockquote>
 <h2 id="verifying-our-claims"><a class="header" href="#verifying-our-claims">Verifying Our Claims</a></h2>
-<p>&quot;Trust but verify&quot; is a good mindset to adopt whenever security is a requirement.
+<p>"Trust but verify" is a good mindset to adopt whenever security is a requirement.
 So let's see Rust's analyses in action.
 Consider this valid program:</p>
 <pre><pre class="playground"><code class="language-rust">fn incr(a: &amp;mut isize, b: &amp;isize) {
@@ -287,16 +282,16 @@ fn main() {
     let a = &amp;mut val;
     let b = &amp;step;
 
-    println!(&quot;Before incr: a == {}, b == {}&quot;, a, b);
+    println!("Before incr: a == {}, b == {}", a, b);
     incr(a, b);
-    println!(&quot;After incr: a == {}, b == {}&quot;, a, b);
+    println!("After incr: a == {}, b == {}", a, b);
 }</code></pre></pre>
 <p>Recall the first pair of diagrams from the last section, where we didn't have aliasing or invalid pointers.
 This program will print:</p>
 <pre><code class="language-ignore">Before incr: a == 40, b == 2
 After incr: a == 42, b == 2
 </code></pre>
-<p>After the call, we've arrived at that second &quot;good&quot; diagram:</p>
+<p>After the call, we've arrived at that second "good" diagram:</p>
 </br>
 <p align="center">
   <figure>
@@ -322,9 +317,9 @@ fn main() {
     let a = &amp;mut val;
     let b = a;
 
-    println!(&quot;Before incr: a == {}, b == {}&quot;, a, b);
+    println!("Before incr: a == {}, b == {}", a, b);
     incr(a, b);
-    println!(&quot;After incr: a == {}, b == {}&quot;, a, b);
+    println!("After incr: a == {}, b == {}", a, b);
 }</code></pre>
 <p>The program never runs. Instead, we get a compile-time error:</p>
 <pre><code class="language-ignore">error[E0382]: borrow of moved value: `a`
@@ -343,7 +338,7 @@ For more information about this error, try `rustc --explain E0382
 <p>This error is likely confusing.
 The compiler is pointing out that we can't duplicate a unique, mutable reference.
 That'd be a potentially dangerous alias, especially in a concurrent program.
-This error will make more sense after we cover &quot;ownership&quot; and &quot;traits&quot; in Chapter 3.</p>
+This error will make more sense after we cover "ownership" and "traits" in Chapter 3.</p>
 <h2 id="isnt-that-too-good-to-be-true"><a class="header" href="#isnt-that-too-good-to-be-true">Isn't that too good to be true?</a></h2>
 <p>We just saw Rust's compiler detect mutable aliasing, quickly and effectively.
 If Rust grants C-like control over memory, shouldn't the compiler's internal analyses hit the same fundamental roadblocks as the points-to analysis we discussed?</p>
@@ -351,7 +346,7 @@ If Rust grants C-like control over memory, shouldn't the compiler's internal ana
 Three related factors are at play:</p>
 <ul>
 <li>
-<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. This type system implements a flavor of &quot;affine types&quot;<sup class="footnote-reference"><a href="#AffineTypes">8</a></sup> and doesn't permit arbitrary type casting.</p>
+<p><strong>Type-system Support:</strong> Rust's internal analyzers build upon a bedrock of direct integration with the language itself, in its type system. This type system implements a flavor of "affine types"<sup class="footnote-reference" id="fr-AffineTypes-1"><a href="#footnote-AffineTypes">7</a></sup> and doesn't permit arbitrary type casting.</p>
 <ul>
 <li>Performing static analysis on a weakly-typed language (like C) doesn't have comparable co-design advantages. The Rust compiler can prove properties no C-family compiler or analysis tool can prove, by design.</li>
 </ul>
@@ -359,7 +354,7 @@ Three related factors are at play:</p>
 <li>
 <p><strong>Runtime Support:</strong> Not all of Rust's memory safety guarantees are enforced at compile time. Some checks need to happen at runtime, so the Rust compiler inserts additional code for this purpose. Rust programs can terminate if those checks fail.</p>
 <ul>
-<li>While graceful termination is preferable to the violent death of a program whose memory has been trashed or exploited, it's not ideal. We'll cover robustness testing for runtime &quot;panics&quot; in the latter half of this book.</li>
+<li>While graceful termination is preferable to the violent death of a program whose memory has been trashed or exploited, it's not ideal. We'll cover robustness testing for runtime "panics" in the latter half of this book.</li>
 </ul>
 </li>
 <li>
@@ -378,54 +373,51 @@ For a brief aside on the topic, see the <a href="../chp16_appendix/types.html"><
 <p>Rust's compiler provides first-party static analyses to verify memory safety properties.
 That's free, immediate, and substantial assurance value-add every time you build a Rust program.</p>
 <p>We don't have to rely on expensive products (e.g. complex code analysis tools) or hard-to-scale expert processes (e.g. best-effort code review by skilled security engineers).
-It [mostly] &quot;just works&quot;.
+It [mostly] "just works".
 Assurance becomes a <em>repeatable default</em>.</p>
-<p>These guarantees are largely a product of Rust's type system, which introduces the novel concept of &quot;ownership&quot;.
+<p>These guarantees are largely a product of Rust's type system, which introduces the novel concept of "ownership".
 Its mechanics overcome memory model and aliasing complications, allowing us to prove certain notions of correctness.
 We'll dig into how ownership works in Chapter 3.</p>
 <p>Let's move on to dynamic analysis, and start writing our first Rust program.</p>
 <blockquote>
 <p><strong>Foundations for Formal Verification</strong></p>
 <p>Rust's type system has significant implications for formal verification research.
-Specifically, lack of shared, mutable state makes the language amenable to verification techniques that use <em>first-order logic</em><sup class="footnote-reference"><a href="#RustHorn">9</a></sup>.</p>
+Specifically, lack of shared, mutable state makes the language amenable to verification techniques that use <em>first-order logic</em><sup class="footnote-reference" id="fr-RustHorn-1"><a href="#footnote-RustHorn">8</a></sup>.</p>
 <p>First-order logic is taught in undergraduate discrete math classes.
 Which are common in Computer Science curriculums.
 This could mean that a practicing engineer doesn't have to learn <em>separation logic</em> (a more recent and advanced topic) to use Rust deductive verification tools.</p>
 <p>We'll try out early prototypes for deductive verification in Chapter 11.
 Rust verification is an area of active academic research.</p>
 </blockquote>
-<hr />
-<div class="footnote-definition" id="CorecurPodcast"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://corecursive.com/042-zach-tellman-software-in-context/"><em>Software in Context, With Zach Tellman</em></a>. Zach Tellman, Adam Gordon Bell (2019).</p>
-</div>
-<div class="footnote-definition" id="MMIO"><sup class="footnote-definition-label">2</sup>
-<p>Memory Mapped Input/Output (MMIO) is a context in which you need to spray some distant, seemingly random region of memory with a bunch of magic bytes. Perhaps surprisingly, that's one major way to control hardware peripherals. The &quot;data sheet&quot; (an official hardware manual written by the manufacturer) tells you which specific memory address to write what magic bytes to. It's the sort of thing where you just need raw pointers, danger be damned! <sup class="footnote-reference"><a href="#SafeMMIO">10</a></sup>.</p>
-</div>
-<div class="footnote-definition" id="JungThesis"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://www.ralfj.de/research/phd/thesis-screen.pdf"><em>Understanding and Evolving the Rust Programming Language (PhD Thesis)</em></a>. Ralf Jung (2020).</p>
-</div>
-<div class="footnote-definition" id="UnsafeAbstraction"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://jam1.re/blog/why-rusts-unsafe-works"><em>Why Rust's Unsafe Works</em></a>. jam1garner (2020).</p>
-</div>
-<div class="footnote-definition" id="TypeProof"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://www.eurekalert.org/news-releases/610682"><em>Computer Scientist proves safety claims of the programming language Rust</em></a>. Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work.</p>
-</div>
-<div class="footnote-definition" id="RustcBug"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://internals.rust-lang.org/t/unsoundness-in-pin/11311">Unsoundness in <code>Pin</code></a>. comex (2019). Keep in mind the Rust compiler is written and maintained by humans. It occasionally has bugs, like the <code>Pin</code> problem linked to here. Again, there's no such thing as absolute security. Formal verification of Rust's type system does not entail verifying that the entire compiler codebase, which changes often, is bug-free!</p>
-</div>
-<div class="footnote-definition" id="TotSafeTrans"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://blog.yossarian.net/2021/03/16/totally_safe_transmute-line-by-line"><code>totally_safe_transmute</code>, line-by-line</a>. William Woodruff (2021). This blog post breaks down an unorthodox trick for <em>transmutation</em> (re-interpreting the bits of one type as another type). The trick involves the program using OS facilities to modify its own code at runtime in a way the Rust compiler does not and cannot possibly expect. Hence it's &quot;safe&quot; to the compiler but <em>extremely unsafe</em> in reality. This doesn't mean Rust's safety guarantees are broken, just that type systems can't model every possible aspect of a program's execution environment. Nor should they, most real-world programs don't patch their own in-memory representations at runtime.</p>
-</div>
-<div class="footnote-definition" id="SafeMMIO"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://crates.io/crates/tock-registers"><em>tock-registers</em></a>. Tock Project Developers (2021). This project provides safe MMIO abstractions in the form of customizable types. An alternative to raw pointers worth checking out.</p>
-</div>
-<div class="footnote-definition" id="AffineTypes"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://en.wikipedia.org/wiki/Substructural_type_system#Affine_type_systems"><em>Affine type systems</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RustHorn"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://arxiv.org/pdf/2002.09002.pdf"><em>RustHorn: CHC-based Verification for Rust Programs</em></a>. Yusuke Matsushita, Takeshi Tsukada, Naoki Kobayashi (2020).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-CorecurPodcast">
+<p><a href="https://corecursive.com/042-zach-tellman-software-in-context/"><em>Software in Context, With Zach Tellman</em></a>. Zach Tellman, Adam Gordon Bell (2019). <a href="#fr-CorecurPodcast-1">↩</a></p>
+</li>
+<li id="footnote-MMIO">
+<p>Memory Mapped Input/Output (MMIO) is a context in which you need to spray some distant, seemingly random region of memory with a bunch of magic bytes. Perhaps surprisingly, that's one major way to control hardware peripherals. The "data sheet" (an official hardware manual written by the manufacturer) tells you which specific memory address to write what magic bytes to. It's the sort of thing where you just need raw pointers, danger be damned! <sup class="footnote-reference" id="fr-SafeMMIO-1"><a href="#footnote-SafeMMIO">9</a></sup>. <a href="#fr-MMIO-1">↩</a></p>
+</li>
+<li id="footnote-JungThesis">
+<p><a href="https://www.ralfj.de/research/phd/thesis-screen.pdf"><em>Understanding and Evolving the Rust Programming Language (PhD Thesis)</em></a>. Ralf Jung (2020). <a href="#fr-JungThesis-1">↩</a></p>
+</li>
+<li id="footnote-UnsafeAbstraction">
+<p><a href="https://jam1.re/blog/why-rusts-unsafe-works"><em>Why Rust's Unsafe Works</em></a>. jam1garner (2020). <a href="#fr-UnsafeAbstraction-1">↩</a></p>
+</li>
+<li id="footnote-TypeProof">
+<p><a href="https://www.eurekalert.org/news-releases/610682"><em>Computer Scientist proves safety claims of the programming language Rust</em></a>. Saarland University (2021). Note that formal verification of Rust is a research problem with both current successes and ongoing work. <a href="#fr-TypeProof-1">↩</a></p>
+</li>
+<li id="footnote-TotSafeTrans">
+<p><a href="https://blog.yossarian.net/2021/03/16/totally_safe_transmute-line-by-line"><code>totally_safe_transmute</code>, line-by-line</a>. William Woodruff (2021). This blog post breaks down an unorthodox trick for <em>transmutation</em> (re-interpreting the bits of one type as another type). The trick involves the program using OS facilities to modify its own code at runtime in a way the Rust compiler does not and cannot possibly expect. Hence it's "safe" to the compiler but <em>extremely unsafe</em> in reality. This doesn't mean Rust's safety guarantees are broken, just that type systems can't model every possible aspect of a program's execution environment. Nor should they, most real-world programs don't patch their own in-memory representations at runtime. <a href="#fr-TotSafeTrans-1">↩</a></p>
+</li>
+<li id="footnote-AffineTypes">
+<p><a href="https://en.wikipedia.org/wiki/Substructural_type_system#Affine_type_systems"><em>Affine type systems</em></a>. Wikipedia (Accessed 2022). <a href="#fr-AffineTypes-1">↩</a></p>
+</li>
+<li id="footnote-RustHorn">
+<p><a href="https://arxiv.org/pdf/2002.09002.pdf"><em>RustHorn: CHC-based Verification for Rust Programs</em></a>. Yusuke Matsushita, Takeshi Tsukada, Naoki Kobayashi (2020). <a href="#fr-RustHorn-1">↩</a></p>
+</li>
+<li id="footnote-SafeMMIO">
+<p><a href="https://crates.io/crates/tock-registers"><em>tock-registers</em></a>. Tock Project Developers (2021). This project provides safe MMIO abstractions in the form of customizable types. An alternative to raw pointers worth checking out. <a href="#fr-SafeMMIO-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

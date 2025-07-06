@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html" class="active"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -193,8 +188,8 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 <h1 id="why-this-book"><a class="header" href="#why-this-book">Why this book?</a></h1>
 <p>Rust's momentum has a constellation of factors.
-The availability of free, high-quality learning resources<sup class="footnote-reference"><a href="#LearnRust">1</a></sup> is undoubtedly one of them.
-Including <em>The Rust Programming Language</em><sup class="footnote-reference"><a href="#TRPL">2</a></sup>, an excellent official text.</p>
+The availability of free, high-quality learning resources<sup class="footnote-reference" id="fr-LearnRust-1"><a href="#footnote-LearnRust">1</a></sup> is undoubtedly one of them.
+Including <em>The Rust Programming Language</em><sup class="footnote-reference" id="fr-TRPL-1"><a href="#footnote-TRPL">2</a></sup>, an excellent official text.</p>
 <p>So why another Rust book?
 Well, in truth, this book isn't <em>truly</em> about Rust - although helping you learn the language is a driving goal.
 This book is a gateway to fundamentally important but intimidatingly difficult topics: systems programming and low-level security.</p>
@@ -213,30 +208,30 @@ This is no such thing as information without bias.</p>
 It will pay dividends in any software security context.</p>
 <p>If you find a factual error, please <a href="../engage.html#submit-feedback-questions-issues-or-prs">let us know</a>.</p>
 <h2 id="why-learn-about-systems-programming"><a class="header" href="#why-learn-about-systems-programming">Why learn about systems programming?</a></h2>
-<p>If you asked 3 engineers what a &quot;systems program&quot; does, you'd likely get 3 disparate answers.
+<p>If you asked 3 engineers what a "systems program" does, you'd likely get 3 disparate answers.
 It's a broad field spanning various industries and use cases:</p>
 <ul>
 <li>
-<p>&quot;Systems programs are distributed, they make low-latency decisions and coordinate over a network via consensus protocols&quot;, the first engineer might say.</p>
+<p>"Systems programs are distributed, they make low-latency decisions and coordinate over a network via consensus protocols", the first engineer might say.</p>
 <ul>
 <li>E.g. distributed <strong>databases</strong> and <strong>fault-tolerant services</strong>.</li>
 </ul>
 </li>
 <li>
-<p>&quot;No&quot;, the second could pipe in, &quot;systems programs manage a userspace application's view of hardware, they schedule and facilitate physical resource use&quot;.</p>
+<p>"No", the second could pipe in, "systems programs manage a userspace application's view of hardware, they schedule and facilitate physical resource use".</p>
 <ul>
 <li>E.g. <strong>operating systems</strong> and <strong>device drivers</strong>.</li>
 </ul>
 </li>
 <li>
-<p>The third may look dissatisfied and add &quot;What about a tight feedback loop collecting sensor data on a low-power device? That doesn't share resources at all!&quot;</p>
+<p>The third may look dissatisfied and add "What about a tight feedback loop collecting sensor data on a low-power device? That doesn't share resources at all!"</p>
 <ul>
 <li>E.g. firmware for <strong>microcontrollers</strong> and <strong>control systems</strong>.</li>
 </ul>
 </li>
 </ul>
 <p>All three answers are correct.
-The common thread (pun intended<sup class="footnote-reference"><a href="#Thread">3</a></sup>) is that systems programs have goals tied to hardware resource constraints.
+The common thread (pun intended<sup class="footnote-reference" id="fr-Thread-1"><a href="#footnote-Thread">3</a></sup>) is that systems programs have goals tied to hardware resource constraints.
 They sit at a <em>low-level</em>.
 For special purpose devices, it's the only level present.</p>
 <p>More commonly, it's the <em>foundation for high-level</em> programs users interact with directly.
@@ -288,13 +283,13 @@ And that <em>safety-critical</em> systems drive physical phenomena, so a securit
 </p>
 <ul>
 <li>
-<p><strong>Zig</strong> (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users<sup class="footnote-reference"><a href="#UberZig">4</a></sup>, any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety<sup class="footnote-reference"><a href="#ZigSafety">5</a></sup>. And its own unique merits<sup class="footnote-reference"><a href="#WhyZig">6</a></sup>.</p>
+<p><strong>Zig</strong> (Low Maturity) - At the time of this writing, Zig has not yet reached a stable 1.0 release. While the toolchain already has production users<sup class="footnote-reference" id="fr-UberZig-1"><a href="#footnote-UberZig">4</a></sup>, any unstable language typically isn't suitable for mission or safety critical products. Zig doesn't offer the temporal memory safety benefits of Rust, but does offer similar runtime enforcement for spatial memory safety<sup class="footnote-reference" id="fr-ZigSafety-1"><a href="#footnote-ZigSafety">5</a></sup>. And its own unique merits<sup class="footnote-reference" id="fr-WhyZig-1"><a href="#footnote-WhyZig">6</a></sup>.</p>
 </li>
 <li>
-<p><strong>Rust</strong> (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses<sup class="footnote-reference"><a href="#ProdUsers">7</a></sup>. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore<sup class="footnote-reference"><a href="#Ferrda">8</a></sup>, an AUTOSAR Working Group<sup class="footnote-reference"><a href="#AUTOSAR">9</a></sup>, an SAE International Task Force<sup class="footnote-reference"><a href="#SAE">10</a></sup>, and ongoing R&amp;D in formal verification tooling<sup class="footnote-reference"><a href="#RFMIG">11</a></sup>. At the time of this writing, the Ferrocene<sup class="footnote-reference"><a href="#Ferrocene">12</a></sup> Rust toolchain is completing qualification for automotive (ISO 26262 ASIL-D) and industrial (IEC 61508 SiL4) usecases.</p>
+<p><strong>Rust</strong> (Medium Maturity) - Rust hit 1.0 in 2015 and has a plethora of mission-critical production users and uses<sup class="footnote-reference" id="fr-ProdUsers-1"><a href="#footnote-ProdUsers">7</a></sup>. Current efforts to bring Rust into the safety-critical domain include a collaboration between Ferrous Systems and AdaCore<sup class="footnote-reference" id="fr-Ferrda-1"><a href="#footnote-Ferrda">8</a></sup>, an AUTOSAR Working Group<sup class="footnote-reference" id="fr-AUTOSAR-1"><a href="#footnote-AUTOSAR">9</a></sup>, an SAE International Task Force<sup class="footnote-reference" id="fr-SAE-1"><a href="#footnote-SAE">10</a></sup>, and ongoing R&amp;D in formal verification tooling<sup class="footnote-reference" id="fr-RFMIG-1"><a href="#footnote-RFMIG">11</a></sup>. At the time of this writing, the Ferrocene<sup class="footnote-reference" id="fr-Ferrocene-1"><a href="#footnote-Ferrocene">12</a></sup> Rust toolchain is completing qualification for automotive (ISO 26262 ASIL-D) and industrial (IEC 61508 SiL4) usecases.</p>
 </li>
 <li>
-<p><strong>Ada</strong> (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A<sup class="footnote-reference"><a href="#AdaHistory">13</a></sup>, was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)<sup class="footnote-reference"><a href="#AdaCert">14</a></sup>. The SPARK subset of Ada offers mature deductive verification capabilities<sup class="footnote-reference"><a href="#SPARK">15</a></sup>. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system<sup class="footnote-reference"><a href="#SPARKHeap">16</a></sup>.</p>
+<p><strong>Ada</strong> (High Maturity) - Ada's 1.0 specification, MIL-STD-1815-A<sup class="footnote-reference" id="fr-AdaHistory-1"><a href="#footnote-AdaHistory">13</a></sup>, was released in 1983. Its commercially-supported compiler and runtime libraries are already qualified for use with standards like DO-178B/C (aviation), ISO 26262 (automotive), IEC 61508 (industrial), and ECSS-Q-ST-80C (space)<sup class="footnote-reference" id="fr-AdaCert-1"><a href="#footnote-AdaCert">14</a></sup>. The SPARK subset of Ada offers mature deductive verification capabilities<sup class="footnote-reference" id="fr-SPARK-1"><a href="#footnote-SPARK">15</a></sup>. SPARK has made recent advances in heap memory verification, inspired in part by Rust's type system<sup class="footnote-reference" id="fr-SPARKHeap-1"><a href="#footnote-SPARKHeap">16</a></sup>.</p>
 </li>
 </ul>
 <p>Learning a programming language, whichever it may be, is a great way to grow as a developer.
@@ -328,11 +323,11 @@ After all, the libraries are already written - you can have a long and fruitful 
 They combine the mathematical rigor of Computer Science theory with the practical constraints of efficient implementation.
 They're a rare glimpse into what's possible at the intersection of the abstract and the concrete.
 Where the math rubber meets the code road, if you will.</p>
-<p>The standard libraries of modern programming languages include data structure APIs, or &quot;collections&quot;.
+<p>The standard libraries of modern programming languages include data structure APIs, or "collections".
 These APIs get used by nearly every program written in that language.
 Because a single data structure implementation can be so ubiquitous, performance is critical.
 Thus real-world data structures are typically implemented in a <strong>compiled</strong> language, like Rust or C, for speed.
-This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference"><a href="#PyList">17</a></sup>!</p>
+This includes those in the standard library of <strong>interpreted</strong> languages like Python<sup class="footnote-reference" id="fr-PyList-1"><a href="#footnote-PyList">17</a></sup>!</p>
 <p>Building a data structure library involves taking a complex set of functional requirements and translating them into compact and correct code.
 It walks you through accomplishing a goal at a strategic level (the overall algorithm) and at a tactical one (the mechanics of individual structure operations - like <code>insert</code>, <code>get</code>, or <code>remove</code> - in the language you're using).</p>
 <p>You'll learn both generally-applicable problem solving skills and language-specific development skills.</p>
@@ -346,8 +341,8 @@ It walks you through accomplishing a goal at a strategic level (the overall algo
 <h2 id="arent-data-structures-particularly-challenging-in-rust"><a class="header" href="#arent-data-structures-particularly-challenging-in-rust">Aren't data structures particularly challenging in Rust?</a></h2>
 <p>Rust's memory safety guarantees are a significant evolution in the security of systems software.
 With growing industry adoption and a thriving library ecosystem, Rust is a deserving ambassador for both systems programming and secure coding.</p>
-<p>Yet certain data structures are infamously difficult<sup class="footnote-reference"><a href="#TooManyLink">18</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
-This is especially true for structures where one element knows how to reach another and vice versa (e.g. those with &quot;cyclical references&quot;).
+<p>Yet certain data structures are infamously difficult<sup class="footnote-reference" id="fr-TooManyLink-1"><a href="#footnote-TooManyLink">18</a></sup> to write in Rust, due to how the compiler checks for safety-specific properties.
+This is especially true for structures where one element knows how to reach another and vice versa (e.g. those with "cyclical references").
 Some developers get so frustrated by this that they snap their keyboards in half, with a swift upward knee, and give up on Rust altogether!</p>
 <p>That's why you'll be <em>starting</em> your Rust journey with advanced data structures.
 It'll push you to tackle the language's toughest concepts head on.
@@ -356,7 +351,7 @@ If a Rust implementation of a troublesome data structure doesn't already exist, 
 Once you build a mental model for how memory works and how Rust manages it, you're well on your way to shipping safe systems software.</p>
 <h2 id="besides-security-why-rust"><a class="header" href="#besides-security-why-rust">Besides security, why Rust?</a></h2>
 <p>Because Rust enables you to maximize performance.</p>
-<p>Moore's law<sup class="footnote-reference"><a href="#Moore">19</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
+<p>Moore's law<sup class="footnote-reference" id="fr-Moore-1"><a href="#footnote-Moore">19</a></sup> has reached its limit, physics has put a ceiling on instruction throughput and clock speed.
 Assuming the bottleneck is actually program CPU time (and not, say, network latency or disk I/O limits) there's typically two ways to improve performance:</p>
 <ol>
 <li>Implement a superior algorithm for your problem, if one exists.</li>
@@ -364,8 +359,8 @@ Assuming the bottleneck is actually program CPU time (and not, say, network late
 </ol>
 <p>Rust's memory reasoning helps with the [often more realistic] latter option: the compiler ensures reliable concurrency.
 This <em>doesn't</em> mean parallelizing the logic of an algorithm automatically (that's still a challenge) or preventing all race conditions (the compiler can't reason about deadlock, for example).</p>
-<p>But it does mean freedom from all &quot;data races&quot; (an important <em>subset</em> of possible race conditions).
-Those are seemingly random state corruption caused by subtle errors in &quot;timing&quot; (combinatorial thread interleaving) assumptions.</p>
+<p>But it does mean freedom from all "data races" (an important <em>subset</em> of possible race conditions).
+Those are seemingly random state corruption caused by subtle errors in "timing" (combinatorial thread interleaving) assumptions.</p>
 <p>Concurrent programming has traditionally been fiendishly difficult to get right.
 The performance benefits required both re-framing a problem and debugging unpredictable behavior.
 Rust eliminates much of the debugging by enabling greater determinism.
@@ -378,65 +373,65 @@ Realistically, the barriers are still there.</p>
 <p>Depending on your background and experiences, it may be difficult to picture yourself as part of the systems security world.
 But you certainly can be!
 It may not <em>be easy</em> - but it can <em>be</em>.</p>
-<hr />
-<div class="footnote-definition" id="LearnRust"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://www.rust-lang.org/learn"><em>Learn Rust</em></a>. The Rust Team (2021).</p>
-</div>
-<div class="footnote-definition" id="TRPL"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://doc.rust-lang.org/book/"><em>The Rust Programming Language</em></a>. Steve Klabnik, Carol Nichol (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Thread"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://wiki.osdev.org/Processes_and_Threads#Threads"><em>Processes and Threads</em></a>. OSDev Wiki (2021).</p>
-</div>
-<div class="footnote-definition" id="UberZig"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://jakstys.lt/2022/how-uber-uses-zig/"><em>How Uber Uses Zig</em></a>. Motiejus Jakstys (2022).</p>
-</div>
-<div class="footnote-definition" id="ZigSafety"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://www.scattered-thoughts.net/writing/how-safe-is-zig/"><em>How safe is Zig?</em></a>. Jamie Brandon (2021).</p>
-</div>
-<div class="footnote-definition" id="WhyZig"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://ziglang.org/learn/why_zig_rust_d_cpp/"><em>Why Zig When There is Already C++, D, and Rust?</em></a>. The Zig Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ProdUsers"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Ferrda"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://ferrous-systems.com/blog/ferrous-systems-adacore-joining-forces/"><em>Ferrous Systems and AdaCore to join forces on Ferrocene</em></a>. Ferrous Systems (2022).</p>
-</div>
-<div class="footnote-definition" id="AUTOSAR"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf"><em>AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context</em></a>. AUTOSAR (2022).</p>
-</div>
-<div class="footnote-definition" id="SAE"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6"><em>SAfEr Rust Task Force</em></a>. SAE International (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RFMIG"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021"><em>Rust verification tools</em></a>. Rust Formal Methods Interest Group (2021).</p>
-</div>
-<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">12</sup>
-<p><a href="https://github.com/ferrocene/ferrocene"><code>ferrocene</code></a>. Ferrous Systems (2023).</p>
-</div>
-<div class="footnote-definition" id="AdaHistory"><sup class="footnote-definition-label">13</sup>
-<p>In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA &quot;Grand Challenges&quot;). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named &quot;Ada&quot;, after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate.</p>
-</div>
-<div class="footnote-definition" id="AdaCert"><sup class="footnote-definition-label">14</sup>
-<p><a href="https://www.adacore.com/certification-qualification"><em>Certification Evidence for the Ada Run-Time Libraries and Compiler</em></a>. AdaCore (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SPARK"><sup class="footnote-definition-label">15</sup>
-<p><a href="https://www.adacore.com/about-spark"><em>About SPARK</em></a>. AdaCore (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SPARKHeap"><sup class="footnote-definition-label">16</sup>
-<p><a href="https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf"><em>Safe Dynamic Memory Management in Ada and SPARK</em></a>. Maroua Maalej, Tucker Taft, Yannick Moy (2021).</p>
-</div>
-<div class="footnote-definition" id="PyList"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c"><em>dictobject.c</em></a>. CPython Interpreter (2021).</p>
-</div>
-<div class="footnote-definition" id="TooManyLink"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://rust-unofficial.github.io/too-many-lists/"><em>Learn Rust With Entirely Too Many Linked Lists</em></a>. Alexis Beingessner (2021).</p>
-</div>
-<div class="footnote-definition" id="Moore"><sup class="footnote-definition-label">19</sup>
-<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-LearnRust">
+<p><a href="https://www.rust-lang.org/learn"><em>Learn Rust</em></a>. The Rust Team (2021). <a href="#fr-LearnRust-1">↩</a></p>
+</li>
+<li id="footnote-TRPL">
+<p><a href="https://doc.rust-lang.org/book/"><em>The Rust Programming Language</em></a>. Steve Klabnik, Carol Nichol (Accessed 2022). <a href="#fr-TRPL-1">↩</a></p>
+</li>
+<li id="footnote-Thread">
+<p><a href="https://wiki.osdev.org/Processes_and_Threads#Threads"><em>Processes and Threads</em></a>. OSDev Wiki (2021). <a href="#fr-Thread-1">↩</a></p>
+</li>
+<li id="footnote-UberZig">
+<p><a href="https://jakstys.lt/2022/how-uber-uses-zig/"><em>How Uber Uses Zig</em></a>. Motiejus Jakstys (2022). <a href="#fr-UberZig-1">↩</a></p>
+</li>
+<li id="footnote-ZigSafety">
+<p><a href="https://www.scattered-thoughts.net/writing/how-safe-is-zig/"><em>How safe is Zig?</em></a>. Jamie Brandon (2021). <a href="#fr-ZigSafety-1">↩</a></p>
+</li>
+<li id="footnote-WhyZig">
+<p><a href="https://ziglang.org/learn/why_zig_rust_d_cpp/"><em>Why Zig When There is Already C++, D, and Rust?</em></a>. The Zig Team (Accessed 2022). <a href="#fr-WhyZig-1">↩</a></p>
+</li>
+<li id="footnote-ProdUsers">
+<p><a href="https://www.rust-lang.org/production/users"><em>Production Users</em></a>. The Rust Team (Accessed 2022). <a href="#fr-ProdUsers-1">↩</a></p>
+</li>
+<li id="footnote-Ferrda">
+<p><a href="https://ferrous-systems.com/blog/ferrous-systems-adacore-joining-forces/"><em>Ferrous Systems and AdaCore to join forces on Ferrocene</em></a>. Ferrous Systems (2022). <a href="#fr-Ferrda-1">↩</a></p>
+</li>
+<li id="footnote-AUTOSAR">
+<p><a href="https://www.autosar.org/fileadmin/user_upload/20220308_RustWorkingGroup_Announcement_EN.pdf"><em>AUTOSAR announces new Working Group for Programming Language Rust in Automotive Software context</em></a>. AUTOSAR (2022). <a href="#fr-AUTOSAR-1">↩</a></p>
+</li>
+<li id="footnote-SAE">
+<p><a href="https://www.sae.org/works/committeeHome.do?comtID=TEVEFS6"><em>SAfEr Rust Task Force</em></a>. SAE International (Accessed 2022). <a href="#fr-SAE-1">↩</a></p>
+</li>
+<li id="footnote-RFMIG">
+<p><a href="https://rust-formal-methods.github.io/tools.html#rust-verification-tools-2021"><em>Rust verification tools</em></a>. Rust Formal Methods Interest Group (2021). <a href="#fr-RFMIG-1">↩</a></p>
+</li>
+<li id="footnote-Ferrocene">
+<p><a href="https://github.com/ferrocene/ferrocene"><code>ferrocene</code></a>. Ferrous Systems (2023). <a href="#fr-Ferrocene-1">↩</a></p>
+</li>
+<li id="footnote-AdaHistory">
+<p>In 1978, the US Department of Defense (DoD) put forth a requirements list for a programming language specifically tailored to safety-critical embedded systems. The DoD then sponsored a competition (not unlike the more contemporary DARPA "Grand Challenges"). Four language design teams entered the fray: red, green, blue, and yellow. The green team won and produced the MIL-STD-1815-A language specification. Their language was named "Ada", after Ada Lovelace - a pioneering programmer. 1815 was Lovelace's birthdate. <a href="#fr-AdaHistory-1">↩</a></p>
+</li>
+<li id="footnote-AdaCert">
+<p><a href="https://www.adacore.com/certification-qualification"><em>Certification Evidence for the Ada Run-Time Libraries and Compiler</em></a>. AdaCore (Accessed 2022). <a href="#fr-AdaCert-1">↩</a></p>
+</li>
+<li id="footnote-SPARK">
+<p><a href="https://www.adacore.com/about-spark"><em>About SPARK</em></a>. AdaCore (Accessed 2022). <a href="#fr-SPARK-1">↩</a></p>
+</li>
+<li id="footnote-SPARKHeap">
+<p><a href="https://www.adacore.com/uploads/techPapers/Safe-Dynamic-Memory-Management-in-Ada-and-SPARK.pdf"><em>Safe Dynamic Memory Management in Ada and SPARK</em></a>. Maroua Maalej, Tucker Taft, Yannick Moy (2021). <a href="#fr-SPARKHeap-1">↩</a></p>
+</li>
+<li id="footnote-PyList">
+<p><a href="https://github.com/python/cpython/blob/master/Objects/dictobject.c"><em>dictobject.c</em></a>. CPython Interpreter (2021). <a href="#fr-PyList-1">↩</a></p>
+</li>
+<li id="footnote-TooManyLink">
+<p><a href="https://rust-unofficial.github.io/too-many-lists/"><em>Learn Rust With Entirely Too Many Linked Lists</em></a>. Aria Desires (2021). <a href="#fr-TooManyLink-1">↩</a></p>
+</li>
+<li id="footnote-Moore">
+<p><a href="https://en.wikipedia.org/wiki/Moore%27s_law"><em>Moore's law</em></a>. Wikipedia (Accessed 2022). <a href="#fr-Moore-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

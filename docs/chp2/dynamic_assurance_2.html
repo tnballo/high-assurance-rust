@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html" class="active"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -224,7 +219,7 @@ pub struct Rc4 {
 <li>
 <p><code>#![cfg_attr(not(test), no_std)]</code> is a conditional attribute. It applies to the whole crate and informs the compiler that, unless doing a <code>test</code> build, our library makes no assumptions about the system it's going to run on.</p>
 <ul>
-<li><code>no_std</code> roughly translates to &quot;don't depend on a standard library or runtime support being available&quot;. Although this restricts us to a set of core Rust features, it makes our code portable for embedded use cases: firmware, bootloaders, kernels, etc. We'll discuss <code>#![no_std]</code> more thoroughly in Chapter 4.</li>
+<li><code>no_std</code> roughly translates to "don't depend on a standard library or runtime support being available". Although this restricts us to a set of core Rust features, it makes our code portable for embedded use cases: firmware, bootloaders, kernels, etc. We'll discuss <code>#![no_std]</code> more thoroughly in Chapter 4.</li>
 </ul>
 </li>
 <li>
@@ -234,22 +229,22 @@ pub struct Rc4 {
 </ul>
 </li>
 <li>
-<p><code>#[derive(Debug)]</code> is a <em>derive macro</em> for something called a <em>trait</em> (definition of shared behavior, explained in Chapter 3). Macros generate additional code. Writing macros is an advanced topic, but you can leverage existing macros even as a beginner<sup class="footnote-reference"><a href="#BeginMacro">1</a></sup>.</p>
+<p><code>#[derive(Debug)]</code> is a <em>derive macro</em> for something called a <em>trait</em> (definition of shared behavior, explained in Chapter 3). Macros generate additional code. Writing macros is an advanced topic, but you can leverage existing macros even as a beginner<sup class="footnote-reference" id="fr-BeginMacro-1"><a href="#footnote-BeginMacro">1</a></sup>.</p>
 <ul>
-<li>Notice how <code>#[derive(Debug)]</code> sits atop the <code>Rc4</code> structure? It only applies to this structure, telling the compiler how to pretty print its contents to a console<sup class="footnote-reference"><a href="#TraitDebug">2</a></sup>. Using this macro makes our stream cipher convenient to visually debug in test builds.</li>
+<li>Notice how <code>#[derive(Debug)]</code> sits atop the <code>Rc4</code> structure? It only applies to this structure, telling the compiler how to pretty print its contents to a console<sup class="footnote-reference" id="fr-TraitDebug-1"><a href="#footnote-TraitDebug">2</a></sup>. Using this macro makes our stream cipher convenient to visually debug in test builds.</li>
 </ul>
 </li>
 <li>
-<p>The <code>Rc4</code> structure is the most important part of the above code. Though not an <em>object</em> in the traditional sense<sup class="footnote-reference"><a href="#Obj">3</a></sup>, our structure encapsulates private data and we're going to define methods that operate on that data next. <code>Rc4</code>'s three fields are:</p>
+<p>The <code>Rc4</code> structure is the most important part of the above code. Though not an <em>object</em> in the traditional sense<sup class="footnote-reference" id="fr-Obj-1"><a href="#footnote-Obj">3</a></sup>, our structure encapsulates private data and we're going to define methods that operate on that data next. <code>Rc4</code>'s three fields are:</p>
 <ul>
 <li>
 <p><code>s</code>: cipher state, an array of 256 bytes (unsigned, 8-bit integers - hence <code>u8</code>).</p>
 </li>
 <li>
-<p><code>i</code>: &quot;incrementing&quot; index for key stream generation.</p>
+<p><code>i</code>: "incrementing" index for key stream generation.</p>
 </li>
 <li>
-<p><code>j</code>: &quot;jumping&quot; index for key stream generation.</p>
+<p><code>j</code>: "jumping" index for key stream generation.</p>
 </li>
 </ul>
 </li>
@@ -269,7 +264,7 @@ The cipher instance returned by the constructor will already be initialized.</p>
 <blockquote>
 <p><strong>Function-related Terminology</strong></p>
 <p>This section will use two technical terms.
-The concepts aren't unique to Rust, but the terms have specific meaning in Rust programs:<sup class="footnote-reference"><a href="#AssocMeth">4</a></sup></p>
+The concepts aren't unique to Rust, but the terms have specific meaning in Rust programs:<sup class="footnote-reference" id="fr-AssocMeth-1"><a href="#footnote-AssocMeth">4</a></sup></p>
 <ul>
 <li>
 <p><strong>Associated function:</strong> A function that is defined on a structure, but <em>does not</em> take <code>&amp;self</code> (reference to instance of structure) as its first parameter. It doesn't read or write structure fields.</p>
@@ -323,7 +318,7 @@ And that's usually not a great feeling.</p>
 Let's double down and try to make sense of it:</p>
 <ul>
 <li>
-<p><code>new</code> takes a single parameter, <code>key</code>, which is a <em>reference to a slice of bytes</em>. This signature makes passing in key data efficient<sup class="footnote-reference"><a href="#SliceEff">5</a></sup> and flexible<sup class="footnote-reference"><a href="#SliceFlex">6</a></sup>. We'll cover slices in Chapter 3.</p>
+<p><code>new</code> takes a single parameter, <code>key</code>, which is a <em>reference to a slice of bytes</em>. This signature makes passing in key data efficient<sup class="footnote-reference" id="fr-SliceEff-1"><a href="#footnote-SliceEff">5</a></sup> and flexible<sup class="footnote-reference" id="fr-SliceFlex-1"><a href="#footnote-SliceFlex">6</a></sup>. We'll cover slices in Chapter 3.</p>
 </li>
 <li>
 <p>The <code>assert!</code> statement, another macro, ensures the user of our API provides a key of valid length. If not, our program will terminate at this line. That's an aggressive way to handle errors. We'll talk about other options later.</p>
@@ -332,19 +327,19 @@ Let's double down and try to make sense of it:</p>
 <p><code>let mut rc4 = ...</code> creates a <em>mutable</em> instance of our <code>Rc4</code> structure with all fields zero initialized. Variables are immutable by default in Rust. But we'll be setting up cipher state (the <code>s</code> array), we need the <code>mut</code> keyword here.</p>
 </li>
 <li>
-<p>The next bit of code, a <code>for</code> loop identity permutation<sup class="footnote-reference"><a href="#IDPerm">7</a></sup>, is just a fancy way to set <code>s[0] = 0, s[1] = 1, s[2] = 2, ..., s[255] = 255</code>. It uses <em>iterators</em>. We'll implement our own iterators in Chapter 10, so let's not dwell on the syntax right now.</p>
+<p>The next bit of code, a <code>for</code> loop identity permutation<sup class="footnote-reference" id="fr-IDPerm-1"><a href="#footnote-IDPerm">7</a></sup>, is just a fancy way to set <code>s[0] = 0, s[1] = 1, s[2] = 2, ..., s[255] = 255</code>. It uses <em>iterators</em>. We'll implement our own iterators in Chapter 10, so let's not dwell on the syntax right now.</p>
 </li>
 <li>
 <p>The subsequent <code>for</code> loop <em>further permutes</em> the cipher state <code>s</code>. Three details worth pointing out:</p>
 <ul>
 <li>
-<p>We have to use the <code>wrapping_add</code> function instead of the addition operator (<code>+</code>) in cryptographic code because we want <em>integer overflow</em> (explanation coming in Chapter 3) to emulate modular arithmetic<sup class="footnote-reference"><a href="#ModArith">8</a></sup>.</p>
+<p>We have to use the <code>wrapping_add</code> function instead of the addition operator (<code>+</code>) in cryptographic code because we want <em>integer overflow</em> (explanation coming in Chapter 3) to emulate modular arithmetic<sup class="footnote-reference" id="fr-ModArith-1"><a href="#footnote-ModArith">8</a></sup>.</p>
 </li>
 <li>
-<p>Have you ever swapped two variables using a third (probably named <code>temp</code>)? If your answer is &quot;good God, a hundred times&quot; then you'll appreciate how <code>swap</code> is a built-in method for arrays in Rust.</p>
+<p>Have you ever swapped two variables using a third (probably named <code>temp</code>)? If your answer is "good God, a hundred times" then you'll appreciate how <code>swap</code> is a built-in method for arrays in Rust.</p>
 </li>
 <li>
-<p>Indexes are always register-width unsigned integers in Rust. So, in the call to <code>swap</code>, we promote <code>j</code> (a lowly <code>u8</code>) to a <code>usize</code> with the <code>as</code> keyword. Think of this minor detail as a &quot;safe cast&quot;<sup class="footnote-reference"><a href="#Cast">9</a></sup>.</p>
+<p>Indexes are always register-width unsigned integers in Rust. So, in the call to <code>swap</code>, we promote <code>j</code> (a lowly <code>u8</code>) to a <code>usize</code> with the <code>as</code> keyword. Think of this minor detail as a "safe cast"<sup class="footnote-reference" id="fr-Cast-1"><a href="#footnote-Cast">9</a></sup>.</p>
 </li>
 </ul>
 </li>
@@ -397,7 +392,7 @@ There is, however, one detail worth pointing out:</p>
 <ul>
 <li><code>prga_next</code>'s sole parameter is <code>&amp;mut self</code>, a <em>mutable reference</em> to the <code>Rc4</code> structure on which it will be called. We need the <code>mut</code> keyword here again because this function makes changes to an <code>Rc4</code> struct - it writes indexes <code>i</code> and <code>j</code>, and swaps bytes inside the cipher state buffer <code>s</code>.</li>
 </ul>
-<p>As an aside - we can visualize that line, outputing <code>k</code>, like so:<sup class="footnote-reference"><a href="#RC4Wiki">10</a></sup></p>
+<p>As an aside - we can visualize that line, outputing <code>k</code>, like so:<sup class="footnote-reference" id="fr-RC4Wiki-1"><a href="#footnote-RC4Wiki">10</a></sup></p>
 <br>
 <p align="center">
   <img width="100%" src="rc4_2.svg">
@@ -423,11 +418,11 @@ Since XOR is reversible, the same function also works for decryption!</p>
 
     // ..prga_next() definition omitted..
 }</code></pre>
-<p>Implementing encryption within a <em>method</em> maximizes flexibility: if we receive data in [potentially variable length] chunks, a single instance of <code>Rc4</code> can perform &quot;running&quot; encryption across multiple chunks like so (the below is an API usage example, not part of our <code>Rc4</code> implementation):</p>
+<p>Implementing encryption within a <em>method</em> maximizes flexibility: if we receive data in [potentially variable length] chunks, a single instance of <code>Rc4</code> can perform "running" encryption across multiple chunks like so (the below is an API usage example, not part of our <code>Rc4</code> implementation):</p>
 <pre><code class="language-rust ignore">let key = [0x1, 0x2, 0x3, 0x4, 0x5];
 
-let msg_1 = [0x48, 0x65, 0x6c, 0x6c, 0x6f]; // &quot;Hello&quot;
-let msg_2 = [0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64, 0x21]; // &quot; World!&quot;
+let msg_1 = [0x48, 0x65, 0x6c, 0x6c, 0x6f]; // "Hello"
+let msg_2 = [0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64, 0x21]; // " World!"
 
 // Encrypt in-place
 let mut rc4 = Rc4::new(&amp;key);
@@ -465,7 +460,7 @@ Notice it's really just a wrapper that hides state from the caller:</p>
 let msg = [
     0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f,
     0x72, 0x6c, 0x64, 0x21,
-]; // &quot;Hello World!&quot;
+]; // "Hello World!"
 
 // Encrypt in-place
 Rc4::apply_keystream_static(&amp;key, &amp;mut msg);
@@ -490,52 +485,52 @@ Let's put this code through its paces!</p>
 <p>The key stream can flip any bit in the plaintext as if by 50/50 random chance.</p>
 </li>
 </ul>
-<p>For a more mathematically principled treatment, we recommend the proof on page 32 of Paar and Pelzl's <em>Understanding Cryptography</em><sup class="footnote-reference"><a href="#UnderstandingCrypto">11</a></sup>.
+<p>For a more mathematically principled treatment, we recommend the proof on page 32 of Paar and Pelzl's <em>Understanding Cryptography</em><sup class="footnote-reference" id="fr-UnderstandingCrypto-1"><a href="#footnote-UnderstandingCrypto">11</a></sup>.
 While it's a university textbook, the formalisms are lightweight and precise.
 It's an excellent introduction to the field of cryptography.
-And the book is supplemented by free video lectures<sup class="footnote-reference"><a href="#UnderstandingCryptoVideo">12</a></sup>.</p>
+And the book is supplemented by free video lectures<sup class="footnote-reference" id="fr-UnderstandingCryptoVideo-1"><a href="#footnote-UnderstandingCryptoVideo">12</a></sup>.</p>
 </blockquote>
-<hr />
-<div class="footnote-definition" id="BeginMacro"><sup class="footnote-definition-label">1</sup>
-<p>Unlike C macros, Rust macros are <em>hygienic</em>: they won't cause subtle problems by capturing identifiers. This is part of what makes them so easy to use. In fact, <code>println!</code> is a macro. So you already used a macro when running the &quot;Hello world!&quot; program at the end of Chapter 1.</p>
-</div>
-<div class="footnote-definition" id="TraitDebug"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://doc.rust-lang.org/std/fmt/trait.Debug.html"><em>Trait <code>std::fmt::Debug</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Obj"><sup class="footnote-definition-label">3</sup>
-<p>In Rust, shared behavior is defined by <em>trait composition</em>, not by <em>object-oriented inheritance</em>. There's no &quot;class hierarchy&quot;, like in C++ or Java. We'll cover traits in Chapter 3.</p>
-</div>
-<div class="footnote-definition" id="AssocMeth"><sup class="footnote-definition-label">4</sup>
-<p>Technically, per the Rust reference<sup class="footnote-reference"><a href="#RustRef">13</a></sup>, &quot;Associated functions are functions associated with a type&quot; and &quot;Associated functions whose first parameter is named <code>self</code> are called methods...&quot;. But that's pretty in the weeds. We treat <em>associated functions</em> and <em>methods</em> as distinct in this section for clarity.</p>
-</div>
-<div class="footnote-definition" id="SliceEff"><sup class="footnote-definition-label">5</sup>
-<p>Slice references are &quot;fat pointers&quot; (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall &quot;pass-by-reference&quot;, from when we first talked about pointers).</p>
-</div>
-<div class="footnote-definition" id="SliceFlex"><sup class="footnote-definition-label">6</sup>
-<p>Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be &quot;viewed&quot; through a slice. So you'll encounter them often in idiomatic Rust code.</p>
-</div>
-<div class="footnote-definition" id="IDPerm"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://en.wikipedia.org/wiki/Permutation_group#Neutral_element_and_inverses"><em>Neutral element and inverses</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ModArith"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://en.wikipedia.org/wiki/Modular_arithmetic"><em>Modular arithmetic</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Cast"><sup class="footnote-definition-label">9</sup>
-<p>There are best practices related to casting in Rust. Namely using traits <code>From</code> and <code>Into</code> for <em>infallible</em> conversions between types, and <code>TryFrom</code> and <code>TryInto</code> for <em>fallible</em> conversions. We'll discus this topic in detail later.</p>
-</div>
-<div class="footnote-definition" id="RC4Wiki"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://en.wikipedia.org/wiki/RC4"><em>RC4</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="UnderstandingCrypto"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://amzn.to/3IEYuNd"><em><strong>[PERSONAL FAVORITE]</strong> Understanding Cryptography</em></a>. Christof Paar, Jan Pelzl (2009).</p>
-</div>
-<div class="footnote-definition" id="UnderstandingCryptoVideo"><sup class="footnote-definition-label">12</sup>
-<p><a href="https://www.crypto-textbook.com/movies.php"><em>Online Cryptography Course</em></a>. Christof Paar, Jan Pelzl (2009).</p>
-</div>
-<div class="footnote-definition" id="RustRef"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://doc.rust-lang.org/reference/items/associated-items.html"><em>The Rust Reference: Associated Items</em></a>. The Rust Team (2021).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-BeginMacro">
+<p>Unlike C macros, Rust macros are <em>hygienic</em>: they won't cause subtle problems by capturing identifiers. This is part of what makes them so easy to use. In fact, <code>println!</code> is a macro. So you already used a macro when running the "Hello world!" program at the end of Chapter 1. <a href="#fr-BeginMacro-1">↩</a></p>
+</li>
+<li id="footnote-TraitDebug">
+<p><a href="https://doc.rust-lang.org/std/fmt/trait.Debug.html"><em>Trait <code>std::fmt::Debug</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-TraitDebug-1">↩</a></p>
+</li>
+<li id="footnote-Obj">
+<p>In Rust, shared behavior is defined by <em>trait composition</em>, not by <em>object-oriented inheritance</em>. There's no "class hierarchy", like in C++ or Java. We'll cover traits in Chapter 3. <a href="#fr-Obj-1">↩</a></p>
+</li>
+<li id="footnote-AssocMeth">
+<p>Technically, per the Rust reference<sup class="footnote-reference" id="fr-RustRef-1"><a href="#footnote-RustRef">13</a></sup>, "Associated functions are functions associated with a type" and "Associated functions whose first parameter is named <code>self</code> are called methods...". But that's pretty in the weeds. We treat <em>associated functions</em> and <em>methods</em> as distinct in this section for clarity. <a href="#fr-AssocMeth-1">↩</a></p>
+</li>
+<li id="footnote-SliceEff">
+<p>Slice references are "fat pointers" (tuple of pointer and element count), they allow us to pass variable-length data without copying it (recall "pass-by-reference", from when we first talked about pointers). <a href="#fr-SliceEff-1">↩</a></p>
+</li>
+<li id="footnote-SliceFlex">
+<p>Slices are flexible because different kinds of collections (say, a fixed-size array or dynamically-sized vector) can be "viewed" through a slice. So you'll encounter them often in idiomatic Rust code. <a href="#fr-SliceFlex-1">↩</a></p>
+</li>
+<li id="footnote-IDPerm">
+<p><a href="https://en.wikipedia.org/wiki/Permutation_group#Neutral_element_and_inverses"><em>Neutral element and inverses</em></a>. Wikipedia (Accessed 2022). <a href="#fr-IDPerm-1">↩</a></p>
+</li>
+<li id="footnote-ModArith">
+<p><a href="https://en.wikipedia.org/wiki/Modular_arithmetic"><em>Modular arithmetic</em></a>. Wikipedia (Accessed 2022). <a href="#fr-ModArith-1">↩</a></p>
+</li>
+<li id="footnote-Cast">
+<p>There are best practices related to casting in Rust. Namely using traits <code>From</code> and <code>Into</code> for <em>infallible</em> conversions between types, and <code>TryFrom</code> and <code>TryInto</code> for <em>fallible</em> conversions. We'll discus this topic in detail later. <a href="#fr-Cast-1">↩</a></p>
+</li>
+<li id="footnote-RC4Wiki">
+<p><a href="https://en.wikipedia.org/wiki/RC4"><em>RC4</em></a>. Wikipedia (Accessed 2022). <a href="#fr-RC4Wiki-1">↩</a></p>
+</li>
+<li id="footnote-UnderstandingCrypto">
+<p><a href="https://amzn.to/3IEYuNd"><em><strong>[PERSONAL FAVORITE]</strong> Understanding Cryptography</em></a>. Christof Paar, Jan Pelzl (2009). <a href="#fr-UnderstandingCrypto-1">↩</a></p>
+</li>
+<li id="footnote-UnderstandingCryptoVideo">
+<p><a href="https://www.crypto-textbook.com/movies.php"><em>Online Cryptography Course</em></a>. Christof Paar, Jan Pelzl (2009). <a href="#fr-UnderstandingCryptoVideo-1">↩</a></p>
+</li>
+<li id="footnote-RustRef">
+<p><a href="https://doc.rust-lang.org/reference/items/associated-items.html"><em>The Rust Reference: Associated Items</em></a>. The Rust Team (2021). <a href="#fr-RustRef-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

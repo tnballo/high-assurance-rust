@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html" class="active"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -195,9 +190,9 @@
 <p>Rust offers four mechanisms to make ownership flexible and practical.
 Ways for ownership to ebb and flow throughout a program while still upholding the foundational principles.</p>
 <p>We've already seen two of the ways, moving and borrowing, but a survey of the whole gambit is well-warranted.
-These are the &quot;tricks&quot; for working with the <strong>borrow checker</strong> - the compiler component<sup class="footnote-reference"><a href="#BorrowChecker">1</a></sup> responsible for implementing and enforcing ownership.</p>
+These are the "tricks" for working with the <strong>borrow checker</strong> - the compiler component<sup class="footnote-reference" id="fr-BorrowChecker-1"><a href="#footnote-BorrowChecker">1</a></sup> responsible for implementing and enforcing ownership.</p>
 <p>Appeasing it can be challenging.
-Programmers new to Rust may experience &quot;fighting the borrow checker&quot;: running into errors when trying to express a program.
+Programmers new to Rust may experience "fighting the borrow checker": running into errors when trying to express a program.
 Fortunately, those roadblocks largely disappear with experience.</p>
 <p>In this section, we'll continue our discussion of ownership by:</p>
 <ul>
@@ -211,7 +206,7 @@ Why are these complex ownership concepts worth learning, again?</p>
 <p>You could argue the Rust compiler is akin to a human-in-the-loop property verification engine.
 A meld of machine and man.
 That's a grandiose conceptualization.
-But there's some truth to it<sup class="footnote-reference"><a href="#GeneralTrend">2</a></sup>.</p>
+But there's some truth to it<sup class="footnote-reference" id="fr-GeneralTrend-1"><a href="#footnote-GeneralTrend">2</a></sup>.</p>
 <ul>
 <li>
 <p><strong>Benefit:</strong> The machine runs analyses to guarantee memory safety under performance constraints (the property proven).</p>
@@ -228,7 +223,7 @@ We get performant programs free of memory safety vulnerabilities and emphasizing
 That's a solid starting point for high assurance software.</p>
 <blockquote>
 <p><strong>Computers and Humans Exploring Software Security (CHESS)</strong></p>
-<p>CHESS was  DARPA research program<sup class="footnote-reference"><a href="#CHESS">3</a></sup> on &quot;the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend&quot;<sup class="footnote-reference"><a href="#CHESSDesc">4</a></sup>.</p>
+<p>CHESS was  DARPA research program<sup class="footnote-reference" id="fr-CHESS-1"><a href="#footnote-CHESS">3</a></sup> on "the effectiveness of enabling computers and humans to collaboratively reason over software artifacts...with the goal of finding 0-day vulnerabilities at a scale and speed appropriate for the complex software ecosystem upon which the U.S. Government, military, and economy depend"<sup class="footnote-reference" id="fr-CHESSDesc-1"><a href="#footnote-CHESSDesc">4</a></sup>.</p>
 <p>It's a response to the fact that in-depth security assessments are a <strong>difficult to scale expert process</strong>.
 Rust was not considered a solution under the CHESS program.
 It wouldn't have met all criteria.
@@ -258,7 +253,7 @@ The bugs Rust prevents early would be more expensive to fix later in an asset's 
 </ul>
 <p>Rust's borrow checker blurs the line between these two concepts.
 It has a relentless obsession with scope-based lifetime enforcement.</p>
-<p>Let's get a feel for these ideas pan out with an example <em>borrowed from other sources</em><sup class="footnote-reference"><a href="#ExampleCredit">5</a></sup> (pun intended).
+<p>Let's get a feel for these ideas pan out with an example <em>borrowed from other sources</em><sup class="footnote-reference" id="fr-ExampleCredit-1"><a href="#footnote-ExampleCredit">5</a></sup> (pun intended).
 We'll start with a tiny snippet of C++ code:</p>
 <pre><code class="language-cpp">#include &lt;iostream&gt;
 
@@ -271,11 +266,11 @@ int main() {
     } // End of scope S
 
     // Printing x triggers undefined behavior! :(
-    std::cout &lt;&lt; &quot;x = &quot; &lt;&lt; *p &lt;&lt; std::endl;
+    std::cout &lt;&lt; "x = " &lt;&lt; *p &lt;&lt; std::endl;
     return 0;
 }
 </code></pre>
-<p>C++ doesn't have a borrow checker, so this program will compile without warnings<sup class="footnote-reference"><a href="#Gpp">6</a></sup>.
+<p>C++ doesn't have a borrow checker, so this program will compile without warnings<sup class="footnote-reference" id="fr-Gpp-1"><a href="#footnote-Gpp">6</a></sup>.
 And the print at the end of this function (the line starting with <code>std::cout</code>) triggers UB.
 In the context of a larger program, any UB may lead to a crash or an exploit.</p>
 <p>The problem is that we're attempting to use a reference (<code>p</code>) to a value (<code>x</code>) that has gone out-of-scope.
@@ -290,7 +285,7 @@ Let's see what the borrow checker has to say, when we try that in Rust:</p>
     } // End of scope S
 
     // Compile-time error!
-    println!(&quot;x = {}&quot;, p);
+    println!("x = {}", p);
 }</code></pre>
 <p>It emits this error:</p>
 <pre><code class="language-ignore">error[E0597]: `x` does not live long enough
@@ -301,7 +296,7 @@ Let's see what the borrow checker has to say, when we try that in Rust:</p>
 7  |     } // End of scope S
    |     - `x` dropped here while still borrowed
 ...
-10 |     println!(&quot;x = {}&quot;, p);
+10 |     println!("x = {}", p);
    |                        - borrow later used here
 </code></pre>
 <p>Take a second to read through this compiler error.
@@ -317,7 +312,7 @@ We can draw out the two lifetimes at play (<code>'a</code> and <code>'b</code>):
         p = &amp;x;             //  |       |
     }                       // -+       |
                             //          |
-    println!(&quot;x = {}&quot;, p);  // ---------+
+    println!("x = {}", p);  // ---------+
 }</code></pre>
 <p>Recall that borrows cannot out-live the referenced value.
 Because <code>'a</code> outlives <code>'b</code> in the above, the borrow checker rightfully rejects this program.
@@ -329,7 +324,7 @@ This is fine:</p>
     let x = 1337;           // -+-- 'b  |
     p = &amp;x;                 //  |       |
                             //  |       |
-    println!(&quot;x = {}&quot;, p);  // -+-------+
+    println!("x = {}", p);  // -+-------+
 }</code></pre></pre>
 <p>Here, the borrow's lifetime (<code>'b</code>) is a strict subset of the borrowed value's lifetime (<code>'a</code>).
 No rules have been violated.</p>
@@ -349,16 +344,16 @@ We'll overview these flexibility mechanisms now, and use them throughout the boo
 Now that we have a better understanding of lifetimes, let's review that first <code>Proc</code> tree example from the previous section - the one where we used moves instead of borrowing.</p>
 <p>The below right-hand ASCII graph shows how the lifetime for each variable ends when it's value is moved into another variable:</p>
 <pre><code class="language-rust ignore">// Alloc bash                                                       //
-let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());           // ---------+-- 'a
+let bash = Proc::new("bash", State::Running, Vec::new());           // ---------+-- 'a
                                                                     //          |
 // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd                       //          |
-let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![bash]);   // ---------+-- 'b
+let rsyslogd = Proc::new("rsyslogd", State::Running, vec![bash]);   // ---------+-- 'b
                                                                     //          |
 // Alloc cron                                                       //          |
-let cron = Proc::new(&quot;cron&quot;, State::Sleeping, Vec::new());          // -+-- 'c  |
+let cron = Proc::new("cron", State::Sleeping, Vec::new());          // -+-- 'c  |
                                                                     //  |       |
 // Alloc init, 2nd and 3rd moves: cron -&gt; init, rsyslogd -&gt; init    //  |       |
-let init = Proc::new(&quot;init&quot;, State::Running, vec![cron, rsyslogd]); // -+-------+--'d
+let init = Proc::new("init", State::Running, vec![cron, rsyslogd]); // -+-------+--'d
                                                                     //          |
 // Print serialized tree to see ownership hierarchy                 //          |
 dbg!(init);                                                         // ---------+</code></pre>
@@ -387,17 +382,17 @@ We can simply <strong>copy</strong> the data instead of moving it.</p>
 <p>Consider the below:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x = &quot;42_u64&quot;.to_string();
-let y = x; // x *moved* into y. y now owns String value &quot;42_u64&quot;, x is gone.
+</span>let x = "42_u64".to_string();
+let y = x; // x *moved* into y. y now owns String value "42_u64", x is gone.
 
 let a = 42_u64;
 let b = a; // a *copied* and assigned to b. We get two instances of value 42.
 
 // This would be a compile-time error
-//println!(&quot;Strings: {x}, {y}&quot;);
+//println!("Strings: {x}, {y}");
 
 // This works
-println!(&quot;Integers: {a}, {b}&quot;);
+println!("Integers: {a}, {b}");
 <span class="boring">}</span></code></pre></pre>
 <p>It outputs:</p>
 <pre><code class="language-ignore">Integers: 42, 42
@@ -413,7 +408,7 @@ The assignment operation was still cheap, but it created a tiny duplicate instea
 <p>The convenient part is that we don't have to think about ownership and moves, we can freely use our independent duplicates like the distinct values they are.
 This makes working with primitive types, like integers and floats, much more ergonomic.
 We get a welcome break from the cognitive load of Rust's move semantics.</p>
-<p>Assignment performs a copy for any type that implements the <code>Copy</code> trait<sup class="footnote-reference"><a href="#TraitCopy">7</a></sup>.
+<p>Assignment performs a copy for any type that implements the <code>Copy</code> trait<sup class="footnote-reference" id="fr-TraitCopy-1"><a href="#footnote-TraitCopy">7</a></sup>.
 You can derive or implement <code>Copy</code> for your own custom types if they don't hold externally-allocated data (like a <code>Vec</code> or <code>String</code> field).</p>
 <p>Why not just have everything implement <code>Copy</code> and never worry about moves again?
 Because duplicating data increases program runtime and memory consumption.
@@ -424,19 +419,19 @@ That's why, outside of day-to-day primitives, the <code>Copy</code> trait must b
 The idea was that we could get temporary access to a value by <em>reference</em>, without transferring ownership (performing a <em>move</em>) or duplicating data (performing a <em>copy</em>).</p>
 <p>As a review, our reference-based <code>Proc</code> struct (note how the lifetime diagram added on the right differs from the prior move case):</p>
 <pre><code class="language-rust ignore">// Alloc bash                                                           //
-let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());               // -------------------------+-- 'a
+let bash = Proc::new("bash", State::Running, Vec::new());               // -------------------------+-- 'a
                                                                         //                          |
 // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd                           //                          |
-let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![&amp;bash]);      // ------------------+-- 'b |
+let rsyslogd = Proc::new("rsyslogd", State::Running, vec![&amp;bash]);      // ------------------+-- 'b |
                                                                         //                   |      |
 // Print owned value (new!)                                             //                   |      |
 dbg!(&amp;bash);                                                            //                   |      |
                                                                         //                   |      |
 // Alloc cron                                                           //                   |      |
-let cron = Proc::new(&quot;cron&quot;, State::Sleeping, Vec::new());              // ----------+-- 'c  |      |
+let cron = Proc::new("cron", State::Sleeping, Vec::new());              // ----------+-- 'c  |      |
                                                                         //           |       |      |
 // Alloc init, 2nd and 3rd moves: cron -&gt; init, rsyslogd -&gt; init        //           |       |      |
-let init = Proc::new(&quot;init&quot;, State::Running, vec![&amp;cron, &amp;rsyslogd]);   // --+-- 'd  |       |      |
+let init = Proc::new("init", State::Running, vec![&amp;cron, &amp;rsyslogd]);   // --+-- 'd  |       |      |
                                                                         //   |       |       |      |
 // Print another owned value (new!)                                     //   |       |       |      |
 dbg!(&amp;cron);                                                            //   |       |       |      |
@@ -446,12 +441,12 @@ dbg!(&amp;init);                                                            // -
 <p>Rust guarantees references are always safe to use.
 References cannot <em>out-live</em> the value they refer to.
 This implies they can only have <em>shorter</em> lifetimes in which they are <em>always valid</em>.
-We can't have &quot;dangling pointers&quot;, which lead to temporal memory safety issues.
+We can't have "dangling pointers", which lead to temporal memory safety issues.
 And thus are compliant with the below MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 18.6]</strong> When an object's lifetime expires, so should the reference<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
+<p><strong>[AR, Rule 18.6]</strong> When an object's lifetime expires, so should the reference<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">8</a></sup></p>
 </blockquote>
-<p>Moreover, there's an infamous rule: &quot;shared XOR mutable&quot;.
+<p>Moreover, there's an infamous rule: "shared XOR mutable".
 Rust references can be either of (but never both):</p>
 <ul>
 <li>
@@ -476,12 +471,12 @@ Rust references can be either of (but never both):</p>
 <p>Thus far, we've only shown the first case, often called a <em>shared reference</em>.
 We'll learn how to work with the second case, dubbed a <em>mutable reference</em>, as we write more Rust code.
 To preview the exclusive-mutable restriction, this code would fail to compile:</p>
-<pre><code class="language-rust ignore">let mut x = &quot;Hello!&quot;.to_string();
+<pre><code class="language-rust ignore">let mut x = "Hello!".to_string();
 
 let r1 = &amp;mut x; // 1st mutable borrow
 let r2 = &amp;mut x; // 2nd mutable borrow - problem!
 
-println!(&quot;{}, {}&quot;, r1, r2);</code></pre>
+println!("{}, {}", r1, r2);</code></pre>
 <p>With the error:</p>
 <pre><code class="language-ignore">error[E0499]: cannot borrow `x` as mutable more than once at a time
  --&gt; src/main.rs:7:10
@@ -491,7 +486,7 @@ println!(&quot;{}, {}&quot;, r1, r2);</code></pre>
 7 | let r2 = &amp;mut x; // 2nd mutable borrow - problem!
   |          ^^^^^^ second mutable borrow occurs here
 8 |
-9 | println!(&quot;{}, {}&quot;, r1, r2);
+9 | println!("{}, {}", r1, r2);
   |                    -- first borrow later used here
 
 For more information about this error, try `rustc --explain E0499`.
@@ -499,15 +494,15 @@ For more information about this error, try `rustc --explain E0499`.
 <p>But this is OK:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let mut x = &quot;Hello!&quot;.to_string();
+</span>let mut x = "Hello!".to_string();
 
 let r1 = &amp;mut x; // 1st mutable borrow
 
 // Mutate the string
 r1.pop();
-r1.push_str(&quot;, World&quot;);
+r1.push_str(", World");
 
-println!(&quot;Modified via r1: {}&quot;, r1);
+println!("Modified via r1: {}", r1);
 // End of implicit (no open-close brackets) scope for 1st mutable borrow,
 // b/c not used again in this function
 
@@ -516,7 +511,7 @@ let r2 = &amp;mut x; // 2nd mutable borrow - OK, not simultaneous!
 // Mutate the string via another reference
 r2.push('!');
 
-println!(&quot;Modified via r2: {}&quot;, r2);
+println!("Modified via r2: {}", r2);
 <span class="boring">}</span></code></pre></pre>
 <p>It prints:</p>
 <pre><code class="language-ignore">Modified via r1: Hello, World
@@ -524,8 +519,8 @@ Modified via r2: Hello, World!
 </code></pre>
 <p>The trick with mutable borrows is the requirement that they remain <em>exclusive</em>.
 Satisfying that requirement isn't always straightforward, it's a skill gained through experience.</p>
-<h3 id="4-the-interior-mutability-pattern"><a class="header" href="#4-the-interior-mutability-pattern">4) The &quot;interior mutability&quot; pattern</a></h3>
-<p>The first three ownership &quot;workarounds&quot; (moving, copying, and borrowing) are all that we'll need in this book.
+<h3 id="4-the-interior-mutability-pattern"><a class="header" href="#4-the-interior-mutability-pattern">4) The "interior mutability" pattern</a></h3>
+<p>The first three ownership "workarounds" (moving, copying, and borrowing) are all that we'll need in this book.
 But there's a fourth option, a well-known pattern in Rust.
 It's called <strong>interior mutability</strong> and relaxes enforcement of the <code>&amp;T</code> xor <code>&amp;mut T</code> check.</p>
 <p>We must still obey the rule, but we don't have to prove mutual exclusion for all possible executions with <em>compile-time verification</em> (static assurance).
@@ -536,13 +531,13 @@ Below are two types often used in the interior mutability pattern.
 Don't worry about what these type signatures mean, let's focus on the tradeoffs:</p>
 <ul>
 <li>
-<p><strong><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>'s availability risk:</strong> if a statement in our code attempts to mutably borrow a value that another statement has already mutably borrowed, the thread will <code>panic!</code> (terminate immediately)<sup class="footnote-reference"><a href="#RefCell">9</a></sup>.</p>
+<p><strong><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>'s availability risk:</strong> if a statement in our code attempts to mutably borrow a value that another statement has already mutably borrowed, the thread will <code>panic!</code> (terminate immediately)<sup class="footnote-reference" id="fr-RefCell-1"><a href="#footnote-RefCell">9</a></sup>.</p>
 <ul>
 <li>E.g. risks terminating single-threaded applications.</li>
 </ul>
 </li>
 <li>
-<p><strong><code>Arc&lt;RwLock&lt;T&gt;&gt;</code>'s potential performance impact:</strong> - if thread A requests read access to data while thread B is holding a write lock, thread A is blocked (pauses execution) until thread B releases the lock. But multiple simultaneous readers are allowed<sup class="footnote-reference"><a href="#RwLock">10</a></sup>.</p>
+<p><strong><code>Arc&lt;RwLock&lt;T&gt;&gt;</code>'s potential performance impact:</strong> - if thread A requests read access to data while thread B is holding a write lock, thread A is blocked (pauses execution) until thread B releases the lock. But multiple simultaneous readers are allowed<sup class="footnote-reference" id="fr-RwLock-1"><a href="#footnote-RwLock">10</a></sup>.</p>
 <ul>
 <li>
 <p>E.g. risks performance degradation for multi-threaded applications.</p>
@@ -563,7 +558,7 @@ Don't worry about what these type signatures mean, let's focus on the tradeoffs:
 We can build a feature-rich library without it.
 And, because a compile-time guarantee doesn't require a fallible runtime check, our implementation will enjoy a higher level of assurance.</p>
 <p>Interior mutability is still worth learning and using, eventually.
-It's a best practice for some classes of problems, and well-covered in other resources<sup class="footnote-reference"><a href="#TRPL">11</a></sup>.
+It's a best practice for some classes of problems, and well-covered in other resources<sup class="footnote-reference" id="fr-TRPL-1"><a href="#footnote-TRPL">11</a></sup>.
 But remember - Rust is a <em>big</em> language.
 We don't have to master every feature to be productive.</p>
 <blockquote>
@@ -598,42 +593,42 @@ Keep these concepts in mind as we write more code, and soon ownership might even
 But Rust is also known for general correctness - for robustness beyond memory safety.
 Its error handling story is a major reason for that reputation.
 And our next topic.</p>
-<hr />
-<div class="footnote-definition" id="BorrowChecker"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://rustc-dev-guide.rust-lang.org/borrow_check.html"><em>MIR borrow check</em></a>. Guide to Rustc Development (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="GeneralTrend"><sup class="footnote-definition-label">2</sup>
+<hr>
+<ol class="footnote-definition"><li id="footnote-BorrowChecker">
+<p><a href="https://rustc-dev-guide.rust-lang.org/borrow_check.html"><em>MIR borrow check</em></a>. Guide to Rustc Development (Accessed 2022). <a href="#fr-BorrowChecker-1">↩</a></p>
+</li>
+<li id="footnote-GeneralTrend">
 <p>At some level, that's also true of most Programming Language (PL) innovations (e.g. type systems and annotation-based frameworks).
-And it complements the robustness benefits coming from industry development tools/practices (e.g. powerful IDEs and frameworks aiding product creation, and testing/deployment processes underpinning production-quality systems and services). Rust isn't special or a &quot;silver bullet&quot;, it's one of many modern development tools. But Rust does tackle an important niche: fast &amp;&amp; memory-safe.</p>
-</div>
-<div class="footnote-definition" id="CHESS"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://www.darpa.mil/attachments/CHESS-Slides-DISTAR.pdf"><em>CHESS: Computers and Humans Exploring Software Security</em></a>. Dustin Fraze (2018, Public Domain).</p>
-</div>
-<div class="footnote-definition" id="CHESSDesc"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://www.darpa.mil/program/computers-and-humans-exploring-software-security"><em>Computers and Humans Exploring Software Security (CHESS)</em></a>. William Martin (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ExampleCredit"><sup class="footnote-definition-label">5</sup>
-<p>To give appropriate credit, this example is based on <a href="https://stackoverflow.com/questions/11137516/scope-vs-lifetime-of-variable">this StackOverflow question</a> and <a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html">this part</a> of TRPL book. In particular, we use the same ASCII diagram comments of TRPL.</p>
-</div>
-<div class="footnote-definition" id="Gpp"><sup class="footnote-definition-label">6</sup>
-<p>We compiled this program with command <code>g++ scope.cpp -o scope</code> using <code>g++</code> version 9.4.0 (latest shipping on Ubuntu 20.04 LTS at the time of this writing). No warning was emitted.</p>
-</div>
-<div class="footnote-definition" id="TraitCopy"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html"><em>Trait <code>std::marker::Copy</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="RefCell"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://doc.rust-lang.org/std/cell/index.html"><em>Module <code>std::cell</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RwLock"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><em>Struct <code>std::sync::RwLock</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TRPL"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://doc.rust-lang.org/book/ch15-05-interior-mutability.html"><em><code>RefCell&lt;T&gt;</code> and the Interior Mutability Pattern</em></a>. by Steve Klabnik, Carol Nichols (Accessed 2022).</p>
-</div>
-
+And it complements the robustness benefits coming from industry development tools/practices (e.g. powerful IDEs and frameworks aiding product creation, and testing/deployment processes underpinning production-quality systems and services). Rust isn't special or a "silver bullet", it's one of many modern development tools. But Rust does tackle an important niche: fast &amp;&amp; memory-safe. <a href="#fr-GeneralTrend-1">↩</a></p>
+</li>
+<li id="footnote-CHESS">
+<p><a href="https://www.darpa.mil/attachments/CHESS-Slides-DISTAR.pdf"><em>CHESS: Computers and Humans Exploring Software Security</em></a>. Dustin Fraze (2018, Public Domain). <a href="#fr-CHESS-1">↩</a></p>
+</li>
+<li id="footnote-CHESSDesc">
+<p><a href="https://www.darpa.mil/program/computers-and-humans-exploring-software-security"><em>Computers and Humans Exploring Software Security (CHESS)</em></a>. William Martin (Accessed 2022). <a href="#fr-CHESSDesc-1">↩</a></p>
+</li>
+<li id="footnote-ExampleCredit">
+<p>To give appropriate credit, this example is based on <a href="https://stackoverflow.com/questions/11137516/scope-vs-lifetime-of-variable">this StackOverflow question</a> and <a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html">this part</a> of TRPL book. In particular, we use the same ASCII diagram comments of TRPL. <a href="#fr-ExampleCredit-1">↩</a></p>
+</li>
+<li id="footnote-Gpp">
+<p>We compiled this program with command <code>g++ scope.cpp -o scope</code> using <code>g++</code> version 9.4.0 (latest shipping on Ubuntu 20.04 LTS at the time of this writing). No warning was emitted. <a href="#fr-Gpp-1">↩</a></p>
+</li>
+<li id="footnote-TraitCopy">
+<p><a href="https://doc.rust-lang.org/std/marker/trait.Copy.html"><em>Trait <code>std::marker::Copy</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-TraitCopy-1">↩</a></p>
+</li>
+<li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a></p>
+</li>
+<li id="footnote-RefCell">
+<p><a href="https://doc.rust-lang.org/std/cell/index.html"><em>Module <code>std::cell</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-RefCell-1">↩</a></p>
+</li>
+<li id="footnote-RwLock">
+<p><a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><em>Struct <code>std::sync::RwLock</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-RwLock-1">↩</a></p>
+</li>
+<li id="footnote-TRPL">
+<p><a href="https://doc.rust-lang.org/book/ch15-05-interior-mutability.html"><em><code>RefCell&lt;T&gt;</code> and the Interior Mutability Pattern</em></a>. by Steve Klabnik, Carol Nichols (Accessed 2022). <a href="#fr-TRPL-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

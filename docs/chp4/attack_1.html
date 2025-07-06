@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html" class="active"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -191,8 +186,8 @@
 <meta name="twitter:url" content="https://highassurance.rs/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
-<h1 id="an-attackers-perspective-breaking-safety-12"><a class="header" href="#an-attackers-perspective-breaking-safety-12">An Attacker's Perspective: Breaking Safety (1/2)</a></h1>
-<p>Let's start from first principles: data is code<sup class="footnote-reference"><a href="#DataCode">1</a></sup>.
+<h1 id="an-attackers-perspective-breaking-safety-1-of-2"><a class="header" href="#an-attackers-perspective-breaking-safety-1-of-2">An Attacker's Perspective: Breaking Safety (1 of 2)</a></h1>
+<p>Let's start from first principles: data is code<sup class="footnote-reference" id="fr-DataCode-1"><a href="#footnote-DataCode">1</a></sup>.
 Many abstractions attempt to enforce a logical separation as follows:</p>
 <ul>
 <li><strong>Data</strong> - Information we can read or write.</li>
@@ -211,11 +206,11 @@ Many abstractions attempt to enforce a logical separation as follows:</p>
 </li>
 </ol>
 <p>If a motivated adversary builds an <strong>exploit</strong> for one of the 3 classes of vulnerability, or chains together several classes, they've likely found a way to treat <em>data they control</em> as some form of <em>executable, logical code</em>.</p>
-<p>More generally, Sergey Bratus defines exploitation as<sup class="footnote-reference"><a href="#BratusTalk">2</a></sup>:</p>
+<p>More generally, Sergey Bratus defines exploitation as<sup class="footnote-reference" id="fr-BratusTalk-1"><a href="#footnote-BratusTalk">2</a></sup>:</p>
 <blockquote>
 <p>Causing a (complex) computer or human-computer system to behave contrary to the trust assumptions and/or expectations of its designers or operators.</p>
 </blockquote>
-<p>&quot;Trust assumptions&quot;, in an exploitation context, are beliefs we have about a system meeting specific security or functionality requirements.
+<p>"Trust assumptions", in an exploitation context, are beliefs we have about a system meeting specific security or functionality requirements.
 In the prior section we saw how breaking stack safety undermines availability.</p>
 <p>Say we believe that a system protects confidentiality.
 Under this trust assumption, any unauthenticated or unprivileged entity being able to <em>read</em> sensitive data (secrets, intellect property, user PII, etc) is a viable attack.
@@ -236,7 +231,7 @@ That's [a dramatization of] the fetch/decode/execute cycle we discussed earlier.
 Creative attackers can, and do, find ways to control contents of the IP register.
 The technical term is <em>control-flow hijacking</em>, and it's the result of breaking data-code isolation.</p>
 <p>Before we dive into exploitation in detail, let's discuss root cause.
-Recall the term &quot;value&quot; refers to a concrete instance of typed data in a program: an integer, a string, a structure, a class with inherited methods, etc.
+Recall the term "value" refers to a concrete instance of typed data in a program: an integer, a string, a structure, a class with inherited methods, etc.
 Binary exploitation often requires breaking a value's safety assumptions.
 That means violating either one or both of:</p>
 <ol>
@@ -255,7 +250,7 @@ That means violating either one or both of:</p>
 <p><strong>Type Safety</strong> - Requires that a value only be accessed as its correct type (semantics), and only by code authorized to do so (visibility).</p>
 </li>
 </ol>
-<p>Now &quot;binary exploitation&quot; refers specifically to attacking natively compiled programs - sometimes without access to the original source code.
+<p>Now "binary exploitation" refers specifically to attacking natively compiled programs - sometimes without access to the original source code.
 Be it C, C++, or <code>unsafe</code> Rust.</p>
 <p>For a more concrete discussion of memory and type safety, we'll examine three C snippets and visualize the violations therein. Note:</p>
 <ul>
@@ -276,7 +271,7 @@ char* get_greeting() {
     if (greeting == NULL) {
         return NULL;
     } else {
-        strncpy(greeting, &quot;Hello&quot;, 6);
+        strncpy(greeting, "Hello", 6);
         assert(greeting[5] == '\0');
         return greeting;
     }
@@ -298,7 +293,7 @@ int main() {
 Let's break it down:</p>
 <ul>
 <li>
-<p><code>get_greeting()</code> returns a <em>heap-allocated</em> string by reference (using a raw pointer). Strings in C are null-terminated, meaning they must end with the byte literal <code>/0</code>, a &quot;null byte&quot;. And C string handling is notoriously error-prone. This function correctly takes a careful sequence of steps:</p>
+<p><code>get_greeting()</code> returns a <em>heap-allocated</em> string by reference (using a raw pointer). Strings in C are null-terminated, meaning they must end with the byte literal <code>/0</code>, a "null byte". And C string handling is notoriously error-prone. This function correctly takes a careful sequence of steps:</p>
 <ul>
 <li>
 <p>Allocate <code>6</code> bytes on the heap via a call to <code>malloc()</code>, the standard library's memory allocator (<code>std</code> Rust uses this same API on your behalf!). <code>6</code> is the minimum length needed to store the ASCII string <code>Hello</code> and its null terminator.</p>
@@ -307,7 +302,7 @@ Let's break it down:</p>
 <p><code>malloc()</code> can return a <code>NULL</code> pointer if heap memory is already full (exhaustion) or if the allocation requested is too large to fit within memory remaining (fragmentation). We've remembered to handle this important edge case by implicitly propagating the error to the caller - similarly returning <code>NULL</code>.</p>
 </li>
 <li>
-<p>If <code>malloc()</code> succeeds, it returns a heap-allocated buffer of the requested size. We copy the string <code>Hello</code>. <code>strncpy()</code> (which takes a maximum number of bytes to copy, <code>6</code> here) is a &quot;best-practice&quot; safe variant of the unsafe <code>strcpy()</code> function (which keeps copying data until a <code>NULL</code> byte is reached, often leading to spatial violations).</p>
+<p>If <code>malloc()</code> succeeds, it returns a heap-allocated buffer of the requested size. We copy the string <code>Hello</code>. <code>strncpy()</code> (which takes a maximum number of bytes to copy, <code>6</code> here) is a "best-practice" safe variant of the unsafe <code>strcpy()</code> function (which keeps copying data until a <code>NULL</code> byte is reached, often leading to spatial violations).</p>
 </li>
 <li>
 <p><code>strncpy()</code> will include the null byte if doing so doesn't exceed the input maximum length specified. But, to be extra cautious, check that the string has been null-terminated using an <code>assert()</code>. Attempting to print an unterminated-string could result in <em>leaking sensitive data</em>. Because we'd keep printing adjacent bytes until a <code>/0</code> is reached!</p>
@@ -318,8 +313,8 @@ Let's break it down:</p>
 <blockquote>
 <p><strong>The Implications of Library Abstraction Design</strong></p>
 <p>Safe Rust doesn't require us to bear as much memory-representation cognitive load when handling strings.
-With <code>std::string::String</code><sup class="footnote-reference"><a href="#String">3</a></sup> we don't have to worry about manual allocation, copying specific lengths, null-termination, or encoding.</p>
-<p>To some extent, this is also true of modern C++'s <code>std::string</code> class<sup class="footnote-reference"><a href="#CppString">4</a></sup>!</p>
+With <code>std::string::String</code><sup class="footnote-reference" id="fr-String-1"><a href="#footnote-String">3</a></sup> we don't have to worry about manual allocation, copying specific lengths, null-termination, or encoding.</p>
+<p>To some extent, this is also true of modern C++'s <code>std::string</code> class<sup class="footnote-reference" id="fr-CppString-1"><a href="#footnote-CppString">4</a></sup>!</p>
 </blockquote>
 <ul>
 <li>
@@ -341,7 +336,7 @@ With <code>std::string::String</code><sup class="footnote-reference"><a href="#S
 It outputs:</p>
 <pre><code class="language-ignore">Hello
 </code></pre>
-<p>At least on our personal machine, last we checked - this is a UB &quot;time bomb&quot; that may go off on change of platform/toolchain.
+<p>At least on our personal machine, last we checked - this is a UB "time bomb" that may go off on change of platform/toolchain.
 The overwrite broke spatial memory safety, we can no longer have confidence in the functionality of this program.</p>
 <p>Visually, statement <code>greeting[12] = '!';</code> (an out-of-bounds write) triggers memory corruption like so:</p>
 </br>
@@ -353,7 +348,7 @@ The overwrite broke spatial memory safety, we can no longer have confidence in t
 </p>
 <blockquote>
 <p><strong>What are the Prerequisites to a Similar Bug being Exploitable?</strong></p>
-<p>The classic &quot;buffer overflow&quot; is an example of an exploitable, spatial vulnerability.
+<p>The classic "buffer overflow" is an example of an exploitable, spatial vulnerability.
 It involves overwriting multiple sequential bytes, beyond a buffer's capacity.
 Not just one fixed byte (<code>!</code>) at a fixed offset (<code>12</code>) - like our buffer overwrite example.</p>
 <p>Why does this distinction matter?
@@ -361,7 +356,7 @@ Because of a key detail in the stack's control-flow implementation.
 For function calls to return, compiled code places a return addresses at the top of each stack frame (push the <code>IP</code> register onto stack).
 On exit of a function this stored value is popped into the Instruction Pointer.
 This allows the CPU to reach the next statement following a completed function call.</p>
-<p>Before the use of compiler-inserted &quot;stack canaries&quot; (an exploit mitigation that inserts a random value before the return address and verifies it on function exit) buffer overflow vulnerabilities were trivially exploitable.
+<p>Before the use of compiler-inserted "stack canaries" (an exploit mitigation that inserts a random value before the return address and verifies it on function exit) buffer overflow vulnerabilities were trivially exploitable.
 The attacker could turn data to code just by writing a string long enough to overwrite the return address (control flow metadata used by the CPU).
 That is:</p>
 </br>
@@ -393,9 +388,9 @@ fn main() {
 } -->
 <pre><code class="language-c">int main() {
     char* greeting = get_greeting();
-    size_t greeting_len = strlen(greeting); // Excludes null byte
     if (greeting != NULL) {
-        // Append &quot;!&quot; correctly
+        // Append "!" correctly
+        size_t greeting_len = strlen(greeting); // Excludes null byte
         greeting = (char*)realloc(greeting, greeting_len + 2);
         if (greeting != NULL) {
             // strcat could be used here instead of the two lines below
@@ -415,6 +410,9 @@ fn main() {
 <li>
 <p>This time, we remembered that appending to a string in C requires manually re-allocating  the backing memory (via <code>realloc()</code>). We no longer assume an 11-character <code>Hello World</code> return, instead we compute the string's length dynamically via <code>strlen</code>.</p>
 <ul>
+<li>
+<p>We make sure to call <code>strlen</code> after checking that <code>greeting</code> is non-null, otherwise it would dereference a null pointer, resulting in UB.</p>
+</li>
 <li>
 <p>As a quirk, the reported length doesn't include the null-terminator (although it must be present for <code>strlen</code> to report a correct result). That's why we call <code>realloc</code> with <code>greeting_len + 2</code> - accounting for both the space to add <code>!</code> and to append a new null byte.</p>
 </li>
@@ -448,8 +446,8 @@ The second free was successfully detected as a fatal error:</p>
 <p>An early abort would be jarring for an end-user.
 And potentially result in down-time for a back-end service.
 But runtime detection could prevent an exploit!
-We got lucky here - this <em>particular</em> double-free was caught by our <em>specific</em> memory allocator<sup class="footnote-reference"><a href="#TCache">5</a></sup>, which ships with a recent version of <code>glibc</code>.
-Per <code>glibc</code>'s Wiki<sup class="footnote-reference"><a href="#MallocInternals">6</a></sup>:</p>
+We got lucky here - this <em>particular</em> double-free was caught by our <em>specific</em> memory allocator<sup class="footnote-reference" id="fr-TCache-1"><a href="#footnote-TCache">5</a></sup>, which ships with a recent version of <code>glibc</code>.
+Per <code>glibc</code>'s Wiki<sup class="footnote-reference" id="fr-MallocInternals-1"><a href="#footnote-MallocInternals">6</a></sup>:</p>
 <blockquote>
 <p>The malloc subsystem undertakes reasonable attempts to detect heap corruption throughout the code.
 Some checks detect errors consistently (e.g., passing a pointer which is not sufficiently aligned to free).
@@ -463,31 +461,31 @@ Unlike Rust's static ownership verification, dynamic invariant checks have a run
 Allocators need to balance performance and security, yet are often forced to favor the former.
 Realistically, invariant checks may be any combination of:</p>
 <ul>
-<li>&quot;Best-effort&quot; (no guarantee, low assurance) in nature (unlike a type system!)</li>
+<li>"Best-effort" (no guarantee, low assurance) in nature (unlike a type system!)</li>
 <li>Disabled by default.</li>
 <li>Trading off availability guarantees (<code>assert</code> failure panics).</li>
 <li>Reliant on randomization for probabilistic defense.</li>
-<li>Reserved only for [often slower] &quot;hardened&quot; allocators.</li>
+<li>Reserved only for [often slower] "hardened" allocators.</li>
 <li>Bypassable due to implementation or design flaws.</li>
 </ul>
 <p>We'll cover heap mechanics in greater depth later in this chapter.
 And exploit a double-free vulnerability backed by a simpler allocator.
 Modern heap exploitation, attacking up-to-date <code>glibc</code> and its contemporaries, is an art and science beyond our scope.
-Other free resources exist for those who wish to dive those depths<sup class="footnote-reference"><a href="#How2Heap">7</a></sup>.</p>
+Other free resources exist for those who wish to dive those depths<sup class="footnote-reference" id="fr-How2Heap-1"><a href="#footnote-How2Heap">7</a></sup>.</p>
 <blockquote>
 <p><strong>Availability Robustness: The Rust Port Isn't Strictly Better</strong></p>
 <p>The <code>!</code> appending version in Rust may seem perfectly safe and pleasantly readable by comparison:</p>
 <pre><pre class="playground"><code class="language-rust">fn get_greeting() -&gt; String {
-    String::from(&quot;Hello&quot;)
+    String::from("Hello")
 }
 
 fn main() {
     let mut greeting = get_greeting();
     greeting.push('!');
-    println!(&quot;{}&quot;, greeting);
+    println!("{}", greeting);
 }</code></pre></pre>
 <p>Ownership takes care of memory allocation and deallocation, the <code>String</code> type abstracts reallocation.
-And we don't have to worry about null-termination, since that's not true of Rust strings (unless we using <code>std::ffi::CString</code><sup class="footnote-reference"><a href="#CString">8</a></sup>  specifically for interoperability with C external code).</p>
+And we don't have to worry about null-termination, since that's not true of Rust strings (unless we using <code>std::ffi::CString</code><sup class="footnote-reference" id="fr-CString-1"><a href="#footnote-CString">8</a></sup>  specifically for interoperability with C external code).</p>
 <p>But not all ergonomics are free.
 <code>libc</code>'s <code>malloc</code> still gets called when heap allocating the <code>String</code>.
 A raw buffer pointer is still returned.
@@ -511,7 +509,7 @@ But they're still possible if misusing cyclical references or calling <code>unsa
 </blockquote>
 <h2 id="breaking-type-safety-low-level-value-semantics"><a class="header" href="#breaking-type-safety-low-level-value-semantics">Breaking Type Safety (Low-level Value Semantics)</a></h2>
 <p>Given our previous troubles with spatial and temporal memory safety, we've decided to give up on appending the <code>!</code> at runtime and simply hardcode a <code>Hello!</code> string.
-Free of string-handling perils, we can focus on an exciting new feature: adding a user record<sup class="footnote-reference"><a href="#CWE843">9</a></sup>.</p>
+Free of string-handling perils, we can focus on an exciting new feature: adding a user record<sup class="footnote-reference" id="fr-CWE843-1"><a href="#footnote-CWE843">9</a></sup>.</p>
 <p>Our feature has two functional requirements:</p>
 <ol>
 <li>New users should be greeted with <code>Hello!</code></li>
@@ -531,7 +529,7 @@ struct user_record_t {
 </code></pre>
 <ul>
 <li>
-<p>The <code>#define</code> lines are C preprocessor directives, aka &quot;macros&quot;. They tell the compiler to replace all instances of the uppercase constant name with the corresponding constant value, e.g. <code>TYPE_NEW_USR</code> is replaced with <code>1</code> wherever it appears<sup class="footnote-reference"><a href="#PreTrick">10</a></sup> in the source. C macros can have &quot;hygiene&quot; pitfalls<sup class="footnote-reference"><a href="#HygienicMacro">11</a></sup>, but those aren't relevant here. Typing is weaker than a Rust <code>enum</code> with two variants (why do you think that is? There may be multiple answers).</p>
+<p>The <code>#define</code> lines are C preprocessor directives, aka "macros". They tell the compiler to replace all instances of the uppercase constant name with the corresponding constant value, e.g. <code>TYPE_NEW_USR</code> is replaced with <code>1</code> wherever it appears<sup class="footnote-reference" id="fr-PreTrick-1"><a href="#footnote-PreTrick">10</a></sup> in the source. C macros can have "hygiene" pitfalls<sup class="footnote-reference" id="fr-HygienicMacro-1"><a href="#footnote-HygienicMacro">11</a></sup>, but those aren't relevant here. Typing is weaker than a Rust <code>enum</code> with two variants (why do you think that is? There may be multiple answers).</p>
 </li>
 <li>
 <p><code>user_record_t</code> is a C structure. It represents either a new user or an existing user (but not both simultaneously). The <code>union</code> field allows us to store different data types in the same memory location - here a string pointer (<code>char*</code>) for a new user's greeting and an unsigned integer (<code>unsigned</code>) for an existing user's visit count.</p>
@@ -542,7 +540,7 @@ struct user_record_t {
     struct user_record_t rec;
 
     rec.type = TYPE_NEW_USR;
-    rec.greeting = &quot;Hello!&quot;;
+    rec.greeting = "Hello!";
 
     // Logic error: should be `TYPE_CUR_USR`
     if (rec.type == TYPE_NEW_USR) {
@@ -550,7 +548,7 @@ struct user_record_t {
     }
 
     if (rec.type == TYPE_NEW_USR) {
-        printf(&quot;%s\n&quot;, rec.greeting);
+        printf("%s\n", rec.greeting);
     }
 
     return 0;
@@ -569,7 +567,7 @@ This is possible because of:</p>
 <li><code>union</code> backing different data types with the same memory location.</li>
 </ol>
 <p>It seems like this shouldn't be legal.
-But these mechanisms underpin the &quot;raw&quot; power of C - unions and pointer arithmetic can enable clever optimizations.
+But these mechanisms underpin the "raw" power of C - unions and pointer arithmetic can enable clever optimizations.
 In fact, a major usecase for <code>unsafe</code> Rust is enabling similar optimizations.</p>
 <p>Visually, the type confusion plays out like so:</p>
 </br>
@@ -596,13 +594,13 @@ Consider:</p>
 <li>
 <p><strong>Serialization attacks</strong> - deserializing attacker-controlled data into a specific in-memory structure (which can sometimes additionally enable type confusion).</p>
 <ul>
-<li>See CVE-2023-25194<sup class="footnote-reference"><a href="#KafkaCVE">12</a></sup>, an RCE in Apache Kafka.</li>
+<li>See CVE-2023-25194<sup class="footnote-reference" id="fr-KafkaCVE-1"><a href="#footnote-KafkaCVE">12</a></sup>, an RCE in Apache Kafka.</li>
 </ul>
 </li>
 <li>
 <p><strong>Command injection attacks</strong> - passing arbitrary, attacker-specified commands directly to a host system's shell for execution.</p>
 <ul>
-<li>See CVE-2021-44228<sup class="footnote-reference"><a href="#Log4J">13</a></sup>, aka &quot;Log4J&quot; or &quot;Log4Shell&quot;, an extremely widespread RCE in Apache Log4j.</li>
+<li>See CVE-2021-44228<sup class="footnote-reference" id="fr-Log4J-1"><a href="#footnote-Log4J">13</a></sup>, aka "Log4J" or "Log4Shell", an extremely widespread RCE in Apache Log4j.</li>
 </ul>
 </li>
 </ul>
@@ -621,17 +619,17 @@ This creates room for an exploit developer to:</p>
 <li>
 <p><strong>Hijack control-flow</strong> - Redirect execution of the program by setting the value of the Instruction Pointer (IP).</p>
 <ul>
-<li>This is a key &quot;building block&quot; in powerful exploits (excluding data-oriented attacks<sup class="footnote-reference"><a href="#DOA">14</a></sup>, a niche). In limited cases, control-flow hijack alone enables a useful malicious operation (perhaps calling an existing function without arguments, if the function has some desirable side-effect).</li>
+<li>This is a key "building block" in powerful exploits (excluding data-oriented attacks<sup class="footnote-reference" id="fr-DOA-1"><a href="#footnote-DOA">14</a></sup>, a niche). In limited cases, control-flow hijack alone enables a useful malicious operation (perhaps calling an existing function without arguments, if the function has some desirable side-effect).</li>
 </ul>
 </li>
 <li>
 <p><strong>Inject code</strong> - Write an executable memory location to add new code or modify existing code. If control-flow can be hijacked to execute the newly/added modified code, the attacker is free to reprogram the victim process arbitrarily.</p>
 <ul>
-<li>Modern hardware/OS combos store executable code in read-only memory to prevent code injection. But it's still a major attack vector for resource-constrained embedded systems without this protection<sup class="footnote-reference"><a href="#DeepMitigations">15</a></sup>. And applications supporting Just-In-Time compilation, like JavaScript engines used in major web browsers<sup class="footnote-reference"><a href="#JITSoK">16</a></sup>.</li>
+<li>Modern hardware/OS combos store executable code in read-only memory to prevent code injection. But it's still a major attack vector for resource-constrained embedded systems without this protection<sup class="footnote-reference" id="fr-DeepMitigations-1"><a href="#footnote-DeepMitigations">15</a></sup>. And applications supporting Just-In-Time compilation, like JavaScript engines used in major web browsers<sup class="footnote-reference" id="fr-JITSoK-1"><a href="#footnote-JITSoK">16</a></sup>.</li>
 </ul>
 </li>
 <li>
-<p><strong>Reuse code</strong> - Stitch together many small snippets of existing code, called &quot;gadgets&quot;, to generate semi-arbitrary sequences of operations<sup class="footnote-reference"><a href="#XGadget">17</a></sup>. Less general than code injection, in both computation flexibility and exploit stability, but often effective.</p>
+<p><strong>Reuse code</strong> - Stitch together many small snippets of existing code, called "gadgets", to generate semi-arbitrary sequences of operations<sup class="footnote-reference" id="fr-XGadget-1"><a href="#footnote-XGadget">17</a></sup>. Less general than code injection, in both computation flexibility and exploit stability, but often effective.</p>
 <ul>
 <li>Code-reuse attacks are viable for most modern software: it bypasses common mitigations. But defenses do exist. We'll discuss defenses later in this chapter and cover Return-Oriented Programming (ROP) - the most popular class of code-reuse attack - in a future appendix section.</li>
 </ul>
@@ -648,63 +646,63 @@ A seemingly minor vulnerability may lead to major business or mission impact.</p
 In the long-term, it can be helpful to understand exploitation more abstractly - to build a framework for <em>reasoning</em> about these kinds of threats.
 Such a conceptualization is more general, it translates beyond binary attacks.
 That's our next topic!</p>
-<hr />
-<div class="footnote-definition" id="DataCode"><sup class="footnote-definition-label">1</sup>
-<p>&quot;Code is data&quot; or &quot;data is code&quot; is an adage popular with Lisp programmers. Technically, any programming language's code is data - all interpreters and compilers parse files which encode some data. But for Lisp-like languages, any well-formed program's source code is <em>also</em> a valid data structure called an &quot;S-expression&quot;. Because S-expressions are core to the language itself, Lisp programs have a property called <em>homoiconicity</em><sup class="footnote-reference"><a href="#Homoicon">18</a></sup> - the programs can be manipulated as data. This enables rich meta-programming capabilities, which are one influence for Rust's macro system.
-Coming back to exploitation, we can think of memory corruption exploits as a weird kind of meta-programming.</p>
-</div>
-<div class="footnote-definition" id="BratusTalk"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://www.youtube.com/watch?v=Dd9UtHalRDs"><em>What Hacker Research Taught Me</em></a>. Sergey Bratus (2011).</p>
-</div>
-<div class="footnote-definition" id="String"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://doc.rust-lang.org/std/string/struct.String.html"><em>Struct <code>std::string::String</code></em></a>. The Rust Team (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="CppString"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://cplusplus.com/reference/string/string/"><em>Class <code>std::string</code></em></a>. The C++ Team (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="TCache"><sup class="footnote-definition-label">5</sup>
-<p><code>tchache</code>, short for &quot;thread local cache&quot;, is an internal optimization added in <code>glibc</code> version 2.26<sup class="footnote-reference"><a href="#MallocInternals">6</a></sup>'s <code>malloc</code> implementation. It allows faster allocations for when very small chunks of memory are requested - especially in multi-threaded programs. Our error message is extremely implementation-specific.</p>
-</div>
-<div class="footnote-definition" id="MallocInternals"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://sourceware.org/glibc/wiki/MallocInternals#Thread_Local_Cache_.28tcache.29"><em>Overview of Malloc</em></a>. glibc Wiki (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="How2Heap"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://github.com/shellphish/how2heap"><code>how2heap</code></a>. Shellphish CTF team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CString"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://doc.rust-lang.org/std/ffi/struct.CString.html"><em>Struct <code>std::ffi::CString</code></em></a>. The Rust Team (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="CWE843"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://cwe.mitre.org/data/definitions/843"><em>CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')</em></a>. MITRE Corporation (Accessed 2022). Our type [un]safety code snippet is based on the example provided therein.</p>
-</div>
-<div class="footnote-definition" id="PreTrick"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/Preprocessor-Options.html#Preprocessor-Options"><em>3.13 Options Controlling the Preprocessor</em></a>. The GNU Project (Accessed 2021). When debugging macro-heavy C code, it's sometimes helpful to run the preprocessor to see what macros expand to. <code>gcc</code>'s <code>-E</code> flag does this expansion.</p>
-</div>
-<div class="footnote-definition" id="HygienicMacro"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://en.wikipedia.org/wiki/Hygienic_macro"><em>Hygienic macro</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="KafkaCVE"><sup class="footnote-definition-label">12</sup>
-<p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-25194">CVE-2023-25194</a>. MITRE (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="Log4J"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance"><em>Apache Log4j Vulnerability Guidance</em></a>. CISA (2021).</p>
-</div>
-<div class="footnote-definition" id="DOA"><sup class="footnote-definition-label">14</sup>
-<p>The <em>almost</em> caveat is here to account for &quot;Data-Oriented Attacks&quot;. As the name implies, these attacks manipulate non-control data (like variable values and non-function pointers) to leak information, degrade performance, or even escalate privilege. We'll discuss data-oriented attacks briefly in the context of language-agnostic mitigations, but we won't have any code examples in this book. These attacks tend to be far less general and less common than control-flow hijacking attacks.</p>
-</div>
-<div class="footnote-definition" id="DeepMitigations"><sup class="footnote-definition-label">15</sup>
-<p><a href="https://ieeexplore.ieee.org/abstract/document/8806725"><em>Challenges in Designing Exploit Mitigations for Deeply Embedded Systems</em></a>. Ali Abbasi, Jos Wetzels, Thorsten Holz, Sandro Etalle (2019).</p>
-</div>
-<div class="footnote-definition" id="JITSoK"><sup class="footnote-definition-label">16</sup>
-<p><a href="https://www.usenix.org/system/files/conference/woot18/woot18-paper-gawlik.pdf"><em>SoK: Make JIT-Spray Great Again</em></a>. Robert Gawlik, Thorsten Holz (2018).</p>
-</div>
-<div class="footnote-definition" id="XGadget"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://github.com/entropic-security/xgadget"><code>xgadget</code></a>. Tiemoko Ballo and contributors (Accessed 2022). We wish we had more free time to work on this open-source tool for Return-Oriented Programming (ROP) and Jump-Oriented Programming (JOP) exploit development.</p>
-</div>
-<div class="footnote-definition" id="Homoicon"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://en.wikipedia.org/wiki/Homoiconicity"><em>Homoiconicity</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-DataCode">
+<p>"Code is data" or "data is code" is an adage popular with Lisp programmers. Technically, any programming language's code is data - all interpreters and compilers parse files which encode some data. But for Lisp-like languages, any well-formed program's source code is <em>also</em> a valid data structure called an "S-expression". Because S-expressions are core to the language itself, Lisp programs have a property called <em>homoiconicity</em><sup class="footnote-reference" id="fr-Homoicon-1"><a href="#footnote-Homoicon">18</a></sup> - the programs can be manipulated as data. This enables rich meta-programming capabilities, which are one influence for Rust's macro system.
+Coming back to exploitation, we can think of memory corruption exploits as a weird kind of meta-programming. <a href="#fr-DataCode-1">↩</a></p>
+</li>
+<li id="footnote-BratusTalk">
+<p><a href="https://www.youtube.com/watch?v=Dd9UtHalRDs"><em>What Hacker Research Taught Me</em></a>. Sergey Bratus (2011). <a href="#fr-BratusTalk-1">↩</a></p>
+</li>
+<li id="footnote-String">
+<p><a href="https://doc.rust-lang.org/std/string/struct.String.html"><em>Struct <code>std::string::String</code></em></a>. The Rust Team (Accessed 2023). <a href="#fr-String-1">↩</a></p>
+</li>
+<li id="footnote-CppString">
+<p><a href="https://cplusplus.com/reference/string/string/"><em>Class <code>std::string</code></em></a>. The C++ Team (Accessed 2023). <a href="#fr-CppString-1">↩</a></p>
+</li>
+<li id="footnote-TCache">
+<p><code>tchache</code>, short for "thread local cache", is an internal optimization added in <code>glibc</code> version 2.26<sup class="footnote-reference" id="fr-MallocInternals-2"><a href="#footnote-MallocInternals">6</a></sup>'s <code>malloc</code> implementation. It allows faster allocations for when very small chunks of memory are requested - especially in multi-threaded programs. Our error message is extremely implementation-specific. <a href="#fr-TCache-1">↩</a></p>
+</li>
+<li id="footnote-MallocInternals">
+<p><a href="https://sourceware.org/glibc/wiki/MallocInternals#Thread_Local_Cache_.28tcache.29"><em>Overview of Malloc</em></a>. glibc Wiki (Accessed 2022). <a href="#fr-MallocInternals-1">↩</a> <a href="#fr-MallocInternals-2">↩2</a></p>
+</li>
+<li id="footnote-How2Heap">
+<p><a href="https://github.com/shellphish/how2heap"><code>how2heap</code></a>. Shellphish CTF team (Accessed 2022). <a href="#fr-How2Heap-1">↩</a></p>
+</li>
+<li id="footnote-CString">
+<p><a href="https://doc.rust-lang.org/std/ffi/struct.CString.html"><em>Struct <code>std::ffi::CString</code></em></a>. The Rust Team (Accessed 2023). <a href="#fr-CString-1">↩</a></p>
+</li>
+<li id="footnote-CWE843">
+<p><a href="https://cwe.mitre.org/data/definitions/843"><em>CWE-843: Access of Resource Using Incompatible Type ('Type Confusion')</em></a>. MITRE Corporation (Accessed 2022). Our type [un]safety code snippet is based on the example provided therein. <a href="#fr-CWE843-1">↩</a></p>
+</li>
+<li id="footnote-PreTrick">
+<p><a href="https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/Preprocessor-Options.html#Preprocessor-Options"><em>3.13 Options Controlling the Preprocessor</em></a>. The GNU Project (Accessed 2021). When debugging macro-heavy C code, it's sometimes helpful to run the preprocessor to see what macros expand to. <code>gcc</code>'s <code>-E</code> flag does this expansion. <a href="#fr-PreTrick-1">↩</a></p>
+</li>
+<li id="footnote-HygienicMacro">
+<p><a href="https://en.wikipedia.org/wiki/Hygienic_macro"><em>Hygienic macro</em></a>. Wikipedia (Accessed 2022). <a href="#fr-HygienicMacro-1">↩</a></p>
+</li>
+<li id="footnote-KafkaCVE">
+<p><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-25194">CVE-2023-25194</a>. MITRE (Accessed 2023). <a href="#fr-KafkaCVE-1">↩</a></p>
+</li>
+<li id="footnote-Log4J">
+<p><a href="https://www.cisa.gov/uscert/apache-log4j-vulnerability-guidance"><em>Apache Log4j Vulnerability Guidance</em></a>. CISA (2021). <a href="#fr-Log4J-1">↩</a></p>
+</li>
+<li id="footnote-DOA">
+<p>The <em>almost</em> caveat is here to account for "Data-Oriented Attacks". As the name implies, these attacks manipulate non-control data (like variable values and non-function pointers) to leak information, degrade performance, or even escalate privilege. We'll discuss data-oriented attacks briefly in the context of language-agnostic mitigations, but we won't have any code examples in this book. These attacks tend to be far less general and less common than control-flow hijacking attacks. <a href="#fr-DOA-1">↩</a></p>
+</li>
+<li id="footnote-DeepMitigations">
+<p><a href="https://ieeexplore.ieee.org/abstract/document/8806725"><em>Challenges in Designing Exploit Mitigations for Deeply Embedded Systems</em></a>. Ali Abbasi, Jos Wetzels, Thorsten Holz, Sandro Etalle (2019). <a href="#fr-DeepMitigations-1">↩</a></p>
+</li>
+<li id="footnote-JITSoK">
+<p><a href="https://www.usenix.org/system/files/conference/woot18/woot18-paper-gawlik.pdf"><em>SoK: Make JIT-Spray Great Again</em></a>. Robert Gawlik, Thorsten Holz (2018). <a href="#fr-JITSoK-1">↩</a></p>
+</li>
+<li id="footnote-XGadget">
+<p><a href="https://github.com/entropic-security/xgadget"><code>xgadget</code></a>. Tiemoko Ballo and contributors (Accessed 2022). We wish we had more free time to work on this open-source tool for Return-Oriented Programming (ROP) and Jump-Oriented Programming (JOP) exploit development. <a href="#fr-XGadget-1">↩</a></p>
+</li>
+<li id="footnote-Homoicon">
+<p><a href="https://en.wikipedia.org/wiki/Homoiconicity"><em>Homoiconicity</em></a>. Wikipedia (Accessed 2022). <a href="#fr-Homoicon-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

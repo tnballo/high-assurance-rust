@@ -45,8 +45,8 @@ h3 {
 <center>
 
 [![Repo](https://img.shields.io/github/stars/tnballo/high-assurance-rust?style=social)](https://github.com/tnballo/high-assurance-rust)
-[![Pages](https://img.shields.io/badge/Pages-178-purple.svg)](https://github.com/tnballo/high-assurance-rust)
-[![Diagrams](https://img.shields.io/badge/Diagrams-51-blue.svg)](https://github.com/tnballo/high-assurance-rust)
+[![Pages](https://img.shields.io/badge/Pages-186-purple.svg)](https://github.com/tnballo/high-assurance-rust)
+[![Diagrams](https://img.shields.io/badge/Diagrams-54-blue.svg)](https://github.com/tnballo/high-assurance-rust)
 [![Price](https://img.shields.io/badge/Price-$0.00-orange.svg)](https://highassurance.rs/cfp.html)
 [![Text License: CC BY-NC-ND 4.0](https://img.shields.io/badge/Text%20License-CC%20BY--NC--ND%204.0-yellow.svg)](https://highassurance.rs/license.html)
 [![Code License: MIT](https://img.shields.io/badge/Code%20License-MIT-yellowgreen.svg)](https://highassurance.rs/license.html)

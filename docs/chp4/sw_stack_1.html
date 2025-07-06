@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html" class="active"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -192,13 +187,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 <h1 id="software-perspective-cpu-to-process"><a class="header" href="#software-perspective-cpu-to-process">Software Perspective: CPU to Process</a></h1>
-<p>We want to build a mental model of &quot;what the machine is doing&quot;.
+<p>We want to build a mental model of "what the machine is doing".
 Of how, at a mechanical level, a computer executes a program in memory.
 Systems programmers work within the confines of this model to write efficient programs.
 Exploit developers abuse it to take control of vulnerable programs.</p>
 <p>Recall that our mental model doesn't need to reflect every intricacy of reality.
 A more <em>complex</em> model isn't necessarily a more <em>useful</em> one, even if technically more accurate.
-We're primarily interested in a single concept at the core of every &quot;low-level&quot;<sup class="footnote-reference"><a href="#Chp1Levels">1</a></sup> language: runtime memory management.</p>
+We're primarily interested in a single concept at the core of every "low-level"<sup class="footnote-reference" id="fr-Chp1Levels-1"><a href="#footnote-Chp1Levels">1</a></sup> language: runtime memory management.</p>
 <p>That entails understanding how the <strong>stack</strong> and the <strong>heap</strong>, two memory locations mentioned in the last chapter, work.
 In considerable detail.
 We'll start with the stack for two reasons:</p>
@@ -213,13 +208,13 @@ We'll start with the stack for two reasons:</p>
 <p>Before we push on to stack memory proper (pun intended), we need to briefly cover two prerequisites: CPUs and program loading.
 Both topics are the subjects of entire technical books, so we'll visually diagram just enough detail to scaffold our mental model of the runtime stack.</p>
 <blockquote>
-<p><strong>What kinds of &quot;embedded systems&quot; don't use heap memory?</strong></p>
-<p>&quot;Embedded system&quot; is a term so broad it borders on meaningless.
+<p><strong>What kinds of "embedded systems" don't use heap memory?</strong></p>
+<p>"Embedded system" is a term so broad it borders on meaningless.
 At least without more specific context.
-To aid general discussion, Muench et al.<sup class="footnote-reference"><a href="#CorruptCrash">2</a></sup> propose a taxonomy that can be useful for practical differentiation:</p>
+To aid general discussion, Muench et al.<sup class="footnote-reference" id="fr-CorruptCrash-1"><a href="#footnote-CorruptCrash">2</a></sup> propose a taxonomy that can be useful for practical differentiation:</p>
 <ul>
 <li>
-<p><strong>Type-I:</strong> General purpose OS-based devices - a &quot;slimmed&quot; down version of commodity desktop/server software.</p>
+<p><strong>Type-I:</strong> General purpose OS-based devices - a "slimmed" down version of commodity desktop/server software.</p>
 <ul>
 <li><em>Example:</em> car infotainment system retrofitting the Linux kernel.</li>
 <li>Supports both stack and heap memory.</li>
@@ -228,21 +223,21 @@ To aid general discussion, Muench et al.<sup class="footnote-reference"><a href=
 <li>
 <p><strong>Type-II:</strong> Embedded OS-based devices - custom software for low-resources and/or single-purpose platforms.</p>
 <ul>
-<li><em>Example:</em> NASA's Mars exploration rover running the VxWorks RTOS<sup class="footnote-reference"><a href="#MarsVx">3</a></sup>.</li>
+<li><em>Example:</em> NASA's Mars exploration rover running the VxWorks RTOS<sup class="footnote-reference" id="fr-MarsVx-1"><a href="#footnote-MarsVx">3</a></sup>.</li>
 <li>Supports stack memory, heap memory use is optional/modular.</li>
 </ul>
 </li>
 <li>
-<p><strong>Type-III:</strong> Devices without an OS abstraction - the entire software stack is a &quot;monolithic firmware&quot;, a single control loop occasionally servicing external events (e.g. peripheral-triggered interrupts).</p>
+<p><strong>Type-III:</strong> Devices without an OS abstraction - the entire software stack is a "monolithic firmware", a single control loop occasionally servicing external events (e.g. peripheral-triggered interrupts).</p>
 <ul>
 <li><em>Example:</em> a GPS receiver using custom firmware for positional trilateration.</li>
-<li>Often restricted to stack memory alone<sup class="footnote-reference"><a href="#CustomAlloc">4</a></sup>.</li>
+<li>Often restricted to stack memory alone<sup class="footnote-reference" id="fr-CustomAlloc-1"><a href="#footnote-CustomAlloc">4</a></sup>.</li>
 </ul>
 </li>
 </ul>
 <p>Stack memory is crucial to the operation of all 3 types of embedded systems.
 Think of it as a universal abstraction for program runtimes.</p>
-<p>The remainder of this section represents Type-I and Type-II systems<sup class="footnote-reference"><a href="#T3">5</a></sup>.
+<p>The remainder of this section represents Type-I and Type-II systems<sup class="footnote-reference" id="fr-T3-1"><a href="#footnote-T3">5</a></sup>.
 Our visualizations generally assume fundamental OS abstractions, like virtual memory and processes, are present.</p>
 </blockquote>
 <h2 id="the-cpu-and-ram"><a class="header" href="#the-cpu-and-ram">The CPU and RAM</a></h2>
@@ -263,13 +258,13 @@ The bit-patterns it stores and operates on representations two distinct items:</
 </ul>
 </li>
 <li>
-<p><strong>Code</strong> - Native CPU instructions encoded as short sequences of bytes. In the above diagram, we assume all valid instructions are the same length<sup class="footnote-reference"><a href="#FixedLen">6</a></sup>. A <em>word</em> is a CPU's &quot;natural&quot; unit of data (what its hardware is designed to operate on efficiently).</p>
+<p><strong>Code</strong> - Native CPU instructions encoded as short sequences of bytes. In the above diagram, we assume all valid instructions are the same length<sup class="footnote-reference" id="fr-FixedLen-1"><a href="#footnote-FixedLen">6</a></sup>. A <em>word</em> is a CPU's "natural" unit of data (what its hardware is designed to operate on efficiently).</p>
 <ul>
-<li>Instructions focus on low-level operations: arithmetic, boolean logic, condition testing, moving data in memory, etc. Arbitrarily complex programs can be broken down into long sequences of these basic operations<sup class="footnote-reference"><a href="#MovObfu">7</a></sup>. Assembly language is a human-readable representation of raw instruction encodings (aka &quot;machine code&quot;).</li>
+<li>Instructions focus on low-level operations: arithmetic, boolean logic, condition testing, moving data in memory, etc. Arbitrarily complex programs can be broken down into long sequences of these basic operations<sup class="footnote-reference" id="fr-MovObfu-1"><a href="#footnote-MovObfu">7</a></sup>. Assembly language is a human-readable representation of raw instruction encodings (aka "machine code").</li>
 </ul>
 </li>
 </ul>
-<p>The Central Processing Unit (CPU) is a very fast instruction processing state machine with small pieces of &quot;scratch space&quot; for storing intermediate results called <em>registers</em>.
+<p>The Central Processing Unit (CPU) is a very fast instruction processing state machine with small pieces of "scratch space" for storing intermediate results called <em>registers</em>.
 Final results are written back to RAM.
 Registers come in two flavors:</p>
 <ol>
@@ -281,12 +276,12 @@ Registers come in two flavors:</p>
 </li>
 </ol>
 <p>So how does <em>processing</em> actually work?
-Both the instructions and data move back and forth between the CPU and RAM via a data bus<sup class="footnote-reference"><a href="#DataBus">8</a></sup>.
+Both the instructions and data move back and forth between the CPU and RAM via a data bus<sup class="footnote-reference" id="fr-DataBus-1"><a href="#footnote-DataBus">8</a></sup>.
 The address bus allows a CPU to specify a given memory location and size of data to be read or written.
 Every CPU continually repeats a three step <em>instruction cycle</em> (try tracing each step below through the above diagram):</p>
 <ol>
 <li>
-<p><strong>Fetch</strong> - Read an instruction from RAM currently addressed by the <strong>Instruction Pointer (IP)</strong> register<sup class="footnote-reference"><a href="#PC">9</a></sup>. Update the <code>IP</code> to point to the next instruction.</p>
+<p><strong>Fetch</strong> - Read an instruction from RAM currently addressed by the <strong>Instruction Pointer (IP)</strong> register<sup class="footnote-reference" id="fr-PC-1"><a href="#footnote-PC">9</a></sup>. Update the <code>IP</code> to point to the next instruction.</p>
 <ul>
 <li><em>Above diagram:</em> CPU sends the current <code>IP</code> value over the address bus, gets back the instruction pointed to over the data bus.</li>
 </ul>
@@ -314,21 +309,21 @@ Every CPU continually repeats a three step <em>instruction cycle</em> (try traci
 </ul>
 </li>
 </ol>
-<p>Modern CPUs rely on complex optimizations, like instruction pipelining<sup class="footnote-reference"><a href="#Pipeline">10</a></sup> and speculative execution<sup class="footnote-reference"><a href="#SpecExec">11</a></sup>, to speed up the instruction cycle.
+<p>Modern CPUs rely on complex optimizations, like instruction pipelining<sup class="footnote-reference" id="fr-Pipeline-1"><a href="#footnote-Pipeline">10</a></sup> and speculative execution<sup class="footnote-reference" id="fr-SpecExec-1"><a href="#footnote-SpecExec">11</a></sup>, to speed up the instruction cycle.
 Fortunately, we don't have to consider or understand such minutia when programming day-to-day.</p>
 <p>The jobs of various registers are, by contrast, important for a working mental model.
 In addition to the IP, the two special purpose registers worth noting are:</p>
 <ul>
 <li>
-<p>The <strong>Stack Pointer (<code>SP</code>)</strong> register - the address denoting the bottom of the current stack frame. A stack frame is akin to function's in-RAM &quot;notepad&quot; for computing and saving <em>function-local</em> results.</p>
+<p>The <strong>Stack Pointer (<code>SP</code>)</strong> register - the address denoting the bottom of the current stack frame. A stack frame is akin to function's in-RAM "notepad" for computing and saving <em>function-local</em> results.</p>
 <ul>
-<li>In the statement <code>let x = 3 + 6;</code>, <code>x</code> will be computed using registers, then the value <code>9</code> will be stored on the stack<sup class="footnote-reference"><a href="#RegisterAlloc">12</a></sup>. This allows the CPU to re-use its small, fixed set of <code>GP*</code> registers for new computations when multiple functions are called in a program.</li>
+<li>In the statement <code>let x = 3 + 6;</code>, <code>x</code> will be computed using registers, then the value <code>9</code> will be stored on the stack<sup class="footnote-reference" id="fr-RegisterAlloc-1"><a href="#footnote-RegisterAlloc">12</a></sup>. This allows the CPU to re-use its small, fixed set of <code>GP*</code> registers for new computations when multiple functions are called in a program.</li>
 </ul>
 </li>
 <li>
-<p>The <strong>Condition Code Register (<code>CCR</code>)</strong> register collects the current status flag bits of a processor. Among other uses, this register helps implement conditional logic - like &quot;jumping&quot; the instruction pointer to a particular location if an operation's result is non-zero.</p>
+<p>The <strong>Condition Code Register (<code>CCR</code>)</strong> register collects the current status flag bits of a processor. Among other uses, this register helps implement conditional logic - like "jumping" the instruction pointer to a particular location if an operation's result is non-zero.</p>
 <ul>
-<li>This single register enables all the control flow constructs<sup class="footnote-reference"><a href="#DuffDev">13</a></sup> we rely on as programmers, like <code>if</code> statements and <code>for</code> loops. <code>if z == true { do_1(); } else { do_2(); }</code> de-sugars to &quot;test the equality of <code>z</code> and <code>true</code>, if equal set equality flag in <code>CCR</code>. If this equality flag in <code>CCR</code> is set, jump to <code>do_1()</code> and execute, else jump to <code>do_2()</code> and execute&quot;.</li>
+<li>This single register enables all the control flow constructs<sup class="footnote-reference" id="fr-DuffDev-1"><a href="#footnote-DuffDev">13</a></sup> we rely on as programmers, like <code>if</code> statements and <code>for</code> loops. <code>if z == true { do_1(); } else { do_2(); }</code> de-sugars to "test the equality of <code>z</code> and <code>true</code>, if equal set equality flag in <code>CCR</code>. If this equality flag in <code>CCR</code> is set, jump to <code>do_1()</code> and execute, else jump to <code>do_2()</code> and execute".</li>
 </ul>
 </li>
 </ul>
@@ -381,23 +376,23 @@ It's important you commit it to memory, pun intended.</p>
 <p>Processes are a key concept in systems programming.
 Let's take a slight detour to discuss the broader context.</p>
 <p>Processes are run by and for users.
-Hence they're sometimes called &quot;userspace applications&quot;.
-They have no special privileges, meaning they run in &quot;ring 3&quot; - the least privileged mode code can operate in<sup class="footnote-reference"><a href="#RingProt">14</a></sup>.
+Hence they're sometimes called "userspace applications".
+They have no special privileges, meaning they run in "ring 3" - the least privileged mode code can operate in<sup class="footnote-reference" id="fr-RingProt-1"><a href="#footnote-RingProt">14</a></sup>.
 Many processes run simultaneously, each can't read/write from/to anything outside of their own virtual address space.</p>
 <p>But what about the OS kernel itself?
-Its code, data, stack, and heap are stored in an isolated memory area - &quot;kernelspace&quot;.
-The kernel runs in &quot;ring 0&quot;, the most privileged mode available.
+Its code, data, stack, and heap are stored in an isolated memory area - "kernelspace".
+The kernel runs in "ring 0", the most privileged mode available.
 It can read/write from/to any processes's memory, directly access hardware, and control special CPU features.</p>
-<p>Rings 2 and 3 are almost never used in practice<sup class="footnote-reference"><a href="#RingProt">14</a></sup>.
+<p>Rings 2 and 3 are almost never used in practice<sup class="footnote-reference" id="fr-RingProt-2"><a href="#footnote-RingProt">14</a></sup>.
 These modes were intended for device drivers, special programs that allow a kernel to communicate with vendor-specific hardware.
-In reality most device drivers are loaded directly into the kernel, running alongside it in ring 0 (creating a major OS attack surface<sup class="footnote-reference"><a href="#MSKernBlocklist">15</a></sup>).</p>
+In reality most device drivers are loaded directly into the kernel, running alongside it in ring 0 (creating a major OS attack surface<sup class="footnote-reference" id="fr-MSKernBlocklist-1"><a href="#footnote-MSKernBlocklist">15</a></sup>).</p>
 <p>When a userspace program needs to perform a privileged operation (e.g. spawn a new process) or interact with hardware (e.g. read a file from disk or send a request over a networks)  it must make a request to the kernel.
-The low-level APIs for such requests are called &quot;system calls&quot; - &quot;syscalls&quot; for short.
-The Linux kernel supports over 400 system calls, some of which are architecture-specific<sup class="footnote-reference"><a href="#SyscallTable">16</a></sup>.
+The low-level APIs for such requests are called "system calls" - "syscalls" for short.
+The Linux kernel supports over 400 system calls, some of which are architecture-specific<sup class="footnote-reference" id="fr-SyscallTable-1"><a href="#footnote-SyscallTable">16</a></sup>.
 Consider two common syscalls for managing processes lifecycles:</p>
 <ul>
 <li>
-<p><strong><code>fork</code></strong> (syscall for duplicating a process) - A process can create a copy of itself. A script may want to run a helper task in parallel, a web server might want to scale to more requests. Forked process memory is copy-on-write. The original (&quot;parent&quot;) process and the new copy (the &quot;child&quot;) each see distinct virtual address spaces, but the common elements (e.g. identical code sections, data that's read-only or hasn't yet been modified) only appear once in physical RAM.</p>
+<p><strong><code>fork</code></strong> (syscall for duplicating a process) - A process can create a copy of itself. A script may want to run a helper task in parallel, a web server might want to scale to more requests. Forked process memory is copy-on-write. The original ("parent") process and the new copy (the "child") each see distinct virtual address spaces, but the common elements (e.g. identical code sections, data that's read-only or hasn't yet been modified) only appear once in physical RAM.</p>
 </li>
 <li>
 <p><strong><code>execve</code></strong> (syscall for executable loading) - One program can execute another. The system call for doing so doesn't create a new process, instead it loads and runs a new program within the current process - overwriting all previous contents. The new segments are backed by the executable file of the new program.</p>
@@ -422,71 +417,56 @@ That involves mapping it's executable code into RAM and setting up 3 special mem
 <p>We'll cover stack and static memory next.
 In the context of a language, agnostic reliability pattern.
 Heap memory will come a bit later!</p>
-<hr />
-<div class="footnote-definition" id="Chp1Levels"><sup class="footnote-definition-label">1</sup>
-<p>&quot;Low-level&quot; can be an ambiguous and overloaded term to apply to a programming language. We briefly explained our usage of the term in the <a href="https://highassurance.rs/chp1/why_this_book.html#languages-by-level">&quot;Languages by Level&quot;</a> section of Chapter 1.</p>
-</div>
-<div class="footnote-definition" id="CorruptCrash"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://www.s3.eurecom.fr/docs/ndss18_muench.pdf"><em>What You Corrupt Is Not What You Crash: Challenges in Fuzzing Embedded Devices</em></a>. Marius Muench, Jan Stijohann, Frank Kargl, Aurelien Francillon, Davide Balzarotti (2018).</p>
-</div>
-<div class="footnote-definition" id="MarsVx"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://trs.jpl.nasa.gov/bitstream/handle/2014/37499/05-0539.pdf"><em>An Overview of the Mars Exploration Rovers Flight Software</em></a>. Glenn Reeves (2014).</p>
-</div>
-<div class="footnote-definition" id="CustomAlloc"><sup class="footnote-definition-label">4</sup>
-<p>Technically, Type-III systems <em>can</em> explicitly link in a custom allocator as part of the firmware build, essentially &quot;bringing their own&quot; heap support. But many, if not most, single-purpose devices won't do so - due to resource and/or reliability constraints.</p>
-</div>
-<div class="footnote-definition" id="T3"><sup class="footnote-definition-label">5</sup>
-<p>For those curious: Type-III systems can have only one program, baked directly into Read-Only Memory (ROM), whose entry point is jumped to on device reset. Unlike general purpose systems, they don't require the flexibility of being able to run arbitrary executables. Hence they don't need the process abstractions we've diagramed above.</p>
-</div>
-<div class="footnote-definition" id="FixedLen"><sup class="footnote-definition-label">6</sup>
-<p>This is true certain Instruction Set Architectures (ISAs), like 32 and 64-bit ARM, that use fixed length encoding. Other ISAs, like x86, use variable length encoding. For 64-bit x86, instructions vary from 1 byte to 15 bytes in length. As you might imagine, that variability creates challenges for software disassemblers.</p>
-</div>
-<div class="footnote-definition" id="MovObfu"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://github.com/xoreaxeaxeax/movfuscator"><code>xoreaxeaxeax/movfuscator</code></a>. Chris Domas(Accessed 2023). In fact, arbitrary programs can be broken down into a sequence of just one instruction type: <code>mov</code>! Not efficient, but an effective obfuscation technique.</p>
-</div>
-<div class="footnote-definition" id="DataBus"><sup class="footnote-definition-label">8</sup>
-<p>The hardware implementation of a data bus is akin to a multi-lane highway, where each lane is a physical, electrical connection between the CPU and RAM.</p>
-</div>
-<div class="footnote-definition" id="PC"><sup class="footnote-definition-label">9</sup>
-<p>An Instruction Pointer (IP) is often referred to as a Program Counter (PC), but will stick with IP in this book.</p>
-</div>
-<div class="footnote-definition" id="Pipeline"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://en.wikipedia.org/wiki/Instruction_pipelining"><em>Instruction pipelining</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SpecExec"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://en.wikipedia.org/wiki/Speculative_execution"><em>Speculative execution</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RegisterAlloc"><sup class="footnote-definition-label">12</sup>
-<p>In reality, an optimizing compiler could be clever enough to manage registers across function calls such that <code>x</code> never needs to be written to the stack and can be safely preserved in a register (which is faster to read and write). Our example illustrates the general case, not optimized special cases.</p>
-</div>
-<div class="footnote-definition" id="DuffDev"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://en.wikipedia.org/wiki/Duff%27s_device"><em>Duff's Device</em></a>. Wikipedia (Accessed 2023). An interesting and bizarre example of C control flow. Unlike Rust, C allows unstructured control flow (including <code>goto</code> statements).</p>
-</div>
-<div class="footnote-definition" id="RingProt"><sup class="footnote-definition-label">14</sup>
-<p><a href="https://en.wikipedia.org/wiki/Protection_ring"><em>Protection ring</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MSKernBlocklist"><sup class="footnote-definition-label">15</sup>
-<p><a href="https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/microsoft-recommended-driver-block-rules"><em>Microsoft recommended driver block rules</em></a>. Microsoft (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="SyscallTable"><sup class="footnote-definition-label">16</sup>
-<p><a href="https://marcin.juszkiewicz.com.pl/download/tables/syscalls.html"><em>Linux kernel system calls for all architectures</em></a> Marcin Juszkiewicz (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="IncludeMacro"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://doc.rust-lang.org/std/macro.include.html"><em>Macro <code>std::include</code></em></a>. The Rust Team (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="HyperThread"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://www.intel.com/content/www/us/en/gaming/resources/hyper-threading.html"><em>What Is Hyper-Threading?</em></a>. Intel (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CSAPP"><sup class="footnote-definition-label">19</sup>
-<p><a href="https://amzn.to/3IBnFA7"><em><strong>[PERSONAL FAVORITE]</strong> Computer Systems: A Programmer's Perspective</em></a>. Randal Bryant, David O'Hallaron (2015).</p>
-</div>
-<div class="footnote-definition" id="Memset"><sup class="footnote-definition-label">20</sup>
-<p><a href="https://man7.org/linux/man-pages/man3/memset.3.html"><em><code>memset</code></em></a>. Linux manual (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Zeroize"><sup class="footnote-definition-label">21</sup>
-<p><a href="https://crates.io/crates/zeroize"><em><code>zeroize</code></em></a>. Tony Arcieri (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-Chp1Levels">
+<p>"Low-level" can be an ambiguous and overloaded term to apply to a programming language. We briefly explained our usage of the term in the <a href="https://highassurance.rs/chp1/why_this_book.html#languages-by-level">"Languages by Level"</a> section of Chapter 1. <a href="#fr-Chp1Levels-1">↩</a></p>
+</li>
+<li id="footnote-CorruptCrash">
+<p><a href="https://www.s3.eurecom.fr/docs/ndss18_muench.pdf"><em>What You Corrupt Is Not What You Crash: Challenges in Fuzzing Embedded Devices</em></a>. Marius Muench, Jan Stijohann, Frank Kargl, Aurelien Francillon, Davide Balzarotti (2018). <a href="#fr-CorruptCrash-1">↩</a></p>
+</li>
+<li id="footnote-MarsVx">
+<p><a href="https://trs.jpl.nasa.gov/bitstream/handle/2014/37499/05-0539.pdf"><em>An Overview of the Mars Exploration Rovers Flight Software</em></a>. Glenn Reeves (2014). <a href="#fr-MarsVx-1">↩</a></p>
+</li>
+<li id="footnote-CustomAlloc">
+<p>Technically, Type-III systems <em>can</em> explicitly link in a custom allocator as part of the firmware build, essentially "bringing their own" heap support. But many, if not most, single-purpose devices won't do so - due to resource and/or reliability constraints. <a href="#fr-CustomAlloc-1">↩</a></p>
+</li>
+<li id="footnote-T3">
+<p>For those curious: Type-III systems can have only one program, baked directly into Read-Only Memory (ROM), whose entry point is jumped to on device reset. Unlike general purpose systems, they don't require the flexibility of being able to run arbitrary executables. Hence they don't need the process abstractions we've diagramed above. <a href="#fr-T3-1">↩</a></p>
+</li>
+<li id="footnote-FixedLen">
+<p>This is true certain Instruction Set Architectures (ISAs), like 32 and 64-bit ARM, that use fixed length encoding. Other ISAs, like x86, use variable length encoding. For 64-bit x86, instructions vary from 1 byte to 15 bytes in length. As you might imagine, that variability creates challenges for software disassemblers. <a href="#fr-FixedLen-1">↩</a></p>
+</li>
+<li id="footnote-MovObfu">
+<p><a href="https://github.com/xoreaxeaxeax/movfuscator"><code>xoreaxeaxeax/movfuscator</code></a>. Chris Domas(Accessed 2023). In fact, arbitrary programs can be broken down into a sequence of just one instruction type: <code>mov</code>! Not efficient, but an effective obfuscation technique. <a href="#fr-MovObfu-1">↩</a></p>
+</li>
+<li id="footnote-DataBus">
+<p>The hardware implementation of a data bus is akin to a multi-lane highway, where each lane is a physical, electrical connection between the CPU and RAM. <a href="#fr-DataBus-1">↩</a></p>
+</li>
+<li id="footnote-PC">
+<p>An Instruction Pointer (IP) is often referred to as a Program Counter (PC), but will stick with IP in this book. <a href="#fr-PC-1">↩</a></p>
+</li>
+<li id="footnote-Pipeline">
+<p><a href="https://en.wikipedia.org/wiki/Instruction_pipelining"><em>Instruction pipelining</em></a>. Wikipedia (Accessed 2022). <a href="#fr-Pipeline-1">↩</a></p>
+</li>
+<li id="footnote-SpecExec">
+<p><a href="https://en.wikipedia.org/wiki/Speculative_execution"><em>Speculative execution</em></a>. Wikipedia (Accessed 2022). <a href="#fr-SpecExec-1">↩</a></p>
+</li>
+<li id="footnote-RegisterAlloc">
+<p>In reality, an optimizing compiler could be clever enough to manage registers across function calls such that <code>x</code> never needs to be written to the stack and can be safely preserved in a register (which is faster to read and write). Our example illustrates the general case, not optimized special cases. <a href="#fr-RegisterAlloc-1">↩</a></p>
+</li>
+<li id="footnote-DuffDev">
+<p><a href="https://en.wikipedia.org/wiki/Duff%27s_device"><em>Duff's Device</em></a>. Wikipedia (Accessed 2023). An interesting and bizarre example of C control flow. Unlike Rust, C allows unstructured control flow (including <code>goto</code> statements). <a href="#fr-DuffDev-1">↩</a></p>
+</li>
+<li id="footnote-RingProt">
+<p><a href="https://en.wikipedia.org/wiki/Protection_ring"><em>Protection ring</em></a>. Wikipedia (Accessed 2022). <a href="#fr-RingProt-1">↩</a> <a href="#fr-RingProt-2">↩2</a></p>
+</li>
+<li id="footnote-MSKernBlocklist">
+<p><a href="https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/microsoft-recommended-driver-block-rules"><em>Microsoft recommended driver block rules</em></a>. Microsoft (Accessed 2023). <a href="#fr-MSKernBlocklist-1">↩</a></p>
+</li>
+<li id="footnote-SyscallTable">
+<p><a href="https://marcin.juszkiewicz.com.pl/download/tables/syscalls.html"><em>Linux kernel system calls for all architectures</em></a> Marcin Juszkiewicz (Accessed 2022). <a href="#fr-SyscallTable-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

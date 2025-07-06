@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html" class="active"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -211,29 +206,29 @@ We consider these to be general <em>bugs</em> and outside the scope of an error 
 <p>For errors proper, some developer communities make the below distinction:</p>
 <ul>
 <li>
-<p>&quot;Error&quot; referring specifically to catastrophic failures that a program cannot reasonably handle (e.g. exhausting system memory).</p>
+<p>"Error" referring specifically to catastrophic failures that a program cannot reasonably handle (e.g. exhausting system memory).</p>
 </li>
 <li>
-<p>&quot;Exceptions&quot; being errors that can be &quot;caught&quot; and handled by programmer-defined logic (e.g. a file doesn't exist).</p>
+<p>"Exceptions" being errors that can be "caught" and handled by programmer-defined logic (e.g. a file doesn't exist).</p>
 </li>
 </ul>
 <p>We don't make that distinction here.
-We'll use the term &quot;error&quot; to capture both the catastrophic and handleable cases.</p>
+We'll use the term "error" to capture both the catastrophic and handleable cases.</p>
 <h2 id="option-vs-result"><a class="header" href="#option-vs-result"><code>Option</code> vs <code>Result</code></a></h2>
-<p>Rust's standard library provides two <code>enum</code> types for expressing fallible operations: <code>Option</code><sup class="footnote-reference"><a href="#Option">1</a></sup> and <code>Result</code><sup class="footnote-reference"><a href="#Result">2</a></sup>.
+<p>Rust's standard library provides two <code>enum</code> types for expressing fallible operations: <code>Option</code><sup class="footnote-reference" id="fr-Option-1"><a href="#footnote-Option">1</a></sup> and <code>Result</code><sup class="footnote-reference" id="fr-Result-1"><a href="#footnote-Result">2</a></sup>.
 Strictly speaking, <em>error handling</em> refers only to <code>Result</code>.
 But the two are conceptually similar and widely used as function return types, so we'll cover both now.</p>
 <h3 id="option"><a class="header" href="#option"><code>Option</code></a></h3>
 <p><code>Option</code> conveys that a function could, potentially, have nothing to return.
 Even though the operation was completed successfully.
 That's normal behavior.</p>
-<p>Since we've now covered both enumerations and generics, try interpreting the definition<sup class="footnote-reference"><a href="#Option">1</a></sup> of this standard library type:</p>
+<p>Since we've now covered both enumerations and generics, try interpreting the definition<sup class="footnote-reference" id="fr-Option-2"><a href="#footnote-Option">1</a></sup> of this standard library type:</p>
 <pre><code class="language-rust noplaypen">pub enum Option&lt;T&gt; {
     None,
     Some(T),
 }</code></pre>
 <p>Notice how the <code>None</code> variant of <code>Option</code>'s definition doesn't contain data.
-This definition encodes the concept of &quot;some type <code>T</code> XOR nothing&quot;.
+This definition encodes the concept of "some type <code>T</code> XOR nothing".
 Ideal for a fallible operation that may return a result.</p>
 <p>An example, one we'll become intimately familiar with later, is an ordered set's <code>get</code> method.
 Retrieval of an element returns <code>None</code> if that element isn't present the set:</p>
@@ -269,7 +264,7 @@ Let's solidify understanding:</p>
 <p>Now <code>Result</code> has an entirely different use case.
 It conveys that a function could fail to complete an operation.
 A failure is abnormal, it means a problem needs to be reported or an operation needs to be retried.</p>
-<p>In <code>Result</code>'s definition<sup class="footnote-reference"><a href="#Result">2</a></sup>, both variants contain data.
+<p>In <code>Result</code>'s definition<sup class="footnote-reference" id="fr-Result-2"><a href="#footnote-Result">2</a></sup>, both variants contain data.
 The <code>Ok</code> variant encapsulates the output of a successful operation, whereas the <code>Err</code> variant signals failure and encapsulates a custom error type:</p>
 <pre><code class="language-rust noplaypen">pub enum Result&lt;T, E&gt; {
     Ok(T),
@@ -282,16 +277,16 @@ We previously used the <code>?</code> operator to short-circuit error propagatio
 </span><span class="boring">fn main() {
 </span>use std::fs::File;
 
-match File::open(&quot;/path/to/non-existent/file.txt&quot;) {
-    Ok(f) =&gt; println!(&quot;Successfully opened: {:?}&quot;, f),
-    Err(e) =&gt; eprintln!(&quot;Error occurred: {:?}&quot;, e),
+match File::open("/path/to/non-existent/file.txt") {
+    Ok(f) =&gt; println!("Successfully opened: {:?}", f),
+    Err(e) =&gt; eprintln!("Error occurred: {:?}", e),
 }
 <span class="boring">}</span></code></pre></pre>
 <p>Unlike <code>Option</code>, <code>Result</code> is marked with the <code>#[must_use]</code> attribute internally.
 Whenever you write a function that returns a <code>Result</code>, the caller <em>must</em> explicitly handle both the <code>Ok</code> and <code>Err</code> cases.
 This built-in enforcement lends itself to another MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Directive 4.7]</strong> Always test error information returned from functions<sup class="footnote-reference"><a href="#MISRA_2012">3</a></sup></p>
+<p><strong>[AR, Directive 4.7]</strong> Always test error information returned from functions<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">3</a></sup></p>
 </blockquote>
 <p>While <code>Result</code> provides a convenient mechanism for representing potential failures, and automatically enforces handling, we're still left with the application-specific task of doing the error handling.
 Generally, we can take one of three approaches:</p>
@@ -309,7 +304,7 @@ Generally, we can take one of three approaches:</p>
 <p>To make each approach more concrete, and explore some of the finer details, we'll make modifications to Chapter 2's RC4 library and the corresponding CLI tool.</p>
 <blockquote>
 <p><strong>Rust Errors vs C++ Exceptions</strong></p>
-<p>C++ allows two error handling strategies<sup class="footnote-reference"><a href="#CppExcep">4</a></sup>:</p>
+<p>C++ allows two error handling strategies<sup class="footnote-reference" id="fr-CppExcep-1"><a href="#footnote-CppExcep">4</a></sup>:</p>
 <ol>
 <li>
 <p><strong>Return codes:</strong> A function can return a special value, like <code>-1</code> or <code>NULL</code>, to implicitly indicate an error has occurred. But the developer must remember to check for this special case at every callsite and interpret its meaning.</p>
@@ -321,10 +316,10 @@ Generally, we can take one of three approaches:</p>
 <p><strong>Thrown exceptions:</strong> exceptions <em>must</em> be caught either by a programmer-defined handler or, if none is provided, the OS itself. So handling is enforced. And they may provide descriptive context.</p>
 <ul>
 <li>
-<p>However, C++ exceptions occur outside of regular code flow - one might be propagated from a function so deeply nested that it appears unrelated. This introduces &quot;invisible&quot; exit points for functions, which both violates a different MISRA rule (one we haven't mentioned) and causes some C++ programmers to consider using exceptions a &quot;bad practice&quot;.</p>
+<p>However, C++ exceptions occur outside of regular code flow - one might be propagated from a function so deeply nested that it appears unrelated. This introduces "invisible" exit points for functions, which both violates a different MISRA rule (one we haven't mentioned) and causes some C++ programmers to consider using exceptions a "bad practice".</p>
 </li>
 <li>
-<p>Additionally, unwinding is a performance bottleneck on multi-core systems (due to a global lock)<sup class="footnote-reference"><a href="#CppSlowExcep">5</a></sup>.</p>
+<p>Additionally, unwinding is a performance bottleneck on multi-core systems (due to a global lock)<sup class="footnote-reference" id="fr-CppSlowExcep-1"><a href="#footnote-CppSlowExcep">5</a></sup>.</p>
 </li>
 </ul>
 </li>
@@ -345,7 +340,7 @@ Our <code>new</code> function took a single parameter, a key byte array, and ass
 }</code></pre>
 <p>On one hand, this adheres to an important rule (input validation):</p>
 <blockquote>
-<p><strong>[RR, Directive 4.14]</strong> External inputs must be validated<sup class="footnote-reference"><a href="#MISRA_2012">3</a></sup></p>
+<p><strong>[RR, Directive 4.14]</strong> External inputs must be validated<sup class="footnote-reference" id="fr-MISRA_2012-2"><a href="#footnote-MISRA_2012">3</a></sup></p>
 </blockquote>
 <p>On the other hand, we made a debatable decision on behalf of our library's users: if the provided key was too short or too long, we'd terminate the program.
 Users won't have a chance to respond if this error condition is hit.</p>
@@ -361,7 +356,7 @@ This program will <em>compile successfully</em> but <em>terminate at runtime</em
 <pre><code class="language-ignore">thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 5', src/main.rs:7:5
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 </code></pre>
-<p>It's a classic &quot;off-by-one&quot; error.
+<p>It's a classic "off-by-one" error.
 Testing would have helped catch this indexing failure.
 But not all fatal invariants are easy to test for, so most real-world programs will contain some assertion-based error handling.
 Including implicit cases like this one.</p>
@@ -404,7 +399,7 @@ We could have it propagate a single, opaque error like so:</p>
         Ok(rc4)
     }
 }</code></pre>
-<p>Choosing the unit type (<code>()</code>, an empty value) instead of a custom error type is a &quot;bare bones&quot; approach.
+<p>Choosing the unit type (<code>()</code>, an empty value) instead of a custom error type is a "bare bones" approach.
 One typically better-suited in private, internal APIs.
 But it does the job, since the caller has to take appropriate action for both the <code>Ok</code> and <code>Err</code> variants of the returned <code>Result</code>.
 The <code>Ok</code> variant contains a successfully-initialized cipher.</p>
@@ -454,14 +449,14 @@ Notionally, that'd be something akin to:</p>
 let key = [0x1, 0x2, 0x3];
 
 match Rc4::new(&amp;key) {
-    Ok(rc4) =&gt; println!(&quot;Do en/decryption here!&quot;),
+    Ok(rc4) =&gt; println!("Do en/decryption here!"),
     Err(e) =&gt; match e {
-        Rc4Error::KeyTooShort(min) =&gt; eprintln!(&quot;Key len &gt;= {} bytes required!&quot;, min),
-        Rc4Error::KeyTooLong(max) =&gt; eprintln!(&quot;Key len &lt;= {} bytes required!&quot;, max),
+        Rc4Error::KeyTooShort(min) =&gt; eprintln!("Key len &gt;= {} bytes required!", min),
+        Rc4Error::KeyTooLong(max) =&gt; eprintln!("Key len &lt;= {} bytes required!", max),
     },
 }</code></pre>
 <h3 id="the-error-trait"><a class="header" href="#the-error-trait">The <code>Error</code> Trait</a></h3>
-<p>There's one more important piece to the Rust's error handling puzzle: the <code>Error</code> <em>trait</em> in defined in the standard library<sup class="footnote-reference"><a href="#Error">6</a></sup>.
+<p>There's one more important piece to the Rust's error handling puzzle: the <code>Error</code> <em>trait</em> in defined in the standard library<sup class="footnote-reference" id="fr-Error-1"><a href="#footnote-Error">6</a></sup>.
 Implementing this special trait for our <code>Rc4Error</code> type would have two advantages:</p>
 <ul>
 <li>
@@ -472,19 +467,19 @@ Implementing this special trait for our <code>Rc4Error</code> type would have tw
 </li>
 </ul>
 <p>However, there's a good reason we won't use this trait in our RC4 library.
-Recall that our cipher implementation is <code>#![no_std]</code> compatible - it can run any environment, even &quot;bare metal&quot;.</p>
+Recall that our cipher implementation is <code>#![no_std]</code> compatible - it can run any environment, even "bare metal".</p>
 <p>The <code>Error</code> trait assumes the presence of an operating system, whose runtime support is needed to capture and print a backtrace.
 Thus we can't import <code>std::error::Error</code> in a <code>#![no_std]</code> library.</p>
 <blockquote>
 <p><strong>Can't we support that use case?</strong></p>
 <p>If omitting the <code>Error</code> trait strikes you as an unsatisfying compromise, try <em>feature-gating</em> support for this trait as an exercise.
-That'll entail modifying the <code>Cargo.toml</code><sup class="footnote-reference"><a href="#Features">7</a></sup> build file and implementing the trait behind a <code>cfg</code> macro<sup class="footnote-reference"><a href="#CondComp">8</a></sup>.
+That'll entail modifying the <code>Cargo.toml</code><sup class="footnote-reference" id="fr-Features-1"><a href="#footnote-Features">7</a></sup> build file and implementing the trait behind a <code>cfg</code> macro<sup class="footnote-reference" id="fr-CondComp-1"><a href="#footnote-CondComp">8</a></sup>.
 By convention, this feature would be called <code>std</code> and selected with:</p>
-<pre><code class="language-ignore">cargo build --features=&quot;std&quot;
+<pre><code class="language-ignore">cargo build --features="std"
 </code></pre>
 <p>A dependency could chose to enable the optional feature within it's own <code>Cargo.toml</code> entry:</p>
 <pre><code class="language-ignore">[dependencies]
-rc4 = { path = &quot;../rc4&quot;, version = &quot;0.1.0&quot;, features = [&quot;std&quot;] }
+rc4 = { path = "../rc4", version = "0.1.0", features = ["std"] }
 </code></pre>
 <p>This enables the best of both worlds - support embedded systems by default, but allow richer error reporting if a library user enables an optional feature when building for non-embedded targets.</p>
 </blockquote>
@@ -496,32 +491,32 @@ Unlike C++ exceptions, it's part of the regular call chain.</p>
 We can choose the best approach for each situation: asserting invariants, propagating an opaque error, or propagating specific errors.</p>
 <p>That concludes our six-part tour of Rust's core concepts!
 The rest of this chapter looks at features and tools that help us to build large, ambitious systems in the language.</p>
-<hr />
-<div class="footnote-definition" id="Option"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://doc.rust-lang.org/std/option/enum.Option.html"><em>Enum <code>std::option::Option</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Result"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://doc.rust-lang.org/std/error/trait.Error.html"><em>Enum <code>std::error::Error</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">3</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="CppExcep"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://www.codeproject.com/Articles/38449/C-Exceptions-Pros-and-Cons"><em>C++ Exceptions: Pros and Cons</em></a>. Nemanja Trifunovic (2009).</p>
-</div>
-<div class="footnote-definition" id="CppSlowExcep"><sup class="footnote-definition-label">5</sup>
-<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2544r0.html"><em>P2544R0 C++ exceptions are becoming more and more problematic</em></a>. Thomas Neumann (2022).</p>
-</div>
-<div class="footnote-definition" id="Error"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://doc.rust-lang.org/std/error/trait.Error.html"><em>Enum <code>std::error::Error</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Features"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://doc.rust-lang.org/cargo/reference/features.html"><em>Features</em></a>. The Cargo Book (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CondComp"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://doc.rust-lang.org/reference/conditional-compilation.html"><em>Conditional compilation</em></a>. The Rust Reference (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-Option">
+<p><a href="https://doc.rust-lang.org/std/option/enum.Option.html"><em>Enum <code>std::option::Option</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-Option-1">↩</a> <a href="#fr-Option-2">↩2</a></p>
+</li>
+<li id="footnote-Result">
+<p><a href="https://doc.rust-lang.org/std/error/trait.Error.html"><em>Enum <code>std::error::Error</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-Result-1">↩</a> <a href="#fr-Result-2">↩2</a></p>
+</li>
+<li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a> <a href="#fr-MISRA_2012-2">↩2</a></p>
+</li>
+<li id="footnote-CppExcep">
+<p><a href="https://www.codeproject.com/Articles/38449/C-Exceptions-Pros-and-Cons"><em>C++ Exceptions: Pros and Cons</em></a>. Nemanja Trifunovic (2009). <a href="#fr-CppExcep-1">↩</a></p>
+</li>
+<li id="footnote-CppSlowExcep">
+<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2544r0.html"><em>P2544R0 C++ exceptions are becoming more and more problematic</em></a>. Thomas Neumann (2022). <a href="#fr-CppSlowExcep-1">↩</a></p>
+</li>
+<li id="footnote-Error">
+<p><a href="https://doc.rust-lang.org/std/error/trait.Error.html"><em>Enum <code>std::error::Error</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-Error-1">↩</a></p>
+</li>
+<li id="footnote-Features">
+<p><a href="https://doc.rust-lang.org/cargo/reference/features.html"><em>Features</em></a>. The Cargo Book (Accessed 2022). <a href="#fr-Features-1">↩</a></p>
+</li>
+<li id="footnote-CondComp">
+<p><a href="https://doc.rust-lang.org/reference/conditional-compilation.html"><em>Conditional compilation</em></a>. The Rust Reference (Accessed 2022). <a href="#fr-CondComp-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

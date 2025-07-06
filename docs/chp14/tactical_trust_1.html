@@ -1,0 +1,920 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tactical Trust (1/2) - High Assurance Rust: Developing Secure and Robust Software</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">High Assurance Rust: Developing Secure and Robust Software</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/tnballo/high-assurance-rust" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://highassurance.rs/engage.html#submit-feedback-questions-issues-or-prs" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+<h1 id="tactical-trust-platform-cryptography-for-developers-1-of-2"><a class="header" href="#tactical-trust-platform-cryptography-for-developers-1-of-2">Tactical Trust: Platform Cryptography for Developers (1 of 2)</a></h1>
+<!---
+* Side-by-side diagrams
+--->
+<style>
+  .diagram-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .diagram-col {
+    flex: 50%;
+    max-width: 35%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+
+  .diagram-col2 {
+    flex: 50%;
+    max-width: 40%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+
+   .diagram-solo {
+    flex: 100%;
+    max-width: 75%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+</style>
+<p>Digital systems our society relies on all have some notion of <strong>trust</strong>.
+A communicating party can identify, with confidence, <em>who</em> they are "talking" to (authentication).
+And they can rest assured that their "conversation" is <em>private</em> (confidentiality).
+Even non-networked systems will validate that code they flash or execute hasn't been <em>modified</em> or <em>corrupted</em> (integrity).</p>
+<p>Cryptographic libraries are the technical mechanism underpinning properties like authentication, confidentiality, and integrity.
+These imperfect software components are the foundation on which societal trust is built and maintained.
+Thus exploitable flaws in crypto libs tend to have severe and widespread impact<sup class="footnote-reference" id="fr-MatterHeartbleed-1"><a href="#footnote-MatterHeartbleed">1</a></sup>.</p>
+<p>Now this two-part section isn't about applied cryptography in the proper academic sense, we won't explain cryptographic primitives or protocol design from the ground up.
+Let's assume those more formal concepts live in an ivory tower<sup class="footnote-reference" id="fr-Ivory-1"><a href="#footnote-Ivory">2</a></sup>.
+We're medieval peasants fighting in mud that is long-surviving production software - shipping, patching, refactoring.</p>
+<p>These sections are concerned with brutal realities of deploying [theoretically] sound designs - we aim to reduce certain risks inherent to real-world software.
+It's one interpretation of what <strong>platform security engineering</strong> entails when shipping trust at scale.
+Concepts we cover are language-agnostic: they likely apply to your problem domain and tech stack of choice.</p>
+<blockquote>
+<p><em><strong>How are we defining "platform security engineering"?</strong></em></p>
+<p>Building libraries, frameworks, and tools that allow feature teams to ship both securely and quickly.
+Essentially providing a "solid security foundation" for high-velocity software.
+In terms of code-level consistency.</p>
+</blockquote>
+<h2 id="so-whats-the-agenda-for-this-two-part-section"><a class="header" href="#so-whats-the-agenda-for-this-two-part-section">So what's the agenda for this two-part section?</a></h2>
+<p>Part 1 focuses on <em>code</em> (full, runnable source is available within the book repo under <code>code_snippets/chp14/tactical_trust</code>).
+Our proof-of-concept programs aim to raise the bar for "shift left" automation, even if modestly (give the attacker an inch, they'll take a mile).
+We'll sample solutions to two cryptographic platform security problems at different levels of the stack:</p>
+<ul>
+<li>
+<p><strong>API:</strong> Can we systematically prevent nonce reuse vulnerabilities in an arbitrarily-large codebase?</p>
+</li>
+<li>
+<p><strong>Supply-chain:</strong> How should CI enforce policies specific to cryptographic dependencies?</p>
+</li>
+</ul>
+<p>Part 2 will focus on <em>concepts</em> but still include plenty of code. The emphasis is higher-level exploration of a {problem,solution} space.
+We'll narrow scope to the problem of <em>information disclosure</em>, deep-diving vulnerabilities and state-of-the-art mitigations through the lens of two general threat models:</p>
+<ul>
+<li>
+<p><strong>Man-in-the-Middle (MITM):</strong> Attacker intercepts network communications between two or more endpoints.</p>
+</li>
+<li>
+<p><strong>Man-at-the-End (MATE):</strong> Attacker directly compromises one or more communication endpoints.</p>
+</li>
+</ul>
+<blockquote>
+<p><em><strong>What if I'm interested less in software engineering, more in cryptographic design?</strong></em></p>
+<p>Good news, everyone!<sup class="footnote-reference" id="fr-GoodNews-1"><a href="#footnote-GoodNews">3</a></sup>
+Although we're focused on code-level tactics, there's several quality, strategy-focused resources to meet you wherever you're currently at and help you construct correct designs. Here's a sample:</p>
+<ul>
+<li>
+<p>Crypto novice but an experienced developer? → <a href="https://amzn.to/43ov045">"Real-world Cryptography" by Dave Wong</a><sup class="footnote-reference" id="fr-RWCBook-1"><a href="#footnote-RWCBook">4</a></sup></p>
+</li>
+<li>
+<p>Work in applied cryptography professionally? → <a href="https://soatok.blog/category/cryptography/">Soatok's Cryptography Blog</a><sup class="footnote-reference" id="fr-SoatokBlog-1"><a href="#footnote-SoatokBlog">5</a></sup></p>
+</li>
+<li>
+<p>At the cutting-edge of near-future cryptography? → <a href="https://rwc.iacr.org/">Real World Crypto Symposium</a><sup class="footnote-reference" id="fr-RWCConf-1"><a href="#footnote-RWCConf">6</a></sup></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="api-prevent-nonce-reuse-with-stronger-types"><a class="header" href="#api-prevent-nonce-reuse-with-stronger-types">API: Prevent Nonce Reuse with Stronger Types</a></h2>
+<p>"Nonce" is a portmanteau of "<span style="text-decoration: underline;">n</span>umber used only <span style="text-decoration: underline;">once</span>".
+As the name implies: accidentally using the same nonce multiple times, aka <em>nonce reuse</em>, is a devastating footgun for many widely-used cryptographic algorithms.
+Common operations rely on a random nonce as input in order to uphold critical security properties:</p>
+<ul>
+<li>
+<p><strong>Encryption</strong> - Unique nonces are often called "Initialization Vectors" (IVs). They prevent <em>plaintext and/or key recovery</em> as well as <em>replay attacks</em> (malicious repetition of previous communications).</p>
+<ul>
+<li>WPA2 was the de facto standard for encryption on Wi-Fi networks from 2006 to 2020. Toward the end of that lifespan, researchers demonstrated a practical attack against all implementations <sup class="footnote-reference" id="fr-KRACK-1"><a href="#footnote-KRACK">7</a></sup>. By abusing re-transmission logic in the 4-way handshake between a Wi-Fi endpoint and a client joining the network, an attacker could force <em>reset/reuse</em> of the nonce/IV for all protocol-supported stream ciphers (e.g. "keystream reuse"). That means an attacker can decrypt, replay, and [in some cases] forge network packets. Full compromise of the transport layer (e.g. TCP but not HTTPS).</li>
+</ul>
+</li>
+<li>
+<p><strong>Signing</strong> - Unique nonces prevent <em>signature forging</em> (generating a passing signature for attacker-created data) and <em>signature duplication</em> (replay of previously-signed data).</p>
+<ul>
+<li>The Sony PlayStation 3 was poised to become the most secure game console ever made, with no true jailbreak 4 years into production. The PS3 used ECDSA to create a chain-of-trust from early boot to userspace app launch - cryptographically enforcing software license checks. ECDSA signing takes as input a nonce and a hash of data to sign. Hackers discovered  that Sony's implementation used a hardcoded nonce<sup class="footnote-reference" id="fr-PS3Signing-1"><a href="#footnote-PS3Signing">8</a></sup>. This flaw enabled trivial re-computation of the ECDSA <em>private</em> signing key and therefore attacker ability to execute arbitrary unlicensed software.</li>
+</ul>
+</li>
+</ul>
+<br>
+<body>
+  <div class="diagram-row">
+    <div class="diagram-solo">
+      <img src="tt_nonce_reuse.svg" alt="Nonce reuse in context of encryption">
+      <br>
+      <figcaption><i><center><b>Fig. 1:</b> Nonce reuse: a single nonce used for multiple encryption operations (red input, step 3+).</center></i></figcaption>
+    </div>
+  </div>
+</body>
+<p>So then: how do we prove that, in some arbitrarily-large codebase, all nonces are both random and single-use?
+By encoding safety invariants into the language's <em>type system</em>.
+We can create APIs that are nearly impossible to misuse, and we get automatic static verification of that correctness just by compiling a program which uses exclusively the safe APIs!</p>
+<p>Bold claim, yet relatively straight-forward implementation:</p>
+<pre><code class="language-rust ignore">use aead::{
+    Aead, AeadCore, Nonce, Payload,
+    rand_core::{CryptoRng, RngCore},
+};
+use core::error::Error;
+
+/// Can be used in arbitrarily many decryption operations.
+/// Its counterpart, [`EncryptionNonce`], can only be used for one encryption operation.
+pub type DecryptionNonce&lt;A&gt; = Nonce&lt;A&gt;;
+
+/// A safer nonce type for AEAD. See trait [`NonceSafeAead`].
+//
+// SECURITY: Intentionally opaque and unique. Do not derive/implement any of:
+// `Default`, `Copy`, `Clone`, `Ord`, `Eq`, `Debug`, etc.
+pub struct EncryptionNonce&lt;A: AeadCore&gt;(Nonce&lt;A&gt;);
+
+impl&lt;A: AeadCore&gt; EncryptionNonce&lt;A&gt; {
+    /// Generate a new random nonce for AEAD-specific encryption.
+    pub fn generate_nonce(rng: impl CryptoRng + RngCore) -&gt; Self {
+        EncryptionNonce(&lt;A as AeadCore&gt;::generate_nonce(rng))
+    }
+
+    /// Crate-private conversion into [`aead::Nonce`].
+    //
+    // SECURITY: Do not make `pub`, risks reuse with `aead::Aead` APIs.
+    fn less_safe_to_raw_nonce(self) -&gt; Nonce&lt;A&gt; {
+        self.0
+    }
+}
+
+/// Nonce-safe AEAD. Guarantees the following properties:
+///
+/// 1. Nonce is random.
+///     * Opaque type with rand-only constructor.
+/// 2. Nonce is used in exactly one encryption operation.
+///     * Pass-by-value consumption.
+///
+/// See also: [`EncryptionNonce`] and [`DecryptionNonce`].
+pub trait NonceSafeAead {
+    /// Encrypt plaintext payload with a random, single-use nonce.
+    /// Returns ciphertext bytes and decryption-only nonce.
+    fn nonce_safe_encrypt&lt;'msg, 'aad&gt;(
+        &amp;self,
+        enc_nonce: EncryptionNonce&lt;Self&gt;,
+        plaintext: impl Into&lt;Payload&lt;'msg, 'aad&gt;&gt;,
+    ) -&gt; Result&lt;(Vec&lt;u8&gt;, DecryptionNonce&lt;Self&gt;), impl Error&gt;
+    where
+        Self: AeadCore + Aead + Sized,
+    {
+        let nonce = enc_nonce.less_safe_to_raw_nonce();
+        self.encrypt(&amp;nonce, plaintext)
+            .map(|ciphertext| (ciphertext, nonce))
+    }
+
+    /// Decrypt ciphertext.
+    /// Identical to [`aead::Aead::decrypt`], defined so that [`aead::Aead`]
+    /// doesn't have to be brought in-scope when using [`NonceSafeAead`].
+    //
+    // SECURITY: ban import of less safe `aead::Aead` trait.
+    fn decrypt&lt;'msg, 'aad&gt;(
+        &amp;self,
+        dec_nonce: &amp;DecryptionNonce&lt;Self&gt;,
+        ciphertext: impl Into&lt;Payload&lt;'msg, 'aad&gt;&gt;,
+    ) -&gt; Result&lt;Vec&lt;u8&gt;, impl Error&gt;
+    where
+        Self: AeadCore + Aead + Sized,
+    {
+        &lt;Self as Aead&gt;::decrypt(self, dec_nonce, ciphertext)
+    }
+}
+
+// Use above default impl for below algorithms
+impl NonceSafeAead for chacha20poly1305::XChaCha20Poly1305 {}
+impl NonceSafeAead for aes_gcm::Aes256Gcm {}
+impl NonceSafeAead for aes_siv::Aes256SivAead {}</code></pre>
+<p><code>Aead</code><sup class="footnote-reference" id="fr-TraitAead-1"><a href="#footnote-TraitAead">9</a></sup> is a widely-used trait in the Rust cryptography ecosystem.
+It defines a common interface to the <code>encrypt</code> and <code>decrypt</code> operations of Authenticated Encryption with Associated Data (AEAD) algorithms like AES-256-GCM and XChaCha20Poly1305.
+This class of algorithms provides both confidentiality and integrity, plus optionally allows binding unencrypted, "associated" metadata (think network headers, UUIDs, or contextual info).
+Basically, an AEAD should be your preferred all-in-one solution for most day-to-day encryption problems.</p>
+<p>Now the <code>Aead</code> enc/decrypt APIs<sup class="footnote-reference" id="fr-APIAead-1"><a href="#footnote-APIAead">10</a></sup> both take a single nonce type by reference: <code>&amp;Nonce&lt;A: AeadCore&gt;</code>. So a programmer is free to encrypt new data with the same nonce they used for decryption earlier (see Figure 1 above).</p>
+<ul>
+<li>Notice how a nonce is generic over the <code>AeadCore</code> trait, allowing <em>compile-time</em> verification of algorithm-specific array sizes - e.g. <code>[u8; 12]</code> (96-bit) for AES-256-GCM, <code>[u8; 24]</code> (192-bit) for XChaCha20Poly1305 - at <em>all</em> call-sites.</li>
+</ul>
+<p>The crux of our above reuse solution is this: we use two distinct nonce types, <code>EncryptionNonce&lt;A: AeadCore&gt;</code> for <code>encrypt</code> and <code>DecryptionNonce&lt;A: AeadCore&gt;</code> for <code>decrypt</code>.
+This bifurcation prevents nonce-reuse vulnerabilities, again at <em>compile-time</em> (before shipping and systematically across the entire codebase), because:</p>
+<ul>
+<li>
+<p><code>EncryptionNonce</code> is guaranteed to be <em>randomly-generated</em> (opaque type with rand-only constructor) and <em>single-use</em> (pass-by-value parameter semantics). The single-use property is especially amenable to Rust's [linear] type system. Its decryption counterpart, alias <code>type DecryptionNonce&lt;A&gt; = Nonce&lt;A&gt;;</code>, continues to work normally.</p>
+</li>
+<li>
+<p>Marker trait <code>CryptoRng</code><sup class="footnote-reference" id="fr-TraitCryptoRng-1"><a href="#footnote-TraitCryptoRng">11</a></sup> in <code>fn generate_nonce(rng: impl CryptoRng + RngCore)</code> is critical. A <em>biased</em> (meaning not uniformly random) nonce can be as disastrous as a reused nonce. In another ECDSA debacle, biased nonces allowed extraction of Bitcoin private keys<sup class="footnote-reference" id="fr-BitFail-1"><a href="#footnote-BitFail">12</a></sup>.</p>
+</li>
+</ul>
+<blockquote>
+<p><em><strong>What about "nonce misuse-resistant" algorithms? And size limitations?</strong></em></p>
+<p>Strong typing isn't the only possible solution for nonce-reuse.
+Defenses can also be implemented in the design of the algorithm itself, see AES-GCM-SIV<sup class="footnote-reference" id="fr-AesSIVRFC-1"><a href="#footnote-AesSIVRFC">13</a></sup>.
+A "Synthetic Initialization Vector" (SIV) uses inputs, including plaintext, to derive the final IV/nonce - effectively forcing two different plaintexts to use two different nonces.</p>
+<p>However: if the <em>same message</em> is encrypted with the <em>same nonce</em> <span style="text-decoration: underline;">twice</span> under the <em>same key</em>, an attacker will learn that the two messages are equivalent (but not their contents).
+That equivalence leak could have serious implications in context of a larger threat model, so preventing reuse with strong typing is still the higher assurance option.</p>
+<p>But we're not out of the woods yet.
+AES-256-GCM can only safely encrypt 2<sup>32</sup> (~4.3 billion) messages<sup class="footnote-reference" id="fr-AdamAEAD-1"><a href="#footnote-AdamAEAD">14</a></sup> under the same key using random nonces - beyond that we risk <em>nonce collision</em> (chance reuse). XChaCha20Poly1305 bumps that safe limit to 2<sup>80</sup> (practically infinite!)<sup class="footnote-reference" id="fr-XChaCha-1"><a href="#footnote-XChaCha">15</a></sup> and is faster on devices without hardware support for AES.</p>
+</blockquote>
+<p>We can verify that the <code>NonceSafeAead</code> trait enc/decrypts as expected with the below unit test:</p>
+<pre><code class="language-rust ignore">use aead::{KeyInit, OsRng};
+use nonce_typing::{EncryptionNonce, NonceSafeAead};
+
+const PLAINTEXT_MSG: &amp;[u8; 86] = b"Two cryptographers walk into a bar. \
+    Nobody else has a clue what they're talking about.";
+
+#[test]
+fn nonce_safe_xchacha20poly1305() {
+    use chacha20poly1305::XChaCha20Poly1305;
+
+    let key = XChaCha20Poly1305::generate_key(&amp;mut OsRng);
+    let cipher = XChaCha20Poly1305::new(&amp;key);
+    let enc_nonce = EncryptionNonce::&lt;XChaCha20Poly1305&gt;::generate_nonce(&amp;mut OsRng);
+
+    let (ciphertext, dec_nonce) = cipher
+        .nonce_safe_encrypt(enc_nonce, PLAINTEXT_MSG.as_ref())
+        .unwrap();
+
+    let plaintext = cipher.decrypt(&amp;dec_nonce, ciphertext.as_ref()).unwrap();
+
+    assert_eq!(&amp;plaintext, PLAINTEXT_MSG);
+}</code></pre>
+<p>But does it actually prevent reuse?
+You're welcome to try passing the same <code>enc_nonce</code> to two different <code>nonce_safe_encrypt</code> calls - the compiler error should look familiar!</p>
+<blockquote>
+<p><em><strong>Where do I start with "formally verified" cryptography?</strong></em></p>
+<p>Proving that a program satisfies a specific property, for any input, is the goal of <em>formal verification</em>.
+Rust's type system, which guarantees that data is "shared XOR mutable", is particularly amenable to certain formal techniques - less reasoning about the state of memory is needed.
+Cryptography is also lower-cost to verify: detailed specifications exist, data structures are statically-allocated, and input size is bounded.</p>
+<p>Verification techniques vary widely (theorem proving, model checking, abstract interpretation, symbolic execution, etc) and the corresponding tools typically require significant expertise to leverage.
+But as <del>lazy</del> busy developers, we can readily integrate and benefit from already-formally-verified libraries.
+Two contenders for native cryptography are:</p>
+<ol>
+<li><code>aws-lc-rs</code> (Amazon)<sup class="footnote-reference" id="fr-AWSLC-1"><a href="#footnote-AWSLC">16</a></sup> - Symbolic execution of source code is used to prove that a program matches a machine-readable specification manually encoded from an algorithm's human-readable specification.
+<br><br/></li>
+<li><code>symcrypt</code> (Microsoft)<sup class="footnote-reference" id="fr-SymCrypt-1"><a href="#footnote-SymCrypt">17</a></sup> - Source is translated to a model for an interactive (meaning semi-manual) theorem prover. Additionally, a combination of fuzzing and model-based testing is used to detect timing side-channels.</li>
+</ol>
+<p>Keep in mind that formal verification is not a panacea: specifications can be incomplete and implementations can deviate from models.
+The aforementioned WPA2 4-way handshake was formally verified yet still exploitable!
+Its proof failed to specify when a negotiated key should be installed, implicitly allowing multiple installations and thus nonce reset on next install <sup class="footnote-reference" id="fr-KRACK-2"><a href="#footnote-KRACK">7</a></sup>.</p>
+</blockquote>
+<h2 id="supply-chain-allowlist-crypto-publishers-and-ban-duplicates"><a class="header" href="#supply-chain-allowlist-crypto-publishers-and-ban-duplicates">Supply-chain: Allowlist Crypto Publishers and Ban Duplicates</a></h2>
+<p>Programming languages with official package registries are a joy to use: easily finding and integrating 3rd-party libraries means faster delivery speed and greater focus on your problem/business domain.
+But all convenience has a cost.
+Here:</p>
+<ul>
+<li>
+<p><strong>Increased attack surface</strong> - Just one malicious crate, no matter how deep in a massive dependency graph, can compromise the entire <em>application</em>. And typo-squatting attacks indiscriminately victimize a percentage of the entire <em>ecosystem</em>.</p>
+</li>
+<li>
+<p><strong>Statistical weakening of memory-safety</strong> - Dependency count likely has some correlation to amount of <code>unsafe</code> Rust code ([19% of public crates use <code>unsafe</code><sup class="footnote-reference" id="fr-UnsafeState-1"><a href="#footnote-UnsafeState">18</a></sup>) and other-language CFFI code, and thus amount of total <em>unsound</em> code (realistically some subset of <code>unsafe</code>). Any unsound code can trigger memory safety errors at runtime, which often go undetected in production.</p>
+</li>
+<li>
+<p><strong>Software bloat</strong> - Transitive dependencies tend to sprawl in number<sup class="footnote-reference" id="fr-Bloat-1"><a href="#footnote-Bloat">19</a></sup>, causing "simple" apps to explode in objective size and complexity. Larger programs generally mean slower app startup and longer download times. Plus both routine (e.g. API upgrade) and emergency (e.g. vulnerable dependency alert) maintenance burden.</p>
+</li>
+</ul>
+<p>Supply-chain assurance is particularly important for cryptographic dependencies, which likely have an out-sized impact on the security properties of an overall system. Application logic higher up the stack tends to rely on crypto libraries, implicitly or explicitly.</p>
+<p>Imagine you've been handed a strict mandate: the two requirements below <em>must</em> hold for your <em>entire</em> million-plus line monorepo.</p>
+<ol>
+<li>
+<p><strong>Trusted Publishers</strong> - All direct (e.g. non-transitive) cryptographic dependencies must be sourced from a small allowlist of trusted publishers, initially only the <code>RustCrypto</code> organization<sup class="footnote-reference" id="fr-RustCrypto-1"><a href="#footnote-RustCrypto">20</a></sup>.</p>
+<ul>
+<li>
+<p><em><strong>Rationale:</strong> Minimize both <code>RUSTSEC</code><sup class="footnote-reference" id="fr-RustSecDB-1"><a href="#footnote-RustSecDB">21</a></sup> alert volume and backdoor introduction risk.</em></p>
+</li>
+<li>
+<p><em><strong>Scope:</strong> Direct dependencies only. Publishers we explicitly trust can still select their own dependencies.</em></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>No Duplicates</strong> - All direct and indirect cryptographic dependencies must have exactly one version in-tree at any time.</p>
+<ul>
+<li>
+<p><em><strong>Rationale:</strong> Minimize both bloat and programmer error (e.g. unclear behavior divergence between API versions).</em></p>
+</li>
+<li>
+<p><em><strong>Scope:</strong> All dependencies. Duplicate bloat is likely avoidable - some crate owner should consider updating to latest.</em></p>
+</li>
+</ul>
+</li>
+</ol>
+<br>
+<body>
+  <div class="diagram-row">
+    <div class="diagram-col2">
+      <img src="tt_supplychain_1.svg" alt="Before supply-chain policy enforcement">
+      <br>
+      <figcaption><i><center><b>Fig. 2:</b> No supply-chain policy. Tolerate organic dependency sprawl.</center></i></figcaption>
+    </div>
+    <div class="diagram-col">
+      <img src="tt_supplychain_2.svg" alt="After supply-chain policy enforcement">
+      <br>
+      <figcaption><i><center><b>Fig. 3:</b> Policy enforced: only trusted publisher, no duplicates. Leaner app overall.</center></i></figcaption>
+    </div>
+  </div>
+</body>
+<p>How do you enforce this policy (which nicely compliments our previous <code>NonceSafeAead</code> APIs)?
+Unfortunately these specific requirements can't be encoded with <code>cargo deny</code><sup class="footnote-reference" id="fr-Cargodeny-1"><a href="#footnote-Cargodeny">22</a></sup>, a popular and mature dependency graph linter, at the time of this writing (v0.18).
+We need to roll some custom kit atop <code>cargo_metadata</code><sup class="footnote-reference" id="fr-Cargometadata-1"><a href="#footnote-Cargometadata">23</a></sup>!</p>
+<p>Let's start with builder-pattern<sup class="footnote-reference" id="fr-BuilderPattern-1"><a href="#footnote-BuilderPattern">24</a></sup> boilerplate (our public API):</p>
+<pre><code class="language-rust ignore">use cargo_metadata::{CargoOpt, Metadata, MetadataCommand, Package, semver::Version};
+use std::{
+    cell::OnceCell,
+    collections::{BTreeMap, BTreeSet, HashMap},
+    fs,
+    path::{Path, PathBuf},
+};
+
+/// A [`Policy`] violation.
+/// Note: error variants do expose/re-export error enums from 3rd-party crates.
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[allow(missing_docs)]
+pub enum PolicyViolationError {
+    DuplicateCrateVersions(Vec&lt;String&gt;),
+    DisallowedCategoryPublisher(String, String),
+    MetadataReadError(String),
+}
+
+/// A builder for supply-chain policies.
+#[derive(Default)]
+pub struct Policy {
+    // Path to `Cargo.toml` we're analyzing
+    manifest_path: PathBuf,
+    // Workaround for `OnceCell::get_or_try_init` being nightly-only in Rust 1.88
+    cargo_metadata_result: OnceCell&lt;Result&lt;Metadata, PolicyViolationError&gt;&gt;,
+    // {category}
+    // `String`s lower-cased at construction time
+    no_dup_cats: Option&lt;BTreeSet&lt;String&gt;&gt;,
+    // category: {publisher}
+    // `String`s lower-cased at construction time
+    cat_pubs: Option&lt;BTreeMap&lt;String, BTreeSet&lt;String&gt;&gt;&gt;,
+}
+
+impl Policy {
+    /// Create a new policy, construct with path to workspace or crate-specific `Cargo.toml`.
+    pub fn new&lt;P&gt;(manifest_path: P) -&gt; Result&lt;Policy, std::io::Error&gt;
+    where
+        P: AsRef&lt;Path&gt;,
+    {
+        let manifest_path = fs::canonicalize(manifest_path)?;
+        Ok(Self {
+            manifest_path,
+            ..Default::default()
+        })
+    }
+
+    /// Rule 1 (Category-specific Trusted Publishers):
+    /// Ensure that a given category only contains crates from a fixed set of trusted publishers.
+    /// Assumes input iterator format `(category_1, publisher_1)...(category_n, publisher_n)`.
+    /// More then one publisher per category is supported.
+    pub fn allowed_category_publishers&lt;I, S&gt;(mut self, cat_pubs: I) -&gt; Policy
+    where
+        I: Iterator&lt;Item = (S, S)&gt;,
+        S: Into&lt;String&gt;,
+    {
+        let mut cat_pubs = cat_pubs.peekable();
+        if cat_pubs.peek().is_some() {
+            let mut cat_map = BTreeMap::new();
+            for (c, p) in cat_pubs {
+                cat_map
+                    .entry(c.into().to_ascii_lowercase())
+                    .or_insert(BTreeSet::new())
+                    .insert(p.into().to_ascii_lowercase());
+            }
+            self.cat_pubs = Some(cat_map);
+        } else {
+            self.cat_pubs = None;
+        }
+
+        self
+    }
+
+    /// ...OMITTED: Rule 2 (Category-specific No Duplicates)...
+
+    /// Evaluate a built policy against a given workspace/crate.
+    pub fn run(&amp;self) -&gt; Result&lt;(), PolicyViolationError&gt; {
+        self.run_allowed_category_publishers()?;
+        self.run_no_duplicate_crate_categories()?;
+        Ok(())
+    }</code></pre>
+<p>To keep the length of this section in check, we'll omit implementation of scaffolding for the 2nd policy requirement (no duplicate cryptographic dependencies).
+But the logic is mechanically similar to the first requirement and the complete, runnable ≈300 lines of source for both rules is at <code>code_snippets/chp14/tactical_trust/supplychain_policy</code>.</p>
+<p>Notice that the above builder doesn't encode anything specific to <em>cryptographic</em> crates - this interface supports arbitrary categories and publishers.
+Before we see what usage looks like in practice, lets dig into enforcement logic for whatever trusted publishers the user specified when initializing <code>cat_pubs</code> with a call to <code>allowed_category_publishers</code> (the below are private APIs):</p>
+<pre><code class="language-rust ignore">    /// Collect dependency metadata for the entire workspace with all features enabled.
+    fn metadata(&amp;self) -&gt; Result&lt;&amp;Metadata, PolicyViolationError&gt; {
+        let meta_result = self.cargo_metadata_result.get_or_init(|| {
+            MetadataCommand::new()
+                .manifest_path(&amp;self.manifest_path)
+                .features(CargoOpt::AllFeatures)
+                .exec()
+                .map_err(|e| PolicyViolationError::MetadataReadError(e.to_string()))
+        });
+
+        meta_result.as_ref().map_err(|e| e.to_owned())
+    }
+
+    /// Get repo's publisher by parsing its URL.
+    // SECURITY: `dep.authors` isn't reliable - anyone can set any value in their crate's `Cargo.toml`.
+    fn get_repo_publisher(dep: &amp;Package) -&gt; Result&lt;String, PolicyViolationError&gt; {
+        let Some(repo_url) = dep
+            .repository
+            .as_ref()
+            .and_then(|url| url::Url::parse(url).ok())
+        else {
+            return Err(PolicyViolationError::MetadataReadError(format!(
+                "Missing or invalid repo URL for crate '{}'",
+                dep.name
+            )));
+        };
+
+        // If `repo_url` == "https://github.com/RustCrypto/AEADs/tree/master/aes-gcm"
+        // Then `repo_publisher` == "RustCrypto"
+        let Some(repo_publisher) = repo_url.path_segments().and_then(|mut path| path.next()) else {
+            return Err(PolicyViolationError::MetadataReadError(format!(
+                "Missing publisher name for repo URL '{repo_url}'"
+            )));
+        };
+
+        Ok(repo_publisher.to_string())
+    }
+
+    /// Run category-specific trusted publishers check.
+    fn run_allowed_category_publishers(&amp;self) -&gt; Result&lt;(), PolicyViolationError&gt; {
+        let Some(ref cat_pubs) = self.cat_pubs else {
+            return Ok(());
+        };
+
+        let metadata = self.metadata()?;
+
+        // ID direct dependencies
+        let direct_deps = metadata
+            .packages
+            .iter()
+            .filter(|pkg| pkg.manifest_path.as_path() == self.manifest_path)
+            .map(|pkg| &amp;pkg.dependencies)
+            .flatten()
+            .collect::&lt;Vec&lt;_&gt;&gt;();
+
+        // Get full crate info for each ID-ed direct dependency
+        let direct_dep_crates = metadata
+            .packages
+            .iter()
+            .filter(|pkg| direct_deps.iter().any(|dep| dep.name == *pkg.name));
+
+        // Find disallowed category-specific publishers, if any
+        for dep_crate in direct_dep_crates {
+            for cat in &amp;dep_crate.categories {
+                if let Some(expected_pubs) = cat_pubs.get(&amp;cat.to_ascii_lowercase()) {
+                    let actual_publisher = Self::get_repo_publisher(dep_crate)?.to_lowercase();
+                    if !expected_pubs.contains(&amp;actual_publisher) {
+                        return Err(PolicyViolationError::DisallowedCategoryPublisher(
+                            cat.clone(),
+                            actual_publisher,
+                        ));
+                    }
+                }
+            }
+        }
+
+        Ok(())
+    }</code></pre>
+<ul>
+<li>
+<p><code>fn metadata</code> does memoized collection of dependency metadata for the entire workspace, with all features enabled. Even if the user specifies 10 requirements for 10 different crate categories, we'll run collection exactly once (recall <code>Policy</code> field <code>cargo_metadata_result</code> is a <code>OnceCell</code><sup class="footnote-reference" id="fr-OnceCell-1"><a href="#footnote-OnceCell">25</a></sup>).</p>
+</li>
+<li>
+<p><code>fn get_repo_publisher</code> parses the owner of a repository from its URL. While this logic will extract the publishing <em>user</em> or <em>organization</em> for both GitHub and GitLab URLs, be warned: we're not claiming any of the code in this supply-chain half of this section is robust enough for production usage!</p>
+<ul>
+<li>We can't rely on the authors field<sup class="footnote-reference" id="fr-CargometadataAuthors-1"><a href="#footnote-CargometadataAuthors">26</a></sup> of <code>cargo_metdata</code>'s <code>Package</code> struct, which could be maliciously set to impersonate a publisher. We instead use [presumably valid] URLs as a source of truth for publisher identification. PKI will be a superior long-term solution, more on this later.</li>
+</ul>
+</li>
+<li>
+<p><code>fn run_allowed_category_publishers</code> is the bulk of our trusted publishers (requirement 1) logic. We identify direct dependencies of the target project (to which <code>Policy::new</code> takes a <code>Cargo.toml</code> path) and iterate that list to look for any crate which belongs to a user-specified category but isn't sourced from a user-allowed publisher for that category.</p>
+<ul>
+<li>Crate category labels are optional, but we could extend the builder to support "allowed publisher for any or missing category" - ensuring unexpected publishers don't slip in. Our policy evaluation logic also doesn't validate user-input category names, a typo will cause checks to pass! Adding validation would be straightforward since categories are fixed<sup class="footnote-reference" id="fr-CrateCats-1"><a href="#footnote-CrateCats">27</a></sup>.</li>
+</ul>
+</li>
+</ul>
+<p>So how do we roll out enforcement of our sophisticated policy requirements (category-specific trusted publishers and duplicate elimination)?
+The heavy-handed option is leveraging <code>build.rs</code> (Rust build scripts<sup class="footnote-reference" id="fr-RustBuildScripts-1"><a href="#footnote-RustBuildScripts">28</a></sup>):</p>
+<pre><code class="language-rust ignore">use supplychain_policy::Policy;
+
+fn main() {
+    println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-changed=Cargo.toml");
+
+    let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR var not set");
+    let manifest_path = std::path::PathBuf::from(manifest_dir).join("Cargo.toml");
+
+    Policy::new(&amp;manifest_path)
+        .expect("Invalid manifest path")
+        .allowed_category_publishers([("cryptography", "rustcrypto")].into_iter())
+        .no_duplicate_crate_categories(["cryptography"].into_iter())
+        .run()
+        .unwrap()
+}</code></pre>
+<p>Now failing builds for supply-chain policy violations probably isn't the best way to make friends with other development teams, even in a smaller organization, unless there's a strong regulatory and/or business need to do so.
+Fortunately the above <code>Policy</code> builder can easily be wrapped in a CLI tool and deployed in <em>blocking</em> or <em>non-blocking</em> CI pipelines, on a workspace-specific basis.
+Non-blocking failures can be centrally tracked and automatically triaged.</p>
+<p>Our above proof-of-concept didn't accommodate exceptions (e.g. "allow this specific named duplicate, still enforce for remainder of category"), but you could quickly extend it to read individual crate/publisher names from a [version controlled and <code>CODEOWNERS</code> protected] config file.
+Supporting legitimate exceptions, with documented rationale, is realistic - "perfect is the enemy of good".</p>
+<blockquote>
+<p><em><strong>What are my other options for supply-chain security in Rust?</strong></em></p>
+<p>The landscape of Rust's supply-chain security tooling is, fortunately, evolving.
+Sample projects to be aware of:</p>
+<ul>
+<li><strong>Signature-based vulnerability alerting:</strong> <code>cargo audit</code><sup class="footnote-reference" id="fr-CargoAudit-1"><a href="#footnote-CargoAudit">29</a></sup>, a free tool to scan your dependency tree for known-vulnerable<sup class="footnote-reference" id="fr-RustSecDB-2"><a href="#footnote-RustSecDB">21</a></sup> crates, is a must-have for production CI. Although a lack of "reachability analysis" (call-graph traversal to determine if your code directly or indirectly calls a vulnerable function) does mean false positives.
+<br><br/></li>
+<li><strong>Heuristic-based malware detection:</strong> The Linux Foundation has funded development<sup class="footnote-reference" id="fr-CapslockNews-1"><a href="#footnote-CapslockNews">30</a></sup> of a Rust counterpart to Go's <code>capslock</code><sup class="footnote-reference" id="fr-Capslock-1"><a href="#footnote-Capslock">31</a></sup> tool. Among other usecases, <code>capslock</code> enumerates <em>capabilities</em><sup class="footnote-reference" id="fr-CapslockCaps-1"><a href="#footnote-CapslockCaps">32</a></sup> (file I/O, network connectivity, command execution, etc) for a given dependency and alerts if they suddenly change in a new version.
+<br><br/></li>
+<li><strong>Trusted publishers:</strong> Future PKI initiatives<sup class="footnote-reference" id="fr-RustPKI-1"><a href="#footnote-RustPKI">33</a></sup> may allow cryptographic identification of publishers, a big improvement over our above URL parsing. A related RFC<sup class="footnote-reference" id="fr-RustTrustedPubs-1"><a href="#footnote-RustTrustedPubs">34</a></sup> outlines support for publishing crates from trusted infrastructure, following the footsteps of PyPI<sup class="footnote-reference" id="fr-PyTrustedPubs-1"><a href="#footnote-PyTrustedPubs">35</a></sup>. Note PKI also means better response capability, although a real-world attack may have already succeeded by the time a build machine pulls a Certificate Revocation List (CRL).</li>
+</ul>
+<p>While Rust's intentionally minimal <code>std</code> library is boon for embedded development, it does encourage over-reliance on 3rd-party crates for routine tasks.
+For contrast: Go's standard library offers FIPS 140-3 compliant cryptography<sup class="footnote-reference" id="fr-GoFIPS-1"><a href="#footnote-GoFIPS">36</a></sup> with the flip of a build flag and backported a secure RNG<sup class="footnote-reference" id="fr-GoCSPRNG-1"><a href="#footnote-GoCSPRNG">37</a></sup> to existing programs with only a Go toolchain bump!</p>
+</blockquote>
+<h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
+<p>"Trust is earned in drops and lost in buckets".
+That's probably a maxim, but it feels especially true in the context of commercial software - a global competition in which any winner, perhaps outside of a few monopolists, can be dethroned at any time.</p>
+<p>Now the technical mechanism for trust is cryptography.
+Most useful cryptography is implemented and executing, whether on a tiny microcontroller or a beefy server, in the form of code.
+And code is notoriously difficult to get right, especially when you're shipping a lot of it.</p>
+<p>Software quality is as challenging to replicate reliably as it is to measure actionably, if not more so.
+Our best hope is automating repeatability.
+When the quality criteria is security, automation is one goal of a platform security engineering function.
+Which needs to keep pace with the broader engineering organization at minimum, and ideally should accelerate all feature teams.</p>
+<p>This first section explored bite-sized solutions to platform cryptography problems at the API (nonce reuse) and supply-chain (dependency policy) levels.
+The intent is automating guardrails for <em>human</em> error, but nowadays <em>LLM</em> auto-complete increases vulnerability rate<sup class="footnote-reference" id="fr-LLM1-1"><a href="#footnote-LLM1">38</a></sup> <sup class="footnote-reference" id="fr-LLM2-1"><a href="#footnote-LLM2">39</a></sup>.
+The good news is that the above techniques should mitigate risks from both sources.
+Compile-time checks don't care how the code was generated.</p>
+<p>Our second and final section will have a narrower but deeper scope.
+We'll explore a classic topic in trust: <em>information disclosure</em> vulnerabilities.
+Part 2 grapples with technical concepts at greater length and on the cutting edge.
+You're going to want a coffee for this one.</p>
+<p>But it'll still be good fun.
+Trust me.</p>
+<hr>
+<ol class="footnote-definition"><li id="footnote-MatterHeartbleed">
+<p><a href="https://dl.acm.org/doi/pdf/10.1145/2663716.2663755"><em>The Matter of Heartbleed</em></a>. Zakir Durumeric, Frank Li, James Kasten, Nicolas Weaver, Johanna Amann, Jethro Beekman, Mathias Payer, David Adrian, Michael Bailey, Vern Paxson, J. Alex Halderman (2014). <a href="#fr-MatterHeartbleed-1">↩</a></p>
+</li>
+<li id="footnote-Ivory">
+<p><a href="https://en.wikipedia.org/wiki/Ivory_tower"><em>Ivory Tower</em></a>. Wikipedia (Accessed 2025). <a href="#fr-Ivory-1">↩</a></p>
+</li>
+<li id="footnote-GoodNews">
+<p><a href="https://futurama.fandom.com/wiki/Good_news,_everyone!"><em>Good new, everyone!</em></a>. Futurama Wiki (Accessed 2025). <a href="#fr-GoodNews-1">↩</a></p>
+</li>
+<li id="footnote-RWCBook">
+<p><a href="https://amzn.to/43ov045"><em><strong>[PERSONAL FAVORITE]</strong> Real-world Cryptography</em> by Dave Wong</a>. David Wong (2021). <a href="#fr-RWCBook-1">↩</a></p>
+</li>
+<li id="footnote-SoatokBlog">
+<p><a href="https://soatok.blog/category/cryptography/"><em>Soatok's Cryptography Blog</em></a>. Soatok (Accessed 2025). <a href="#fr-SoatokBlog-1">↩</a></p>
+</li>
+<li id="footnote-RWCConf">
+<p><a href="https://rwc.iacr.org/"><em>Real World Crypto Symposium</em></a>. IACR (Accessed 2025). <a href="#fr-RWCConf-1">↩</a></p>
+</li>
+<li id="footnote-KRACK">
+<p><a href="https://dl.acm.org/doi/pdf/10.1145/2663716.2663755"><em>Key Reinstallation Attacks: Forcing Nonce Reuse in WPA2</em></a>. Mathy Vanhoef, Frank Piessens (2017). <a href="#fr-KRACK-1">↩</a> <a href="#fr-KRACK-2">↩2</a></p>
+</li>
+<li id="footnote-PS3Signing">
+<p><a href="https://www.youtube.com/watch?v=DUGGJpn2_zY"><em>PS3 Epic Fail</em></a>. FailOverflow (2010). <a href="#fr-PS3Signing-1">↩</a></p>
+</li>
+<li id="footnote-TraitAead">
+<p><a href="https://docs.rs/aead/0.5.2/aead/trait.Aead.html"><em>Trait <code>aead::Aead</code></em></a>. RustCrypto organization (Accessed 2025). <a href="#fr-TraitAead-1">↩</a></p>
+</li>
+<li id="footnote-APIAead">
+<p><a href="https://docs.rs/aead/0.5.2/aead/trait.Aead.html#tymethod.encrypt"><em>API <code>aead::Aead::encrypt</code></em></a>. RustCrypto organization (Accessed 2025). <a href="#fr-APIAead-1">↩</a></p>
+</li>
+<li id="footnote-TraitCryptoRng">
+<p><a href="https://docs.rs/rand_core/0.9.3/rand_core/trait.CryptoRng.html"><em>Trait <code>CryptoRng</code></em></a>. RustCrypto organization (Accessed 2025). <a href="#fr-TraitCryptoRng-1">↩</a></p>
+</li>
+<li id="footnote-BitFail">
+<p><a href="https://eprint.iacr.org/2019/023.pdf"><em>Biased Nonce Sense: Lattice Attacks against Weak ECDSA Signatures in Cryptocurrencies</em></a>. Joachim Breitner, Nadia Heninger (2019). <a href="#fr-BitFail-1">↩</a></p>
+</li>
+<li id="footnote-AesSIVRFC">
+<p><a href="https://datatracker.ietf.org/doc/html/rfc8452"><em>AES-GCM-SIV: Nonce Misuse-Resistant Authenticated Encryption</em></a>. S. Gueron, A. Langley,  Y. Lindell (2019). <a href="#fr-AesSIVRFC-1">↩</a></p>
+</li>
+<li id="footnote-AdamAEAD">
+<p><a href="https://www.imperialviolet.org/2015/05/16/aeads.html"><em>AEADs: getting better at symmetric cryptography</em></a>. Adam Langley (2015). <a href="#fr-AdamAEAD-1">↩</a></p>
+</li>
+<li id="footnote-XChaCha">
+<p><a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-xchacha-03#section-2.1"><em>XChaCha: eXtended-nonce ChaCha and AEAD_XChaCha20_Poly1305</em></a>. S. Arciszewski (2020). <a href="#fr-XChaCha-1">↩</a></p>
+</li>
+<li id="footnote-AWSLC">
+<p><a href="https://crates.io/crates/aws-lc-rs"><em>aws-lc-rs</em></a>. Amazon (Accessed 2025). <a href="#fr-AWSLC-1">↩</a></p>
+</li>
+<li id="footnote-SymCrypt">
+<p><a href="https://crates.io/crates/symcrypt"><em>symcrypt</em></a>. Microsoft (Accessed 2025). <a href="#fr-SymCrypt-1">↩</a></p>
+</li>
+<li id="footnote-UnsafeState">
+<p><a href="https://rustfoundation.org/media/unsafe-rust-in-the-wild-notes-on-the-current-state-of-unsafe-rust/"><em>Unsafe Rust in the Wild: Notes on the Current State of Unsafe Rust</em></a>. Rust Foundation (2024). <a href="#fr-UnsafeState-1">↩</a></p>
+</li>
+<li id="footnote-Bloat">
+<p><a href="https://spectrum.ieee.org/lean-software-development"><em>Why Bloat Is Still Software's Biggest Vulnerability: A 2024 plea for lean software</em></a>. Bert Hubert (2024). <a href="#fr-Bloat-1">↩</a></p>
+</li>
+<li id="footnote-RustCrypto">
+<p><a href="https://github.com/rustcrypto"><em>RustCryto</em></a>. RustCrypto organization (Accessed 2025). <a href="#fr-RustCrypto-1">↩</a></p>
+</li>
+<li id="footnote-RustSecDB">
+<p><a href="https://rustsec.org/advisories/"><em>The Rust Security Advisory Database</em></a>. Rust Secure Code Working Group (Accessed 2025). <a href="#fr-RustSecDB-1">↩</a> <a href="#fr-RustSecDB-2">↩2</a></p>
+</li>
+<li id="footnote-Cargodeny">
+<p><a href="https://crates.io/crates/cargo-deny"><em><code>cargo_deny</code></em></a>. Embark Studios (Accessed 2025). <a href="#fr-Cargodeny-1">↩</a></p>
+</li>
+<li id="footnote-Cargometadata">
+<p><a href="https://crates.io/crates/cargo_metadata"><em><code>cargo_metadata</code></em></a>. Oliver Schneider (Accessed 2025). <a href="#fr-Cargometadata-1">↩</a></p>
+</li>
+<li id="footnote-BuilderPattern">
+<p><a href="https://rust-unofficial.github.io/patterns/patterns/creational/builder.html"><em>Rust Design Patterns: Builder</em></a>. Rust Unofficial (Accessed 2025). <a href="#fr-BuilderPattern-1">↩</a></p>
+</li>
+<li id="footnote-OnceCell">
+<p><a href="https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html"><em><code>OnceCell</code></em></a>. The Rust Project (Accessed 2025). <a href="#fr-OnceCell-1">↩</a></p>
+</li>
+<li id="footnote-CargometadataAuthors">
+<p><a href="https://docs.rs/cargo_metadata/0.20.0/cargo_metadata/struct.Package.html#structfield.authors"><em><code>cargo_metadata::Package</code></em></a>. Oliver Schneider (Accessed 2025). <a href="#fr-CargometadataAuthors-1">↩</a></p>
+</li>
+<li id="footnote-CrateCats">
+<p><a href="https://crates.io/categories"><em>Categories</em></a>. crates.io (Accessed 2025). <a href="#fr-CrateCats-1">↩</a></p>
+</li>
+<li id="footnote-RustBuildScripts">
+<p><a href="https://doc.rust-lang.org/cargo/reference/build-script-examples.html"><em>Rust Build Scripts</em></a>. The Cargo Team (Accessed 2025). <a href="#fr-RustBuildScripts-1">↩</a></p>
+</li>
+<li id="footnote-CargoAudit">
+<p><a href="https://crates.io/crates/cargo-audit"><em><code>cargo_audit</code></em></a>. Alex Gaynor, Tony Arcieri, Sergey Davidoff (Accessed 2025). <a href="#fr-CargoAudit-1">↩</a></p>
+</li>
+<li id="footnote-CapslockNews">
+<p><a href="https://alpha-omega.dev/blog/crustabilities-capabilities-rust-and-capslock/"><em>CRustabilities: Capabilities, Rust and Capslock</em></a>. Alpha-Omega (Accessed 2025). <a href="#fr-CapslockNews-1">↩</a></p>
+</li>
+<li id="footnote-Capslock">
+<p><a href="https://github.com/google/capslock"><em>capslock</em></a>. Google (Accessed 2025). <a href="#fr-Capslock-1">↩</a></p>
+</li>
+<li id="footnote-CapslockCaps">
+<p><a href="https://github.com/google/capslock/blob/main/docs/capabilities.md#capabilities"><em>Capabilities</em></a>. Google (Accessed 2025). <a href="#fr-CapslockCaps-1">↩</a></p>
+</li>
+<li id="footnote-RustPKI">
+<p><a href="https://rustfoundation.org/media/improving-supply-chain-security-for-rust-through-artifact-signing/"><em>Improving Supply Chain Security for Rust Through Artifact Signing</em></a>. Adam Harvey (2023). <a href="#fr-RustPKI-1">↩</a></p>
+</li>
+<li id="footnote-RustTrustedPubs">
+<p><a href="https://rust-lang.github.io/rfcs/3691-trusted-publishing-cratesio.html"><em>Security Improvements for CI Publishing to crates.io</em></a>. The Rust Project (Accessed 2025). <a href="#fr-RustTrustedPubs-1">↩</a></p>
+</li>
+<li id="footnote-PyTrustedPubs">
+<p><a href="https://blog.pypi.org/posts/2023-04-20-introducing-trusted-publishers/"><em>Introducing 'Trusted Publishers'</em></a>. Dustin Ingram (2023). <a href="#fr-PyTrustedPubs-1">↩</a></p>
+</li>
+<li id="footnote-GoFIPS">
+<p><a href="https://go.dev/doc/security/fips140"><em>FIPS 140-3 Compliance</em></a>. Go Project (Accessed 2025). <a href="#fr-GoFIPS-1">↩</a></p>
+</li>
+<li id="footnote-GoCSPRNG">
+<p><a href="https://go.dev/blog/chacha8rand"><em>Secure Randomness in Go 1.22</em></a>. Russ Cox, Filippo Valsorda (2024). <a href="#fr-GoCSPRNG-1">↩</a></p>
+</li>
+<li id="footnote-LLM1">
+<p><a href="https://arxiv.org/pdf/2211.03622"><em>Do users write more insecure code with AI assistants?</em></a>. Neil Perry, Megha Srivastava, Deepak Kumar, Dan Boneh (2023). <a href="#fr-LLM1-1">↩</a></p>
+</li>
+<li id="footnote-LLM2">
+<p><a href="https://dl.acm.org/doi/pdf/10.1145/3610721"><em>Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions</em></a>. Hammond Pearce, Baleegh Ahmad, Benjamin Tan, Brendan Dolan-Gavitt, Ramesh Karri (2025). <a href="#fr-LLM2-1">↩</a></p>
+</li>
+</ol>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../chp12/diff_fuzz_PLACEHOLDER.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../chp16_appendix/_index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../chp12/diff_fuzz_PLACEHOLDER.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../chp16_appendix/_index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

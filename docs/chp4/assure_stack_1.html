@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html" class="active"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -193,10 +188,10 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 <h1 id="assurance-perspective-stack-safety"><a class="header" href="#assurance-perspective-stack-safety">Assurance Perspective: Stack Safety</a></h1>
 <p>We'll learn about stack and static memory by hardening a small program.
-Our first version is vulnerable: an attacker can exhaust system memory and crash the application (&quot;denial-of-service&quot; or DoS) by providing specific inputs.
-Our patched version will comply with MISRA Rule 17.2 (essentially &quot;no recursion&quot;, introduced in Chapter 3):</p>
+Our first version is vulnerable: an attacker can exhaust system memory and crash the application ("denial-of-service" or DoS) by providing specific inputs.
+Our patched version will comply with MISRA Rule 17.2 (essentially "no recursion", introduced in Chapter 3):</p>
 <blockquote>
-<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">1</a></sup></p>
+<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">1</a></sup></p>
 </blockquote>
 <p>That'll remediate the vulnerability and increase availability.
 And the rule/pattern is relevant to any programming language that supports recursion!
@@ -210,7 +205,7 @@ Its a short, optional aside we'd recommend after finishing this section - for th
 <h2 id="the-stack"><a class="header" href="#the-stack">The Stack</a></h2>
 <p>Stack memory supports one of programming's most fundamental abstractions: the <em>function</em> (aka procedure, method, or subroutine).
 Functions are called with parameters, perform some computation, and optionally return a result.
-Thus hardware need a mechanism to<sup class="footnote-reference"><a href="#CSAPP">2</a></sup>:</p>
+Thus hardware need a mechanism to<sup class="footnote-reference" id="fr-CSAPP-1"><a href="#footnote-CSAPP">2</a></sup>:</p>
 <ol>
 <li>
 <p><strong>Pass control</strong> - Set the Instruction Pointer (IP) to the address to the function called and, when it's done, set it back to the statement following the call.</p>
@@ -223,23 +218,23 @@ Thus hardware need a mechanism to<sup class="footnote-reference"><a href="#CSAPP
 </li>
 </ol>
 <p>Mechanically, stack memory supports all three requirements by just two simple operations: push and pop.
-It works like the Last In First Out (LIFO) data structure of the same name: we can push items (addresses, variables, etc) and entire function's working memory blocks (called &quot;frames&quot;) onto the stack and pop only from the top (most recently pushed item/frame).</p>
+It works like the Last In First Out (LIFO) data structure of the same name: we can push items (addresses, variables, etc) and entire function's working memory blocks (called "frames") onto the stack and pop only from the top (most recently pushed item/frame).</p>
 <p>The goal of stack memory is to support <em>fast</em> runtime allocation and deallocation for data whose size is fixed (known at compile time). So:</p>
 <ul>
 <li>
-<p><strong>Stack frames</strong> are chunks of memory &quot;scratch space&quot; needed for a single function to execute. A frame includes all the fixed-size local variables used by a function.</p>
+<p><strong>Stack frames</strong> are chunks of memory "scratch space" needed for a single function to execute. A frame includes all the fixed-size local variables used by a function.</p>
 </li>
 <li>
-<p>The push operation (<strong>allocation</strong>) corresponds to a <strong>function call</strong>. Whenever you call a named function in your program, a new frame gets pushed onto the stack<sup class="footnote-reference"><a href="#Inlining">3</a></sup>. The called function (e.g. <em>callee</em>) gets scratch memory for its local variables, distinct from the <em>caller's</em> frame (which sits below it on the stack). The runtime stack grows downward, toward lower addresses.</p>
+<p>The push operation (<strong>allocation</strong>) corresponds to a <strong>function call</strong>. Whenever you call a named function in your program, a new frame gets pushed onto the stack<sup class="footnote-reference" id="fr-Inlining-1"><a href="#footnote-Inlining">3</a></sup>. The called function (e.g. <em>callee</em>) gets scratch memory for its local variables, distinct from the <em>caller's</em> frame (which sits below it on the stack). The runtime stack grows downward, toward lower addresses.</p>
 </li>
 <li>
-<p>The pop operation (<strong>deallocation</strong>) corresponds to a <strong>function return</strong>. Once a function exits (due to control reaching the <code>return</code> keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's <code>memset</code><sup class="footnote-reference"><a href="#Memset">4</a></sup> or uses a crate like Rust's <code>zeroize</code><sup class="footnote-reference"><a href="#Zeroize">5</a></sup>. For speed, <code>SP</code> is simply incremented instead. Accessing the old (lower address) data is no longer legal once its containing frame has been popped.</p>
+<p>The pop operation (<strong>deallocation</strong>) corresponds to a <strong>function return</strong>. Once a function exits (due to control reaching the <code>return</code> keyword or the end of function scope), its frame is discarded. To save time, data is not cleared/erased unless the programmer explicitly calls a function like C's <code>memset</code><sup class="footnote-reference" id="fr-Memset-1"><a href="#footnote-Memset">4</a></sup> or uses a crate like Rust's <code>zeroize</code><sup class="footnote-reference" id="fr-Zeroize-1"><a href="#footnote-Zeroize">5</a></sup>. For speed, <code>SP</code> is simply incremented instead. Accessing the old (lower address) data is no longer legal once its containing frame has been popped.</p>
 </li>
 </ul>
 <blockquote>
 <p><strong>Why is the stack fast?</strong></p>
 <p>Unlike heap memory, the mechanics of stack memory are both directly supported in hardware and compile-time decidable.</p>
-<p>Remember: the &quot;stack pointer&quot; is a CPU register (<code>SP</code>).
+<p>Remember: the "stack pointer" is a CPU register (<code>SP</code>).
 Optimized hardware tracks where the current stack top is.
 Compilers emit dedicated CPU instructions to push [to] and pop [from] the stack efficiently.
 We glance at these instructions in an assembly snippet below.</p>
@@ -249,11 +244,11 @@ We glance at these instructions in an assembly snippet below.</p>
 fn recursive_count_down(x: usize) -&gt; usize {
     // Base case
     if x == 0 {
-        println!(&quot;Boom!&quot;);
+        println!("Boom!");
         return x;
     // Recursive case
     } else {
-        println!(&quot;{x}...&quot;);
+        println!("{x}...");
         return recursive_count_down(x - 1);
     }
 }
@@ -266,15 +261,15 @@ fn square(x: usize) -&gt; usize {
 fn main() {
     let args: Vec&lt;String&gt; = std::env::args().collect();
 
-    // 1st arg is binary name, e.g. &quot;./stack_example 2&quot;
-    assert!(args.len() &lt;= 2, &quot;Too many arguments - enter one number&quot;);
+    // 1st arg is binary name, e.g. "./stack_example 2"
+    assert!(args.len() &lt;= 2, "Too many arguments - enter one number");
 
     let x = args
         .iter()
         .nth(1)
-        .expect(&quot;No arguments&quot;)
+        .expect("No arguments")
         .parse()
-        .expect(&quot;Please provide a number&quot;);
+        .expect("Please provide a number");
 
     let _ = recursive_count_down(square(x));
 }</code></pre>
@@ -288,7 +283,7 @@ fn main() {
 <li>
 <p>We're interested in how this program uses stack memory at runtime, adding the attribute <code>#[inline(never)]</code> to ensure the compiler allocates a stack frame each time either <code>recursive_count_down</code> or <code>square</code> is called.</p>
 <ul>
-<li>&quot;Inlining&quot; is an opportunistic compiler optimization can avoids function call overhead, including stack frame allocation and caller-register preservation <sup class="footnote-reference"><a href="#Inlining">3</a></sup>. It's not always applicable and as programmer we don't directly decide where it is. So forgoing it is a realistic case to prepare for.</li>
+<li>"Inlining" is an opportunistic compiler optimization can avoids function call overhead, including stack frame allocation and caller-register preservation <sup class="footnote-reference" id="fr-Inlining-2"><a href="#footnote-Inlining">3</a></sup>. It's not always applicable and as programmer we don't directly decide where it is. So forgoing it is a realistic case to prepare for.</li>
 </ul>
 </li>
 </ul>
@@ -328,15 +323,15 @@ Where does this error come from?</p>
 <pre><code class="language-ignore">thread 'main' has overflowed its stack
 fatal runtime error: stack overflow
 </code></pre>
-<p>The binary search algorithm (&quot;binary&quot; meaning &quot;two&quot;, not &quot;compiled binary&quot;) is one way to find a large enough input.
+<p>The binary search algorithm ("binary" meaning "two", not "compiled binary") is one way to find a large enough input.
 But guessing a sufficiently large number is probably easiest.
 Once you've found a <code>cargo run</code> command that triggers the crash, write it down.
 You'll use that same input/attack to prove a fix is indeed viable.</p>
-<p>Recall MISRA Rule 17.2 (&quot;no recursion&quot;).
+<p>Recall MISRA Rule 17.2 ("no recursion").
 By applying this guidance, we can maintain this program's exact <em>interface</em> (command-line functionality, print output) but increase its memory-utilization robustness by bounding space complexity.</p>
 <p>First, let's understand the core problem: exponential, <em>O(n^2)</em>, stack space utilization.
 Attacker input exercises asymmetric control over stack memory usage.
-We scale relative to input integer (&quot;R&quot; indicates a recursive function):</p>
+We scale relative to input integer ("R" indicates a recursive function):</p>
 </br>
 <p align="center">
   <img width="80%" src="stack_scaling_1.svg">
@@ -355,12 +350,12 @@ Of any CPU architecture.</p>
 fn iterative_count_down(x: usize) {
     for i in (0..=x).rev() {
         match i {
-            i if i == 0 =&gt; println!(&quot;Boom!&quot;),
-            _ =&gt; println!(&quot;{i}...&quot;),
+            i if i == 0 =&gt; println!("Boom!"),
+            _ =&gt; println!("{i}..."),
         }
     }
 }</code></pre>
-<p>Our stack scaling is now constant, <em>O(1)</em>, for all inputs (&quot;I&quot; indicates an iterative function):</p>
+<p>Our stack scaling is now constant, <em>O(1)</em>, for all inputs ("I" indicates an iterative function):</p>
 </br>
 <p align="center">
   <img width="80%" src="stack_scaling_2.svg">
@@ -385,11 +380,11 @@ On some systems, that might even include a bootloader!</p>
 It can help eliminate overflow potential in a program.</p>
 <p>But we still need to ensure worst case stack usage, for any iterative call-chain, doesn't exceed the capabilities of a target platform.
 So complete stack safety is an ambitious goal.
-<code>cargo call-stack</code><sup class="footnote-reference"><a href="#CargoCallStack">6</a></sup> can help.</p>
+<code>cargo call-stack</code><sup class="footnote-reference" id="fr-CargoCallStack-1"><a href="#footnote-CargoCallStack">6</a></sup> can help.</p>
 </blockquote>
 <h2 id="static-memory"><a class="header" href="#static-memory">Static Memory</a></h2>
 <p>Static memory contains <em>global</em> data.
-Not just global variables in the source code (though those do live in static memory), hardcoded strings and constant data (e.g. file bytes baked in at compile-time via the <code>include!</code> macro<sup class="footnote-reference"><a href="#IncludeMacro">7</a></sup>) end up there too.
+Not just global variables in the source code (though those do live in static memory), hardcoded strings and constant data (e.g. file bytes baked in at compile-time via the <code>include!</code> macro[^IncludeMacro]) end up there too.
 For Rust specifically:</p>
 <ul>
 <li>
@@ -403,7 +398,7 @@ For Rust specifically:</p>
 </li>
 </ul>
 <p>Your program's executable code technically also resides in static memory, though the above diagram uses a separate box to distinguish it.</p>
-<p>Some static memory sections are read-only, others are writeable - this is relevant to exploitation, but let's ignore this detail for now and focus on what &quot;global&quot; actually entails:</p>
+<p>Some static memory sections are read-only, others are writeable - this is relevant to exploitation, but let's ignore this detail for now and focus on what "global" actually entails:</p>
 <ol>
 <li>
 <p>Data in static memory is available for the <em>entire</em> lifetime of the program. From the time it starts to the time it terminates.</p>
@@ -420,7 +415,7 @@ Each thread has <em>its own</em> stack (see the previous section's file-to-proce
 <p>Multithreading has two important advantages over multiprocessing:</p>
 <ol>
 <li>
-<p><strong>Scheduling efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's &quot;hyper-threading&quot;<sup class="footnote-reference"><a href="#HyperThread">8</a></sup> technology).</p>
+<p><strong>Scheduling efficiency</strong> - the OS kernel can schedule threads more efficiently, thanks to the ability to share certain kernelspace data structures and CPU-level optimizations (e.g. Intel's "hyper-threading"[^HyperThread] technology).</p>
 </li>
 <li>
 <p><strong>Data passing between concurrent components</strong> - threads can share data amongst themselves more easily and efficiently than processes, they often don't need to wait for or rely on the kernel as an intermediary for data passing. Static memory is one direct means, since it's shared among the multiple threads within a single process.</p>
@@ -435,15 +430,15 @@ First, recall the source code:</p>
 fn recursive_count_down(x: usize) -&gt; usize {
     // Base case
     if x == 0 {
-        println!(&quot;Boom!&quot;);
+        println!("Boom!");
         return x;
     // Recursive case
     } else {
-        println!(&quot;{x}...&quot;);
+        println!("{x}...");
         return recursive_count_down(x - 1);
     }
 }</code></pre>
-<p>Using <a href="https://godbolt.org/z/4rzsrGscx">https://godbolt.org</a> to generate assembly (your results may var depending on compiler version<sup class="footnote-reference"><a href="#GenCompVer">9</a></sup>) with the <code>-C &quot;opt-level=z&quot;</code> flag (optimizing for small code size - and also human readability):</p>
+<p>Using <a href="https://godbolt.org/z/4rzsrGscx">https://godbolt.org</a> to generate assembly (your results may vary depending on compiler version<sup class="footnote-reference" id="fr-GenCompVer-1"><a href="#footnote-GenCompVer">7</a></sup>) with the <code>-C "opt-level=z"</code> flag (optimizing for small code size - and also human readability):</p>
 <pre><code class="language-assembly ignore">example::recursive_count_down:
         push    rbx
         sub     rsp, 80
@@ -486,27 +481,27 @@ fn recursive_count_down(x: usize) -&gt; usize {
 .L__unnamed_3:
 
 .L__unnamed_4:
-        .ascii  &quot;...\n&quot;
+        .ascii  "...\n"
 
 .L__unnamed_1:
         .quad   .L__unnamed_3
         .zero   8
         .quad   .L__unnamed_4
-        .asciz  &quot;\004\000\000\000\000\000\000&quot;
+        .asciz  "\004\000\000\000\000\000\000"
 
 .L__unnamed_5:
-        .ascii  &quot;Boom!\n&quot;
+        .ascii  "Boom!\n"
 
 .L__unnamed_2:
         .quad   .L__unnamed_5
-        .asciz  &quot;\006\000\000\000\000\000\000&quot;
+        .asciz  "\006\000\000\000\000\000\000"
 </code></pre>
 <blockquote>
 <p><strong>What does this assembly mean?</strong></p>
 <p>We don't teach assembly in this book to keep scope in check.
 But being able to read assembly can be useful in a pinch for systems programming.
 And it's a pre-requisite to in-depth binary exploitation.</p>
-<p>To get up to speed for the binary attacker side of things, consider <a href="https://amzn.to/3wvtCwa"><em>Practical Binary Analysis: Build Your Own Linux Tools for Binary Instrumentation, Analysis, and Disassembly</em></a><sup class="footnote-reference"><a href="#PBA">10</a></sup>, <em>Appendix A: A Crash Course on x86 Assembly</em> is a quick primer for Intel machines.</p>
+<p>To get up to speed for the binary attacker side of things, consider <a href="https://amzn.to/3wvtCwa"><em>Practical Binary Analysis: Build Your Own Linux Tools for Binary Instrumentation, Analysis, and Disassembly</em></a><sup class="footnote-reference" id="fr-PBA-1"><a href="#footnote-PBA">8</a></sup>, <em>Appendix A: A Crash Course on x86 Assembly</em> is a quick primer for Intel machines.</p>
 <p>For our purposes, note two instructions above:</p>
 <ul>
 <li><code>sub rsp, 80</code> (near start) - push frame, decrement Stack Pointer (<code>SP</code>) by 80 bytes.</li>
@@ -546,7 +541,7 @@ One detail relevant to understanding static memory: each frame <em>did not</em> 
 <p>We can enjoy <strong>function-granular assurance</strong> with respect to a fatal runtime failure vector!</p>
 </li>
 <li>
-<p>For <strong>whole-program assurance</strong>: this specific bug class is eliminated if we also compute worst-case stack utilization and ensure each target platform supports it<sup class="footnote-reference"><a href="#CargoCallStack">6</a></sup>.</p>
+<p>For <strong>whole-program assurance</strong>: this specific bug class is eliminated if we also compute worst-case stack utilization and ensure each target platform supports it<sup class="footnote-reference" id="fr-CargoCallStack-2"><a href="#footnote-CargoCallStack">6</a></sup>.</p>
 </li>
 </ul>
 </li>
@@ -561,35 +556,35 @@ But we'd still need to compute worst-case stack utilization for the entire, iter
 It doesn't meaningfully impact stack safety.
 Outside of initialization, possible mutex(s), and data-cache hit rate: static memory may have little impact on runtime.</p>
 <p>In the next section, we'll explore breaking more general kinds of safety - <strong>memory safety</strong> and <strong>type safety</strong> - from the perspective of an attacker.</p>
-<hr />
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">1</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="CSAPP"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://amzn.to/3IBnFA7"><em><strong>[PERSONAL FAVORITE]</strong> Computer Systems: A Programmer's Perspective</em></a>. Randal Bryant, David O'Hallaron (2015).</p>
-</div>
-<div class="footnote-definition" id="Inlining"><sup class="footnote-definition-label">3</sup>
-<p>This isn't always true. One possible optimization a modern compiler may make is called &quot;function inlining&quot; - pulling the function body of the callee into the function body of the caller, as if the programmer had written a single, long function. For functions called in a &quot;hot loop&quot; (many loop iterations executed), this can increase performance by avoiding the small overhead associated with pushing a stack frame each loop iteration to make a call. The tradeoff is binary size: each source-level call site to the inlined function must be a full copy of the code (since no central location is called into). Though seldom necessary, Rust's <code>inline</code> attribute macro<sup class="footnote-reference"><a href="#RustInlineMacro">11</a></sup> allows you to control this specific behavior.</p>
-</div>
-<div class="footnote-definition" id="Memset"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://man7.org/linux/man-pages/man3/memset.3.html"><em><code>memset</code></em></a>. Linux manual (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Zeroize"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://crates.io/crates/zeroize"><em><code>zeroize</code></em></a>. Tony Arcieri (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoCallStack"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://github.com/japaric/cargo-call-stack"><em>`cargo-call-stack</em></a>. japaric (Accessed 2023).</p>
-</div>
-<div class="footnote-definition" id="GenCompVer"><sup class="footnote-definition-label">9</sup>
-<p>We used <code>rustc</code> v1.71 with <code>-C &quot;opt-level=z&quot;</code>.</p>
-</div>
-<div class="footnote-definition" id="PBA"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://amzn.to/3wvtCwa"><em><strong>[PERSONAL FAVORITE]</strong> Practical Binary Analysis: Build Your Own Linux Tools for Binary Instrumentation, Analysis, and Disassembly</em></a>. Dennis Andriesse (2018).</p>
-</div>
-<div class="footnote-definition" id="RustInlineMacro"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://doc.rust-lang.org/reference/attributes/codegen.html#the-inline-attribute"><em>The Rust Reference: The <code>inline</code> attribute</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a></p>
+</li>
+<li id="footnote-CSAPP">
+<p><a href="https://amzn.to/3IBnFA7"><em><strong>[PERSONAL FAVORITE]</strong> Computer Systems: A Programmer's Perspective</em></a>. Randal Bryant, David O'Hallaron (2015). <a href="#fr-CSAPP-1">↩</a></p>
+</li>
+<li id="footnote-Inlining">
+<p>This isn't always true. One possible optimization a modern compiler may make is called "function inlining" - pulling the function body of the callee into the function body of the caller, as if the programmer had written a single, long function. For functions called in a "hot loop" (many loop iterations executed), this can increase performance by avoiding the small overhead associated with pushing a stack frame each loop iteration to make a call. The tradeoff is binary size: each source-level call site to the inlined function must be a full copy of the code (since no central location is called into). Though seldom necessary, Rust's <code>inline</code> attribute macro<sup class="footnote-reference" id="fr-RustInlineMacro-1"><a href="#footnote-RustInlineMacro">9</a></sup> allows you to control this specific behavior. <a href="#fr-Inlining-1">↩</a> <a href="#fr-Inlining-2">↩2</a></p>
+</li>
+<li id="footnote-Memset">
+<p><a href="https://man7.org/linux/man-pages/man3/memset.3.html"><em><code>memset</code></em></a>. Linux manual (Accessed 2022). <a href="#fr-Memset-1">↩</a></p>
+</li>
+<li id="footnote-Zeroize">
+<p><a href="https://crates.io/crates/zeroize"><em><code>zeroize</code></em></a>. Tony Arcieri (Accessed 2022). <a href="#fr-Zeroize-1">↩</a></p>
+</li>
+<li id="footnote-CargoCallStack">
+<p><a href="https://github.com/japaric/cargo-call-stack"><em>`cargo-call-stack</em></a>. japaric (Accessed 2023). <a href="#fr-CargoCallStack-1">↩</a> <a href="#fr-CargoCallStack-2">↩2</a></p>
+</li>
+<li id="footnote-GenCompVer">
+<p>We used <code>rustc</code> v1.71 with <code>-C "opt-level=z"</code>. <a href="#fr-GenCompVer-1">↩</a></p>
+</li>
+<li id="footnote-PBA">
+<p><a href="https://amzn.to/3wvtCwa"><em><strong>[PERSONAL FAVORITE]</strong> Practical Binary Analysis: Build Your Own Linux Tools for Binary Instrumentation, Analysis, and Disassembly</em></a>. Dennis Andriesse (2018). <a href="#fr-PBA-1">↩</a></p>
+</li>
+<li id="footnote-RustInlineMacro">
+<p><a href="https://doc.rust-lang.org/reference/attributes/codegen.html#the-inline-attribute"><em>The Rust Reference: The <code>inline</code> attribute</em></a>. The Rust Team (Accessed 2022). <a href="#fr-RustInlineMacro-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

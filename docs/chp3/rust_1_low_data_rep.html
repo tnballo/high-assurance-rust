@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html" class="active"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -231,7 +226,7 @@ Consider the below table (non-exhaustive):</p>
 <p>Rust's standard library provides handy limit constants for upper and lower bounds, so you don't have to remember these ranges off-hand or reference an exhaustive table:</p>
 <pre><code class="language-rust noplaypen">assert_eq!(0, u8::MIN);
 assert_eq!(255, u8::MAX);</code></pre>
-<p>Exceeding the range of a type causes &quot;wrap around&quot;.
+<p>Exceeding the range of a type causes "wrap around".
 In rare cases, that's desirable behavior.
 We made judicious and intentional use of <code>wrapping_add</code> when implementing the RC4 cipher to simulate modular arithmetic.
 To demonstrate how that works, consider what would happen if we exceeded the <code>255</code> upper bound of a <code>u8</code>:</p>
@@ -255,7 +250,7 @@ Had we written <code>assert_eq!(x + y, 44);</code> instead of <code>assert_eq!(x
 <p>We got lucky here in the sense that both <code>x</code> and <code>y</code> are constants, so the overflow could be detected at compile-time.
 Rust uses optional runtime checks to catch overflow for variables whose values aren't known beforehand - a topic we'll return to in Chapter 4 when discussing safety in-depth.</p>
 <p>There's one more detail to keep in mind about integer overflow in Rust: unlike C/C++, it's not a potential source of UB.
-The rules of wrap around are specified and universal across target platforms<sup class="footnote-reference"><a href="#IntWrap">1</a></sup>.</p>
+The rules of wrap around are specified and universal across target platforms<sup class="footnote-reference" id="fr-IntWrap-1"><a href="#footnote-IntWrap">1</a></sup>.</p>
 <h3 id="2-host-specific-integers"><a class="header" href="#2-host-specific-integers">2) Host-specific Integers</a></h3>
 <p>You have noticed the <code>usize</code> and <code>isize</code> types, unsigned and signed integers respectively, don't specify a bit-width like their counterparts.
 That's because their size depends on the specific machine the program is compiled for.</p>
@@ -265,25 +260,25 @@ In theory, they could be 16 bytes long for a 128-bit system - but no commercial 
 Maybe even dangerous.
 Per MISRA, you'd be right:</p>
 <blockquote>
-<p><strong>[RR, Directive 4.6]</strong> Use numeric types of explicit size and signedness<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[RR, Directive 4.6]</strong> Use numeric types of explicit size and signedness<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
 <p>While Rust lets us use explicit numeric types were possible, indexing is an exception: <code>usize</code> types are required for collection indexing (e.g. in <code>my_vec[i] = j</code>, <code>i</code> must be a <code>usize</code>).
-This is because, under-the-hood, indexing a container often involves computing a memory address<sup class="footnote-reference"><a href="#IndexAside">3</a></sup>.
+This is because, under-the-hood, indexing a container often involves computing a memory address<sup class="footnote-reference" id="fr-IndexAside-1"><a href="#footnote-IndexAside">3</a></sup>.
 And the width of an address depends on the target machine.</p>
 <p>Now Rust lets us cast from an explicit numeric type, like an <code>u64</code>, into a <code>usize</code>.
 Perhaps we need to perform this operation prior to indexing, to comply with the spirit of the above MISRA rule.</p>
 <p>Casting between numeric types is one of the very few cases where Rust permits type casting.
 Which helps with another rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 11.3]</strong> Never cast from a reference to one type into a reference to another type<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 11.3]</strong> Never cast from a reference to one type into a reference to another type<sup class="footnote-reference" id="fr-MISRA_2012-2"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
-<p>Rust does allow safe and explicit conversion between types (not between references), via the concept of <em>traits</em> - specifically traits called <code>From</code><sup class="footnote-reference"><a href="#TraitFrom">4</a></sup> and <code>Into</code><sup class="footnote-reference"><a href="#TraitInto">5</a></sup>.
+<p>Rust does allow safe and explicit conversion between types (not between references), via the concept of <em>traits</em> - specifically traits called <code>From</code><sup class="footnote-reference" id="fr-TraitFrom-1"><a href="#footnote-TraitFrom">4</a></sup> and <code>Into</code><sup class="footnote-reference" id="fr-TraitInto-1"><a href="#footnote-TraitInto">5</a></sup>.
 We'll explain traits in the next section and use <code>From</code> in a later chapter.</p>
 <h2 id="type-inference"><a class="header" href="#type-inference">Type Inference</a></h2>
 <p>Rust is strongly and statically typed.
 Every value has a type known at compile time.
 Even generic parameters, whose ultimate type is decided during compilation (more on this later).</p>
-<p>Unlike older statically typed languages, Rust uses <em>type inference</em><sup class="footnote-reference"><a href="#TypeInference">6</a></sup> to automatically detect the type of an expression in certain cases. As a rule of thumb, explicitly writing out type annotations is:</p>
+<p>Unlike older statically typed languages, Rust uses <em>type inference</em><sup class="footnote-reference" id="fr-TypeInference-1"><a href="#footnote-TypeInference">6</a></sup> to automatically detect the type of an expression in certain cases. As a rule of thumb, explicitly writing out type annotations is:</p>
 <ul>
 <li>
 <p><em>Always required</em> for function signatures (e.g. parameter and return types), global variables, or exported types (e.g. part of a library's public API).</p>
@@ -305,16 +300,16 @@ fn main() {
     let b = 3;
     let c = sum(a, b);
 
-    println!(&quot;a is a {} with value {:?}&quot;, type_name_of_val(&amp;a), a);
-    println!(&quot;b is a {} with value {:?}&quot;, type_name_of_val(&amp;b), b);
-    println!(&quot;c is a {} with value {:?}&quot;, type_name_of_val(&amp;c), c);
+    println!("a is a {} with value {:?}", type_name_of_val(&amp;a), a);
+    println!("b is a {} with value {:?}", type_name_of_val(&amp;b), b);
+    println!("c is a {} with value {:?}", type_name_of_val(&amp;c), c);
 
     let mut list = Vec::new();
     list.push(a);
     list.push(b);
     list.push(c);
 
-    println!(&quot;list is a {} with value {:?}&quot;, type_name_of_val(&amp;list), list);
+    println!("list is a {} with value {:?}", type_name_of_val(&amp;list), list);
 }</code></pre>
 <p>This snippet will print:</p>
 <pre><code class="language-ignore">a is a u128 with value 1
@@ -339,7 +334,7 @@ The compiler looked at the type of items being pushed to the vector, <code>u128<
 <blockquote>
 <p><strong>What about heterogeneous collections?</strong></p>
 <p>If we wanted a vector to store items of varying but logically related types, we couldn't rely on type inference.
-We'd have to explicitly use the <code>dyn</code> keyword and something called a &quot;trait object&quot;.
+We'd have to explicitly use the <code>dyn</code> keyword and something called a "trait object".
 That's not a language feature we'll need or cover in this book.</p>
 </blockquote>
 <h2 id="tuples-vs-arrays"><a class="header" href="#tuples-vs-arrays">Tuples vs. Arrays</a></h2>
@@ -355,14 +350,14 @@ That's not a language feature we'll need or cover in this book.</p>
 <h3 id="tuples"><a class="header" href="#tuples">Tuples</a></h3>
 <p>There's no hard-and-fast rule for when to use which, but tuples are particularly useful as a return type.
 For cases where a function should return multiple values.</p>
-<p>[Slightly contrived] example: say we need to compute lengths for the sides of a 30-60-90 triangle (a special &quot;right triangle&quot;<sup class="footnote-reference"><a href="#Triangle">7</a></sup>) based on its shortest side.
+<p>[Slightly contrived] example: say we need to compute lengths for the sides of a 30-60-90 triangle (a special "right triangle"<sup class="footnote-reference" id="fr-Triangle-1"><a href="#footnote-Triangle">7</a></sup>) based on its shortest side.
 There's a known formula:</p>
 <pre><code class="language-rust noplaypen">// Side proportions are 1 : 2 : square_root(3)
 fn compute_30_60_90_tri_side_len(short_side: f64) -&gt; (f64, f64, f64) {
   (
     short_side,
     short_side * 2.0,
-    short_side * 3_f64.sqrt() // &quot;_f64&quot; is an optional type postfix syntax
+    short_side * 3_f64.sqrt() // "_f64" is an optional type postfix syntax
   )
 }
 
@@ -396,7 +391,7 @@ It works like so:</p>
 let numbers: [u64; 3] = [42, 1337, 0];
 
 // Inferred array type (`[&amp;str; 4]`, array of read-only string references)
-let operating_systems = [&quot;Linux&quot;, &quot;FreeBSD&quot;, &quot;Tock&quot;, &quot;VxWorks&quot;];
+let operating_systems = ["Linux", "FreeBSD", "Tock", "VxWorks"];
 
 // Initialization of all elements (1,000 of them) to a single value (0)
 let mut buffer = [0; 1_000];
@@ -413,7 +408,7 @@ assert_eq!(buffer[2], 2);
 
 // Iterator-based write access
 for num in buffer.iter_mut() {
-  *num += 7; // &quot;*&quot; is a dereference for write
+  *num += 7; // "*" is a dereference for write
 }
 
 assert_eq!(buffer[0], 7);
@@ -440,7 +435,7 @@ While that constraint can be inconvenient, it makes arrays portable - don't need
 <p>One major difference between Rust and C arrays is that the former have length explicitly encoded as part of the type.
 This has several advantages, one of which is compliance with:</p>
 <blockquote>
-<p><strong>[AR, Rule 17.5]</strong> Arrays used as function parameters must have the correct number of elements<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 17.5]</strong> Arrays used as function parameters must have the correct number of elements<sup class="footnote-reference" id="fr-MISRA_2012-3"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>We already introduced references in the previous chapter, in the context of a function that increments an integer.
@@ -459,14 +454,14 @@ fn main() {
   assert_eq!(y, 5);
 }</code></pre>
 <p>References are crucial for systems programming.
-Recall that they enable <em>pass-by-reference</em> semantics (hand off a &quot;pointer&quot;), instead of <em>pass-by-value</em> (copy the entire value).
+Recall that they enable <em>pass-by-reference</em> semantics (hand off a "pointer"), instead of <em>pass-by-value</em> (copy the entire value).
 That level of control is essential, it enables performant manipulation of large values.
 The programmer can choose when to perform a <em>shallow copy</em> (duplicate only a reference) and when to perform a <em>deep copy</em> (duplicate all data).
 The former means less time spent copying bytes and less total memory used.</p>
 <p>We'll return to the topic of references when discussing ownership later in this chapter.
 When dealing with ownership errors, you'll quickly realize that Rust strongly encourages this MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 8.13]</strong> References should be immutable whenever possible<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 8.13]</strong> References should be immutable whenever possible<sup class="footnote-reference" id="fr-MISRA_2012-4"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
 <h2 id="slices"><a class="header" href="#slices">Slices</a></h2>
 <p>Slices are a concept closely related to references, they also come in immutable and mutable variants:</p>
@@ -478,35 +473,35 @@ When dealing with ownership errors, you'll quickly realize that Rust strongly en
 <p><code>&amp;mut [T]</code> is a mutable, exclusive slice of <code>T</code>s.</p>
 </li>
 </ul>
-<p>Both slice types are &quot;partial views&quot; into a sequence of values that are stored within some other, larger value.
+<p>Both slice types are "partial views" into a sequence of values that are stored within some other, larger value.
 Let's make sense of that statement with an example:</p>
 <pre><code class="language-rust noplaypen">// Array of 5 items
 let mut buffer_overflow_defenses = [
-    &quot;stack canary&quot;,
-    &quot;ASLR&quot;,
-    &quot;NX bit&quot;,
-    &quot;CFI&quot;,
-    &quot;Intel CET&quot;,
-    &quot;ARM MTE&quot;,
+    "stack canary",
+    "ASLR",
+    "NX bit",
+    "CFI",
+    "Intel CET",
+    "ARM MTE",
 ];
 
 // Create an immutable slice of the first 3
 // [..=2] is inclusive range notation, equivalent to [..3]
 let basic_defenses = &amp;buffer_overflow_defenses[..=2];
 
-assert_eq!(basic_defenses, &amp;[&quot;stack canary&quot;, &quot;ASLR&quot;, &quot;NX bit&quot;]);
+assert_eq!(basic_defenses, &amp;["stack canary", "ASLR", "NX bit"]);
 
 // Create an mutable slice of the last 2
 let advanced_defenses = &amp;mut buffer_overflow_defenses[4..];
 
-assert_eq!(advanced_defenses, &amp;mut [&quot;Intel CET&quot;, &quot;ARM MTE&quot;]);
+assert_eq!(advanced_defenses, &amp;mut ["Intel CET", "ARM MTE"]);
 
 // Modify via slice
-advanced_defenses[1] = &quot;safe Rust!&quot;;
+advanced_defenses[1] = "safe Rust!";
 
-// Notice both slice and it's &quot;backing storage&quot; are updated
-assert_eq!(advanced_defenses, &amp;mut [&quot;Intel CET&quot;, &quot;safe Rust!&quot;]);
-assert_eq!(buffer_overflow_defenses[5], &quot;safe Rust!&quot;);</code></pre>
+// Notice both slice and it's "backing storage" are updated
+assert_eq!(advanced_defenses, &amp;mut ["Intel CET", "safe Rust!"]);
+assert_eq!(buffer_overflow_defenses[5], "safe Rust!");</code></pre>
 <p>Sub-division of a larger sequence is one convenient use of slices, as demonstrated above.
 You might recall seeing slice range notation (e.g. <code>[..=2]</code> and <code>[3..]</code>) in the previous chapter as well.
 We used it in IETF test vector validation, to grab 16-byte chunks out of the RC4 key stream.</p>
@@ -547,7 +542,7 @@ fn main() {
 In the above, we wrote one function that works for both dynamic vectors of bytes and fixed-size arrays of bytes.</p>
 <p>Finally, we'd be remiss if we didn't mention the relationship between strings (<code>String</code> type) and string slices (<code>&amp;str</code> type).
 A proper discussion of the topic involves a fair bit of complexity, and strings aren't particularly relevant to code we'll be writing in this book.
-Though the data structures we build can certainly store strings, we'll forgo a detailed discussion and recommend section 8.2 of the official Rust book<sup class="footnote-reference"><a href="#TRPL">8</a></sup> - &quot;Storing UTF-8 Encoded Text with Strings&quot; - if you're interested.</p>
+Though the data structures we build can certainly store strings, we'll forgo a detailed discussion and recommend section 8.2 of the official Rust book<sup class="footnote-reference" id="fr-TRPL-1"><a href="#footnote-TRPL">8</a></sup> - "Storing UTF-8 Encoded Text with Strings" - if you're interested.</p>
 <blockquote>
 <p><strong>The <code>vec!</code> Macro</strong></p>
 <p>The above code includes short-hand notation for initializing a vector of elements.
@@ -567,38 +562,35 @@ You've now seen low-level techniques for representing and manipulating data in R
 <p>Instead of spending dozens more pages on the intricacies, we'll move on to more exciting and interesting features of the language: ways to express higher-level constructs.</p>
 <p>You'll master all of these topics through hands-on experience as we progress through the book.
 Our present goal is to rapidly survey Rust's fundamentals.</p>
-<hr />
-<div class="footnote-definition" id="IntWrap"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/"><em>Myths and Legends about Integer Overflow in Rust</em></a>. Huon Wilson (2016).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">2</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="IndexAside"><sup class="footnote-definition-label">3</sup>
-<p>Well, that's true in the case of a <code>Vec</code>. Under-the-hood <code>Vec</code> is a <em>fat pointer</em> (memory address, length, and capacity) to an array allocated on the heap. Indexing <code>my_vec[i]</code> involves computing an offset to a memory location. But for custom containers you define, overloading the index operator can perform any operation that makes logical sense in the context of your container. We'll implement our own indexing logic for ordered maps and sets later in the book.</p>
-</div>
-<div class="footnote-definition" id="TraitInto"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TraitFrom"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TypeInference"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://rustc-dev-guide.rust-lang.org/type-inference.html#type-inference"><em>Type inference</em></a>. Guide to Rustc Development (Accessed 2022). Rust uses an extension of the Hindley-Milner type inference algorithm<sup class="footnote-reference"><a href="#HMT">9</a></sup>.</p>
-</div>
-<div class="footnote-definition" id="Triangle"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://www.mathopenref.com/triangle306090.html"><em>30° - 60°- 90° Triangle</em></a>. Math Open Reference (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="HMT"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system"><em>Hindley–Milner type system</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="IEEEFloat"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://en.wikipedia.org/wiki/IEEE_754-2008_revision"><em>IEEE 754-2008 revision</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TRPL"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://doc.rust-lang.org/book/ch08-02-strings.html"><em>Storing UTF-8 Encoded Text with Strings</em></a>. by Steve Klabnik, Carol Nichols (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-IntWrap">
+<p><a href="https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/"><em>Myths and Legends about Integer Overflow in Rust</em></a>. Huon Wilson (2016). <a href="#fr-IntWrap-1">↩</a></p>
+</li>
+<li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a> <a href="#fr-MISRA_2012-2">↩2</a> <a href="#fr-MISRA_2012-3">↩3</a> <a href="#fr-MISRA_2012-4">↩4</a></p>
+</li>
+<li id="footnote-IndexAside">
+<p>Well, that's true in the case of a <code>Vec</code>. Under-the-hood <code>Vec</code> is a <em>fat pointer</em> (memory address, length, and capacity) to an array allocated on the heap. Indexing <code>my_vec[i]</code> involves computing an offset to a memory location. But for custom containers you define, overloading the index operator can perform any operation that makes logical sense in the context of your container. We'll implement our own indexing logic for ordered maps and sets later in the book. <a href="#fr-IndexAside-1">↩</a></p>
+</li>
+<li id="footnote-TraitFrom">
+<p><a href="https://doc.rust-lang.org/std/convert/trait.From.html"><em>Trait <code>std::convert::From</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-TraitFrom-1">↩</a></p>
+</li>
+<li id="footnote-TraitInto">
+<p><a href="https://doc.rust-lang.org/std/convert/trait.Into.html"><em>Trait <code>std::convert::Into</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-TraitInto-1">↩</a></p>
+</li>
+<li id="footnote-TypeInference">
+<p><a href="https://rustc-dev-guide.rust-lang.org/type-inference.html#type-inference"><em>Type inference</em></a>. Guide to Rustc Development (Accessed 2022). Rust uses an extension of the Hindley-Milner type inference algorithm<sup class="footnote-reference" id="fr-HMT-1"><a href="#footnote-HMT">9</a></sup>. <a href="#fr-TypeInference-1">↩</a></p>
+</li>
+<li id="footnote-Triangle">
+<p><a href="https://www.mathopenref.com/triangle306090.html"><em>30° - 60°- 90° Triangle</em></a>. Math Open Reference (Accessed 2022). <a href="#fr-Triangle-1">↩</a></p>
+</li>
+<li id="footnote-TRPL">
+<p><a href="https://doc.rust-lang.org/book/ch08-02-strings.html"><em>Storing UTF-8 Encoded Text with Strings</em></a>. by Steve Klabnik, Carol Nichols (Accessed 2022). <a href="#fr-TRPL-1">↩</a></p>
+</li>
+<li id="footnote-HMT">
+<p><a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system"><em>Hindley–Milner type system</em></a>. Wikipedia (Accessed 2022). <a href="#fr-HMT-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

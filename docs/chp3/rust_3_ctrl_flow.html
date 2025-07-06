@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html" class="active"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -192,7 +187,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 <h1 id="rust-control-flow-3-of-6"><a class="header" href="#rust-control-flow-3-of-6">Rust: Control Flow (3 of 6)</a></h1>
-<p>Almost<sup class="footnote-reference"><a href="#BranchProg">1</a></sup> any useful program is going to make some decision based on a condition, or execute some logic multiple times.
+<p>Almost<sup class="footnote-reference" id="fr-BranchProg-1"><a href="#footnote-BranchProg">1</a></sup> any useful program is going to make some decision based on a condition, or execute some logic multiple times.
 Thus every imperative programming language offers some mechanism for determining <em>control flow</em>: deciding the order in which individual statements get executed.</p>
 <p>Languages tend to settle on the same handful of constructs for expressing control flow.
 Rust is no exception.
@@ -201,11 +196,11 @@ Its <em>pattern matching</em> may be new to you depending on what language you'r
 <p>The <code>if</code> and <code>else</code> keywords work much like you'd expect.</p>
 <pre><pre class="playground"><code class="language-rust">fn conditional_print(num: usize) {
     if num &gt; 10 {
-        println!(&quot;{} is greater than 10.&quot;, num);
+        println!("{} is greater than 10.", num);
     } else if num % 2 == 0 {
-        println!(&quot;{} is even.&quot;, num);
+        println!("{} is even.", num);
     } else {
-        println!(&quot;{} is odd.&quot;, num);
+        println!("{} is odd.", num);
     }
 }
 
@@ -223,7 +218,7 @@ fn main() {
 There's no implicit casting allowed.
 This strictness helps obey another MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 14.4]</strong> <em>If</em> expressions must evaluate to boolean types<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 14.4]</strong> <em>If</em> expressions must evaluate to boolean types<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
 <p>Many other languages don't enforce strict typing for conditional statements.</p>
 <ul>
@@ -245,18 +240,18 @@ The below prints a countdown from 10 to 1:</p>
 </span>let mut countdown = 10;
 
 while countdown &gt; 0 {
-    println!(&quot;{}...&quot;, countdown);
+    println!("{}...", countdown);
     countdown -= 1;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>Rust doesn't support &quot;do while&quot; loops directly, but the same logic can be implemented with the <code>loop</code> and <code>break</code> keywords.
+<p>Rust doesn't support "do while" loops directly, but the same logic can be implemented with the <code>loop</code> and <code>break</code> keywords.
 An equivalent countdown could be implemented as:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut countdown = 10;
 
 loop {
-    println!(&quot;{}...&quot;, countdown);
+    println!("{}...", countdown);
     countdown -= 1;
     if countdown == 0 {
         break;
@@ -270,11 +265,11 @@ The below prints the numbers 0 through 9:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>for i in 0..10 {
-    println!(&quot;{}&quot;, i);
+    println!("{}", i);
 }
 <span class="boring">}</span></code></pre></pre>
 <p>What if we want to access the elements of a collection in a loop?
-On the surface, our <code>for</code> syntax seems to &quot;just work&quot;:</p>
+On the surface, our <code>for</code> syntax seems to "just work":</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::collections::{HashSet, BTreeSet};
@@ -282,10 +277,10 @@ On the surface, our <code>for</code> syntax seems to &quot;just work&quot;:</p>
 // List
 let list = vec![3, 2, 1];
 
-println!(&quot;Iterating over vector:&quot;);
+println!("Iterating over vector:");
 
 for item in list {
-    println!(&quot;list item: {}&quot;, item);
+    println!("list item: {}", item);
 }
 
 // Ordered set
@@ -294,10 +289,10 @@ o_set.insert(3);
 o_set.insert(2);
 o_set.insert(1);
 
-println!(&quot;\nIterating over ordered set:&quot;);
+println!("\nIterating over ordered set:");
 
 for elem in o_set {
-    println!(&quot;set element: {}&quot;, elem);
+    println!("set element: {}", elem);
 }
 
 // Hash set
@@ -306,10 +301,10 @@ h_set.insert(3);
 h_set.insert(2);
 h_set.insert(1);
 
-println!(&quot;\nIterating over hash set:&quot;);
+println!("\nIterating over hash set:");
 
 for elem in h_set {
-    println!(&quot;set element: {}&quot;, elem);
+    println!("set element: {}", elem);
 }
 <span class="boring">}</span></code></pre></pre>
 <p>But consider the output of the above:</p>
@@ -335,7 +330,7 @@ set element: 1
 <li><code>HashSet</code> (a hash set) doesn't have any notion of order - either sort or insertion.</li>
 </ul>
 <p>Under-the-hood, each collection implements its own <em>iterator</em>.
-Each has its own logic, but shares a common interface: the <code>Iterator</code> trait<sup class="footnote-reference"><a href="#TraitIterator">3</a></sup>.
+Each has its own logic, but shares a common interface: the <code>Iterator</code> trait<sup class="footnote-reference" id="fr-TraitIterator-1"><a href="#footnote-TraitIterator">3</a></sup>.
 The <code>for</code> loop leverages this interface to perform traversal of the underlying data structure.</p>
 <p>Iterators are a key part of idiomatic Rust, we'll dedicate an entire chapter to implementing our own.
 For now, know that they enable a world of conveniences.
@@ -345,7 +340,7 @@ like enumeration:</p>
 </span>let list = vec![3, 2, 1];
 
 for (i, item) in list.iter().enumerate() {
-    println!(&quot;list item {}: {}&quot;, i, item);
+    println!("list item {}: {}", i, item);
 }
 
 // Prints:
@@ -362,7 +357,7 @@ for (i, item) in list.iter().enumerate() {
 let triple_list: Vec&lt;_&gt; = list.iter().map(|x| x * 3).collect();
 
 for item in triple_list {
-    println!(&quot;triple_list item: {}&quot;, item);
+    println!("triple_list item: {}", item);
 }
 
 // Prints:
@@ -373,7 +368,7 @@ for item in triple_list {
 <p>Iterators also prevent common errors, like Out-Of-Bounds (OOB) indexing.
 The help us comply with:</p>
 <blockquote>
-<p><strong>[AR, Rule 14.2]</strong> <em>for</em> loops must be well-formed<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 14.2]</strong> <em>for</em> loops must be well-formed<sup class="footnote-reference" id="fr-MISRA_2012-2"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
 <h2 id="pattern-matching"><a class="header" href="#pattern-matching">Pattern Matching</a></h2>
 <p>In its simplest usage, pattern matching is akin to C's <code>switch</code> statement - we chose one action from a finite set.</p>
@@ -402,10 +397,10 @@ For example:</p>
 </span>let x = 10;
 
 match x {
-    1 | 2 | 3 =&gt; println!(&quot;number is 1 or 2 or 3&quot;),
-    4..=10 =&gt; println!(&quot;number is between 4 and 10 inclusive&quot;),
-    x if x * x &lt; 250 =&gt; println!(&quot;number squared is less than 250&quot;),
-    _ =&gt; println!(&quot;number didn't meet any previous condition!&quot;),
+    1 | 2 | 3 =&gt; println!("number is 1 or 2 or 3"),
+    4..=10 =&gt; println!("number is between 4 and 10 inclusive"),
+    x if x * x &lt; 250 =&gt; println!("number squared is less than 250"),
+    _ =&gt; println!("number didn't meet any previous condition!"),
 }
 <span class="boring">}</span></code></pre></pre>
 <ul>
@@ -433,18 +428,18 @@ Exhaustively matching every possible value of a 32-bit unsigned integer would be
 If that line was omitted, we couldn't handle the case where <code>x</code> is <code>16</code>, for example.</p>
 <p>The exhaustiveness requirement ensures any <code>match</code> we write gracefully handles any possible input, which meets the spirit of another MISRA rule:</p>
 <blockquote>
-<p><strong>[AR, Rule 16.4]</strong> Switch statements must have a default case<sup class="footnote-reference"><a href="#MISRA_2012">2</a></sup></p>
+<p><strong>[AR, Rule 16.4]</strong> Switch statements must have a default case<sup class="footnote-reference" id="fr-MISRA_2012-3"><a href="#footnote-MISRA_2012">2</a></sup></p>
 </blockquote>
-<p>While the rule is specific to C's <code>switch</code> statement, the idea robust of matching carries over - we should never accidentally &quot;fall through&quot; a <code>switch</code>/<code>match</code> without taking an appropriate action.</p>
+<p>While the rule is specific to C's <code>switch</code> statement, the idea robust of matching carries over - we should never accidentally "fall through" a <code>switch</code>/<code>match</code> without taking an appropriate action.</p>
 <h2 id="condensed-pattern-matching"><a class="header" href="#condensed-pattern-matching">Condensed Pattern Matching</a></h2>
 <p>Rust offers constructs for condensing pattern matching to a single, conditional action - triggered when a specific pattern fits (ignoring the rest).
-If you see <code>if let</code> and <code>while let</code> in Rust code, it's a shorthand for &quot;drilling down&quot; to a single <code>match</code> arm.</p>
+If you see <code>if let</code> and <code>while let</code> in Rust code, it's a shorthand for "drilling down" to a single <code>match</code> arm.</p>
 <p>This syntax can be obtuse when starting out, so we'll gradually introduce it later in the book - in the context of a larger program.
 As a preview, consider this code (assume we're using our <code>State</code> enum from before):</p>
 <pre><code class="language-rust ignore">let curr_state = State::Running;
 
 match curr_state {
-    State::Running =&gt; println!(&quot;Process is running!&quot;),
+    State::Running =&gt; println!("Process is running!"),
     State::Stopped =&gt; {},   // Do nothing
     State::Sleeping =&gt; {},  // Do nothing
 };</code></pre>
@@ -452,7 +447,7 @@ match curr_state {
 <pre><code class="language-rust ignore">let curr_state = State::Running;
 
 if let State::Running = curr_state {
-    println!(&quot;Process is running!&quot;);
+    println!("Process is running!");
 }</code></pre>
 <p>Notice how we print a message only for a <code>Running</code> state, but we don't have to exhaustively <code>match</code> different cases.
 Instead, <code>if let</code> allows conditional action only for a specific <code>enum</code> variant.</p>
@@ -460,7 +455,7 @@ Instead, <code>if let</code> allows conditional action only for a specific <code
 Perhaps surprisingly, not quite.</p>
 <ul>
 <li>
-<p><code>if let</code> is like any other <code>if</code> statement in that the body is only executed if a specific condition is true. By design, it's not intended to be exhaustive. <code>if</code> only &quot;cares&quot; about one case. And that's obvious to a reader.</p>
+<p><code>if let</code> is like any other <code>if</code> statement in that the body is only executed if a specific condition is true. By design, it's not intended to be exhaustive. <code>if</code> only "cares" about one case. And that's obvious to a reader.</p>
 </li>
 <li>
 <p>A <code>match</code> supports multiple patterns and doesn't know which its input will trigger. By design, it's responsible for handling all of them. So the compiler enforces exhaustiveness. Something a reader might otherwise miss.</p>
@@ -469,7 +464,7 @@ Perhaps surprisingly, not quite.</p>
 <p>Deciding whether <code>match</code> or <code>if let</code> is appropriate depends on the context of the broader program.</p>
 <h2 id="takeaway"><a class="header" href="#takeaway">Takeaway</a></h2>
 <p>Rust's control flow constructs aren't vastly different from other programming languages.
-<code>while</code> loops work like you'd expect, <code>for</code> loops are backed by iterators, &quot;do while&quot; can be emulated with alternative syntax.
+<code>while</code> loops work like you'd expect, <code>for</code> loops are backed by iterators, "do while" can be emulated with alternative syntax.
 There's a bit more strictness - conditions must evaluate to booleans and pattern matching must be exhaustive if not using <code>if let</code>.
 Rust encourages a notion of correctness.</p>
 <p>Pattern matching may be new to you, depending on your background.
@@ -479,17 +474,17 @@ And when you do, you'll be glad the feature exists!</p>
 <p>We've covered data representation and control flow.
 It's time to dig into what makes Rust unique.
 The language's most distinctive and novel feature: ownership.</p>
-<hr />
-<div class="footnote-definition" id="BranchProg"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://dev.to/jobinrjohnson/branchless-programming-does-it-really-matter-20j4"><em>Branchless programming. Does it really matter?</em></a>. Jobin Johnson (2021).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">2</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="TraitIterator"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html"><em>Trait <code>std::iter::Iterator</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-BranchProg">
+<p><a href="https://dev.to/jobinrjohnson/branchless-programming-does-it-really-matter-20j4"><em>Branchless programming. Does it really matter?</em></a>. Jobin Johnson (2021). <a href="#fr-BranchProg-1">↩</a></p>
+</li>
+<li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a> <a href="#fr-MISRA_2012-2">↩2</a> <a href="#fr-MISRA_2012-3">↩3</a></p>
+</li>
+<li id="footnote-TraitIterator">
+<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html"><em>Trait <code>std::iter::Iterator</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-TraitIterator-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

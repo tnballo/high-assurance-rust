@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html" class="active"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -196,23 +191,23 @@
 Say we want to test some program, call it <code>P</code>.
 If we never run <code>P</code>, how exactly are we going to learn about what it does or can do?</p>
 <p>Static analysis tools often use a layer of indirection that simplifies answering a particular question.
-They map the constructs of <code>P</code> to an analysis-specific abstract domain<sup class="footnote-reference"><a href="#AbsInt">1</a></sup>.
+They map the constructs of <code>P</code> to an analysis-specific abstract domain<sup class="footnote-reference" id="fr-AbsInt-1"><a href="#footnote-AbsInt">1</a></sup>.
 This representation is designed to reflect one or more properties of <code>P</code>.
 Analyzing it allows us to draw conclusions about <code>P</code>.</p>
 <p>If you've ever used a compiler to build an executable, or had an interpreter check syntax before running a script, then you've seen static analysis in action.</p>
-<p>The analysis is itself a program (within your compiler or interpreter of choice) that runs its own special algorithms - let's call it <code>Q</code>, the &quot;analyzer&quot;.
+<p>The analysis is itself a program (within your compiler or interpreter of choice) that runs its own special algorithms - let's call it <code>Q</code>, the "analyzer".
 Since we run <code>Q</code> and get a result, we don't need to execute <code>P</code> (for which the result applies).
 That's one [ironically dynamic] way to understand static analysis.</p>
 <blockquote>
 <p><strong>Concrete vs. Abstract:</strong></p>
 <p>Whereas a dynamic analysis <em>observes</em> a set of <em>concrete</em> states by executing a program, a static analysis <em>summarizes</em> possible <em>abstract</em> states.
 Each abstract state represents a set of concrete states.</p>
-<p>Imagine a simple &quot;guessing game&quot; program where the player chooses a number between 1 and 10, inclusive.
+<p>Imagine a simple "guessing game" program where the player chooses a number between 1 and 10, inclusive.
 If the player enters <code>7</code>, the program prints <code>you win!</code>.
 Otherwise it prints <code>you lose</code>.</p>
 <p>Dynamic analysis of a run where the player entered <code>3</code> would observe an internal variable <code>x</code> set to <code>3</code>, one side of a branch taken, and the corresponding <code>you lose</code> output.
 Those are all concrete events.</p>
-<p>One kind of static analysis<sup class="footnote-reference"><a href="#SymEx">2</a></sup> would conclude that the program has two abstract states: one leading to <code>you win!</code> output if <code>x == 7</code> and another leading to <code>you lose</code> if <code>x != 7</code>.</p>
+<p>One kind of static analysis<sup class="footnote-reference" id="fr-SymEx-1"><a href="#footnote-SymEx">2</a></sup> would conclude that the program has two abstract states: one leading to <code>you win!</code> output if <code>x == 7</code> and another leading to <code>you lose</code> if <code>x != 7</code>.</p>
 </blockquote>
 <h2 id="challenges-in-static-program-analysis"><a class="header" href="#challenges-in-static-program-analysis">Challenges in Static Program Analysis</a></h2>
 <p>Assume we're talking about static analyses for finding unknown bugs (the top-left quad from the previous diagram).
@@ -226,20 +221,20 @@ Generally speaking:</p>
 </ul>
 </li>
 <li>
-<p><strong>Con:</strong> Because we're using an abstract representation and not the real thing, some static analyses can <em>over-approximate</em>  or, worse yet, <em>fail to terminate</em><sup class="footnote-reference"><a href="#CMU">3</a></sup><sup class="footnote-reference"><a href="#UPenn">4</a></sup>.</p>
+<p><strong>Con:</strong> Because we're using an abstract representation and not the real thing, some static analyses can <em>over-approximate</em>  or, worse yet, <em>fail to terminate</em>[^CMU]<sup class="footnote-reference" id="fr-UPenn-1"><a href="#footnote-UPenn">3</a></sup>.</p>
 <ul>
 <li>
 <p><em>Over-approximation</em> produces false positive results. Meaning, due to a limitation of the analysis, many of the bugs found aren't real bugs. Getting stuck with a backlog of faulty results is a drag on busy engineering teams.</p>
 </li>
 <li>
-<p><em>Failure to terminate</em> means the analysis never outputs a result. This can be due to &quot;state explosion&quot; - a combinatorial growth in complexity of the problem the analysis is trying to reason about. To avoid spinning forever, many commercial tools reduce complexity via approximation. Which, again, risks false positives.</p>
+<p><em>Failure to terminate</em> means the analysis never outputs a result. This can be due to "state explosion" - a combinatorial growth in complexity of the problem the analysis is trying to reason about. To avoid spinning forever, many commercial tools reduce complexity via approximation. Which, again, risks false positives.</p>
 </li>
 </ul>
 </li>
 </ul>
 <p>Designing an static analysis algorithm practical enough to terminate (no state explosion) yet clever enough to never produce a false positive (no over-approximation) is, surprisingly often, impossible.
-Not &quot;impossible given our current knowledge and computational power&quot;.
-Provably impossible, as in the problem is mathematically <em>undecidable</em><sup class="footnote-reference"><a href="#AliasPaper">5</a></sup><sup class="footnote-reference"><a href="#AliasPaper2">6</a></sup>.</p>
+Not "impossible given our current knowledge and computational power".
+Provably impossible, as in the problem is mathematically <em>undecidable</em>[^AliasPaper]<sup class="footnote-reference" id="fr-AliasPaper2-1"><a href="#footnote-AliasPaper2">4</a></sup>.</p>
 <ul>
 <li><em>Undecidable</em> means there will never be an algorithm that can make a correct yes-or-no determination in any arbitrary case.</li>
 </ul>
@@ -254,46 +249,46 @@ For some teams, those tradeoffs may be unacceptable.</p>
 Including proprietary static analyzers with hefty licensing costs.
 So let's explore limitations in a practical context: pointer analysis.</p>
 <h2 id="case-study-pointer-analysis"><a class="header" href="#case-study-pointer-analysis">Case Study: Pointer Analysis</a></h2>
-<p>We're going to discuss pointer analysis (aka &quot;points-to&quot; or &quot;may-alias&quot; analysis) at a very high-level.
-So no walkthrough of Steensgaard's algorithm<sup class="footnote-reference"><a href="#Steen">7</a></sup> with big-step semantics<sup class="footnote-reference"><a href="#CMU2">8</a></sup>.
-Our aim is to build a practical intuition, not to drown in the &quot;symbol soup&quot; of Programming Languages (PL) formalisms<sup class="footnote-reference"><a href="#SymSoup">9</a></sup>.</p>
+<p>We're going to discuss pointer analysis (aka "points-to" or "may-alias" analysis) at a very high-level.
+So no walkthrough of Steensgaard's algorithm<sup class="footnote-reference" id="fr-Steen-1"><a href="#footnote-Steen">5</a></sup> with big-step semantics<sup class="footnote-reference" id="fr-CMU2-1"><a href="#footnote-CMU2">6</a></sup>.
+Our aim is to build a practical intuition, not to drown in the "symbol soup" of Programming Languages (PL) formalisms<sup class="footnote-reference" id="fr-SymSoup-1"><a href="#footnote-SymSoup">7</a></sup>.</p>
 <p>Why look at this specific kind of static analysis?
 Pointer analysis is an archetypical example of challenges in verifying properties for real-world, memory-unsafe systems code.
 This discussion will help you deeply understand the dire problems Rust solves statically.
 And the rationale for the language's stringent rules.</p>
 <blockquote>
 <p><strong>What is a pointer?</strong></p>
-<p>If you haven't written C or C++, you've likely been protected from the horrors of &quot;raw pointers&quot;.
-But even languages like Go and Java throw exceptions for <code>nil</code>/<code>NULL</code> pointers (Rust fixes this &quot;billion dollar mistake&quot;<sup class="footnote-reference"><a href="#BillProb">10</a></sup>!). Let's explore the C-family case.</p>
+<p>If you haven't written C or C++, you've likely been protected from the horrors of "raw pointers".
+But even languages like Go and Java throw exceptions for <code>nil</code>/<code>NULL</code> pointers (Rust fixes this "billion dollar mistake"<sup class="footnote-reference" id="fr-BillProb-1"><a href="#footnote-BillProb">8</a></sup>!). Let's explore the C-family case.</p>
 <p>Pointers are addresses of locations in memory.
-Usually, but not always, the memory is &quot;virtual&quot; - it's an abstraction over physical memory on the machine (CPU cache, RAM, HDDs, etc).
+Usually, but not always, the memory is "virtual" - it's an abstraction over physical memory on the machine (CPU cache, RAM, HDDs, etc).
 Mechanically, the addresses are represented as unsigned integers.</p>
-<p>Pointers are commonly used to access data (e.g. array, structure, object) &quot;by reference&quot;.
-Meaning without having to copy a potentially large object (aka &quot;pass-by-value&quot;).
+<p>Pointers are commonly used to access data (e.g. array, structure, object) "by reference".
+Meaning without having to copy a potentially large object (aka "pass-by-value").
 Pointers are important tools for traditional systems programming.
 They enable efficient use of memory.</p>
 <p>But they're also a double-edged sword.
 Pointers are wildly easy to catastrophically misuse.
 An off-by-one error in pointer arithmetic can mean reading incorrect data and not knowing it. Attempting to access an invalid pointer is a crash at best. If an attacker can set the value of a pointer, your program might be exploitable.
-Think &quot;footgun&quot;.</p>
+Think "footgun".</p>
 </blockquote>
 <p>Pointer analysis has one goal:</p>
 <ul>
 <li>Determine what variables or objects each pointer <em>could</em> point to at runtime.</li>
 </ul>
 <p>Armed with that information, we know where data <em>could</em> be read from and where it <em>could</em> be written.
-&quot;Could&quot; stems from the fact that each run of the program may be different.
+"Could" stems from the fact that each run of the program may be different.
 We need a set of possibilities representative of all potential runs.
 This information allows us to make strong, confidence-inspiring claims about a program.</p>
 <h3 id="one-line-to-fool-them-all"><a class="header" href="#one-line-to-fool-them-all">One Line to Fool Them All</a></h3>
-<p>With that goal in mind, consider this single-line C function<sup class="footnote-reference"><a href="#Creusot">11</a></sup>:</p>
+<p>With that goal in mind, consider this single-line C function<sup class="footnote-reference" id="fr-Creusot-1"><a href="#footnote-Creusot">9</a></sup>:</p>
 <pre><code class="language-c">void incr(int* a, int* b) {
     *a += *b;
 }
 </code></pre>
 <p>This seemingly innocuous little function is a wolf in sheep's clothing.
-If this function is part of a larger program, a pointer analysis can't tell if <code>a</code> and <code>b</code> point to the same integer (aka &quot;alias&quot;) or not.
-The analysis result will be indeterminate: it will conclude that the parameters &quot;may or may not alias&quot;.
+If this function is part of a larger program, a pointer analysis can't tell if <code>a</code> and <code>b</code> point to the same integer (aka "alias") or not.
+The analysis result will be indeterminate: it will conclude that the parameters "may or may not alias".
 A classic over-approximation.</p>
 <p>Since this might be your first glimpse of C, let's take a minute to break down what's going on:</p>
 <ul>
@@ -307,12 +302,12 @@ A classic over-approximation.</p>
 <p>The <code>*</code> operator in a function signature denotes a pointer.</p>
 </li>
 <li>
-<p>So <code>int*</code> means &quot;pointer to an integer&quot;.</p>
+<p>So <code>int*</code> means "pointer to an integer".</p>
 </li>
 </ul>
 </li>
 <li>
-<p>The <strong>return type</strong>, <code>void</code>, indicates this function doesn't return anything. So we can guess that it has some sort of &quot;side-effect&quot; (update to program state).</p>
+<p>The <strong>return type</strong>, <code>void</code>, indicates this function doesn't return anything. So we can guess that it has some sort of "side-effect" (update to program state).</p>
 </li>
 <li>
 <p>The <strong>body of the function</strong> reads (from memory) the respective current values of integers pointed to by <code>a</code> and <code>b</code>, adds the value of <code>int b</code> to <code>int a</code> (integer addition, not pointer addition), and then updates <code>int a</code> with that sum.</p>
@@ -321,7 +316,7 @@ A classic over-approximation.</p>
 <p><code>*a += *b;</code> is shorthand for <code>*a = *a + *b;</code>, a semicolon-terminated statement.</p>
 </li>
 <li>
-<p>Here, unlike in the signature, the <code>*</code> operator means &quot;dereference the pointer&quot;, e.g. read the value of its target.</p>
+<p>Here, unlike in the signature, the <code>*</code> operator means "dereference the pointer", e.g. read the value of its target.</p>
 </li>
 <li>
 <p><code>*</code> takes precedence over <code>+</code>, meaning the read happens first. Precedence mistakes can be tricky with pointer arithmetic!</p>
@@ -347,25 +342,25 @@ Pointers <code>*a</code> and <code>*b</code> would each point to their respectiv
   </figure>
 </p>
 <blockquote>
-<p><strong>Is that &quot;idiomatic&quot; C code?</strong></p>
+<p><strong>Is that "idiomatic" C code?</strong></p>
 <p>No. Integers are typically passed by value (integer itself, instead of a pointer to it).
-That's more efficient since an integer fits neatly into a little piece of the CPU's scratch memory, called a &quot;register&quot;.
+That's more efficient since an integer fits neatly into a little piece of the CPU's scratch memory, called a "register".
 Regardless, our <code>incr</code> function is representative of day-to-day C code that operates on referenced data.
 The conclusions we're about to draw are broadly applicable.</p>
 </blockquote>
 <h3 id="so-whats-the-issue"><a class="header" href="#so-whats-the-issue">So what's the issue?</a></h3>
 <p>Once you get past the syntax, the <code>incr</code> function is quite simple: it just adds two numbers together.
 Why is this such a challenge for pointer analysis practice?</p>
-<p>These &quot;raw&quot; (meaning unrestricted<sup class="footnote-reference"><a href="#RawMem">12</a></sup>) pointers present two non-trivial complications:</p>
+<p>These "raw" (meaning unrestricted<sup class="footnote-reference" id="fr-RawMem-1"><a href="#footnote-RawMem">10</a></sup>) pointers present two non-trivial complications:</p>
 <ul>
 <li>
-<p><strong>1. Undecidable Aliasing:</strong> Say both pointers reference the same memory location (they alias). Then incrementing <code>a</code> also increments <code>b</code>. That's very likely not what the programmer intended, it's an edge case that changes what this function does. But we can't prove that it won't happen<sup class="footnote-reference"><a href="#AliasPaper">5</a></sup>. Because scalable and accurate pointer analysis remains an open research problem.</p>
+<p><strong>1. Undecidable Aliasing:</strong> Say both pointers reference the same memory location (they alias). Then incrementing <code>a</code> also increments <code>b</code>. That's very likely not what the programmer intended, it's an edge case that changes what this function does. But we can't prove that it won't happen<sup class="footnote-reference" id="fr-AliasPaper-1"><a href="#footnote-AliasPaper">11</a></sup>. Because scalable and accurate pointer analysis remains an open research problem.</p>
 <ul>
 <li>
-<p><strong>Implication:</strong> We can't make a detailed claim about what this function will do at runtime, even given additional context (like all the places where <code>incr</code> is called, aka &quot;call sites&quot;). The undesirable case pictured below can't be precisely detected by any tool.</p>
+<p><strong>Implication:</strong> We can't make a detailed claim about what this function will do at runtime, even given additional context (like all the places where <code>incr</code> is called, aka "call sites"). The undesirable case pictured below can't be precisely detected by any tool.</p>
 </li>
 <li>
-<p><strong>Root cause:</strong> Over-approximation <em>within</em> the analysis domain. The designers of a pointer analysis have to make conscious tradeoffs in result precision (like tolerating &quot;may or may not alias&quot; conclusions).</p>
+<p><strong>Root cause:</strong> Over-approximation <em>within</em> the analysis domain. The designers of a pointer analysis have to make conscious tradeoffs in result precision (like tolerating "may or may not alias" conclusions).</p>
 </li>
 </ul>
 </li>
@@ -379,7 +374,7 @@ Why is this such a challenge for pointer analysis practice?</p>
 </p>
 <ul>
 <li>
-<p><strong>2. Complex Memory Models:</strong> Raw pointers may be set to invalid memory locations. A programmer could introduce a pointer-arithmetic bug when computing an offset. Or simply leave the pointers &quot;uninitialized&quot; (a default state in C).</p>
+<p><strong>2. Complex Memory Models:</strong> Raw pointers may be set to invalid memory locations. A programmer could introduce a pointer-arithmetic bug when computing an offset. Or simply leave the pointers "uninitialized" (a default state in C).</p>
 <ul>
 <li>
 <p><strong>Implication:</strong> Pointer dereference could be a crash. Or a read or write of arbitrary data (no crash but incorrect program output or behavior).</p>
@@ -410,18 +405,18 @@ Without proof to point to, our confidence is low.</p>
 <blockquote>
 <p><strong>Pointer Aliasing Problems in the Real World</strong></p>
 <p><code>gcc</code>, an open-source C compiler, aims to generate efficient code.
-Since it's impossible to reliably tell if any two pointers will alias<sup class="footnote-reference"><a href="#AliasPaper">5</a></sup>, <code>gcc</code> cheats a little: for any optimization level greater than <code>-O1</code>, the compiler <em>assumes</em> that two pointers can't alias if they point to <em>different types</em>.
+Since it's impossible to reliably tell if any two pointers will alias<sup class="footnote-reference" id="fr-AliasPaper-2"><a href="#footnote-AliasPaper">11</a></sup>, <code>gcc</code> cheats a little: for any optimization level greater than <code>-O1</code>, the compiler <em>assumes</em> that two pointers can't alias if they point to <em>different types</em>.
 The assumption makes certain impactful optimizations possible.</p>
-<p>But, in practice, C programmers sometimes violate the assumption (there's a technique called &quot;type-punning&quot;).
+<p>But, in practice, C programmers sometimes violate the assumption (there's a technique called "type-punning").
 In such cases, the optimization may produce nasty bugs or unexpected behaviors.
-Thus, the optimization is explicitly disabled in the Linux kernel with the <code>gcc</code> flag <code>-fno-strict-aliasing</code><sup class="footnote-reference"><a href="#GCCSetting">13</a></sup><sup class="footnote-reference"><a href="#UndefResearch">14</a></sup>.</p>
+Thus, the optimization is explicitly disabled in the Linux kernel with the <code>gcc</code> flag <code>-fno-strict-aliasing</code>[^GCCSetting]<sup class="footnote-reference" id="fr-UndefResearch-1"><a href="#footnote-UndefResearch">12</a></sup>.</p>
 </blockquote>
 <h2 id="a-summary-of-our-pointer-problems"><a class="header" href="#a-summary-of-our-pointer-problems">A Summary of Our Pointer Problems</a></h2>
 <p>Static analyses risk two failure modes (not mutually exclusive): <em>over-approximation</em> and/or <em>failure to scale/terminate</em>.
 Both limit the assurance value we can extract from static analysis tools.</p>
 <p>Pointer analysis for memory-unsafe languages is a classic example of a real-world problem we're forced to over-approximate.
 While pointers (e.g. freely-controlled memory addresses) are a convenient abstraction for systems programming, they cripple our ability to automatically reason about runtime.
-Humans also struggle to get it right (pointers are a part of why C programs are infamous for &quot;segmentation fault&quot;<sup class="footnote-reference"><a href="#SegFault">15</a></sup> crashes).</p>
+Humans also struggle to get it right (pointers are a part of why C programs are infamous for "segmentation fault"<sup class="footnote-reference" id="fr-SegFault-1"><a href="#footnote-SegFault">13</a></sup> crashes).</p>
 <p>Raw pointers are just one reason why eliminating memory safety issues in existing C/C++ code is unrealistic.
 At least not without breaking backwards compatibility.
 Remember: memory safety is a multi-decade-difficult problem.
@@ -434,60 +429,54 @@ It can be applied to compiled binaries, supporting use cases where source code i
 Unlike pointer analysis, VSA doesn't differentiate between pointer and integer variables.
 It computes a <em>range of possible runtime values</em> for either type of numeric variable.</p>
 <p>For the above <code>incr</code> example, a precise VSA of a correct program might determine that integer <code>a</code> has an inclusive value range of <code>[40, 42]</code> - capturing both the pre and post increment values. And that pointer <code>*a</code> is similarly within some range of valid memory addresses, notionally something like <code>[0x7ffe455e5c40, 0x7ffe455e5bf0]</code>.</p>
-<p>Here's the kicker: a recent peer-reviewed human study<sup class="footnote-reference"><a href="#VSA">16</a></sup> found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find &quot;information leakage&quot; vulnerabilities).
-Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts<sup class="footnote-reference"><a href="#VSA">16</a></sup> for certain problem types.</p>
+<p>Here's the kicker: a recent peer-reviewed human study<sup class="footnote-reference" id="fr-VSA-1"><a href="#footnote-VSA">14</a></sup> found that even imprecise (e.g. over-approximate) VSA results improved reverse engineers' ability to determine if a program would print sensitive information (e.g. find "information leakage" vulnerabilities).
+Armed with imprecise VSA results, less experienced reverse engineers could match the unassisted performance of their more experienced counterparts<sup class="footnote-reference" id="fr-VSA-2"><a href="#footnote-VSA">14</a></sup> for certain problem types.</p>
 <p>Approximate static analyses can, in many contexts, be demonstrably useful.</p>
 </blockquote>
-<hr />
-<div class="footnote-definition" id="AbsInt"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://dl.acm.org/doi/10.1145/512950.512973"><em>Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints</em></a>. Patrick Cousot, Radhia Cousot (1977).</p>
-</div>
-<div class="footnote-definition" id="SymEx"><sup class="footnote-definition-label">2</sup>
-<p>Breaking down outcomes according to <em>constraints</em> on program variables (like <code>x != 7</code>) is a hallmark of &quot;symbolic execution&quot;, a particularly powerful program analysis. In theory, symbolic execution is a purely static analysis. But in practice it's often implemented using feedback from concrete, dynamic runs (aka &quot;concolic execution&quot;).</p>
-</div>
-<div class="footnote-definition" id="CMU"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://cmu-program-analysis.github.io/2021/index.html"><em>17-355/17-665/17-819 Program Analysis</em></a>. Jonathan Aldrich et al, Carnegie Mellon University (2021).</p>
-</div>
-<div class="footnote-definition" id="UPenn"><sup class="footnote-definition-label">4</sup>
-<p><a href="http://rightingcode.org/lessons.html"><em>CIS 547 Software Analysis</em></a>. Mayur Naiak et al, University of Pennsylvania (2021).</p>
-</div>
-<div class="footnote-definition" id="AliasPaper"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://www.cmi.ac.in/~madhavan/courses/program-analysis-2008/papers/landi91-ptr-analysis-popl.pdf"><em>Pointer-induced aliasing: a problem classification</em></a>. William Landi, Barbara Ryder (1990).</p>
-</div>
-<div class="footnote-definition" id="AliasPaper2"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6454&amp;rep=rep1&amp;type=pdf"><em>Precise Flow-Insensitive May-Alias Analysis is NP-Hard</em></a>. Susan Horowitz (1997).</p>
-</div>
-<div class="footnote-definition" id="Steen"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://www.cs.cornell.edu/courses/cs711/2005fa/papers/steensgaard-popl96.pdf"><em>Points-to Analysis in Almost Linear Time</em></a>. Bjarne Steensgaard, Microsoft Research (1996).</p>
-</div>
-<div class="footnote-definition" id="CMU2"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://cmu-program-analysis.github.io/2021/lecture-slides/11-pointer-analysis.pdf"><em>Lecture 11: Pointer Analysis</em></a>. Rohan Padhye, Jonathan Aldrich. Carnegie Mellon University (2021).</p>
-</div>
-<div class="footnote-definition" id="SymSoup"><sup class="footnote-definition-label">9</sup>
-<p>That being said, formal notations are worthwhile - learning them can change how you think about certain problems or, at very least, it allows you to read cutting-edge research papers.</p>
-</div>
-<div class="footnote-definition" id="BillProb"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/"><em>Null References: The Billion Dollar Mistake</em></a>. Tony Hoare (2009).</p>
-</div>
-<div class="footnote-definition" id="Creusot"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://www.youtube.com/watch?v=BPt987BRdDw"><em>Safer Rust: Program Verification with Creusot</em></a>. Xavier Denis (2021). The function we borrow from this talk was used to demonstrate how Rust's type system aids verification. We explore this idea in the next section, but in a different context.</p>
-</div>
-<div class="footnote-definition" id="RawMem"><sup class="footnote-definition-label">12</sup>
-<p>Well, &quot;unrestricted&quot; relative to the current execution environment - there exist &quot;sandboxes&quot; (memory segmentation enforcement), like the process space the OS has allocated for your program. Such restrictions reduce the likelihood of a bug or exploit in one program affecting other programs or the OS itself.</p>
-</div>
-<div class="footnote-definition" id="GCCSetting"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://www.mail-archive.com/linux-btrfs@vger.kernel.org/msg01647.html"><em>Re: gcc inlining heuristics was Re: [PATCH -v7][RFC]: mutex: implement adaptive spinning</em></a>. Linus Torvalds (2009).</p>
-</div>
-<div class="footnote-definition" id="UndefResearch"><sup class="footnote-definition-label">14</sup>
-<p><a href="https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf"><em>Undefined Behavior: What Happened to My Code?</em></a>. Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012).</p>
-</div>
-<div class="footnote-definition" id="SegFault"><sup class="footnote-definition-label">15</sup>
-<p>&quot;segmentation fault&quot; , or &quot;segfault&quot; for short, is an error thrown by the operating system when your program attempts to access regions of memory that don't belong to it (outside allotted &quot;segment&quot;). While it can be frustrating to debug, imagine how difficult things would be if the OS didn't stop you!</p>
-</div>
-<div class="footnote-definition" id="VSA"><sup class="footnote-definition-label">16</sup>
-<p><a href="https://www.ndss-symposium.org/wp-content/uploads/bar2021_23002_paper.pdf"><em>Effects of Precise and Imprecise Value-Set Analysis (VSA) Information on Manual Code Analysis</em></a>. Laura Matzen, Michelle Leger, Geoffrey Reedy (2021).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-AbsInt">
+<p><a href="https://dl.acm.org/doi/10.1145/512950.512973"><em>Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints</em></a>. Patrick Cousot, Radhia Cousot (1977). <a href="#fr-AbsInt-1">↩</a></p>
+</li>
+<li id="footnote-SymEx">
+<p>Breaking down outcomes according to <em>constraints</em> on program variables (like <code>x != 7</code>) is a hallmark of "symbolic execution", a particularly powerful program analysis. In theory, symbolic execution is a purely static analysis. But in practice it's often implemented using feedback from concrete, dynamic runs (aka "concolic execution"). <a href="#fr-SymEx-1">↩</a></p>
+</li>
+<li id="footnote-UPenn">
+<p><a href="http://rightingcode.org/lessons.html"><em>CIS 547 Software Analysis</em></a>. Mayur Naiak et al, University of Pennsylvania (2021). <a href="#fr-UPenn-1">↩</a></p>
+</li>
+<li id="footnote-AliasPaper2">
+<p><a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6454&amp;rep=rep1&amp;type=pdf"><em>Precise Flow-Insensitive May-Alias Analysis is NP-Hard</em></a>. Susan Horowitz (1997). <a href="#fr-AliasPaper2-1">↩</a></p>
+</li>
+<li id="footnote-Steen">
+<p><a href="https://www.cs.cornell.edu/courses/cs711/2005fa/papers/steensgaard-popl96.pdf"><em>Points-to Analysis in Almost Linear Time</em></a>. Bjarne Steensgaard, Microsoft Research (1996). <a href="#fr-Steen-1">↩</a></p>
+</li>
+<li id="footnote-CMU2">
+<p><a href="https://cmu-program-analysis.github.io/2021/lecture-slides/11-pointer-analysis.pdf"><em>Lecture 11: Pointer Analysis</em></a>. Rohan Padhye, Jonathan Aldrich. Carnegie Mellon University (2021). <a href="#fr-CMU2-1">↩</a></p>
+</li>
+<li id="footnote-SymSoup">
+<p>That being said, formal notations are worthwhile - learning them can change how you think about certain problems or, at very least, it allows you to read cutting-edge research papers. <a href="#fr-SymSoup-1">↩</a></p>
+</li>
+<li id="footnote-BillProb">
+<p><a href="https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/"><em>Null References: The Billion Dollar Mistake</em></a>. Tony Hoare (2009). <a href="#fr-BillProb-1">↩</a></p>
+</li>
+<li id="footnote-Creusot">
+<p><a href="https://www.youtube.com/watch?v=BPt987BRdDw"><em>Safer Rust: Program Verification with Creusot</em></a>. Xavier Denis (2021). The function we borrow from this talk was used to demonstrate how Rust's type system aids verification. We explore this idea in the next section, but in a different context. <a href="#fr-Creusot-1">↩</a></p>
+</li>
+<li id="footnote-RawMem">
+<p>Well, "unrestricted" relative to the current execution environment - there exist "sandboxes" (memory segmentation enforcement), like the process space the OS has allocated for your program. Such restrictions reduce the likelihood of a bug or exploit in one program affecting other programs or the OS itself. <a href="#fr-RawMem-1">↩</a></p>
+</li>
+<li id="footnote-AliasPaper">
+<p><a href="https://www.cmi.ac.in/~madhavan/courses/program-analysis-2008/papers/landi91-ptr-analysis-popl.pdf"><em>Pointer-induced aliasing: a problem classification</em></a>. William Landi, Barbara Ryder (1990). <a href="#fr-AliasPaper-1">↩</a> <a href="#fr-AliasPaper-2">↩2</a></p>
+</li>
+<li id="footnote-UndefResearch">
+<p><a href="https://people.csail.mit.edu/nickolai/papers/wang-undef-2012-08-21.pdf"><em>Undefined Behavior: What Happened to My Code?</em></a>. Xi Wang, Haogang Chen, Alvin Cheung, Zhihao Jia, Nickolai Zeldovich, M. Frans Kaashoek (2012). <a href="#fr-UndefResearch-1">↩</a></p>
+</li>
+<li id="footnote-SegFault">
+<p>"segmentation fault" , or "segfault" for short, is an error thrown by the operating system when your program attempts to access regions of memory that don't belong to it (outside allotted "segment"). While it can be frustrating to debug, imagine how difficult things would be if the OS didn't stop you! <a href="#fr-SegFault-1">↩</a></p>
+</li>
+<li id="footnote-VSA">
+<p><a href="https://www.ndss-symposium.org/wp-content/uploads/bar2021_23002_paper.pdf"><em>Effects of Precise and Imprecise Value-Set Analysis (VSA) Information on Manual Code Analysis</em></a>. Laura Matzen, Michelle Leger, Geoffrey Reedy (2021). <a href="#fr-VSA-1">↩</a> <a href="#fr-VSA-2">↩2</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

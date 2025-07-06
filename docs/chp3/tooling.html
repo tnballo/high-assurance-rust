@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html" class="active"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -201,9 +196,9 @@ While smart use of modules can help us tame architectural complexity, even a wel
 We'll also sample 3rd party utilities for miscellaneous tasks, like auditing dependencies for known vulnerabilities.</p>
 <h2 id="1st-party-tooling"><a class="header" href="#1st-party-tooling">1st Party Tooling</a></h2>
 <h3 id="rustdoc"><a class="header" href="#rustdoc"><code>rustdoc</code></a></h3>
-<p>Rust has a built-in document generator, <code>rustdoc</code><sup class="footnote-reference"><a href="#RustDoc">1</a></sup>.
+<p>Rust has a built-in document generator, <code>rustdoc</code><sup class="footnote-reference" id="fr-RustDoc-1"><a href="#footnote-RustDoc">1</a></sup>.
 It's a default part of the toolchain and comes bundled along with <code>cargo</code>.
-A special comment syntax allows you to write documentation, in Markdown<sup class="footnote-reference"><a href="#Markdown">2</a></sup>, directly alongside code.
+A special comment syntax allows you to write documentation, in Markdown<sup class="footnote-reference" id="fr-Markdown-1"><a href="#footnote-Markdown">2</a></sup>, directly alongside code.
 The benefit is twofold:</p>
 <ol>
 <li>
@@ -236,7 +231,7 @@ The benefit is twofold:</p>
 /// let list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 /// assert_eq!(count_primes(&amp;list), 4);
 /// ```
-#[doc(alias = &quot;primality&quot;)]
+#[doc(alias = "primality")]
 pub fn count_primes(num_list: &amp;[usize]) -&gt; usize {
     // Unnecessary, unidiomatic check
     if num_list == [] {
@@ -274,7 +269,7 @@ fn is_prime(n: usize) -&gt; bool {
 <p>The comments starting with three forward slashes (<code>///</code>) will be part of the rendered documentation.</p>
 </li>
 <li>
-<p><code>#[doc(alias = &quot;primality&quot;)]</code> is a macro that tags the function with another keyword, so that users entering the relevant search term <code>primality</code> will see this function displayed in search results.</p>
+<p><code>#[doc(alias = "primality")]</code> is a macro that tags the function with another keyword, so that users entering the relevant search term <code>primality</code> will see this function displayed in search results.</p>
 </li>
 </ul>
 </li>
@@ -325,7 +320,7 @@ It's already installed in the book's container, but the typical setup would be:<
 <pre><code class="language-ignore">rustup update
 rustup component add clippy
 </code></pre>
-<p>Per the <code>README.md</code> of <code>clippy</code>'s official source repo<sup class="footnote-reference"><a href="#ClippyReadme">3</a></sup>, the tool supports over 500 lints across the following categories:</p>
+<p>Per the <code>README.md</code> of <code>clippy</code>'s official source repo<sup class="footnote-reference" id="fr-ClippyReadme-1"><a href="#footnote-ClippyReadme">3</a></sup>, the tool supports over 500 lints across the following categories:</p>
 <div class="table-wrapper"><table><thead><tr><th>Category</th><th>Description</th><th>Default level</th></tr></thead><tbody>
 <tr><td><code>clippy::all</code></td><td>All lints that are on by default (correctness, suspicious, style, complexity, perf)</td><td><strong>warn/deny</strong></td></tr>
 <tr><td><code>clippy::correctness</code></td><td>Code that is outright wrong or useless</td><td><strong>deny</strong></td></tr>
@@ -338,9 +333,9 @@ rustup component add clippy
 <tr><td><code>clippy::cargo</code></td><td>Lints for the cargo manifest</td><td>allow</td></tr>
 </tbody></table>
 </div>
-<p>The full lint set has a searchable documentation site<sup class="footnote-reference"><a href="#ClippyLints">4</a></sup>.</p>
+<p>The full lint set has a searchable documentation site<sup class="footnote-reference" id="fr-ClippyLints-1"><a href="#footnote-ClippyLints">4</a></sup>.</p>
 <p>Notice that <code>clippy::correctness</code> can find actual bugs (as opposed to, say, unidiomatic but correct code pointed out by <code>clippy::style</code>).
-However, only a small minority of correctness checks are precise enough to be applied confidently and automatically (e.g. <code>MachineApplicable</code><sup class="footnote-reference"><a href="#MachApp">5</a></sup> rules).</p>
+However, only a small minority of correctness checks are precise enough to be applied confidently and automatically (e.g. <code>MachineApplicable</code><sup class="footnote-reference" id="fr-MachApp-1"><a href="#footnote-MachApp">5</a></sup> rules).</p>
 <p>To run <code>clippy</code> on the <code>prime_test</code> library with default settings:</p>
 <pre><code class="language-ignore">cd code_snippets/chp3/prime_test
 cargo clippy
@@ -378,15 +373,15 @@ This function could be a one-liner:</p>
 And its lints regularly improve.
 <code>clippy</code> makes a great addition to CI.</p>
 <blockquote>
-<p><strong>Aside on &quot;Trojan Source&quot; Attacks</strong></p>
+<p><strong>Aside on "Trojan Source" Attacks</strong></p>
 <p>One of the more esoteric lints in the <code>clippy::correctness</code> denies invisible Unicode characters in source files.
-While that eliminates potentially surprising edge cases, the Rust compiler itself now does linting to prevent &quot;trojan source&quot; attacks<sup class="footnote-reference"><a href="#TrojanSource">6</a></sup> - which use encoding tricks to produce source code that reads one way to a human (in terms of visible characters) but appears another way to the compiler (in terms of parsed tokens).
-This change was made in response to CVE-2021-42574<sup class="footnote-reference"><a href="#SrcCVE">7</a></sup>, in which researchers reported the attack as a threat to supply-chain security.</p>
+While that eliminates potentially surprising edge cases, the Rust compiler itself now does linting to prevent "trojan source" attacks<sup class="footnote-reference" id="fr-TrojanSource-1"><a href="#footnote-TrojanSource">6</a></sup> - which use encoding tricks to produce source code that reads one way to a human (in terms of visible characters) but appears another way to the compiler (in terms of parsed tokens).
+This change was made in response to CVE-2021-42574<sup class="footnote-reference" id="fr-SrcCVE-1"><a href="#footnote-SrcCVE">7</a></sup>, in which researchers reported the attack as a threat to supply-chain security.</p>
 </blockquote>
 <h3 id="rustfmt"><a class="header" href="#rustfmt"><code>rustfmt</code></a></h3>
 <p>Unlike a linter, which checks for best practices and high-level idioms, <code>rustfmt</code> enforces low-level style rules.
 Things like maximum line width, the number of allowed blank spaces between items, whether opening braces should be on the same line or the next, etc.</p>
-<p>The individual rewrites applied for a given project are configurable<sup class="footnote-reference"><a href="#RustFmt">8</a></sup>.
+<p>The individual rewrites applied for a given project are configurable<sup class="footnote-reference" id="fr-RustFmt-1"><a href="#footnote-RustFmt">8</a></sup>.
 You can adjust style rules to suit your team's preferences.</p>
 <p>Like <code>rustdoc</code>, <code>rustfmt</code> can be run with a <code>cargo</code> subcommand.
 To apply the default ruleset:</p>
@@ -399,15 +394,15 @@ Code review can be more efficient when all commits conform to a uniform style.</
 <h3 id="the-cargolock-file"><a class="header" href="#the-cargolock-file">The <code>Cargo.lock</code> File</a></h3>
 <p>This last entry in the 1st party list isn't a standalone tool - rather an important feature of <code>cargo</code> we should discuss.</p>
 <p>After running <code>cargo build</code> or <code>cargo run</code>, you may have noticed a new file appear alongside <code>Cargo.toml</code>: <code>Cargo.lock</code>.
-Where as <code>Cargo.toml</code> is something you'll edit frequently (e.g. to add new dependencies), <code>Cargo.lock</code> is an auto-generated file containing metadata for reproducible builds<sup class="footnote-reference"><a href="#CargoTomlVsLock">9</a></sup>.</p>
-<p>It &quot;locks in&quot; a specific dependency version at build time.
+Where as <code>Cargo.toml</code> is something you'll edit frequently (e.g. to add new dependencies), <code>Cargo.lock</code> is an auto-generated file containing metadata for reproducible builds<sup class="footnote-reference" id="fr-CargoTomlVsLock-1"><a href="#footnote-CargoTomlVsLock">9</a></sup>.</p>
+<p>It "locks in" a specific dependency version at build time.
 You wouldn't want <code>cargo</code> to eagerly upgrade dependencies every time you build.</p>
 <h4 id="reproducible-builds"><a class="header" href="#reproducible-builds">Reproducible Builds</a></h4>
-<p>For example, say you added a dependency on the <code>rayon</code> crate<sup class="footnote-reference"><a href="#Rayon">10</a></sup> to your <code>Cargo.toml</code> like so:</p>
+<p>For example, say you added a dependency on the <code>rayon</code> crate<sup class="footnote-reference" id="fr-Rayon-1"><a href="#footnote-Rayon">10</a></sup> to your <code>Cargo.toml</code> like so:</p>
 <pre><code class="language-ignore">[dependencies]
-rayon = &quot;^1.5&quot;
+rayon = "^1.5"
 </code></pre>
-<p>Per the Cargo Book's guide to specifying dependencies<sup class="footnote-reference"><a href="#CargoDep">11</a></sup>, this means the project can use any semantic version<sup class="footnote-reference"><a href="#SemVer">12</a></sup> of <code>rayon</code> that is greater than <code>1.5.0</code> but less than <code>2.0.0</code>.
+<p>Per the Cargo Book's guide to specifying dependencies<sup class="footnote-reference" id="fr-CargoDep-1"><a href="#footnote-CargoDep">11</a></sup>, this means the project can use any semantic version<sup class="footnote-reference" id="fr-SemVer-1"><a href="#footnote-SemVer">12</a></sup> of <code>rayon</code> that is greater than <code>1.5.0</code> but less than <code>2.0.0</code>.
 Let's assume at the time you first built your project, the latest available version of <code>rayon</code> was <code>1.5.0</code>.
 What happens when version <code>1.5.1</code> comes out?</p>
 <p>Nothing.
@@ -415,7 +410,7 @@ The <code>Cargo.lock</code> file generated during that first build logged <code>
 If you share a copy of the project directory with a co-worker, including the <code>Cargo.lock</code>, they'll be able to build the project using the exact same dependency versions as you.
 Committing the <code>Cargo.lock</code> file to version control is a good idea for projects that build an executable, like Chapter 2's CLI tool.
 So anyone can build an equivalent executable.</p>
-<p>Additionally, you may choose to include <code>rust-toolchain.toml</code><sup class="footnote-reference"><a href="#ToolFile">13</a></sup> file to ensure your co-worker uses the exact same compiler version and targets the same platform.</p>
+<p>Additionally, you may choose to include <code>rust-toolchain.toml</code><sup class="footnote-reference" id="fr-ToolFile-1"><a href="#footnote-ToolFile">13</a></sup> file to ensure your co-worker uses the exact same compiler version and targets the same platform.</p>
 <p>In theory, locking dependency versions shouldn't be necessary.
 Semantic versioning dictates that <code>1.5.1</code> only contains fully-backward compatible bug fixes.
 But that's a convention that can't be automatically enforced.
@@ -433,12 +428,12 @@ Just in case.</p>
 <p>Note that your dependencies do not need to be hosted on <a href="https://crates.io">crates.io</a>.
 Chapter 2's CLI tool could have pulled <code>clap</code> directly from it's GitHub repository like so:</p>
 <pre><code class="language-ignore">[dependencies]
-clap = { git = &quot;https://github.com/clap-rs/clap.git&quot;, features = [&quot;derive&quot;] }
+clap = { git = "https://github.com/clap-rs/clap.git", features = ["derive"] }
 </code></pre>
 <p><code>git = ...</code> can be used for any Git repository URL, including private, self-hosted repositories maintained by your company or team.</p>
 <p>Moreover, you can lock to a specific branch and commit hash manually:</p>
 <pre><code class="language-ignore">[dependencies]
-clap = { git = &quot;https://github.com/clap-rs/clap.git&quot;, branch = &quot;master&quot;, rev = &quot;31bd0b5&quot;, features = [&quot;derive&quot;] }
+clap = { git = "https://github.com/clap-rs/clap.git", branch = "master", rev = "31bd0b5", features = ["derive"] }
 </code></pre>
 <p>This is useful if you need to stay on a known-good version of an internal library, while still using <code>cargo update</code> to keep other dependencies tracking with upstream.</p>
 <h2 id="3rd-party-tooling"><a class="header" href="#3rd-party-tooling">3rd Party Tooling</a></h2>
@@ -450,7 +445,7 @@ Although some tools have additional setup steps.</p>
 For the remainder of this section, we'll assume you're using the book's container - which has each pre-installed.
 If not, please refer to the documentation of each individual tool (linked to in the footnotes).</p>
 <h3 id="cargo-modules"><a class="header" href="#cargo-modules"><code>cargo-modules</code></a></h3>
-<p>When you need a quick overview of a large Rust project, <code>cargo-modules</code><sup class="footnote-reference"><a href="#CargoModules">14</a></sup> can be handy.
+<p>When you need a quick overview of a large Rust project, <code>cargo-modules</code><sup class="footnote-reference" id="fr-CargoModules-1"><a href="#footnote-CargoModules">14</a></sup> can be handy.
 It prints the modules hierarchy, including both internal and external APIs, to console.</p>
 <p>Let's try it out on <code>clap</code>, the CLI argument parser we used in Chapter 2:</p>
 <pre><code class="language-ignore">git clone git@github.com:clap-rs/clap.git
@@ -477,10 +472,10 @@ cargo modules generate tree --with-types --package clap
 ...
 </code></pre>
 <h3 id="cargo-audit"><a class="header" href="#cargo-audit"><code>cargo-audit</code></a></h3>
-<p>Rust's crate ecosystem is something of a &quot;double-edged sword&quot;:</p>
+<p>Rust's crate ecosystem is something of a "double-edged sword":</p>
 <ul>
 <li>
-<p>On one hand, <code>cargo</code> makes building and integrating external dependencies easy and fun (relative to traditional systems-software build tools, like GNU <code>make</code><sup class="footnote-reference"><a href="#GNUMake">15</a></sup>).</p>
+<p>On one hand, <code>cargo</code> makes building and integrating external dependencies easy and fun (relative to traditional systems-software build tools, like GNU <code>make</code><sup class="footnote-reference" id="fr-GNUMake-1"><a href="#footnote-GNUMake">15</a></sup>).</p>
 </li>
 <li>
 <p>On the other, professional projects can quickly accumulate a staggering amount of dependencies. Many of which are transitive (dependency of a dependency).</p>
@@ -489,9 +484,9 @@ cargo modules generate tree --with-types --package clap
 <p>While long compile times are a nuisance, the true downside of large dependency graphs is maintenance.
 Just because you've updated to the latest version of a direct dependency doesn't mean its authors have done the same.
 It's possible to, directly or indirectly, depend on crate versions with known security issues.</p>
-<p>This is where <code>cargo-audit</code><sup class="footnote-reference"><a href="#CargoAudit">16</a></sup>, another <code>cargo</code> plugin, comes in.
+<p>This is where <code>cargo-audit</code><sup class="footnote-reference" id="fr-CargoAudit-1"><a href="#footnote-CargoAudit">16</a></sup>, another <code>cargo</code> plugin, comes in.
 It scans your entire dependency graph for known-vulnerable crate versions.
-Using public data cataloged in the <em>Rust Security Advisory Database</em><sup class="footnote-reference"><a href="#RustSecDB">17</a></sup>, maintained by the Rust Secure Code Working Group<sup class="footnote-reference"><a href="#RustSecWG">18</a></sup>.</p>
+Using public data cataloged in the <em>Rust Security Advisory Database</em><sup class="footnote-reference" id="fr-RustSecDB-1"><a href="#footnote-RustSecDB">17</a></sup>, maintained by the Rust Secure Code Working Group<sup class="footnote-reference" id="fr-RustSecWG-1"><a href="#footnote-RustSecWG">18</a></sup>.</p>
 <p>We can audit the full dependency graph of Chapter 2's <code>rcli</code> tool.
 Note we run the command from the workspace root, not the <code>rcli</code> folder:</p>
 <pre><code class="language-ignore">cd code_snippets/chp2/crypto_tool/
@@ -519,13 +514,13 @@ difference 2.0.0
 └── predicates 1.0.8
 </code></pre>
 <h3 id="cargo-binutils"><a class="header" href="#cargo-binutils"><code>cargo-binutils</code></a></h3>
-<p><code>cargo-binutils</code><sup class="footnote-reference"><a href="#CargoBinutils">19</a></sup> is a wrapper for GNU Binutils<sup class="footnote-reference"><a href="#GNUBinutils">20</a></sup>, a collection of command line tools for inspecting Linux binaries.
+<p><code>cargo-binutils</code><sup class="footnote-reference" id="fr-CargoBinutils-1"><a href="#footnote-CargoBinutils">19</a></sup> is a wrapper for GNU Binutils[^GNUBinutils], a collection of command line tools for inspecting Linux binaries.
 We won't enumerate every tool in the Binutils suite here.
 To give you a feel - we can use the <code>size</code> subcommand to get the exact count bytes in every section of the output binary for Chapter 2's <code>rcli</code> tool:</p>
 <pre><code class="language-ignore">cd code_snippets/chp2/crypto_tool/rcli
 cargo size --release -- -A
 </code></pre>
-<p>One specific line prints the size of the <code>.text</code> section, where ELF<sup class="footnote-reference"><a href="#ELFSpec">21</a></sup> binaries store executable code:</p>
+<p>One specific line prints the size of the <code>.text</code> section, where ELF<sup class="footnote-reference" id="fr-ELFSpec-1"><a href="#footnote-ELFSpec">20</a></sup> binaries store executable code:</p>
 <pre><code class="language-ignore">section                   size     addr
 .text                   598995   0x9080
 </code></pre>
@@ -536,77 +531,74 @@ In our case, <code>rcli</code> contains <code>599 kB</code> of executable code w
 <p>3rd party tools perform a range of auxiliary tasks.
 The list above is just a sample of what's out in the ecosystem, with more tools and <code>cargo</code> plugins becoming available every year.</p>
 <p>If you build production software in Rust, you're making investment in the language, toolchain, and ecosystem.
-Ecosystem dependency versions are easy enough to mange, SemVer<sup class="footnote-reference"><a href="#SemVer">12</a></sup> numbers are configurable via <code>Cargo.toml</code>.
+Ecosystem dependency versions are easy enough to mange, SemVer<sup class="footnote-reference" id="fr-SemVer-2"><a href="#footnote-SemVer">12</a></sup> numbers are configurable via <code>Cargo.toml</code>.
 But what about the language itself?</p>
 <p>We'll conclude this chapter by taking a brief look at the release cycle of the Rust toolchain.
 Don't worry - changes are always backwards compatible, new versions won't break your code.
 But understanding how Rust's versioning works is useful.
 Whether you want to keep up with the latest-and-greatest or just keep the production ship sailing smoothly.</p>
-<hr />
-<div class="footnote-definition" id="RustDoc"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html"><em>What is rustdoc?</em></a>. The Rustdoc Book (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Markdown"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://www.markdownguide.org/basic-syntax/"><em>Basic Syntax, The Markdown elements outlined in the original design document.</em></a>. Matt Cone (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ClippyReadme"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://github.com/rust-lang/rust-clippy/#clippy"><em>Clippy</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ClippyLints"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://rust-lang.github.io/rust-clippy/master/"><em>Clippy Lints</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MachApp"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_lint_defs/enum.Applicability.html#variant.MachineApplicable"><em><code>MachineApplicable</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="TrojanSource"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://arxiv.org/pdf/2111.00169.pdf"><em>Trojan Source: Invisible Vulnerabilities</em></a>. Nicholas Boucher, Ross Anderson (2021).</p>
-</div>
-<div class="footnote-definition" id="SrcCVE"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://blog.rust-lang.org/2021/11/01/cve-2021-42574.html"><em>Security advisory for rustc (CVE-2021-42574)</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RustFmt"><sup class="footnote-definition-label">8</sup>
-<p><a href="https://rust-lang.github.io/rustfmt/"><em>Configuring Rustfmt</em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoTomlVsLock"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html"><em><code>Cargo.toml</code> vs <code>Cargo.lock</code></em></a>. The Cargo Book (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Rayon"><sup class="footnote-definition-label">10</sup>
-<p><a href="hhttps://crates.io/crates/rayon"><em>rayon</em></a>. Josh Stone, Niko Matsakis (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoDep"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"><em>Specifying Dependencies</em></a>. The Cargo Book (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="SemVer"><sup class="footnote-definition-label">12</sup>
-<p><a href="https://semver.org/"><em>Semantic Versioning 2.0.0</em></a>. Tom Preston-Werner (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ToolFile"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://rust-lang.github.io/rustup/overrides.html"><em>Overrides</em></a>. The Rustup Book (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoModules"><sup class="footnote-definition-label">14</sup>
-<p><a href="https://crates.io/crates/cargo-modules"><em>cargo-modules</em></a>. Vincent Esche (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="GNUMake"><sup class="footnote-definition-label">15</sup>
-<p><a href="https://www.gnu.org/software/make/"><em>GNU Make</em></a>. The Free Software Foundation (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoAudit"><sup class="footnote-definition-label">16</sup>
-<p><a href="https://crates.io/crates/cargo-audit"><em>cargo-audit</em></a>. Alex Gaynor, Tony Arcieri, Sergey Davidoff (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RustSecDB"><sup class="footnote-definition-label">17</sup>
-<p><a href="https://rustsec.org/advisories/"><em>The Rust Security Advisory Database</em></a>. Rust Secure Code Working Group (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="RustSecWG"><sup class="footnote-definition-label">18</sup>
-<p><a href="https://rustsec.org/advisories/"><em>Secure Code Working Group</em></a>. Rust Secure Code Working Group (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoBinutils"><sup class="footnote-definition-label">19</sup>
-<p><a href="https://crates.io/crates/cargo-binutils"><em>cargo-binutils</em></a>. The Rust Embedded Working Group (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ELFSpec"><sup class="footnote-definition-label">21</sup>
-<p><a href="https://refspecs.linuxfoundation.org/elf/elf.pdf"><em>Tool Interface Standard (TIS) Executable and Linking Format (ELF) Specification</em></a>. TIS Committee (1995).</p>
-</div>
-<div class="footnote-definition" id="GNUBintuils"><sup class="footnote-definition-label">22</sup>
-<p><a href="https://www.gnu.org/software/binutils/"><em>GNU Binutils</em></a>. The Free Software Foundation (Accessed 2022).</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-RustDoc">
+<p><a href="https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html"><em>What is rustdoc?</em></a>. The Rustdoc Book (Accessed 2022). <a href="#fr-RustDoc-1">↩</a></p>
+</li>
+<li id="footnote-Markdown">
+<p><a href="https://www.markdownguide.org/basic-syntax/"><em>Basic Syntax, The Markdown elements outlined in the original design document.</em></a>. Matt Cone (Accessed 2022). <a href="#fr-Markdown-1">↩</a></p>
+</li>
+<li id="footnote-ClippyReadme">
+<p><a href="https://github.com/rust-lang/rust-clippy/#clippy"><em>Clippy</em></a>. The Rust Team (Accessed 2022). <a href="#fr-ClippyReadme-1">↩</a></p>
+</li>
+<li id="footnote-ClippyLints">
+<p><a href="https://rust-lang.github.io/rust-clippy/master/"><em>Clippy Lints</em></a>. The Rust Team (Accessed 2022). <a href="#fr-ClippyLints-1">↩</a></p>
+</li>
+<li id="footnote-MachApp">
+<p><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_lint_defs/enum.Applicability.html#variant.MachineApplicable"><em><code>MachineApplicable</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-MachApp-1">↩</a></p>
+</li>
+<li id="footnote-TrojanSource">
+<p><a href="https://arxiv.org/pdf/2111.00169.pdf"><em>Trojan Source: Invisible Vulnerabilities</em></a>. Nicholas Boucher, Ross Anderson (2021). <a href="#fr-TrojanSource-1">↩</a></p>
+</li>
+<li id="footnote-SrcCVE">
+<p><a href="https://blog.rust-lang.org/2021/11/01/cve-2021-42574.html"><em>Security advisory for rustc (CVE-2021-42574)</em></a>. The Rust Team (Accessed 2022). <a href="#fr-SrcCVE-1">↩</a></p>
+</li>
+<li id="footnote-RustFmt">
+<p><a href="https://rust-lang.github.io/rustfmt/"><em>Configuring Rustfmt</em></a>. The Rust Team (Accessed 2022). <a href="#fr-RustFmt-1">↩</a></p>
+</li>
+<li id="footnote-CargoTomlVsLock">
+<p><a href="https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html"><em><code>Cargo.toml</code> vs <code>Cargo.lock</code></em></a>. The Cargo Book (Accessed 2022). <a href="#fr-CargoTomlVsLock-1">↩</a></p>
+</li>
+<li id="footnote-Rayon">
+<p><a href="hhttps://crates.io/crates/rayon"><em>rayon</em></a>. Josh Stone, Niko Matsakis (Accessed 2022). <a href="#fr-Rayon-1">↩</a></p>
+</li>
+<li id="footnote-CargoDep">
+<p><a href="https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"><em>Specifying Dependencies</em></a>. The Cargo Book (Accessed 2022). <a href="#fr-CargoDep-1">↩</a></p>
+</li>
+<li id="footnote-SemVer">
+<p><a href="https://semver.org/"><em>Semantic Versioning 2.0.0</em></a>. Tom Preston-Werner (Accessed 2022). <a href="#fr-SemVer-1">↩</a> <a href="#fr-SemVer-2">↩2</a></p>
+</li>
+<li id="footnote-ToolFile">
+<p><a href="https://rust-lang.github.io/rustup/overrides.html"><em>Overrides</em></a>. The Rustup Book (Accessed 2022). <a href="#fr-ToolFile-1">↩</a></p>
+</li>
+<li id="footnote-CargoModules">
+<p><a href="https://crates.io/crates/cargo-modules"><em>cargo-modules</em></a>. Vincent Esche (Accessed 2022). <a href="#fr-CargoModules-1">↩</a></p>
+</li>
+<li id="footnote-GNUMake">
+<p><a href="https://www.gnu.org/software/make/"><em>GNU Make</em></a>. The Free Software Foundation (Accessed 2022). <a href="#fr-GNUMake-1">↩</a></p>
+</li>
+<li id="footnote-CargoAudit">
+<p><a href="https://crates.io/crates/cargo-audit"><em>cargo-audit</em></a>. Alex Gaynor, Tony Arcieri, Sergey Davidoff (Accessed 2022). <a href="#fr-CargoAudit-1">↩</a></p>
+</li>
+<li id="footnote-RustSecDB">
+<p><a href="https://rustsec.org/advisories/"><em>The Rust Security Advisory Database</em></a>. Rust Secure Code Working Group (Accessed 2022). <a href="#fr-RustSecDB-1">↩</a></p>
+</li>
+<li id="footnote-RustSecWG">
+<p><a href="https://rustsec.org/advisories/"><em>Secure Code Working Group</em></a>. Rust Secure Code Working Group (Accessed 2022). <a href="#fr-RustSecWG-1">↩</a></p>
+</li>
+<li id="footnote-CargoBinutils">
+<p><a href="https://crates.io/crates/cargo-binutils"><em>cargo-binutils</em></a>. The Rust Embedded Working Group (Accessed 2022). <a href="#fr-CargoBinutils-1">↩</a></p>
+</li>
+<li id="footnote-ELFSpec">
+<p><a href="https://refspecs.linuxfoundation.org/elf/elf.pdf"><em>Tool Interface Standard (TIS) Executable and Linking Format (ELF) Specification</em></a>. TIS Committee (1995). <a href="#fr-ELFSpec-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

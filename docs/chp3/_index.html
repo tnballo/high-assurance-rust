@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html" class="active"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -201,13 +196,13 @@ This chapter will focus on the Rust language proper - we'll tour its syntax, fea
 <p>Now we won't be covering all of Rust.
 It's a <em>big</em> language.
 Much closer to C++ than C.
-Our favorite comprehensive Rust book, <em>Programming Rust</em><sup class="footnote-reference"><a href="#ProgRust">1</a></sup>, is a 700+ page tome, a relentless enumeration of language features.
+Our favorite comprehensive Rust book, <em>Programming Rust</em><sup class="footnote-reference" id="fr-ProgRust-1"><a href="#footnote-ProgRust">1</a></sup>, is a 700+ page tome, a relentless enumeration of language features.
 Now it's a phenomenal book, and a major inspiration for this one.
 But we're talking multiple-Costco-mini-barrels-of-whole-bean-coffee kinds of endurance.</p>
 <p>Part of the challenge is the sheer breadth of features Rust offers.
 Being a relatively new language, Rust has the benefit of hindsight: it's free to cherry-pick successful aspects of its predecessors.</p>
-<p>This includes OCaml's algebraic data types, C++'s monomorphization, Scheme's hygienic macros, etc<sup class="footnote-reference"><a href="#RustInfluences">2</a></sup>.
-While the Rust Team strives for a cohesive design<sup class="footnote-reference"><a href="#BuildJosh">3</a></sup>, the language juggles several influences.</p>
+<p>This includes OCaml's algebraic data types, C++'s monomorphization, Scheme's hygienic macros, etc<sup class="footnote-reference" id="fr-RustInfluences-1"><a href="#footnote-RustInfluences">2</a></sup>.
+While the Rust Team strives for a cohesive design<sup class="footnote-reference" id="fr-BuildJosh-1"><a href="#footnote-BuildJosh">3</a></sup>, the language juggles several influences.</p>
 <p>Fortunately for us, you don't need an exhaustive understanding of Rust to be productive in it.
 This section previews key concepts - just enough to get you started reading and writing Rust snippets.
 We'll cement those concepts in the rest of the book by building an embedded-friendly, high assurance library.</p>
@@ -239,12 +234,12 @@ And to tackle learning additional language features (smart pointers, channels, a
 Hence the <em>zero-crash</em> pun in this chapter's title.</p>
 <p>To emphasize actionable assurance techniques, we'll frame our Rust tour in the context of a well-established industry standard.
 On wisdom tested in the most unforgiving of production environments.</p>
-<p>The Motor Industry Software Reliability Association (MISRA) C<sup class="footnote-reference"><a href="#MISRA">4</a></sup> guidelines are a set of C software development rules originally created for, as the acronym implies, the automotive industry.</p>
+<p>The Motor Industry Software Reliability Association (MISRA) C<sup class="footnote-reference" id="fr-MISRA-1"><a href="#footnote-MISRA">4</a></sup> guidelines are a set of C software development rules originally created for, as the acronym implies, the automotive industry.</p>
 <p>Unlike a <em>style</em> guide, MISRA C outlines <em>best practices</em> for developers of safety-critical systems.
-It's intended to maximize reliability, security, and maintainability<sup class="footnote-reference"><a href="#AntiMISRA">5</a></sup>.
+It's intended to maximize reliability, security, and maintainability<sup class="footnote-reference" id="fr-AntiMISRA-1"><a href="#footnote-AntiMISRA">5</a></sup>.
 For systems in which a bug can potentially endanger lives.</p>
-<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference"><a href="#DO-178C">6</a></sup> and ISO-26262<sup class="footnote-reference"><a href="#ISO-26262">7</a></sup>).
-The most recent version<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> introduces itself as:</p>
+<p>Today, these guidelines are widely used in the aerospace, defense, telecommunication, and medical device industries (in addition to industry-specific frameworks like DO-178C<sup class="footnote-reference" id="fr-DO-178C-1"><a href="#footnote-DO-178C">6</a></sup> and ISO-26262<sup class="footnote-reference" id="fr-ISO-26262-1"><a href="#footnote-ISO-26262">7</a></sup>).
+The most recent version<sup class="footnote-reference" id="fr-MISRA_2012-1"><a href="#footnote-MISRA_2012">8</a></sup> introduces itself as:</p>
 <blockquote>
 <p>The MISRA C Guidelines define a subset of the C language in which the opportunity to make mistakes is either removed or reduced.
 Many standards for the development of safety-related software require, or recommend, the use of a language subset, and this can also be used to develop any application with security, high integrity or high reliability requirements.</p>
@@ -254,10 +249,10 @@ Even outside of regulatory certification, these are practical guidelines for bui
 <p>Rust's core design is directly applicable to building safe, reliable software.
 Because we won't use the <code>unsafe</code> keyword, you could say that this book introduces a safe subset of the Rust language.</p>
 <blockquote>
-<p><strong>A &quot;Safe Subset&quot; for Our Purposes</strong></p>
-<p>What truly constitutes a &quot;safe subset&quot; of the Rust programming language is the subject of current standardization and research efforts.
+<p><strong>A "Safe Subset" for Our Purposes</strong></p>
+<p>What truly constitutes a "safe subset" of the Rust programming language is the subject of current standardization and research efforts.
 We will not attempt to formally define a safe subset in this book.</p>
-<p>Instead, for our core project, we'll use two crate-wide macros to restrict ourselves to what a practicing engineer could consider a &quot;safe subset&quot;:</p>
+<p>Instead, for our core project, we'll use two crate-wide macros to restrict ourselves to what a practicing engineer could consider a "safe subset":</p>
 <ul>
 <li>
 <p><code>#![forbid(unsafe_code)]</code>: Usage of the <code>unsafe</code> keyword is a compile-time error. This helps us maximize Rust's static guarantees.</p>
@@ -266,9 +261,9 @@ We will not attempt to formally define a safe subset in this book.</p>
 <p><code>#![no_std]</code>: We don't use standard library facilities (which contain <code>unsafe</code> code). More strictly, we opt out of all dynamic memory usage. Not relying on an external allocator has certain robustness benefits.</p>
 </li>
 </ul>
-<p>Because the core project is based on an open-source library<sup class="footnote-reference"><a href="#Scapegoat">9</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
+<p>Because the core project is based on an open-source library<sup class="footnote-reference" id="fr-Scapegoat-1"><a href="#footnote-Scapegoat">9</a></sup>, we know that working within these constraints is viable for non-trivial codebases.</p>
 </blockquote>
-<p>Now, being a new language, Rust is not yet widely certified for use in safety-critical settings - although this is an area of industry effort<sup class="footnote-reference"><a href="#Ferrocene">10</a></sup> and research<sup class="footnote-reference"><a href="#RustCrit">11</a></sup>.
+<p>Now, being a new language, Rust is not yet widely certified for use in safety-critical settings - although this is an area of industry effort<sup class="footnote-reference" id="fr-Ferrocene-1"><a href="#footnote-Ferrocene">10</a></sup> and research<sup class="footnote-reference" id="fr-RustCrit-1"><a href="#footnote-RustCrit">11</a></sup>.
 There is a qualified Rust compiler for automotive (ISO 26262) and industrial (IEC 61508) usecases, but there is no Rust counterpart to the MISRA C guidelines.
 Yet.</p>
 <p>Many MISRA C rules are specific to the C language.
@@ -281,27 +276,27 @@ We'll split a portion of the remainder into two categories, using these labels t
 <p><strong>Reliably for Rust (RR):</strong> Rule generally applicable to the design and implementation of programs prioritizing correctness and robustness. Can be readily applied in Rust, just not automatically. Conscious effort is required on the programmer's part.</p>
 </li>
 </ul>
-<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup> rule.
+<p>As we introduce a safe subset of the Rust language, we'll occasionally highlight an applicable MISRA C<sup class="footnote-reference" id="fr-MISRA_2012-2"><a href="#footnote-MISRA_2012">8</a></sup> rule.
 Both in this chapter and throughout the book, preceded by one the the labels above.</p>
 <p>As a preview - here's three MISRA C rules we'll conform to for the core library we write (but not for development tools we build or use, since those aren't safety-critical):</p>
 <blockquote>
-<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
+<p><strong>[RR, Directive 4.1]</strong> Minimize runtime failures<sup class="footnote-reference" id="fr-MISRA_2012-3"><a href="#footnote-MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
+<p><strong>[RR, Directive 4.12]</strong> Do not use dynamic memory allocation<sup class="footnote-reference" id="fr-MISRA_2012-4"><a href="#footnote-MISRA_2012">8</a></sup></p>
 </blockquote>
 <blockquote>
-<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference"><a href="#MISRA_2012">8</a></sup></p>
+<p><strong>[RR, Rule 17.2]</strong> Functions can't call themselves recursively (directly or indirectly)<sup class="footnote-reference" id="fr-MISRA_2012-5"><a href="#footnote-MISRA_2012">8</a></sup></p>
 </blockquote>
 <p>Note we're omitting rationale.
 Which can be convincing, if the above three rules appear restrictive.
 Fortunately, Rust makes it feasible and ergonomic to meet this sort of high assurance criteria.</p>
 <blockquote>
 <p><strong>A Distinct Take on MISRA C</strong></p>
-<p>To be cautious of respecting copyright, we'll only provide a rough paraphrase of each MISRA rule's &quot;heading&quot; - not its exact phrasing, full explanation, rationale, exceptions, category, etc.
-This is the same approach taken by academic publications<sup class="footnote-reference"><a href="#MisraPub">12</a></sup> that enumerate MISRA rules.</p>
+<p>To be cautious of respecting copyright, we'll only provide a rough paraphrase of each MISRA rule's "heading" - not its exact phrasing, full explanation, rationale, exceptions, category, etc.
+This is the same approach taken by academic publications<sup class="footnote-reference" id="fr-MisraPub-1"><a href="#footnote-MisraPub">12</a></sup> that enumerate MISRA rules.</p>
 <p>In several cases, our paraphrase will introduce Rust-specific terminology not present in the MISRA C Guidelines.
-Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference"><a href="#MisraRust">13</a></sup>, we're not aiming to be exhaustive.
+Unlike prior work mapping MISRA rules to Rust<sup class="footnote-reference" id="fr-MisraRust-1"><a href="#footnote-MisraRust">13</a></sup>, we're not aiming to be exhaustive.
 We're sampling rules for the purpose of learning assurance concepts.</p>
 </blockquote>
 <p>We can taxonomize the MISRA rules and directives mentioned in this chapter as follows:</p>
@@ -327,12 +322,12 @@ We'll focus on tools in this book.</p>
 <p>Using <code>clap</code> in the last chapter already gave us a taste for integrating 3rd party libraries into our builds.
 We also leveraged Rust's built-in, 1st-party unit testing framework to verify our RC4 implementation against official test vectors.
 Yet we've only scratched the surface on what <code>cargo</code> can do to aid day-to-day development tasks.
-The Cargo Book<sup class="footnote-reference"><a href="#CargoBook">14</a></sup> offers a more complete overview.</p>
+The Cargo Book<sup class="footnote-reference" id="fr-CargoBook-1"><a href="#footnote-CargoBook">14</a></sup> offers a more complete overview.</p>
 <p>In this chapter, we'll highlight a few more components of Rust's tooling ecosystem, both 1st and 3rd party.
 We'll also discuss Rust's release cycle to understand how stability is enabled for production systems.
 More generally, we'll cover a key pillar of successful software projects: code organization.</p>
 <h2 id="brief-prerequisites-stack-heap-values"><a class="header" href="#brief-prerequisites-stack-heap-values">Brief Prerequisites: Stack, Heap, Values</a></h2>
-<p>This chapter will occasionally use two technical terms: &quot;stack&quot; and &quot;heap&quot;.
+<p>This chapter will occasionally use two technical terms: "stack" and "heap".
 In this context, these terms refer to two kinds of <em>distinct memory locations</em>.
 Not the data structures of the same name (an unfortunate jargon overload).</p>
 <p>The next chapter will discuss memory in detail.
@@ -342,10 +337,10 @@ For now, think of it like this:</p>
 <p><strong>Stack memory</strong> is short-term (live for function call duration) storage that's readily available. However, it can <strong>only store fixed-size</strong> variables.</p>
 <ul>
 <li>
-<p>The mechanics of the stack are closely related to CPU hardware. In fact, many processors have a specific register called a &quot;stack pointer&quot;.</p>
+<p>The mechanics of the stack are closely related to CPU hardware. In fact, many processors have a specific register called a "stack pointer".</p>
 </li>
 <li>
-<p>Stack memory works like the stack data structure - memory &quot;frames&quot; are <em>Last In First Out (LIFO).</em></p>
+<p>Stack memory works like the stack data structure - memory "frames" are <em>Last In First Out (LIFO).</em></p>
 </li>
 <li>
 <p>Integers and arrays are stored on the stack by default.</p>
@@ -356,7 +351,7 @@ For now, think of it like this:</p>
 <p><strong>Heap memory</strong> is long-term (live until freed) storage that has to be requested explicitly and cleaned up later. But it can store variables whose <strong>size is decided at runtime</strong>.</p>
 <ul>
 <li>
-<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference"><a href="#Malloc">15</a></sup>, implements complex logic to manage chunks of RAM.</p>
+<p>The mechanics of the heap are handled by software, but map to DRAM hardware. A memory allocation library, typically working in tandem with the OS<sup class="footnote-reference" id="fr-Malloc-1"><a href="#footnote-Malloc">15</a></sup>, implements complex logic to manage chunks of RAM.</p>
 </li>
 <li>
 <p>Vectors and non-literal strings are typically stored on the heap.</p>
@@ -365,76 +360,76 @@ For now, think of it like this:</p>
 </li>
 </ul>
 <p>The stack/heap distinction is a computer architecture concern that needs to show up in the syntax of systems programming languages.
-Programming &quot;close to the metal&quot; requires a mental model that reflects the hardware/software interface.</p>
-<p>&quot;Value&quot; is another term this chapter makes use of.
+Programming "close to the metal" requires a mental model that reflects the hardware/software interface.</p>
+<p>"Value" is another term this chapter makes use of.
 It's a concept that spans every kind of programming language:</p>
 <ul>
 <li>A <strong>value</strong> is a memory-location-independent <em>concrete instance</em> of typed data.</li>
 </ul>
-<p>For example, in <code>let string_literal = &quot;Hello, World!&quot;;</code>, <code>string_literal</code> is a <em>variable</em> (label) assigned the <em>value</em> <code>&quot;Hello, World!&quot;</code>. This value has two parts:</p>
+<p>For example, in <code>let string_literal = "Hello, World!";</code>, <code>string_literal</code> is a <em>variable</em> (label) assigned the <em>value</em> <code>"Hello, World!"</code>. This value has two parts:</p>
 <ol>
 <li>
 <p>A type (here, <code>T: &amp;'static str</code> - we'll break down how to read that signature)</p>
 </li>
 <li>
-<p>A concrete bit-pattern (whatever encodes the specific UTF-8 string <code>&quot;Hello, World!&quot;</code>).</p>
+<p>A concrete bit-pattern (whatever encodes the specific UTF-8 string <code>"Hello, World!"</code>).</p>
 </li>
 </ol>
 <p>With that out of the way, let's start the zero-crash course.</p>
 <h2 id="learning-outcomes"><a class="header" href="#learning-outcomes">Learning Outcomes</a></h2>
 <ul>
 <li>Learn key guidelines for writing high assurance software.</li>
-<li>Understand &quot;Undefined Behavior&quot; and its implications.</li>
+<li>Understand "Undefined Behavior" and its implications.</li>
 <li>Learn core Rust language features, get comfortable reading/writing Rust snippets.</li>
 <li>Learn must-have Rust tooling to ease day-to-day software engineering tasks.</li>
 </ul>
-<hr />
-<div class="footnote-definition" id="ProgRust"><sup class="footnote-definition-label">1</sup>
-<p><a href="https://amzn.to/35cu1Za"><em><strong>[PERSONAL FAVORITE]</strong> Programming Rust: Fast, Safe Systems Development</em></a>. Jim Blandy, Jason Orendorff, Leonora Tindall (2021).</p>
-</div>
-<div class="footnote-definition" id="RustInfluences"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://doc.rust-lang.org/reference/influences.html"><em>The Rust Reference: Influences</em></a>. The Rust Team (2021).</p>
-</div>
-<div class="footnote-definition" id="BuildJosh"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://anchor.fm/building-with-rust/episodes/Josh-Triplett-on-Building-the-Build-System-of-his-Dreams-e1dt81c"><em>Josh Triplett on Building the Build System of his Dreams</em></a>. Sean Chen (2022).</p>
-</div>
-<div class="footnote-definition" id="MISRA"><sup class="footnote-definition-label">4</sup>
-<p><a href="https://www.misra.org.uk/misra-c/"><em>MISRA C</em></a>. MISRA (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="AntiMISRA"><sup class="footnote-definition-label">5</sup>
-<p><a href="https://ieeexplore.ieee.org/abstract/document/4658076"><em>Assessing the Value of Coding Standards: An Empirical Study</em></a>. Cathal Boogerd, Leon Moonen (2008). This paper, which evaluated the MISRA C 2004 standard, makes the claim that only 12 of 72 MISRA rules were significantly effective for fault detection and that adherence to certain rules might, counter intuitively, actually <em>increase</em> fault rate. These conclusions are controversial, MISRA C and similar coding standards continue to be best practices in several industries. Outside of a subsequent study by the same authors, we couldn't find other research arriving at similar conclusions. But such claims are worth noting for completeness. We encourage readers to maintain a mindset of healthy skepticism! At the very least, we can agree there is nuance to the impact and application of coding standards.</p>
-</div>
-<div class="footnote-definition" id="DO-178C"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://en.wikipedia.org/wiki/DO-178C"><em>DO-178C</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="ISO-26262"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://en.wikipedia.org/wiki/ISO_26262"><em>ISO 26262</em></a>. Wikipedia (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-<div class="footnote-definition" id="Scapegoat"><sup class="footnote-definition-label">9</sup>
-<p><a href="https://github.com/tnballo/scapegoat"><em><code>scapegoat</code></em></a>. Tiemoko Ballo (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Ferrocene"><sup class="footnote-definition-label">10</sup>
-<p><a href="https://ferrous-systems.com/ferrocene/">Ferrocene</a>. Ferrous Systems (2021).</p>
-</div>
-<div class="footnote-definition" id="RustCrit"><sup class="footnote-definition-label">11</sup>
-<p><a href="https://ieeexplore.ieee.org/document/8990314"><em>Towards Rust for Critical Systems</em></a>. Andre Pinho, Luis Couto, Jose Oliveira (2019).</p>
-</div>
-<div class="footnote-definition" id="MisraPub"><sup class="footnote-definition-label">12</sup>
-<p><a href="https://arxiv.org/pdf/1809.00821.pdf"><em>The MISRA C Coding Standard and its Role in the Development and Analysis of Safety- and Security-Critical Embedded Software</em></a>. Roberto Bagnara, Abramo Bagnara, and Patricia Hill (2018).</p>
-</div>
-<div class="footnote-definition" id="MisraRust"><sup class="footnote-definition-label">13</sup>
-<p><a href="https://github.com/PolySync/misra-rust/blob/master/MISRA-Rules.md"><em>MISRA-Rust</em></a>. Shea Newton (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="CargoBook"><sup class="footnote-definition-label">14</sup>
-<p><a href="https://doc.rust-lang.org/cargo/"><em>The Cargo Book</em></a>. The Cargo Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="Malloc"><sup class="footnote-definition-label">15</sup>
-<p>A user space &quot;memory allocator&quot; can issue &quot;system calls&quot; to an OS to grow heap capacity as needed. If your program uses heap memory, it must link against this runtime support library. This is extremely common, it's how most programs work.</p>
-</div>
-
+<hr>
+<ol class="footnote-definition"><li id="footnote-ProgRust">
+<p><a href="https://amzn.to/35cu1Za"><em><strong>[PERSONAL FAVORITE]</strong> Programming Rust: Fast, Safe Systems Development</em></a>. Jim Blandy, Jason Orendorff, Leonora Tindall (2021). <a href="#fr-ProgRust-1">↩</a></p>
+</li>
+<li id="footnote-RustInfluences">
+<p><a href="https://doc.rust-lang.org/reference/influences.html"><em>The Rust Reference: Influences</em></a>. The Rust Team (2021). <a href="#fr-RustInfluences-1">↩</a></p>
+</li>
+<li id="footnote-BuildJosh">
+<p><a href="https://anchor.fm/building-with-rust/episodes/Josh-Triplett-on-Building-the-Build-System-of-his-Dreams-e1dt81c"><em>Josh Triplett on Building the Build System of his Dreams</em></a>. Sean Chen (2022). <a href="#fr-BuildJosh-1">↩</a></p>
+</li>
+<li id="footnote-MISRA">
+<p><a href="https://www.misra.org.uk/misra-c/"><em>MISRA C</em></a>. MISRA (Accessed 2022). <a href="#fr-MISRA-1">↩</a></p>
+</li>
+<li id="footnote-AntiMISRA">
+<p><a href="https://ieeexplore.ieee.org/abstract/document/4658076"><em>Assessing the Value of Coding Standards: An Empirical Study</em></a>. Cathal Boogerd, Leon Moonen (2008). This paper, which evaluated the MISRA C 2004 standard, makes the claim that only 12 of 72 MISRA rules were significantly effective for fault detection and that adherence to certain rules might, counter intuitively, actually <em>increase</em> fault rate. These conclusions are controversial, MISRA C and similar coding standards continue to be best practices in several industries. Outside of a subsequent study by the same authors, we couldn't find other research arriving at similar conclusions. But such claims are worth noting for completeness. We encourage readers to maintain a mindset of healthy skepticism! At the very least, we can agree there is nuance to the impact and application of coding standards. <a href="#fr-AntiMISRA-1">↩</a></p>
+</li>
+<li id="footnote-DO-178C">
+<p><a href="https://en.wikipedia.org/wiki/DO-178C"><em>DO-178C</em></a>. Wikipedia (Accessed 2022). <a href="#fr-DO-178C-1">↩</a></p>
+</li>
+<li id="footnote-ISO-26262">
+<p><a href="https://en.wikipedia.org/wiki/ISO_26262"><em>ISO 26262</em></a>. Wikipedia (Accessed 2022). <a href="#fr-ISO-26262-1">↩</a></p>
+</li>
+<li id="footnote-MISRA_2012">
+<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019). <a href="#fr-MISRA_2012-1">↩</a> <a href="#fr-MISRA_2012-2">↩2</a> <a href="#fr-MISRA_2012-3">↩3</a> <a href="#fr-MISRA_2012-4">↩4</a> <a href="#fr-MISRA_2012-5">↩5</a></p>
+</li>
+<li id="footnote-Scapegoat">
+<p><a href="https://github.com/tnballo/scapegoat"><em><code>scapegoat</code></em></a>. Tiemoko Ballo (Accessed 2022). <a href="#fr-Scapegoat-1">↩</a></p>
+</li>
+<li id="footnote-Ferrocene">
+<p><a href="https://ferrous-systems.com/ferrocene/">Ferrocene</a>. Ferrous Systems (2021). <a href="#fr-Ferrocene-1">↩</a></p>
+</li>
+<li id="footnote-RustCrit">
+<p><a href="https://ieeexplore.ieee.org/document/8990314"><em>Towards Rust for Critical Systems</em></a>. Andre Pinho, Luis Couto, Jose Oliveira (2019). <a href="#fr-RustCrit-1">↩</a></p>
+</li>
+<li id="footnote-MisraPub">
+<p><a href="https://arxiv.org/pdf/1809.00821.pdf"><em>The MISRA C Coding Standard and its Role in the Development and Analysis of Safety- and Security-Critical Embedded Software</em></a>. Roberto Bagnara, Abramo Bagnara, and Patricia Hill (2018). <a href="#fr-MisraPub-1">↩</a></p>
+</li>
+<li id="footnote-MisraRust">
+<p><a href="https://github.com/PolySync/misra-rust/blob/master/MISRA-Rules.md"><em>MISRA-Rust</em></a>. Shea Newton (Accessed 2022). <a href="#fr-MisraRust-1">↩</a></p>
+</li>
+<li id="footnote-CargoBook">
+<p><a href="https://doc.rust-lang.org/cargo/"><em>The Cargo Book</em></a>. The Cargo Team (Accessed 2022). <a href="#fr-CargoBook-1">↩</a></p>
+</li>
+<li id="footnote-Malloc">
+<p>A user space "memory allocator" can issue "system calls" to an OS to grow heap capacity as needed. If your program uses heap memory, it must link against this runtime support library. This is extremely common, it's how most programs work. <a href="#fr-Malloc-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

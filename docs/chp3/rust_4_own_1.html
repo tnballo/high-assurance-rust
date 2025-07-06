@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -24,28 +24,42 @@
         <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
-        <!-- Provide site root to javascript -->
-        <script>
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
 
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -59,24 +73,22 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -84,43 +96,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../landing.html">High Assurance Rust</a></li><li class="chapter-item expanded affix "><a href="../faq.html">Frequently Asked Questions (FAQ)</a></li><li class="chapter-item expanded affix "><a href="../engage.html">Engage with this Book!</a></li><li class="chapter-item expanded affix "><a href="../cfp.html">Sponsor Call for Proposals (CFP)</a></li><li class="chapter-item expanded affix "><a href="../download.html">Download</a></li><li class="chapter-item expanded affix "><a href="../changelog.html">Changelog</a></li><li class="chapter-item expanded affix "><a href="../license.html">License</a></li><li class="chapter-item expanded affix "><li class="part-title">Novice: Systems Security</li><li class="spacer"></li><li class="chapter-item expanded "><a href="../chp1/_index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp1/why_this_book.html"><strong aria-hidden="true">1.1.</strong> Why this book?</a></li><li class="chapter-item expanded "><a href="../chp1/how_is_this_book_structured.html"><strong aria-hidden="true">1.2.</strong> How is this book structured?</a></li><li class="chapter-item expanded "><a href="../chp1/challenges.html"><strong aria-hidden="true">1.3.</strong> Hands-on Learning</a></li><li class="chapter-item expanded "><a href="../chp1/about_the_team.html"><strong aria-hidden="true">1.4.</strong> About the Team</a></li><li class="chapter-item expanded "><a href="../chp1/_hands_on.html"><strong aria-hidden="true">1.5.</strong> Warmup: Environment Setup</a></li></ol></li><li class="chapter-item expanded "><a href="../chp2/_index.html"><strong aria-hidden="true">2.</strong> Software Assurance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp2/static_vs_dynamic.html"><strong aria-hidden="true">2.1.</strong> Static vs. Dynamic Tools</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_1.html"><strong aria-hidden="true">2.2.</strong> Static Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/static_assurance_2.html"><strong aria-hidden="true">2.3.</strong> Static Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_1.html"><strong aria-hidden="true">2.4.</strong> Dynamic Assurance (1/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_2.html"><strong aria-hidden="true">2.5.</strong> Dynamic Assurance (2/3)</a></li><li class="chapter-item expanded "><a href="../chp2/dynamic_assurance_3.html"><strong aria-hidden="true">2.6.</strong> Dynamic Assurance (3/3)</a></li><li class="chapter-item expanded "><a href="../chp2/limits.html"><strong aria-hidden="true">2.7.</strong> Limitations and Threat Modeling</a></li><li class="chapter-item expanded "><a href="../chp2/cli.html"><strong aria-hidden="true">2.8.</strong> DIY CLI Encryption Tool</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_1.html"><strong aria-hidden="true">2.9.</strong> Operational Assurance (1/2)</a></li><li class="chapter-item expanded "><a href="../chp2/operational_assurance_2.html"><strong aria-hidden="true">2.10.</strong> Operational Assurance (2/2)</a></li><li class="chapter-item expanded "><a href="../chp2/_hands_on.html"><strong aria-hidden="true">2.11.</strong> Challenge: Extend the CLI Tool</a></li></ol></li><li class="chapter-item expanded "><a href="../chp3/_index.html"><strong aria-hidden="true">3.</strong> Rust Zero-Crash Course</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp3/undef.html"><strong aria-hidden="true">3.1.</strong> On Undefined Behavior</a></li><li class="chapter-item expanded "><a href="../chp3/rust_1_low_data_rep.html"><strong aria-hidden="true">3.2.</strong> Rust: Low-Level Data (1/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_2_high_data_rep.html"><strong aria-hidden="true">3.3.</strong> Rust: High-Level Data (2/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_3_ctrl_flow.html"><strong aria-hidden="true">3.4.</strong> Rust: Control Flow (3/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_4_own_1.html" class="active"><strong aria-hidden="true">3.5.</strong> Rust: Ownership Principles (4/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_5_own_2.html"><strong aria-hidden="true">3.6.</strong> Rust: Ownership in Practice (5/6)</a></li><li class="chapter-item expanded "><a href="../chp3/rust_6_error.html"><strong aria-hidden="true">3.7.</strong> Rust: Error Handling (6/6)</a></li><li class="chapter-item expanded "><a href="../chp3/modules.html"><strong aria-hidden="true">3.8.</strong> The Module System</a></li><li class="chapter-item expanded "><a href="../chp3/tooling.html"><strong aria-hidden="true">3.9.</strong> Recommended Tooling</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.10.</strong> Rust's Release Cycle</div></li><li class="chapter-item expanded "><a href="../chp3/_hands_on.html"><strong aria-hidden="true">3.11.</strong> Challenge: Port a Program</a></li></ol></li><li class="chapter-item expanded "><a href="../chp4/_index.html"><strong aria-hidden="true">4.</strong> Understanding Memory Safety and Exploitation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp4/sw_stack_1.html"><strong aria-hidden="true">4.1.</strong> Software Perspective: CPU to Process</a></li><li class="chapter-item expanded "><a href="../chp4/assure_stack_1.html"><strong aria-hidden="true">4.2.</strong> Assurance Perspective: Stack Safety</a></li><li class="chapter-item expanded "><a href="../chp4/attack_1.html"><strong aria-hidden="true">4.3.</strong> Attacker's Perspective: Breaking Safety (1/2)</a></li><li class="chapter-item expanded "><a href="../chp4/attack_2.html"><strong aria-hidden="true">4.4.</strong> Attacker's Perspective: Unifying Theory (2/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.5.</strong> Debugging DIY Secret Obfuscation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.6.</strong> Stack Exploitation</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.7.</strong> Software Perspective: Heap (1/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.8.</strong> Software Perspective: Heap (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.9.</strong> Heap Exploitation</div></li><li class="chapter-item expanded "><a href="../chp4/safe_rust_PLACEHOLDER.html"><strong aria-hidden="true">4.10.</strong> Rust's Memory Safety Guarantees (1/2)</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.11.</strong> Rust's Memory Safety Guarantees (2/2)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.12.</strong> Language-agnostic Mitigations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.13.</strong> Case Study: Real-world Rust CVEs</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.14.</strong> Challenge: Vulnerability Research</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced Beginner: Core Project</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Binary Search Tree (BST) Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">5.1.</strong> Core BST Operations in Python</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.2.</strong> Problems Translating to Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> The Importance of Balance</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Building an Arena Allocator</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> Let's Talk Allocators</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.2.</strong> A Stack-Only Arena</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> Index-based Data Structures</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> A Self-balancing BST</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chp7/traits.html"><strong aria-hidden="true">7.1.</strong> Interface-relevant Traits</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.2.</strong> Scapegoat Trees</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.3.</strong> Insert</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.4.</strong> Remove</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.5.</strong> Find</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Digital Twin Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">8.1.</strong> Basic QEMU Internals</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.2.</strong> How Semi-hosting Works</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.3.</strong> CLI REPL Harness</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.4.</strong> Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.6.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Building Maps and Sets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Implementing Iterators</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.2.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Competent: Validation and Deployment</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Static Verification</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> An Introduction to 1st Order Logic</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> Proving Absence of Panics</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.3.</strong> Deductively Verifying our Arena Allocator</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.4.</strong> Model Checking for unsafe Code</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.6.</strong> Challenge: Prove a Sorting Algorithm</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.</strong> Dynamic Testing</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">12.1.</strong> Introduction to Coverage-Guided Fuzzing</div></li><li class="chapter-item expanded "><a href="../chp12/diff_fuzz_PLACEHOLDER.html"><strong aria-hidden="true">12.2.</strong> Building a Differential Fuzzing Harness</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.3.</strong> Using Miri to Detect Undefined Behavior</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.4.</strong> Benchmarking and Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.5.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">12.6.</strong> Challenge: Bug-hunting with Fuzzers</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.</strong> Operational Deployment</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">13.1.</strong> Understanding unsafe (1/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.2.</strong> Understanding unsafe (2/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.3.</strong> Understanding unsafe (3/3)</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.4.</strong> CFFI 101</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.5.</strong> C99 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.6.</strong> Python3 Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.7.</strong> Runtime Balance Reconfiguration</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.8.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">13.9.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.</strong> Maximizing Assurance</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">14.1.</strong> Rust Security Research</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.2.</strong> Rust's Limitations</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.3.</strong> Best Practices Beyond Rust</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.4.</strong> TODO</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">14.5.</strong> Challenge: TODO</div></li></ol></li><li class="chapter-item expanded "><li class="part-title">Conclusion</li><li class="spacer"></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.</strong> Review</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">15.1.</strong> Key Concepts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.2.</strong> Key Blue-Team Skills</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">15.3.</strong> Key Red-Team Skills</div></li></ol></li><li class="chapter-item expanded "><a href="../chp16_appendix/_index.html"><strong aria-hidden="true">16.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">16.1.</strong> Setup: Using our Docker Container</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/tools.html"><strong aria-hidden="true">16.2.</strong> Inventory: Tools of the Trade</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/books.html"><strong aria-hidden="true">16.3.</strong> Inventory: Recommended Reading</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/resources.html"><strong aria-hidden="true">16.4.</strong> Inventory: Additional Resources</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/crypto.html"><strong aria-hidden="true">16.5.</strong> Fundamentals: Stream Ciphers</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/types.html"><strong aria-hidden="true">16.6.</strong> Fundamentals: Type Systems</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/components.html"><strong aria-hidden="true">16.7.</strong> Fundamentals: Component-Based Design</a></li><li class="chapter-item expanded "><a href="../chp16_appendix/mem_hierarch.html"><strong aria-hidden="true">16.8.</strong> Fundamentals: Memory Hierarchy</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.9.</strong> Fundamentals: Dynamic Linking</div></li><li class="chapter-item expanded "><a href="../chp16_appendix/icfg.html"><strong aria-hidden="true">16.10.</strong> Theory: Inter-procedural CFGs</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.11.</strong> Misc: Size Optimization</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.12.</strong> Misc: The Typestate Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.13.</strong> Misc: C++ Interoperability</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.14.</strong> Misc: Compile-time Metaprogramming</div></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -130,13 +124,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -195,19 +190,19 @@
 <p>Before we get into the mechanics of ownership, we should understand its motivation: managing memory.</p>
 <p>Allocating memory is often easy, it happens at variable declaration.
 Fixed-size types (e.g. <code>[T; N]</code>) can be allocated on the stack, dynamically-sized types (e.g. <code>Vec&lt;T&gt;</code>) must be allocated on the heap.</p>
-<p>De-allocating (aka &quot;freeing&quot;) memory is where things get tricky.
+<p>De-allocating (aka "freeing") memory is where things get tricky.
 Traditionally, there have been two strategies: automated garbage collection and manual memory management.
-Rust introduces<sup class="footnote-reference"><a href="#Own">1</a></sup> ownership, a third approach.
+Rust introduces<sup class="footnote-reference" id="fr-Own-1"><a href="#footnote-Own">1</a></sup> ownership, a third approach.
 The below table offers an approximate comparison:</p>
 <div class="table-wrapper"><table><thead><tr><th>Memory Management</th><th>Fast?</th><th>Safe?</th><th>Tradeoff</th><th>Example Languages</th></tr></thead><tbody>
-<tr><td>Garbage collection</td><td>No, unpredictable latency spikes<sup class="footnote-reference"><a href="#DiscGo">2</a></sup></td><td>Yes</td><td>Unsuitable for real-time and/or embedded systems</td><td>Go, Java, Python, Haskell, etc</td></tr>
-<tr><td>Manual <code>malloc</code>/<code>new</code> and <code>free/delete</code></td><td>Yes</td><td>No, extreme UB risk<sup class="footnote-reference"><a href="#Sok:EWoM">3</a></sup></td><td>Significant source of security vulnerabilities for decades</td><td>C, C++</td></tr>
+<tr><td>Garbage collection</td><td>No, unpredictable latency spikes<sup class="footnote-reference" id="fr-DiscGo-1"><a href="#footnote-DiscGo">2</a></sup></td><td>Yes</td><td>Unsuitable for real-time and/or embedded systems</td><td>Go, Java, Python, Haskell, etc</td></tr>
+<tr><td>Manual <code>malloc</code>/<code>new</code> and <code>free/delete</code></td><td>Yes</td><td>No, extreme UB risk<sup class="footnote-reference" id="fr-Sok:EWoM-1"><a href="#footnote-Sok:EWoM">3</a></sup></td><td>Significant source of security vulnerabilities for decades</td><td>C, C++</td></tr>
 <tr><td>Ownership</td><td>Yes</td><td>Yes</td><td>Some constructs difficult to express</td><td>Rust</td></tr>
 </tbody></table>
 </div>
 <p>Garbage collection's performance penalty warrants explanation.
 The trouble is that collection is an <em>asynchronous</em> operation performed by a language runtime (another program bundled with yours).
-That means your program gets &quot;paused&quot;, at some difficult-to-predict interval, while other code runs.
+That means your program gets "paused", at some difficult-to-predict interval, while other code runs.
 The garbage collector eats up your CPU time, temporarily preventing your program from doing its job.</p>
 <p>To really understand the safety downside of the manual management approach, we'll write a memory corruption exploit in the next chapter.</p>
 <h2 id="introducing-ownership"><a class="header" href="#introducing-ownership">Introducing Ownership</a></h2>
@@ -248,8 +243,8 @@ They don't appear in the machine code emitted, they're only used by the compiler
 There's no runtime check or cost.</p>
 </blockquote>
 <p>Every value has a single, unique <strong>owner</strong>.
-In the exact place in the source where the owner &quot;drops&quot; out of scope (the end of a function in which it was declared, for example), the lifetime of all its owned values ends.
-So the compiler automatically inserts code to deallocate (aka &quot;free&quot;) every owned value.</p>
+In the exact place in the source where the owner "drops" out of scope (the end of a function in which it was declared, for example), the lifetime of all its owned values ends.
+So the compiler automatically inserts code to deallocate (aka "free") every owned value.</p>
 <p>The result is precise, source-based control over memory and resource usage.
 Comparable to what C and C++ offer, but with additional constraints traded for safety.</p>
 <p>Those are the overarching principles, but there's nuance to the code.
@@ -257,8 +252,8 @@ In the form of rules and exceptions to them.
 We'll explore ownership in detail, in both this section and the next.</p>
 <blockquote>
 <p><strong>What are memory leaks? By management strategy?</strong></p>
-<p>A &quot;memory leak&quot; occurs if a value stops being used by the program, yet is never deallocated.
-This is distinct from an &quot;information leak&quot; (accidentally exposing sensitive information).
+<p>A "memory leak" occurs if a value stops being used by the program, yet is never deallocated.
+This is distinct from an "information leak" (accidentally exposing sensitive information).
 Unlike an information leak, a memory leak is <strong>not a security issue</strong>.</p>
 <p>It can, however, impact <strong>availability</strong>.
 If a long-running process (e.g. a web server) leaks memory repeatedly (e.g. in a loop) it could eventually exhaust available RAM and be killed by the OS.</p>
@@ -279,7 +274,7 @@ If a long-running process (e.g. a web server) leaks memory repeatedly (e.g. in a
 <p>Because every value must have exactly one owner, we can think of ownership as a hierarchical tree.
 Each node in the tree is a value, and a parent value <em>owns</em> its child values.</p>
 <p>This roughly parallels the structure of an OS's process tree, where every process has exactly one parent.
-It's not a perfect analogy<sup class="footnote-reference"><a href="#RoughAnalogy">4</a></sup>, but we're going to roll with it for this example - to cement the tree idea.
+It's not a perfect analogy<sup class="footnote-reference" id="fr-RoughAnalogy-1"><a href="#footnote-RoughAnalogy">4</a></sup>, but we're going to roll with it for this example - to cement the tree idea.
 Trees are a central theme of this book, and a timeless idea in Computer Science.</p>
 <p>Consider the following program, which uses a modified version of our prior <code>Proc</code> struct:</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
@@ -307,26 +302,26 @@ impl Proc {
 }
 
 fn main() {
-    // Build process tree using 3 &quot;moves&quot; (more info soon):
+    // Build process tree using 3 "moves" (more info soon):
     //
     // init
     //  |- cron
     //  |- rsyslogd
     //      |- bash
     //
-    // Run &quot;pstree -n -g&quot; (in container) to see your OS's real process tree!
+    // Run "pstree -n -g" (in container) to see your OS's real process tree!
 
     // Alloc bash
-    let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());
+    let bash = Proc::new("bash", State::Running, Vec::new());
 
     // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd
-    let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![bash]);
+    let rsyslogd = Proc::new("rsyslogd", State::Running, vec![bash]);
 
     // Alloc cron
-    let cron = Proc::new(&quot;cron&quot;, State::Sleeping, Vec::new());
+    let cron = Proc::new("cron", State::Sleeping, Vec::new());
 
     // Alloc init, 2nd and 3rd moves: cron -&gt; init, rsyslogd -&gt; init
-    let init = Proc::new(&quot;init&quot;, State::Running, vec![cron, rsyslogd]);
+    let init = Proc::new("init", State::Running, vec![cron, rsyslogd]);
 
     // Print serialized tree to see ownership hierarchy
     dbg!(init);
@@ -336,20 +331,20 @@ Moves are a way to <em>transfer ownership</em>.
 We'll examine this code's move sequence in the next section.
 Let's focus on the the final output now:</p>
 <pre><code class="language-ignore">[src/main.rs:49] init = Proc {
-    name: &quot;init&quot;,
+    name: "init",
     state: Running,
     children: [
         Proc {
-            name: &quot;cron&quot;,
+            name: "cron",
             state: Sleeping,
             children: [],
         },
         Proc {
-            name: &quot;rsyslogd&quot;,
+            name: "rsyslogd",
             state: Running,
             children: [
                 Proc {
-                    name: &quot;bash&quot;,
+                    name: "bash",
                     state: Running,
                     children: [],
                 },
@@ -373,13 +368,13 @@ Working bottom up, from the lowest and deepest level of nesting:</p>
 <p>A nuance here is the <code>name</code> field.
 Its type, <code>&amp;str</code>, is an immutable string reference.
 <code>&amp;'static str</code>, means names are <em>string literals</em> whose lifetime (<code>'static</code>) is the <em>entire run</em> of the program, including before and after the <code>main</code> function (during which your OS does setup and teardown tasks).</p>
-<p>None of our values <em>own</em> their string names (<code>&quot;init&quot;</code>, <code>&quot;cron&quot;</code>, <code>&quot;rsyslogd&quot;</code>, and <code>&quot;bash&quot;</code>).
-They're just <em>borrowing</em> a reference (<code>&amp;</code>) to something that lives &quot;forever&quot; (until process termination) and doesn't need to be freed.
+<p>None of our values <em>own</em> their string names (<code>"init"</code>, <code>"cron"</code>, <code>"rsyslogd"</code>, and <code>"bash"</code>).
+They're just <em>borrowing</em> a reference (<code>&amp;</code>) to something that lives "forever" (until process termination) and doesn't need to be freed.
 These strings are baked into the compiled binary.</p>
 </blockquote>
 <h3 id="allocation"><a class="header" href="#allocation">Allocation</a></h3>
 <p>Memory for each <code>Proc</code> struct was allocated at variable declaration.
-Each instance has a fixed size, only 48 bytes on a 64-bit machine<sup class="footnote-reference"><a href="#ProcPtr">5</a></sup>:</p>
+Each instance has a fixed size, only 48 bytes on a 64-bit machine<sup class="footnote-reference" id="fr-ProcPtr-1"><a href="#footnote-ProcPtr">5</a></sup>:</p>
 <pre><code class="language-rust ignore">#[test]
 fn test_size() {
     assert_eq!(core::mem::size_of::&lt;Proc&gt;(), 48);
@@ -390,7 +385,7 @@ Each child is its own 48 byte instance, and each may have its own children.
 <code>Proc</code>, as defined, is a recursive structure.
 Moreover, <code>name</code> can have any length.
 So how can size be fixed and so easily allocated?</p>
-<p>Because <code>Proc</code>'s size calculation only includes a <em>pointer</em><sup class="footnote-reference"><a href="#ProcPtr">5</a></sup> to its name and its list of children.
+<p>Because <code>Proc</code>'s size calculation only includes a <em>pointer</em><sup class="footnote-reference" id="fr-ProcPtr-2"><a href="#footnote-ProcPtr">5</a></sup> to its name and its list of children.
 Consider what a single <code>Proc</code> struct with no children looks like in memory, approximately:</p>
 <br>
 <p align="center">
@@ -408,23 +403,23 @@ Consider what a single <code>Proc</code> struct with no children looks like in m
   </figure>
 </p>
 <p>The struct's size didn't change, just the contents of a slot pointed to.
-Take note of the diagram above - this is roughly what memory looks like when the struct named <code>&quot;proc_1&quot;</code> owns the struct named <code>&quot;proc_2&quot;</code>.
+Take note of the diagram above - this is roughly what memory looks like when the struct named <code>"proc_1"</code> owns the struct named <code>"proc_2"</code>.
 We'll contrast this with another layout, in which one struct <em>borrows</em> a reference to another, soon.</p>
 <h3 id="de-allocation"><a class="header" href="#de-allocation">De-allocation</a></h3>
 <p>So how does ownership handle deallocation?</p>
 <p>Using the hierarchy in the <code>dbg!</code> output we saw earlier.
-<code>init</code> is the &quot;top-level&quot; value, it owns the other three.
+<code>init</code> is the "top-level" value, it owns the other three.
 And it's <em>dropped</em> when the <code>main</code> function finished running.
 So the compiler adds freeing logic just after <code>dbg!(init);</code>, the last line of <code>main</code>.
 A <em>destructor</em> is implemented for us, automatically.
 By traversing the ownership hierarchy, this destructor knows how to clean up the other structs owned by <code>init</code>.</p>
 <p>With just one more <code>println!</code>, we can trace the runtime deallocation sequence.
-Rust supports running arbitrary logic before destructors, simply by implementing the <code>Drop</code> trait<sup class="footnote-reference"><a href="#Drop">6</a></sup> for a type.
+Rust supports running arbitrary logic before destructors, simply by implementing the <code>Drop</code> trait<sup class="footnote-reference" id="fr-Drop-1"><a href="#footnote-Drop">6</a></sup> for a type.
 In case you need to run custom code to release an external resource (e.g. close a network or database connection) or similar.</p>
 <p>In our case we'll print the <code>name</code> field and <code>Proc</code> struct's memory address on every drop:</p>
 <pre><code class="language-rust ignore">impl Drop for Proc {
     fn drop(&amp;mut self) {
-        println!(&quot;De-alloc-ing \'{}\' Proc @ {:p}&quot;, self.name, self);
+        println!("De-alloc-ing \'{}\' Proc @ {:p}", self.name, self);
     }
 }</code></pre>
 <p>Running our program now outputs (after the serialized <code>dbg!</code> print):</p>
@@ -444,13 +439,13 @@ In writing the program as we did, we exercised granular control over its memory 
 Some prefer the term to Scope-Bound Resource Management (SBRM).</p>
 <p>RAII/SBRM's key idea is that resources (e.g. memory, file handles, locks, etc) are <em>acquired</em> in a constructor, able to be used for the lifetime/scope of the constructed value, and <em>released</em> in the destructor.</p>
 <p>Rust's compiler always enforces this behavior for memory.
-Types, like <code>std::fs::File</code><sup class="footnote-reference"><a href="#File">7</a></sup> or a user-defined type implementing <code>Drop</code>, can do the same for non-memory resources.</p>
+Types, like <code>std::fs::File</code><sup class="footnote-reference" id="fr-File-1"><a href="#footnote-File">7</a></sup> or a user-defined type implementing <code>Drop</code>, can do the same for non-memory resources.</p>
 </blockquote>
 <p>We've now seen, first-hand, how ownership relates to memory management - to allocation and deallocation.
 With that motivation under our belts, let's transition to concepts required to effectively use the ownership system.
 The two biggest are <em>moving</em> (transferring ownership) and <em>borrowing</em> (temporarily lending access to owned values).</p>
 <h3 id="moving"><a class="header" href="#moving">Moving</a></h3>
-<p>If we couldn't transfer (aka &quot;move&quot;) ownership from one value to another, Rust would be a toy language without much practical potential.
+<p>If we couldn't transfer (aka "move") ownership from one value to another, Rust would be a toy language without much practical potential.
 <strong>Moving</strong> is what enables day-to-day programming tasks like:</p>
 <ul>
 <li>Returning a value from a function.</li>
@@ -460,21 +455,21 @@ The two biggest are <em>moving</em> (transferring ownership) and <em>borrowing</
 <p>In the above process tree example, moving allowed us to incrementally build up a complex, nested structure: a <code>Proc</code> containing other <code>Proc</code>s.
 But let's start with something simpler:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let x = &quot;Hello!&quot;.to_string();
-    let y = x; // x moved into y. y now owns String value &quot;Hello!&quot;
+    let x = "Hello!".to_string();
+    let y = x; // x moved into y. y now owns String value "Hello!"
 
     // This works
-    println!(&quot;Owned string: {y}&quot;);
+    println!("Owned string: {y}");
 
-    // This would cause a compile-time error, x is &quot;gone&quot;, its value moved!
-    //println!(&quot;Owned string: {x}&quot;);
+    // This would cause a compile-time error, x is "gone", its value moved!
+    //println!("Owned string: {x}");
 }
 // End of scope, y is dropped here.</code></pre></pre>
 <p>The assignment <code>let y = x;</code> didn't create a copy of the heap-allocated <code>String</code>.
 That'd be expensive for long strings, and thus requires an explicit call to a data duplication function (e.g. <code>let y = x.clone();</code>).
 Rust prefers performance.</p>
 <p>Instead, we performed a cheap transfer of ownership: a move of a fat pointer from <code>x</code> into <code>y</code> (stack variables).
-Because the <code>String</code> value can have only one unique owner at any given time, <code>x</code> &quot;gave it up&quot; by transferring ownership to <code>y</code>.</p>
+Because the <code>String</code> value can have only one unique owner at any given time, <code>x</code> "gave it up" by transferring ownership to <code>y</code>.</p>
 <p>After the assignment statement executes, <code>y</code> is the sole owner.
 <code>x</code> is left uninitialized, empty.
 Which is why we can no longer use or print it.
@@ -488,10 +483,10 @@ Visually, the situation is:</p>
 <p>With that concept in mind, let's revisit how moving played out in building our tree.
 The first two lines were:</p>
 <pre><code class="language-rust ignore">// Alloc bash
-let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());
+let bash = Proc::new("bash", State::Running, Vec::new());
 
 // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd
-let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![bash]);</code></pre>
+let rsyslogd = Proc::new("rsyslogd", State::Running, vec![bash]);</code></pre>
 <p>Recall that the <code>vec!</code> macro is initialization shorthand for creating a new <code>Vec</code> and pushing elements into it.
 When we add an element to a vector, we're performing a move.
 As with the assignment <code>let y = x;</code>, Rust doesn't duplicate data implicitly.</p>
@@ -499,10 +494,10 @@ As with the assignment <code>let y = x;</code>, Rust doesn't duplicate data impl
 Since every value must have exactly one owner, the variable <code>bash</code>, like our prior <code>x</code>, can no longer be used.
 Say we tried to print it:</p>
 <pre><code class="language-rust ignore">// Alloc bash
-let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());
+let bash = Proc::new("bash", State::Running, Vec::new());
 
 // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd
-let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![bash]);
+let rsyslogd = Proc::new("rsyslogd", State::Running, vec![bash]);
 
 // Error: can't print an ownerless value!
 dbg!(bash);</code></pre>
@@ -510,10 +505,10 @@ dbg!(bash);</code></pre>
 <pre><code class="language-ignore">error[E0382]: use of moved value: `bash`
   --&gt; src/main.rs:70:10
    |
-64 |     let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());
+64 |     let bash = Proc::new("bash", State::Running, Vec::new());
    |         ---- move occurs because `bash` has type `Proc`, which does not implement the `Copy` trait
 ...
-67 |     let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![bash]);
+67 |     let rsyslogd = Proc::new("rsyslogd", State::Running, vec![bash]);
    |                                                               ---- value moved here
 ...
 70 |     dbg!(bash);
@@ -540,38 +535,38 @@ Without moving it and emptying the original owner.</p>
 The below program is similar to our prior string example, but this time the move is done by a function that prints the length of its string parameter.
 If that last line wasn't commented out, we'd get another move-related compile-time error.</p>
 <pre><pre class="playground"><code class="language-rust">fn print_str_len(s: String) {
-    println!(&quot;\'{}\' is {} bytes long.&quot;, s, s.len());
+    println!("\'{}\' is {} bytes long.", s, s.len());
 }
 
 fn main() {
-    let x = &quot;Hello!&quot;.to_string();
+    let x = "Hello!".to_string();
 
-    // x moved into the function, which now owns String value &quot;Hello!&quot;
+    // x moved into the function, which now owns String value "Hello!"
     print_str_len(x);
 
-    // This would cause a compile-time error, x is &quot;gone&quot;, its value moved!
-    //println!(&quot;Owned string: {x}&quot;);
+    // This would cause a compile-time error, x is "gone", its value moved!
+    //println!("Owned string: {x}");
 }</code></pre></pre>
 <p>One potential fix is having <code>print_str_len</code> return its input <code>String</code> so we could re-assign it to <code>x</code>.
 Essentially moving back and forth, functional-style.
 But borrowing offers a better way.
 This code will compile and run:</p>
 <pre><pre class="playground"><code class="language-rust">fn print_str_len(s: &amp;String) {
-    println!(&quot;\'{}\' is {} bytes long.&quot;, s, s.len());
+    println!("\'{}\' is {} bytes long.", s, s.len());
 }
 
 fn main() {
-    let x = &quot;Hello!&quot;.to_string();
+    let x = "Hello!".to_string();
 
     // Function temporarily borrows x, by reference.
     print_str_len(&amp;x);
 
     // No error this time! x still owns the String.
-    println!(&quot;Owned string: {x}&quot;);
+    println!("Owned string: {x}");
 }</code></pre></pre>
 <ul>
 <li>
-<p><code>print_str_len</code>'s parameter changed from <code>String</code> (&quot;string&quot;) to <code>&amp;String</code> (&quot;immutable reference to a string&quot;).</p>
+<p><code>print_str_len</code>'s parameter changed from <code>String</code> ("string") to <code>&amp;String</code> ("immutable reference to a string").</p>
 <ul>
 <li><strong>Minor detail:</strong> Using the type <code>&amp;str</code> would have been even better, because then <code>print_str_len</code> could also work for string <em>slices</em> - including those with <em>static</em> lifetimes.</li>
 </ul>
@@ -605,19 +600,19 @@ impl&lt;'a&gt; Proc&lt;'a&gt; {
 
 fn main() {
     // Alloc bash
-    let bash = Proc::new(&quot;bash&quot;, State::Running, Vec::new());
+    let bash = Proc::new("bash", State::Running, Vec::new());
 
     // Alloc rsyslogd, 1st move: bash -&gt; rsyslogd
-    let rsyslogd = Proc::new(&quot;rsyslogd&quot;, State::Running, vec![&amp;bash]);
+    let rsyslogd = Proc::new("rsyslogd", State::Running, vec![&amp;bash]);
 
     // Print owned value (new!)
     dbg!(&amp;bash);
 
     // Alloc cron
-    let cron = Proc::new(&quot;cron&quot;, State::Sleeping, Vec::new());
+    let cron = Proc::new("cron", State::Sleeping, Vec::new());
 
     // Alloc init, 2nd and 3rd moves: cron -&gt; init, rsyslogd -&gt; init
-    let init = Proc::new(&quot;init&quot;, State::Running, vec![&amp;cron, &amp;rsyslogd]);
+    let init = Proc::new("init", State::Running, vec![&amp;cron, &amp;rsyslogd]);
 
     // Print another owned value (new!)
     dbg!(&amp;cron);
@@ -628,7 +623,7 @@ fn main() {
 <p>Two major differences:</p>
 <ol>
 <li>
-<p>With borrowing, we now have the flexibility to access <code>bash</code> and <code>cron</code> for <code>dbg!</code> printing - even after adding them to our tree. That's because the addition no longer performs a move, the <code>children</code> are only borrowed by the <code>Proc</code> struct and can &quot;live&quot; elsewhere.</p>
+<p>With borrowing, we now have the flexibility to access <code>bash</code> and <code>cron</code> for <code>dbg!</code> printing - even after adding them to our tree. That's because the addition no longer performs a move, the <code>children</code> are only borrowed by the <code>Proc</code> struct and can "live" elsewhere.</p>
 </li>
 <li>
 <p>We've added <strong>lifetime</strong> annotations (<code>'a</code>) for the <code>Proc</code> struct definition and one of its constructor parameters. Whereas the <code>'static</code> lifetime we've been using thus far indicates a value (<code>name</code>, here) that lives for the <em>entire program</em>, <code>'a</code> indicates that <code>Proc</code> must live <em>at least as long</em> as the references it borrows (non-owned <code>children</code> here).</p>
@@ -640,9 +635,9 @@ You don't need to be comfortable with this notation or the underlying concepts r
 We'll come back to it throughout the book.</p>
 <blockquote>
 <p><strong>Why does the compiler need lifetime annotations?</strong></p>
-<p>Rust's compiler needs to compute certain results looking at a single function at a time, because considering every possible sequence of function calls as a holistic &quot;call chain&quot; is prohibitively expensive.</p>
+<p>Rust's compiler needs to compute certain results looking at a single function at a time, because considering every possible sequence of function calls as a holistic "call chain" is prohibitively expensive.</p>
 <p>But the computed results need to <em>be valid</em> for every possible call chain.
-The technical term for this sort of thing is &quot;interprocedural static analysis&quot;.
+The technical term for this sort of thing is "interprocedural static analysis".
 Lifetime annotations on structures and functions aid these kinds of analyses.</p>
 </blockquote>
 <p>Long story short, lifetime annotations enable a human-in-the-loop property verification system.
@@ -656,7 +651,7 @@ In fact, the compiler sees our earlier <code>print_str_len</code> function as:</
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn print_str_len&lt;'a&gt;(s: &amp;'a String) {
-    println!(&quot;\'{}\' is {} bytes long.&quot;, s, s.len());
+    println!("\'{}\' is {} bytes long.", s, s.len());
 }
 <span class="boring">}</span></code></pre></pre>
 <p>Static analysis ensures the string reference has a valid lifetime, taking care of safety and memory management, without us having to explicitly spell it out.</p>
@@ -688,30 +683,30 @@ Contrast this to our previous move-based diagrams:</p>
 </li>
 </ul>
 <pre><code class="language-ignore">[src/main.rs:61] &amp;bash = Proc {
-    name: &quot;bash&quot;,
+    name: "bash",
     state: Running,
     children: [],
 }
 [src/main.rs:70] &amp;cron = Proc {
-    name: &quot;cron&quot;,
+    name: "cron",
     state: Sleeping,
     children: [],
 }
 [src/main.rs:73] &amp;init = Proc {
-    name: &quot;init&quot;,
+    name: "init",
     state: Running,
     children: [
         Proc {
-            name: &quot;cron&quot;,
+            name: "cron",
             state: Sleeping,
             children: [],
         },
         Proc {
-            name: &quot;rsyslogd&quot;,
+            name: "rsyslogd",
             state: Running,
             children: [
                 Proc {
-                    name: &quot;bash&quot;,
+                    name: "bash",
                     state: Running,
                     children: [],
                 },
@@ -752,33 +747,30 @@ And ready to take a closer look at code patterns for working with the ownership 
 <p>As obtuse as this firehose of concepts may feel now, ownership will eventually sink in - over time and with practice.
 It's a different way of doing things, but one you can grow accustomed to.
 Let's explore it further.</p>
-<hr />
-<div class="footnote-definition" id="Own"><sup class="footnote-definition-label">1</sup>
-<p>&quot;Ownership&quot; is not something Rust invented, it's based on prior work in linear and affine types. Additionally, ownership-based &quot;region analysis&quot; to do compile-time memory management appeared in an esoteric language called Cyclone. But Rust is the first mainstream, commercially-viable language that uses ownership enforcement to manage memory.</p>
-</div>
-<div class="footnote-definition" id="DiscGo"><sup class="footnote-definition-label">2</sup>
-<p><a href="https://blog.discord.com/why-discord-is-switching-from-go-to-rust-a190bbca2b1f"><em>Why Discord is switching from Go to Rust</em></a>. Jesse Howarth (2020).</p>
-</div>
-<div class="footnote-definition" id="Sok:EWoM"><sup class="footnote-definition-label">3</sup>
-<p><a href="https://people.eecs.berkeley.edu/~dawnsong/papers/Oakland13-SoK-CR.pdf"><em>SoK: Eternal War in Memory</em></a>. Laszlo Szekeres, Mathias Payer, Tao Wei, Dawn Song (2012).</p>
-</div>
-<div class="footnote-definition" id="RoughAnalogy"><sup class="footnote-definition-label">4</sup>
-<p>This analogy is imperfect! In Linux, <code>init</code>, the first process to run, doesn't have a parent. Similarly, Rust values with <code>&amp;'static</code> lifetimes aren't owned by any variable in the program. A parent process can be killed without its children also being terminated. When an owner goes out of scope in Rust, all the values it owns are also deallocated.</p>
-</div>
-<div class="footnote-definition" id="ProcPtr"><sup class="footnote-definition-label">5</sup>
+<hr>
+<ol class="footnote-definition"><li id="footnote-Own">
+<p>"Ownership" is not something Rust invented, it's based on prior work in linear and affine types. Additionally, ownership-based "region analysis" to do compile-time memory management appeared in an esoteric language called Cyclone. But Rust is the first mainstream, commercially-viable language that uses ownership enforcement to manage memory. <a href="#fr-Own-1">↩</a></p>
+</li>
+<li id="footnote-DiscGo">
+<p><a href="https://blog.discord.com/why-discord-is-switching-from-go-to-rust-a190bbca2b1f"><em>Why Discord is switching from Go to Rust</em></a>. Jesse Howarth (2020). <a href="#fr-DiscGo-1">↩</a></p>
+</li>
+<li id="footnote-Sok:EWoM">
+<p><a href="https://people.eecs.berkeley.edu/~dawnsong/papers/Oakland13-SoK-CR.pdf"><em>SoK: Eternal War in Memory</em></a>. Laszlo Szekeres, Mathias Payer, Tao Wei, Dawn Song (2012). <a href="#fr-Sok:EWoM-1">↩</a></p>
+</li>
+<li id="footnote-RoughAnalogy">
+<p>This analogy is imperfect! In Linux, <code>init</code>, the first process to run, doesn't have a parent. Similarly, Rust values with <code>&amp;'static</code> lifetimes aren't owned by any variable in the program. A parent process can be killed without its children also being terminated. When an owner goes out of scope in Rust, all the values it owns are also deallocated. <a href="#fr-RoughAnalogy-1">↩</a></p>
+</li>
+<li id="footnote-ProcPtr">
 <p>The 48-byte size we <code>assert</code> includes only a <em>fat pointer</em> (tuple of memory address, total capacity, and current length) to the <code>children</code> heap data. Similarly, the <code>name</code> field is a pointer to a string hardcoded into read-only memory.
-Pointers are just memory addresses with machine specific widths, hence our caveat about the size being for a &quot;64-bit machine&quot;.</p>
-</div>
-<div class="footnote-definition" id="Drop"><sup class="footnote-definition-label">6</sup>
-<p><a href="https://doc.rust-lang.org/std/ops/trait.Drop.html"><em>Trait <code>std::ops::Drop</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="File"><sup class="footnote-definition-label">7</sup>
-<p><a href="https://doc.rust-lang.org/std/fs/struct.File.html"><em>Struct <code>std::fs::File</code></em></a>. The Rust Team (Accessed 2022).</p>
-</div>
-<div class="footnote-definition" id="MISRA_2012"><sup class="footnote-definition-label">8</sup>
-<p><em>MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)</em>. MISRA (2019).</p>
-</div>
-
+Pointers are just memory addresses with machine specific widths, hence our caveat about the size being for a "64-bit machine". <a href="#fr-ProcPtr-1">↩</a> <a href="#fr-ProcPtr-2">↩2</a></p>
+</li>
+<li id="footnote-Drop">
+<p><a href="https://doc.rust-lang.org/std/ops/trait.Drop.html"><em>Trait <code>std::ops::Drop</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-Drop-1">↩</a></p>
+</li>
+<li id="footnote-File">
+<p><a href="https://doc.rust-lang.org/std/fs/struct.File.html"><em>Struct <code>std::fs::File</code></em></a>. The Rust Team (Accessed 2022). <a href="#fr-File-1">↩</a></p>
+</li>
+</ol>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
