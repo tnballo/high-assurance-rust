@@ -26,6 +26,4 @@ TODO[^Footnote]
 * TODO
 * TODO
 
----
-
 [^Footnote]: [*Article Title*](https://tiemoko.com). Author One, Author Two (YEAR, Domain)

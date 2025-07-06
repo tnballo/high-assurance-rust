@@ -1,0 +1,8 @@
+[package]
+name = "test_crypto_duplicates"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aes-siv = { version = "0.7", features = ["std"] }
+aes-siv-2 = { package = "aes-siv", version = "0.6", features = ["std"] }

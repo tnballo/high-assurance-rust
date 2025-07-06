@@ -74,8 +74,6 @@ Imagine writing logic to traverse these graphs - a DAG avoids edge cases.
 Recursion isn't only a problem for runtime memory exhaustion.
 It impacts a program's Inter-procedural Control Flow Graph (ICFG), generally hindering static analysis.
 
----
-
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).
 
 [^TopSort]: [*Topological sorting*](https://en.wikipedia.org/wiki/Topological_sorting). Wikipedia (Accessed 2023).

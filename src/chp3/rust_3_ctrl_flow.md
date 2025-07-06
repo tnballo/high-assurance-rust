@@ -340,8 +340,6 @@ We've covered data representation and control flow.
 It's time to dig into what makes Rust unique.
 The language's most distinctive and novel feature: ownership.
 
----
-
 [^BranchProg]: [*Branchless programming. Does it really matter?*](https://dev.to/jobinrjohnson/branchless-programming-does-it-really-matter-20j4). Jobin Johnson (2021).
 
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).

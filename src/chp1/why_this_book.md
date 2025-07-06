@@ -223,8 +223,6 @@ Depending on your background and experiences, it may be difficult to picture you
 But you certainly can be!
 It may not *be easy* - but it can *be*.
 
----
-
 [^LearnRust]: [*Learn Rust*](https://www.rust-lang.org/learn). The Rust Team (2021).
 
 [^TRPL]: [*The Rust Programming Language*](https://doc.rust-lang.org/book/). Steve Klabnik, Carol Nichol (Accessed 2022).

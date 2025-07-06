@@ -322,8 +322,6 @@ Take a second to soak it in.
 You've already come quite far.
 When you're ready, we can close out this chapter with one last topic: operational assurance.
 
----
-
 [^StdEnv]: [*Module `std::env`*](https://doc.rust-lang.org/std/env/index.html). The Rust Team (Accessed 2022).
 
 [^StdFs]: [*Module `std::fs`*](https://doc.rust-lang.org/std/fs/index.html). The Rust Team (Accessed 2022).

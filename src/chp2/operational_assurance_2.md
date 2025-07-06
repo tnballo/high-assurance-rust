@@ -167,11 +167,7 @@ Our binary will run natively, on nearly any client of given OS and ISA[^ISA].
 That concludes our tour of software assurance!
 In the next chapter, we'll dig into Rust proper.
 
----
-
-
 [^Hellscape]: [*`hellscape`*](https://github.com/meme/hellscape). meme (Archived 2021).
-
 
 [^BindNow]: [*`ld.so`*](https://man7.org/linux/man-pages/man8/ld.so.8.html). Linux manual (Accessed 2022). On Linux, this behavior can be activated by setting the `LD_BIND_NOW` environment variable to a non-empty string. The advantage of doing shared function resolution at load-time is slightly more predictable runtime performance. May also be useful for process debugging.
 

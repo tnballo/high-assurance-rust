@@ -130,8 +130,6 @@ Low-complexity systems tend to be more reliable, maintainable, and secure.
 Keeping complexity in check typically means designing for low coupling and high cohesion.
 Deep modules lend themselves well to both goals.
 
----
-
 [^REST]: [What is a REST API?](https://www.redhat.com/en/topics/api/what-is-a-rest-api). RedHat (2020).
 
 [^GRPC]: [Core concepts, architecture and lifecycle](https://grpc.io/docs/what-is-grpc/core-concepts/). Google (Accessed 2022).
@@ -141,5 +139,3 @@ Deep modules lend themselves well to both goals.
 [^Ccord]: [***[PERSONAL FAVORITE]** Effective C: An Introduction to Professional C Programming*](https://amzn.to/3wBuNu7). Robert Seacord (2020).
 
 [^Agile]: [*What is Agile?*](https://www.agilealliance.org/agile101/). Agile Alliance (Accessed 2022).
-
-

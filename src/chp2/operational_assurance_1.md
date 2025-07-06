@@ -130,8 +130,6 @@ Our discussion of software security wouldn't be complete without this broader co
 The next section will expose you to an application deployment option for a native client, an aspect of the system lifecycle category.
 We're going to make our `rcli` program free-standing, so that it will reliably run for any end-user.
 
----
-
 [^PGH]: As an aside, an author of this book actually walked across a Pittsburgh bridge less than 24 hours before [its collapse](https://web.archive.org/web/20220131022216/https://www.nytimes.com/2022/01/28/us/pittsburgh-bridge-collapse-biden.html). Aging and poorly maintained infrastructure is a serious problem in the United States, despite the relative wealth of the country.
 
 [^OpSec]: [*Operations security*](https://en.wikipedia.org/wiki/Operations_security). Wikipedia (Accessed 2022).

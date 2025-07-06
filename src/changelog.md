@@ -18,6 +18,11 @@
 **Note:** This book is a work in progress, and its contents (current or future) are subject to change.
 If you've found an error, please [get in touch](./engage.md#submit-feedback-questions-issues-or-prs).
 
+* **v0.4.3-alpha:**
+    * New section: *14.4 Tactical Trust (1/2)*
+    * Community-submitted fixes, special thanks to [pixelshot91](https://github.com/pixelshot91) for improving technical accuracy
+    * Bump `mdbook` (v0.4.35 -> v0.4.51), includes several rendering updates
+
 * **v0.4.2-alpha:**
     * Internal tools update (metrics, linter)
     * Landing/`README.md` badges with computed page and diagram counts

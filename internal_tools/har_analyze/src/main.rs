@@ -51,7 +51,7 @@ fn main() -> Result<()> {
 
     // Status Report
     if args.metrics {
-        println!("\n{}", book);
+        println!("\n{book}");
     }
 
     // Update/fix

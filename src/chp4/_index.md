@@ -146,8 +146,6 @@ But after finishing the chapter, maybe you'll start viewing memory primarily thr
 * Understand how Rust actually provides memory safety, including current limitations
 * Understand how modern, language-agnostic exploit mitigations work (and how they can fail)
 
----
-
 [^DKEffect]: ["Unskilled and Unaware of It: How Difficulties in Recognizing One's Own Incompetence Lead to Inflated Self-Assessments"](https://pubmed.ncbi.nlm.nih.gov/10626367/). Justin Kruger, David Dunning (1999)
 
 [^Ctrl]: In both programming and modern life, you never quite have full control. In programming that's because both compilers and interpreters make oft-inscrutable decisions for you (e.g. aggressive optimization[^Opt]) and, rarely, even contain bugs[^CompBug].

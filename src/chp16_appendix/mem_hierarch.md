@@ -136,8 +136,6 @@ But day-to-day systems programming is more concerned with a logical view of memo
 Stored in DRAM.
 That's the abstraction through which we view all code in this book.
 
----
-
 [^UART]: [*Basics of UART Communication*](https://www.circuitbasics.com/basics-uart-communication/). Scott Campbell (Accessed 2022).
 
 [^CSAPP]: [***[PERSONAL FAVORITE]** Computer Systems: A Programmer's Perspective*](https://amzn.to/3IBnFA7). Randal Bryant, David O'Hallaron (2015).

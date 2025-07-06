@@ -65,6 +65,4 @@ Listed alphabetically:
 
 <br>
 
----
-
 [^Contrib]: Contributions are welcome and appreciated. Please see [`CONTRIBUTING.md`](https://github.com/tnballo/high-assurance-rust/blob/main/CONTRIBUTING.md).

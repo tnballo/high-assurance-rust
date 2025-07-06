@@ -240,8 +240,6 @@ This book will help you quickly tame the high learning curve of Rust, so we can 
 * Understand where this book fits within the Dreyfus Model of Skill Acquisition
 * Setup a development environment so you can start writing Rust
 
----
-
 [^RustTrust]: [*You Can't Spell Trust Without Rust*](https://gankra.github.io/blah/thesis.pdf). Aria Desires (2015). This Master's thesis by one of the Rust standard library BTree authors is the source of this botnet analogy, and a general influence on this book.
 
 [^AppLang]: "Largely" is a caveat here: Python can have data races, Go can have segmentation faults, etc. But garbage collected languages don't give attackers the same powerful exploitation primitives as C and C++ (more details coming in Chapter 4), so they don't carry the same risks.

@@ -45,6 +45,4 @@ You'll need to explore the solution space independently, applying the chapter's 
 No challenge solutions are provided, it's up to you to work through the suggested problems!
 Or personal variations that motivate you.
 
----
-
 [^NewDreyfus]: [*The Five-Stage Model of Adult Skill Acquisition*](https://www.bumc.bu.edu/facdev-medicine/files/2012/03/Dreyfus-skill-level.pdf). Stuart E.Dreyfus (2004).

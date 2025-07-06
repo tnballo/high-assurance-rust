@@ -57,8 +57,6 @@ Whenever you're up for it.
 
 <br>
 
----
-
 [^RIIR]: [*Awesome Alternatives in Rust*](https://github.com/TaKO8Ki/awesome-alternatives-in-rust). Takayuki Maeda (Accessed 2022).
 
 [^C2Rust]: [*`c2rust`*](https://github.com/immunant/c2rust). Immunant (Accessed 2022).

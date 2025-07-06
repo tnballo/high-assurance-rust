@@ -1,0 +1,13 @@
+[package]
+name = "nonce_typing"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aead = { version = "0.5", features = ["alloc", "std"] }
+aes-gcm = { version = "0.10", features = ["std"] }
+aes-siv = { version = "0.7", features = ["std"] }
+chacha20poly1305 = { version = "0.10", features = ["std"] }
+
+[build-dependencies]
+supplychain_policy = { path = "../supplychain_policy" }

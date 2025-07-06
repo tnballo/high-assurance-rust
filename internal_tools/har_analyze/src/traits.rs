@@ -24,7 +24,7 @@ impl GetChapter for &PathBuf {
                     match c {
                         Component::Normal(name) => name
                             .to_str()
-                            .map_or(false, |n| n.strip_prefix(CHP_PREFIX).is_some()),
+                            .is_some_and(|n| n.strip_prefix(CHP_PREFIX).is_some()),
                         _ => false,
                     }
                 })

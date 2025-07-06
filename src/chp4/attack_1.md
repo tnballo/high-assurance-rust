@@ -12,7 +12,7 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
 
-# An Attacker's Perspective: Breaking Safety (1/2)
+# An Attacker's Perspective: Breaking Safety (1 of 2)
 
 Let's start from first principles: data is code[^DataCode].
 Many abstractions attempt to enforce a logical separation as follows:
@@ -470,8 +470,6 @@ This introduction to an attacker's perspective focuses on the low-level, with co
 In the long-term, it can be helpful to understand exploitation more abstractly - to build a framework for *reasoning* about these kinds of threats.
 Such a conceptualization is more general, it translates beyond binary attacks.
 That's our next topic!
-
----
 
 [^DataCode]: "Code is data" or "data is code" is an adage popular with Lisp programmers. Technically, any programming language's code is data - all interpreters and compilers parse files which encode some data. But for Lisp-like languages, any well-formed program's source code is *also* a valid data structure called an "S-expression". Because S-expressions are core to the language itself, Lisp programs have a property called *homoiconicity*[^Homoicon] - the programs can be manipulated as data. This enables rich meta-programming capabilities, which are one influence for Rust's macro system.
 Coming back to exploitation, we can think of memory corruption exploits as a weird kind of meta-programming.

@@ -345,8 +345,6 @@ Outside of initialization, possible mutex(s), and data-cache hit rate: static me
 
 In the next section, we'll explore breaking more general kinds of safety - **memory safety** and **type safety** - from the perspective of an attacker.
 
----
-
 [^MISRA_2012]: *MISRA C: 2012 Guidelines for the use of the C language in critical systems (3rd edition)*. MISRA (2019).
 
 [^CSAPP]: [***[PERSONAL FAVORITE]** Computer Systems: A Programmer's Perspective*](https://amzn.to/3IBnFA7). Randal Bryant, David O'Hallaron (2015).
@@ -364,4 +362,3 @@ In the next section, we'll explore breaking more general kinds of safety - **mem
 [^PBA]: [***[PERSONAL FAVORITE]** Practical Binary Analysis: Build Your Own Linux Tools for Binary Instrumentation, Analysis, and Disassembly*](https://amzn.to/3wvtCwa). Dennis Andriesse (2018).
 
 [^RustInlineMacro]: [*The Rust Reference: The `inline` attribute*](https://doc.rust-lang.org/reference/attributes/codegen.html#the-inline-attribute). The Rust Team (Accessed 2022).
-

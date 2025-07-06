@@ -12,7 +12,7 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
 
-# An Attacker's Perspective: Unifying Theory (2/2)
+# An Attacker's Perspective: Unifying Theory (2 of 2)
 
 A motivated adversary has the time and resources to discover vulnerabilities.
 And weaponize the corresponding exploits.
@@ -260,8 +260,6 @@ With that high-level conceptualization in mind, let's learn our way around a deb
 <!--
 In the next section, we'll put these concepts into play hands-on to reduce secret exposure on an untrusted host.
 -->
-
----
 
 [^ProjZero2021Review]: [*The More You Know, The More You Know You Don't Know*](https://googleprojectzero.blogspot.com/2022/04/the-more-you-know-more-you-know-you.html). Maddie Stone, Google Project Zero (2022).
 

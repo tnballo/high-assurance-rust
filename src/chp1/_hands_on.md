@@ -188,8 +188,6 @@ Either natively or in a container.
 
 We're going to write a more interesting program in the next chapter, you'll want a working toolchain to follow along.
 
----
-
 [^Docker]: [*Docker overview*](https://docs.docker.com/get-started/overview/) Docker (Accessed 2022).
 
 [^BookDocker]: [https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile](https://github.com/tnballo/high-assurance-rust/blob/main/Dockerfile)
