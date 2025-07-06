@@ -48,6 +48,7 @@ Listed alphabetically:
 * [jam1garner](https://github.com/jam1garner)
 * [jamesreprise](https://github.com/jamesreprise)
 * [jkoeppeler](https://github.com/jkoeppeler)
+* [KateMorley](https://github.com/KateMorley)
 * [kaylynn234](https://github.com/kaylynn234)
 * [LoganDark](https://github.com/LoganDark)
 * [Michcioperz](https://github.com/Michcioperz)
