@@ -12,7 +12,7 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
 
-# An Attacker's Perspective: Unifying Theory (2/2)
+# An Attacker's Perspective: Unifying Theory (2 of 2)
 
 A motivated adversary has the time and resources to discover vulnerabilities.
 And weaponize the corresponding exploits.

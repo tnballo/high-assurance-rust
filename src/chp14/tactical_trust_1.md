@@ -11,7 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
-# Tactical Trust (1 of 2): Platform Crypto for Developers
+# Tactical Trust: Platform Cryptography for Developers (1 of 2)
 
 <!---
 * Side-by-side diagrams

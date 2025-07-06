@@ -12,7 +12,7 @@
 <meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
 
 
-# An Attacker's Perspective: Breaking Safety (1/2)
+# An Attacker's Perspective: Breaking Safety (1 of 2)
 
 Let's start from first principles: data is code[^DataCode].
 Many abstractions attempt to enforce a logical separation as follows:
