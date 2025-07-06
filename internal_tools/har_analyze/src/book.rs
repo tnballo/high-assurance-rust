@@ -251,7 +251,7 @@ impl fmt::Display for Book {
         let word_count = self.get_word_count();
 
         for chp in self.chapters.values() {
-            writeln!(f, "{}", chp)?;
+            writeln!(f, "{chp}")?;
         }
 
         writeln!(

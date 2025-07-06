@@ -34,7 +34,7 @@ impl fmt::Display for LineNumber {
 // Defer `Debug` impl to `Display` impl
 impl fmt::Debug for LineNumber {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self)
+        write!(f, "{self}")
     }
 }
 
@@ -60,7 +60,7 @@ pub enum LeveledLintError<'a> {
 impl<'a> PartialEq for Rule<'a> {
     fn eq(&self, other: &Self) -> bool {
         // XXX: this is a test-only crime
-        format!("{:?}", self) == format!("{:?}", other)
+        format!("{self:?}") == format!("{other:?}")
     }
 }
 

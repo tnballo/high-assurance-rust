@@ -337,7 +337,7 @@ pub fn rule_meta_tags<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
                 path,
                 line_number: 0.into(),
                 line: "N/A".to_string(),
-                reason: format!("Section missing meta tag {}", tag),
+                reason: format!("Section missing meta tag {tag}"),
             });
         }
     }
@@ -354,7 +354,7 @@ pub fn rule_md_extension<'a>(path: &'a PathBuf, _: &[String]) -> Result<(), Lint
                 path,
                 line_number: 0.into(),
                 line: "N/A".to_string(),
-                reason: format!("Unexpected file extension \"{}\"", file_name),
+                reason: format!("Unexpected file extension \"{file_name}\""),
             });
         }
     }
@@ -371,7 +371,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
                 path,
                 line_number: 0.into(),
                 line: "N/A".to_string(),
-                reason: format!("Unexpected file extension \"{}\"", file_name),
+                reason: format!("Unexpected file extension \"{file_name}\""),
             });
         }
     }
@@ -394,7 +394,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
                     path,
                     line_number: 0.into(),
                     line: "N/A".to_string(),
-                    reason: format!("svg parse error: {}", e),
+                    reason: format!("svg parse error: {e}"),
                 })
             }
             // No JS
@@ -404,7 +404,7 @@ pub fn rule_valid_svg<'a>(path: &'a PathBuf, lines: &[String]) -> Result<(), Lin
                         path,
                         line_number: 0.into(),
                         line: "N/A".to_string(),
-                        reason: format!("svg contains JavaScript: {:?}", event),
+                        reason: format!("svg contains JavaScript: {event:?}"),
                     });
                 }
             }
@@ -423,7 +423,7 @@ mod tests {
     fn test_valid_svg() {
         use super::rule_valid_svg;
 
-        const SVG: &'static str = include_str!("../../../src/chp1/bugs_venn.svg");
+        const SVG: &str = include_str!("../../../src/chp1/bugs_venn.svg");
         let path = PathBuf::from("../../../src/chp1/bugs_venn.svg");
         let lines: Vec<_> = SVG.lines().map(|l| l.to_string()).collect();
 
@@ -434,7 +434,7 @@ mod tests {
     fn test_invalid_svg_with_js() {
         use super::rule_valid_svg;
 
-        const SVG: &'static str = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        const SVG: &str = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <path d="M50,3l12,36h38l-30,22l11,36l-31-21l-31,21l11-36l-30-22h38z"
             fill="#FF0" stroke="#FC0" stroke-width="2"/>
             <script xlink:href="external.js" />
@@ -449,7 +449,7 @@ mod tests {
     fn test_valid_headings() {
         use super::{rule_heading_sizes, rule_md_extension};
 
-        const MD: &'static str = r#######"
+        const MD: &str = r#######"
             # Heading 1
             text
             ## Heading 2
@@ -471,7 +471,7 @@ mod tests {
     fn test_invalid_headings() {
         use super::{rule_heading_sizes, rule_md_extension};
 
-        const MD: &'static str = r#######"
+        const MD: &str = r#######"
             # Heading 1
             text
             ### Heading 3 (Invalid)
