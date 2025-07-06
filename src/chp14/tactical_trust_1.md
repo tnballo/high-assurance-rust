@@ -1,0 +1,330 @@
+<meta name="title" content="High Assurance Rust">
+<meta name="description" content="Developing Secure and Robust Software">
+<meta property="og:title" content="High Assurance Rust">
+<meta property="og:description" content="Developing Secure and Robust Software">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://highassurance.rs/">
+<meta property="og:image" content="https://highassurance.rs/img/har_logo_social.png">
+<meta name="twitter:title" content="High Assurance Rust">
+<meta name="twitter:description" content="Developing Secure and Robust Software">
+<meta name="twitter:url" content="https://highassurance.rs/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://highassurance.rs/img/har_logo_social.png">
+
+# Tactical Trust (1 of 2): Platform Crypto for Developers
+
+> **Note:** This section is imported from a blog post ([https://tiemoko.com/blog/safer-crypto/](https://tiemoko.com/blog/safer-crypto/)) specifically written for inclusion in this book. The below text will receive minor updates (e.g. "post" -> "section", footer references) to fit in the book.
+
+<!---
+* Side-by-side diagrams
+--->
+
+<style>
+  .diagram-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .diagram-col {
+    flex: 50%;
+    max-width: 35%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+
+  .diagram-col2 {
+    flex: 50%;
+    max-width: 40%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+
+   .diagram-solo {
+    flex: 100%;
+    max-width: 75%;
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+</style>
+
+Digital systems our society relies on all have some notion of **trust**.
+A communicating party can identify, with confidence, *who* they are "talking" to (authentication).
+And they can rest assured that their "conversation" is *private* (confidentiality).
+Even non-networked systems will validate that code they flash or execute hasn't been *modified* or *corrupted* (integrity).
+
+Cryptographic libraries are the technical mechanism underpinning properties like authentication, confidentiality, and integrity.
+These imperfect software components are the foundation on which societal trust is built and maintained.
+Thus exploitable flaws in crypto libs tend to have severe and widespread impact - e.g. [[Durumeric, 2014]](https://dl.acm.org/doi/pdf/10.1145/2663716.2663755).
+
+Now this two-part post series isn't about applied cryptography in the proper academic sense, we won't explain cryptographic primitives or protocol design from the ground up.
+Let's assume those more formal concepts live in an [ivory tower](https://en.wikipedia.org/wiki/Ivory_tower).
+We're medieval peasants fighting in mud that is long-surviving production software - shipping, patching, refactoring.
+
+These posts are concerned with brutal realities of deploying [theoretically] sound designs - we aim to reduce certain risks inherent to real-world software.
+It's one interpretation of what **platform security engineering** entails when shipping trust at scale.
+
+> ***How are we defining "platform security engineering"?***
+>
+> Building libraries, frameworks, and tools that allow feature teams to ship both securely and quickly.
+> Essentially providing a "solid security foundation" for high-velocity software.
+> In terms of code-level consistency.
+
+We'll use Rust, an increasingly popular systems programming language that [guarantees memory safety](https://tiemoko.com/blog/blue-team-rust/) and tends to encourage functional correctness in limited yet substantial ways.
+Prior Rust experience isn't required, but will help *maximize* understanding (and enjoyment?).
+Concepts we cover are language-agnostic: they likely apply to your problem domain and tech stack of choice.
+
+## So what's the agenda for this two-part series?
+
+**[Part 1](https://tiemoko.com/blog/safer-crypto/)** (this post) focuses on *code* (full, runnable [source here](https://github.com/tnballo/high-assurance-rust/blob/main/code_snippets/chp14/tactical_trust)).
+Our proof-of-concept programs aim to raise the bar for "shift left" automation, even if modestly (give the attacker an inch, they'll take a mile).
+We'll sample solutions to two cryptographic platform security problems at different levels of the stack:
+
+* **API:** Can we systematically prevent nonce reuse vulnerabilities in an arbitrarily-large codebase?
+
+* **Supply-chain:** How should CI enforce policies specific to cryptographic dependencies?
+
+**[Part 2](https://tiemoko.com/blog/<placeholder>/)** will focus on *concepts* but still include plenty of code. The emphasis is higher-level exploration of a {problem,solution} space.
+We'll narrow scope to the problem of *information disclosure*, deep-diving vulnerabilities and state-of-the-art mitigations through the lens of two general threat models:
+
+* **Man-in-the-Middle (MITM):** Attacker intercepts network communications between two or more endpoints.
+
+* **Man-at-the-End (MATE):** Attacker directly compromises one or more communication endpoints.
+
+> ***What if I'm interested less in software engineering, more in cryptographic design?***
+>
+> [Good news, everyone!](https://futurama.fandom.com/wiki/Good_news,_everyone!)
+> Although we're focused on code-level tactics, there's several quality, strategy-focused resources to meet you wherever you're currently at and help you construct correct designs. Here's a sample:
+>
+> * Crypto novice but an experienced developer? &#8594; ["Real-world Cryptography" by Dave Wong](https://amzn.to/43ov045)
+>
+> * Work in applied cryptography professionally? &#8594; [Soatok's Cryptography Blog](https://soatok.blog/category/cryptography/)
+>
+> * At the cutting-edge of near-future cryptography? &#8594; [Real World Crypto Symposium](https://rwc.iacr.org/)
+
+## API: Prevent Nonce Reuse with Stronger Types
+
+"Nonce" is a portmanteau of "<span style="text-decoration: underline;">n</span>umber used only <span style="text-decoration: underline;">once</span>".
+As the name implies: accidentally using the same nonce multiple times, aka *nonce reuse*, is a devastating footgun for many widely-used cryptographic algorithms.
+Common operations rely on a random nonce as input in order to uphold critical security properties:
+
+* **Encryption** - Unique nonces are often called "Initialization Vectors" (IVs). They prevent *plaintext and/or key recovery* as well as *replay attacks* (malicious repetition of previous communications).
+
+  * WPA2 was the de facto standard for encryption on Wi-Fi networks from 2006 to 2020. Toward the end of that lifespan, researchers demonstrated a practical attack against all implementations [[Vanhoef, 2017]](https://papers.mathyvanhoef.com/ccs2017.pdf). By abusing re-transmission logic in the 4-way handshake between a Wi-Fi endpoint and a client joining the network, an attacker could force *reset/reuse* of the nonce/IV for all protocol-supported stream ciphers (e.g. "keystream reuse"). That means an attacker can decrypt, replay, and [in some cases] forge network packets. Full compromise of the transport layer (e.g. TCP but not HTTPS).
+
+* **Signing** - Unique nonces prevent *signature forging* (generating a passing signature for attacker-created data) and *signature duplication* (replay of previously-signed data).
+
+  * The Sony PlayStation 3 was poised to become the most secure game console ever made, with no true jailbreak 4 years into production. The PS3 used ECDSA to create a chain-of-trust from early boot to userspace app launch - cryptographically enforcing software license checks. ECDSA signing takes as input a nonce and a hash of data to sign. Hackers discovered  that Sony's implementation used a hardcoded nonce [[FailOverflow, 2010]](https://www.youtube.com/watch?v=DUGGJpn2_zY). This flaw enabled trivial re-computation of the ECDSA *private* signing key and therefore attacker ability to execute arbitrary unlicensed software.
+
+<br>
+<body>
+  <div class="diagram-row">
+    <div class="diagram-solo">
+      <img src="tt_nonce_reuse.svg" alt="Nonce reuse in context of encryption">
+      <br>
+      <figcaption><i><center><b>Fig. 1:</b> Nonce reuse: a single nonce used for multiple encryption operations (red input, step 3+).</center></i></figcaption>
+    </div>
+  </div>
+</body>
+
+So then: how do we prove that, in some arbitrarily-large codebase, all nonces are both random and single-use?
+By encoding safety invariants into the language's *type system*.
+We can create APIs that are nearly impossible to misuse, and we get automatic static verification of that correctness just by compiling a program which uses exclusively the safe APIs!
+
+Bold claim, yet relatively straight-forward implementation:
+
+```rust,ignore
+{{#include ../../code_snippets/chp14/tactical_trust/nonce_typing/src/lib.rs:nonce_typing}}
+```
+
+[`Aead`](https://docs.rs/aead/0.5.2/aead/trait.Aead.html) is a widely-used trait in the Rust cryptography ecosystem.
+It defines a common interface to the `encrypt` and `decrypt` operations of Authenticated Encryption with Associated Data (AEAD) algorithms like AES-256-GCM and XChaCha20Poly1305.
+This class of algorithms provides both confidentiality and integrity, plus optionally allows binding unencrypted, "associated" metadata (think network headers, UUIDs, or contextual info).
+Basically, an AEAD should be your preferred all-in-one solution for most day-to-day encryption problems.
+
+Now the [`Aead` enc/decrypt APIs](https://docs.rs/aead/0.5.2/aead/trait.Aead.html#tymethod.encrypt) both take a single nonce type by reference: `&Nonce<A: AeadCore>`. So a programmer is free to encrypt new data with the same nonce they used for decryption earlier (see Figure 1 above).
+
+* Notice how a nonce is generic over the `AeadCore` trait, allowing *compile-time* verification of algorithm-specific array sizes - e.g. `[u8; 12]` (96-bit) for AES-256-GCM, `[u8; 24]` (192-bit) for XChaCha20Poly1305 - at *all* call-sites.
+
+The crux of our above reuse solution is this: we use two distinct nonce types, `EncryptionNonce<A: AeadCore>` for `encrypt` and `DecryptionNonce<A: AeadCore>` for `decrypt`.
+This bifurcation prevents nonce-reuse vulnerabilities, again at *compile-time* (before shipping and systematically across the entire codebase), because:
+
+* `EncryptionNonce` is guaranteed to be *randomly-generated* (opaque type with rand-only constructor) and *single-use* (pass-by-value parameter semantics). The single-use property is especially amenable to Rust's [linear] type system. Its decryption counterpart, alias `type DecryptionNonce<A> = Nonce<A>;`, continues to work normally.
+
+* [Marker trait `CryptoRng`](https://docs.rs/rand_core/0.9.3/rand_core/trait.CryptoRng.html) in `fn generate_nonce(rng: impl CryptoRng + RngCore)` is critical. A *biased* (meaning not uniformly random) nonce can be as disastrous as a reused nonce. In another ECDSA debacle, baised nonces allowed extaction of Bitcoin private keys [[Breitner, 2019]](https://eprint.iacr.org/2019/023.pdf).
+
+> ***What about "nonce misuse-resistant" algorithms? And size limitations?***
+>
+> Strong typing isn't the only possible solution for nonce-reuse.
+> Defenses can also be implemented in the design of the algorithm itself, see [AES-GCM-SIV](https://datatracker.ietf.org/doc/html/rfc8452).
+> A "Synthetic Initialization Vector" (SIV) uses inputs, including plaintext, to derive the final IV/nonce - effectively forcing two different plaintexts to use two different nonces.
+>
+> However: if the *same message* is encrypted with the *same nonce* <span style="text-decoration: underline;">twice</span> under the *same key*, an attacker will learn that the two messages are equivalent (but not their contents).
+> That equivalence leak could have serious implications in context of a larger threat model, so preventing reuse with strong typing is still the higher assurance option.
+>
+> But we're not out of the woods yet.
+> AES-256-GCM can only safely encrypt <a href="https://www.imperialviolet.org/2015/05/16/aeads.html">2<sup>32</sup> (~4.3 billion) messages</a> under the same key using random nonces - beyond that we risk *nonce collision* (chance reuse). XChaCha20Poly1305 bumps that safe limit to <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-xchacha-03#section-2.1">2<sup>80</sup> (practically infinite!)</a> and is faster on devices without hardware support for AES.
+
+We can verify that the `NonceSafeAead` trait enc/decrypts as expected with the below unit test:
+
+```rust,ignore
+{{#include ../../code_snippets/chp14/tactical_trust/nonce_typing/tests/encrypt_decrypt.rs:demo_test}}
+```
+
+But does it actually prevent reuse?
+You're welcome to try passing the same `enc_nonce` to two different `nonce_safe_encrypt` calls - the compiler error should look familiar!
+
+> ***Where do I start with "formally verified" cryptography?***
+>
+> Proving that a program satisfies a specific property, for any input, is the goal of *formal verification*.
+> Rust's type system, which guarantees that data is "shared XOR mutable", is particularly amenable to certain formal techniques - less reasoning about the state of memory is needed.
+> Cryptography is also lower-cost to verify: detailed specifications exist, data structures are statically-allocated, and input size is bounded.
+>
+> Verification techniques vary widely (theorem proving, model checking, abstract interpretation, symbolic execution, etc) and the corresponding tools typically require significant expertise to leverage.
+> But as ~~lazy~~ busy developers, we can readily integrate and benefit from already-formally-verified libraries.
+> Two contenders for native cryptography are:
+>
+> 1. **[`aws-lc-rs` (Amazon)](https://crates.io/crates/aws-lc-rs)** - Symbolic execution of source code is used to prove that a program matches a machine-readable specification manually encoded from an algorithm's human-readable specification.
+> <br><br/>
+> 1. **[`symcrypt` (Microsoft)](https://crates.io/crates/symcrypt)** - Source is translated to a model for an interactive (meaning semi-manual) theorem prover. Additionally, a combination of fuzzing and model-based testing is used to detect timing side-channels.
+>
+> Keep in mind that formal verification is not a panacea: specifications can be incomplete and implementations can deviate from models.
+> The aforementioned WPA2 4-way handshake was formally verified yet still exploitable!
+> Its proof failed to specify when a negotiated key should be installed, implicitly allowing multiple installations and thus nonce reset on next install [[Vanhoef, 2017]](https://papers.mathyvanhoef.com/ccs2017.pdf).
+
+## Supply-chain: Allowlist Crypto Publishers and Ban Duplicates
+
+Programming languages with official package registries are a joy to use: easily finding and integrating 3rd-party libraries means faster delivery speed and greater focus on your problem/business domain.
+But all convenience has a cost.
+Here:
+
+* **Increased attack surface** - Just one malicious crate, no matter how deep in a massive dependency graph, can compromise the entire *application*. And typo-squatting attacks indiscriminately victimize a percentage of the entire *ecosystem*.
+
+* **Statistical weakening of memory-safety** - Dependency count likely has some correlation to amount of `unsafe` Rust code ([19% of public crates use `unsafe`](https://rustfoundation.org/media/unsafe-rust-in-the-wild-notes-on-the-current-state-of-unsafe-rust/)) and other-language CFFI code, and thus amount of total *unsound* code (realistically some subset of `unsafe`). Any unsound code can trigger memory safety errors at runtime, which often go undetected in production.
+
+* **Software bloat** - Transitive dependencies tend to [sprawl in number](https://spectrum.ieee.org/lean-software-development), causing "simple" apps to explode in objective size and complexity. Larger programs generally mean slower app startup and longer download times. Plus both routine (e.g. API upgrade) and emergency (e.g. vulnerable dependency alert) maintenance burden.
+
+Supply-chain assurance is particularly important for cryptographic dependencies, which likely have an out-sized impact on the security properties of an overall system. Application logic higher up the stack tends to rely on crypto libraries, implicitly or explicitly.
+
+Imagine you've been handed a strict mandate: the two requirements below *must* hold for your *entire* million-plus line monorepo.
+
+1. **Trusted Publishers** - All direct (e.g. non-transitive) cryptographic dependencies must be sourced from a small allowlist of trusted publishers, initially only the [`RustCrypto` organization](https://github.com/rustcrypto).
+
+    * ***Rationale:** Minimize both [RUSTSEC](https://rustsec.org/advisories/) alert volume and backdoor introduction risk.*
+
+    * ***Scope:** Direct dependencies only. Publishers we explicitly trust can still select their own dependencies.*
+
+1. **No Duplicates** - All direct and indirect cryptographic dependencies must have exactly one version in-tree at any time.
+
+    * ***Rationale:** Minimize both bloat and programmer error (e.g. unclear behavior divergence between API versions).*
+
+    * ***Scope:** All dependencies. Duplicate bloat is likely avoidable - some crate owner should consider updating to latest.*
+
+<br>
+<body>
+  <div class="diagram-row">
+    <div class="diagram-col2">
+      <img src="tt_supplychain_1.svg" alt="Before supply-chain policy enforcement">
+      <br>
+      <figcaption><i><center><b>Fig. 2:</b> No supply-chain policy. Tolerate organic dependency sprawl.</center></i></figcaption>
+    </div>
+    <div class="diagram-col">
+      <img src="tt_supplychain_2.svg" alt="After supply-chain policy enforcement">
+      <br>
+      <figcaption><i><center><b>Fig. 3:</b> Policy enforced: only trusted publisher, no duplicates. Leaner app overall.</center></i></figcaption>
+    </div>
+  </div>
+</body>
+
+How do you enforce this policy (which nicely compliments our previous `NonceSafeAead` APIs)?
+Unfortunately these specific requirements can't be encoded with [`cargo deny`](https://github.com/EmbarkStudios/cargo-deny), a popular and mature dependency graph linter, at the time of this writing (v0.18).
+We need to roll some custom kit atop [`cargo_metadata`](https://docs.rs/cargo_metadata/0.20.0/cargo_metadata/index.html)!
+
+Let's start with [builder-pattern](https://rust-unofficial.github.io/patterns/patterns/creational/builder.html) boilerplate (our public API):
+
+```rust,ignore
+{{#include ../../code_snippets/chp14/tactical_trust/supplychain_policy/src/lib.rs:builder_impl_1}}
+
+    /// ...OMITTED: Rule 2 (Category-specific No Duplicates)...
+
+{{#include ../../code_snippets/chp14/tactical_trust/supplychain_policy/src/lib.rs:builder_impl_2}}
+```
+
+To keep the length of this post in check, we'll omit implementation of scaffolding for the 2nd policy requirement (no duplicate cryptographic dependencies).
+But the logic is mechanically similar to the first requirement and the complete, runnable &asymp;300 lines of source for both rules is [available here](https://github.com/tnballo/high-assurance-rust/blob/main/code_snippets/chp14/tactical_trust/supplychain_policy).
+
+Notice that the above builder doesn't encode anything specific to *cryptographic* crates - this interface supports arbitrary categories and publishers.
+Before we see what usage looks like in practice, lets dig into enforcement logic for whatever trusted publishers the user specified when initializing `cat_pubs` with a call to `allowed_category_publishers` (the below are private APIs):
+
+```rust,ignore
+{{#include ../../code_snippets/chp14/tactical_trust/supplychain_policy/src/lib.rs:policy_impl}}
+```
+
+* `fn metadata` does memoized collection of dependency metadata for the entire workspace, with all features enabled. Even if the user specifies 10 requirements for 10 different crate categories, we'll run collection exactly once (recall `Policy` field `cargo_metadata_result` is a [`OnceCell`](https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html)).
+
+* `fn get_repo_publisher` parses the owner of a repository from its URL. While this logic will extract the publishing *user* or *organization* for both GitHub and GitLab URLs, be warned: we're not claiming any of the code in this supply-chain half of this post is robust enough for production usage!
+
+    * We can't rely on [the authors field](https://docs.rs/cargo_metadata/0.20.0/cargo_metadata/struct.Package.html#structfield.authors) of `cargo_metdata`'s `Package` struct, which could be maliciously set to impersonate a publisher. We instead use [presumably valid] URLs as a source of truth for publisher identification. PKI will be a superior long-term solution, more on this later.
+
+* `fn run_allowed_category_publishers` is the bulk of our trusted publishers (requirement 1) logic. We identify direct dependencies of the target project (to which `Policy::new` takes a `Cargo.toml` path) and iterate that list to look for any crate which belongs to a user-specified category but isn't sourced from a user-allowed publisher for that category.
+
+    * Crate category labels are optional, but we could extend the builder to support "allowed publisher for any or missing category" - ensuring unexpected publishers don't slip in. Our policy evaluation logic also doesn't validate user-input category names, a typo will cause checks to pass! Adding validation would be straightforward since [categories are fixed](https://crates.io/categories).
+
+So how do we roll out enforcement of our sophisticated policy requirements (category-specific trusted publishers and duplicate elimination)?
+The heavy-handed option is leveraging `build.rs` ([Rust build scripts](https://doc.rust-lang.org/cargo/reference/build-script-examples.html)):
+
+```rust,ignore
+{{#include ../../code_snippets/chp14/tactical_trust/nonce_typing/build.rs:builder_demo}}
+```
+
+Now failing builds for supply-chain policy violations probably isn't the best way to make friends with other development teams, even in a smaller organization, unless there's a strong regulatory and/or business need to do so.
+Fortunately the above `Policy` builder can easily be wrapped in a CLI tool and deployed in *blocking* or *non-blocking* CI pipelines, on a workspace-specific basis.
+Non-blocking failures can be centrally tracked and automatically triaged.
+
+Our above proof-of-concept didn't accommodate exceptions (e.g. "allow this specific named duplicate, still enforce for remainder of category"), but you could quickly extend it to read individual crate/publisher names from a [version controlled and `CODEOWNERS` protected] config file.
+Supporting legitimate exceptions, with documented rationale, is realistic - "perfect is the enemy of good".
+
+> ***What are my other options for supply-chain security in Rust?***
+>
+> The landscape of Rust's supply-chain security tooling is, fortunately, evolving.
+> Sample projects to be aware of:
+>
+> * **Signature-based vulnerability alerting:** [`cargo audit`, a free tool](https://github.com/rustsec/rustsec/blob/main/cargo-audit/README.md) to scan your dependency tree for [known-vulnerable](https://rustsec.org/advisories/) crates, is a must-have for production CI. Although a lack of "reachability analysis" (call-graph traversal to determine if your code directly or indirectly calls a vulnerable function) does mean false positives.
+> <br><br/>
+> * **Heuristic-based malware detection:** The Linux Foundation has [funded development](https://alpha-omega.dev/blog/crustabilities-capabilities-rust-and-capslock/) of a Rust counterpart to Go's [`capslock` tool](https://github.com/google/capslock). Among other usecases, `capslock` enumerates [*capabilities*](https://github.com/google/capslock/blob/main/docs/capabilities.md#capabilities) (file I/O, network connectivity, command execution, etc) for a given dependency and alerts if they suddenly change in a new version.
+> <br><br/>
+> * **Trusted publishers:** Future [PKI initiatives](https://rustfoundation.org/media/improving-supply-chain-security-for-rust-through-artifact-signing/) may allow cryptographic identification of publishers, a big improvement over our above URL parsing. A [related RFC](https://rust-lang.github.io/rfcs/3691-trusted-publishing-cratesio.html) outlines support for publishing crates from trusted infrastructure, following the [footsteps of PyPI](https://blog.pypi.org/posts/2023-04-20-introducing-trusted-publishers/). Note PKI also means better response capability, although a real-world attack may have already succeeded by the time a build machine pulls a Certificate Revocation List (CRL).
+>
+> While Rust's intentionally minimal `std` library is boon for embedded development, it does encourage over-reliance on 3rd-party crates for routine tasks.
+> For contrast: Go's standard library offers [FIPS 140-3 compliant cryptography](https://go.dev/doc/security/fips140) with the flip of a build flag and [backported a secure RNG](https://go.dev/blog/chacha8rand) to existing programs with only a Go toolchain bump!
+
+## Takeaway
+
+"Trust is earned in drops and lost in buckets".
+That's probably a maxim, but it feels especially true in the context of commercial software - a global competition in which any winner, perhaps outside of a few monopolists, can be dethroned at any time.
+
+Now the technical mechanism for trust is cryptography.
+Most useful cryptography is implemented and executing, whether on a tiny microcontroller or a beefy server, in the form of code.
+And code is notoriously difficult to get right, especially when you're shipping a lot of it.
+
+Software quality is as challenging to replicate reliably as it is to measure actionably, if not more so.
+Our best hope is automating repeatability.
+When the quality criteria is security, automation is one goal of a platform security engineering function.
+Which needs to keep pace with the broader engineering organization at minimum, and ideally should accelerate all feature teams.
+
+This first post explored bite-sized solutions to platform cryptography problems at the API (nonce reuse) and supply-chain (dependency policy) levels.
+The intent is automating guardrails for *human* error, but nowadays *LLM* auto-complete increases vulnerability rate - per both [[Perry, 2023]](https://arxiv.org/pdf/2211.03622) and [[Pearce, 2025]](https://dl.acm.org/doi/pdf/10.1145/3610721).
+The good news is that the above techniques should mitigate risks from both sources.
+Compile-time checks don't care how the code was generated.
+
+Our second and final post will have a narrower but deeper scope.
+We'll explore a classic topic in trust: *information disclosure* vulnerabilities.
+Part 2 (release date TBD) grapples with technical concepts at greater length and on the cutting edge.
+You're going to want a coffee for this one.
+
+But it'll still be good fun.
+Trust me.
+
+---
+
+[^Footnote]: [*Article Title*](https://tiemoko.com). Author One, Author Two (YEAR, Domain)

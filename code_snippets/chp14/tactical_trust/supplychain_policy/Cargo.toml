@@ -1,0 +1,12 @@
+[package]
+name = "supplychain_policy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cargo_metadata = "0.20"
+url = "2"
+
+[dev-dependencies]
+cargo_metadata = { version = "0.20", features = ["builder"] }
+cargo-util-schemas = "0.2.0"

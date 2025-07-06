@@ -149,6 +149,8 @@
     * [Rust Security Research]()
     * [Rust's Limitations]()
     * [Best Practices Beyond Rust]()
+    * [Tactical Trust (1/2)](./chp14/tactical_trust_1.md)
+    * [Tactical Trust (2/2)]()
     * [TODO]()
     * [Challenge: TODO]()
 
